@@ -1,0 +1,13 @@
+streamlit
+langchain
+langgraph
+langchain-openai
+chromadb
+sqlalchemy
+playwright
+beautifulsoup4
+openai
+ragas
+langsmith
+python-dotenv
+pytest

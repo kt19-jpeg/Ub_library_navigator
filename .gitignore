@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+data/raw/*
+!data/raw/.gitkeep
+vectorstore/*
+!vectorstore/.gitkeep
+
+.DS_Store
+*.log
+
+CLAUDE_1.md
