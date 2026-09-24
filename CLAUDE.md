@@ -1,167 +1,290 @@
-# UB Library Navigator
+# CLAUDE.md — UB Library Navigator
 
-This file is the project brief for Claude Code. Read this before starting any work in this repo. It captures the finalized scope, architecture, and conventions agreed on for this capstone project. Treat it as the source of truth alongside `docs/proposal.docx`.
+Project brief for Claude Code. Read this before writing any code in this repo.
 
-## Project context
+## What this project is
 
-MS Data Science capstone project at the University at Buffalo, supervised by Dr. Justin Del Vecchio, built in coordination with the UB Libraries team.
+UB Library Navigator: a role-aware agentic RAG triage tool for University at
+Buffalo Libraries. It sits in front of the existing live chat system as a
+"first contact" helper: it routes users to the right resource, database, or
+librarian rather than trying to answer everything itself. Capstone project
+for an MS Data Science student (Buffalo), supervised by Dr. Justin Del
+Vecchio, 14-week timeline (Aug 24 - Nov 29, 2026).
 
-The project originally started as a broad multi-tool agentic RAG system, but UB Libraries raised two concerns: the underlying content is too diverse for one system to confidently answer everything, and the needs of undergraduates, graduate students, and faculty differ enough that a single generic answer does not serve all of them well. The project was reshaped around those two concerns into a focused navigation and triage tool rather than a comprehensive answer engine.
+Full scope (seven capabilities): role capture, resource/database/item
+discovery via OneSearch, librarian recommendation, citation formatting
+(APA/MLA/Chicago), escalation to human librarians, anonymized usage logging,
+staff dashboard. **This document only covers what to build right now: the
+OneSearch retrieval layer.** Everything else is out of scope until this
+layer is solid. Do not start on LangGraph orchestration, the LibGuides RAG
+pass, or the librarian directory until the acceptance criteria below are met.
 
-## What this system is
+## Tech stack (finalized, for context, not all needed yet)
 
-The UB Library Navigator is a role-aware, first-tier triage agent. It does not try to answer every research question directly. It routes each request to the right resource, the right person, or the right tool, and escalates to a human librarian through the existing live chat system when it cannot confidently help. It sits in front of the existing live chat as an additional layer, not a replacement for it.
+- Streamlit (presentation)
+- LangChain + LangGraph (agent orchestration, Phase 2)
+- Chroma (vector store, Phase 2) / SQLite or Postgres (logging)
+- Playwright + BeautifulSoup (scraping, LibGuides + this layer)
+- OpenAI embeddings
+- RAGAS + LangSmith (evaluation, Phase 2)
+- GitHub Actions (weekly content refresh)
 
-## Core capabilities
+## Current phase: the OneSearch retrieval layer ("Layer 1")
 
-1. Role capture at the start of the conversation. The user selects undergraduate, graduate, or faculty. This is explicit, not inferred, to keep the system transparent and predictable.
-2. Resource, database, and item discovery via OneSearch. UB Libraries' own OneSearch (their Primo-based discovery layer) is used as a first-pass narrowing search across databases, articles, and physical items, including book availability and shelf location. If the first pass looks weak, the query is refined once and searched again, two searches total, then the agent moves on regardless. This replaces what used to be two separate capabilities (resource recommendation and catalog lookup), merged because they hit the same underlying UB system.
-3. RAG enrichment on the narrowed results. Once OneSearch has narrowed the field, a smaller RAG pass over the curated LibGuides and librarian-directory vector store adds the institutional context OneSearch itself doesn't carry: how to actually use a given resource, and which subject librarian owns that area.
-4. Librarian recommendation. Surfaces the name and contact details of the subject librarian responsible for the relevant area, generated as part of the RAG enrichment step above.
-5. Citation formatting tool. A deterministic tool that formats a source in APA, MLA, or Chicago style.
-6. Escalation and handoff. When a question is ambiguous, out of scope, or confidence is low, hands off to a human librarian through the existing live chat system, passing along conversation context.
-7. Conversation logging. Every session is logged in fully anonymous form, capturing role, course if provided, and a topic category rather than raw question text. No name or identifier is ever attached to a log entry. This exists purely so the library can see usage patterns over time.
-8. Staff usage dashboard. Library-staff-only view summarizing query volume by role, topic category breakdown, and escalation rate.
+### What it needs to do
 
-## Architecture and tech stack
+Given a single search query, return enough data to (a) recommend the right
+resource/database and (b) tell the user how to get it: an online link, or a
+call number and physical location for print items. This is the only job of
+this layer. Ranking, reasoning about which result best answers the user's
+actual question, and composing a natural-language answer all belong to
+Layer 2 (the RAG/agent layer), not here. Layer 1 hands Layer 2 a clean list
+of candidates; Layer 2 decides what to do with them.
 
-The stack is organized in layers. Each layer has one job.
+### Why this isn't a normal REST API integration
 
-**Presentation: Streamlit**
-Renders the role selector and chat interface for end users, and a separate staff-only dashboard page. Deployed on Streamlit Community Cloud as a live public app.
-
-**Agent orchestration: LangChain + LangGraph**
-LangChain provides prompt templates, tool wrappers, and output parsers. LangGraph structures the agent as a graph of nodes: a router node classifies role and query type, then hands off to the matching node, the OneSearch tool (search, refine once, RAG-enrich), the citation tool, or escalation. LangGraph tracks conversation state across nodes.
-
-**Two-stage retrieval: OneSearch narrows, then RAG enriches**
-This is the key architectural pattern for this project and worth naming explicitly in the capstone report. UB's own database directory alone runs into the hundreds of entries, too much volume to embed and search well from scratch. Rather than building a local vector index over that entire catalog, the agent queries OneSearch live first, UB's own maintained discovery layer, to narrow the field down to a handful of relevant candidates (databases, articles, or physical items). Only then does a much smaller, local RAG pass run, over the curated LibGuides and librarian-directory content, to add the institutional context (how to use it, who owns it) that a generic discovery result never includes. Broad live search narrows; small local RAG enriches.
-
-**Storage: Chroma + SQLite or Postgres**
-Chroma holds embedded chunks of LibGuides, FAQs, and the librarian directory, the curated content used for RAG enrichment. It does not hold the database directory, since that discovery is now handled live via OneSearch instead of scraped and embedded. SQLite or Postgres is a separate, simpler database holding the anonymized session logs that power the dashboard. These two stores serve unrelated purposes and should not be conflated.
-
-**Data pipeline: Playwright + BeautifulSoup, then OpenAI embeddings**
-Playwright drives a real browser to load LibGuides pages that may render dynamically. BeautifulSoup parses the resulting HTML into clean text. LangChain text splitters chunk that text, and OpenAI's text-embedding-3-small model embeds each chunk into Chroma. This pipeline runs once initially and then again on a weekly schedule, and now covers a smaller scope than originally planned since the database directory is no longer scraped.
-
-**External systems (pending confirmation): OneSearch/Primo discovery API, live chat platform**
-OneSearch is UB Libraries' actual discovery layer (confirmed, not assumed), very likely built on the SUNY-wide Ex Libris Primo/Alma platform, and it covers books, articles, databases, and journals across UB, SUNY, and CUNY. What needs confirmation is whether UB Libraries can grant API access to it, covering both broad discovery search and item-level availability lookups, not just one or the other. The live chat platform currently in use also needs confirmation so the escalation node can integrate with it correctly. Do not hardcode assumptions about either system until confirmed. Build the OneSearch and escalation nodes with a clear interface boundary so the actual integration can be swapped in once details are confirmed.
-
-**Automation: GitHub Actions**
-Runs the scraping and embedding pipeline on a weekly schedule so the vector store does not go stale, and can run the evaluation suite on the same schedule.
-
-**Evaluation: RAGAS + LangSmith**
-RAGAS scores retrieval precision, recall, and answer faithfulness against a golden test set of 30 to 50 questions, tagged by role. LangSmith traces the internal steps LangGraph takes for a given request, which is what makes it possible to debug a bad answer rather than just observe that it happened.
-
-## Data sources
-
-- UB Libraries subject research guides (LibGuides)
-- UB Libraries FAQ and citation-style help pages
-- Subject librarian directory (maps subject areas to librarian names and contact details)
-- OneSearch / Primo discovery API, queried live, not scraped or embedded, covers database, article, and item discovery
-- Anonymized conversation logs, generated by the system itself, used only to power the internal dashboard
-
-The UB Libraries database directory is no longer scraped separately. OneSearch already covers that discovery need live and better than a static scrape could, which also removes one full scraper and one source of staleness from the maintenance burden.
-
-Before any large-scale scraping or API integration, the plan is to contact UB Libraries' web or digital services team for an official export or explicit permission, and to scope data collection to publicly available content and explicitly granted access only.
-
-## Repo structure
+`search.lib.buffalo.edu` runs Primo VE (Ex Libris). There is no official,
+documented API for this data without registering a guest key through the Ex
+Libris Developer Network (a real fallback, see "Fallback path" below, but
+not what we're building first). Instead, this integration calls the same
+internal endpoint the live OneSearch website's own frontend calls when a
+person searches:
 
 ```
-ub-library-navigator/
-├── .claude/settings.json          # attribution off (see Commit conventions below)
-├── .github/workflows/weekly-refresh.yml
-├── streamlit_app/
-│   ├── Home.py                    # role selector + chat interface
-│   └── pages/1_Staff_Dashboard.py # staff-only, needs its own access gate
-├── agent/
-│   ├── graph.py                   # LangGraph definition
-│   ├── router.py
-│   ├── onesearch_tool.py          # merged: OneSearch search+refine, then RAG enrichment
-│   ├── citation_tool.py
-│   └── escalation.py
-├── scraper/
-│   ├── scrape_libguides.py
-│   ├── scrape_faqs.py
-│   └── scrape_librarian_directory.py
-├── pipeline/
-│   ├── chunk.py
-│   ├── embed.py
-│   └── refresh.py
-├── analytics/
-│   ├── db.py
-│   └── log_writer.py
-├── evaluation/
-│   ├── golden_test_set.json
-│   ├── run_ragas.py
-│   └── langsmith_config.py
-├── data/raw/          # gitignored
-├── data/processed/
-├── vectorstore/       # gitignored, Chroma's persisted files
-├── tests/
-├── docs/proposal.docx
-├── .env.example
-├── .gitignore
-├── requirements.txt
-└── README.md
+https://search.lib.buffalo.edu/primaws/rest/pub/pnxs
 ```
 
-Note: Streamlit's multipage convention means anything in `streamlit_app/pages/` becomes a nav item automatically, but Streamlit does not gate access on its own. The staff dashboard page needs its own access check built in. The method (UB SSO versus a shared staff login) is still pending confirmation from the library, so build this behind a simple, swappable interface for now rather than hardcoding a specific auth method.
+This is the same access level as an anonymous visitor browsing the site
+with no UB login, nothing behind auth, no patron data. But it is
+undocumented and unversioned. Treat it as "works today, verify
+occasionally," not a stable contract. Build defensively:
+- Real, identifying `User-Agent` on every request (contact:
+  kavyansht21@gmail.com), never spoof a browser UA on the HTTP layer.
+- Cache aggressively (see caching strategy below).
+- Low request volume, no hammering. UB Libraries has already raised a
+  security concern about this project once; being a quiet, well-identified,
+  well-behaved caller matters here more than usual.
+- Wrap every call to this endpoint behind one adapter module. Nothing else
+  in the codebase should import `requests`/`playwright` and hit this host
+  directly. If the endpoint shape changes, the fix should live in one file.
 
-## Commit conventions
+### Confirmed technical findings (do not re-derive these, they're already tested)
 
-Never add a Co-Authored-By line or a "Generated with Claude Code" line to any commit message or pull request description. This repo's `.claude/settings.json` sets attribution to empty strings, but treat this as a second, explicit layer of enforcement:
+1. **Comma encoding breaks the request.** The `q` parameter
+   (`any,contains,<query>`) must keep literal commas. Building the URL with
+   `requests`' `params=` dict percent-encodes them to `%2C` and the backend
+   rejects it. Build the query string manually with
+   `urllib.parse.urlencode(params, safe=",", quote_via=urllib.parse.quote)`.
 
-```json
-{
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  }
-}
-```
+2. **A bare `requests` call gets a blank HTTP 400.** Confirmed via direct
+   testing: the response comes from Ex Libris's real hosted backend
+   (`*.alma.exlibrisgroup.com`, visible in response headers), not a generic
+   CDN, and returns `Content-Length: 0` with security headers (CSP, HSTS,
+   Report-To) but no error body. This is bot-mitigation rejecting a request
+   that doesn't look like it came from a real browser session (TLS
+   fingerprint, header ordering, client hints). A `Referer`/session-cookie
+   warm-up alone was NOT sufficient to fix this in testing.
 
-Commit message format: `type: short description`, for example `feat: add citation formatting node` or `fix: handle empty catalog response`. All commits should be authored under the repo owner's own git identity, not a generic or default one.
+3. **The working fix: drive a real headless browser (Playwright) to mint a
+   session, then reuse that session for fast calls.** Loading the actual
+   search page in Chromium and letting its own JS fire the request works
+   (confirmed, real UB data returned, HTTP 200). The response sets session
+   cookies: `JSESSIONID`, `urm_st`, `urm_se`, `institute`. The gap between
+   `urm_st` and `urm_se` is exactly 900,000 ms, a 15-minute session window.
+   **Target production design:** mint a session via Playwright once every
+   ~15 minutes (or reactively on a 400/expired check), extract those
+   cookies into a `requests.Session()`, and use that lightweight session
+   for actual per-query searches. Do not launch a browser per user search,
+   that's the latency trap to avoid. See "Latency budget" below.
 
-## Timeline (14 weeks)
+4. **`skipDelivery=Y` (the site's own default) suppresses both online
+   links and physical location/call-number data.** Force
+   `skipDelivery=N` and `pcAvailability=true` on outgoing requests
+   (rewrite via Playwright route interception during the mint step, or set
+   directly as params on the plain `requests` calls).
 
-| Weeks | Milestone |
+5. **Even with `skipDelivery=N`, the brief search-results response does
+   NOT carry the "View Online" link or the full holdings data.** That data
+   lives in a separate full-record detail response
+   (`discovery/fulldisplay?docid=<record_id>&context=L&...`), fetched only
+   when a specific item is opened. Confirmed via captured network traffic.
+   **Do not fetch full detail for every search result.** Fetch it only for
+   the 1-3 items Layer 2 actually decides to show the user (see retrieval
+   flow below). Whether this detail fetch can also run over the
+   cookie-based `requests.Session()` or requires the browser is not yet
+   confirmed, test this before assuming either way, and note the answer
+   here once known.
+
+6. **Field quirks to handle in the parser:**
+   - Names carry an internal separator: `"Wong, Kau-Fui Vincent,
+     author.$$QWong, Kau-Fui Vincent"`. Split on `$$Q`, keep the first part.
+   - Not all records have `pnx.display.creator`. Some (especially
+     organizational/corporate authorship) only have
+     `pnx.display.contributor`. Fall back to it when creator is empty.
+   - `pnx.display.source` returns the backend name ("Alma"), not the
+     human-readable label shown on the site ("Library Catalog"). Decide in
+     Layer 2 whether the raw or display form matters more; don't assume
+     they're the same string.
+
+### Confirmed field map (brief search-results response, `doc` object)
+
+Recommendation fields (present in the brief list, `skipDelivery` doesn't
+affect these):
+
+| Field | Path |
 |---|---|
-| 1-2 | Outreach to UB Libraries for OneSearch/Primo discovery API access, live chat integration details, and the subject librarian directory; data acquisition begins |
-| 3-4 | Build the embedding pipeline and vector store for LibGuides, FAQs, and the librarian directory |
-| 5-6 | Build the LangGraph router, role handling, and the basic chat interface |
-| 7-8 | Integrate the citation formatting tool, the merged OneSearch tool (search, refine, RAG enrichment), and the anonymized conversation logging pipeline |
-| 9-10 | Build the escalation and live chat handoff logic; complete public deployment |
-| 11-12 | Run RAGAS evaluation, including escalation accuracy, refine routing and prompts, and build the staff usage dashboard |
-| 13 | Build the automated weekly refresh pipeline and feedback collection |
-| 14 | Final polish, written report, and demo preparation |
+| Title | `pnx.display.title[0]` |
+| Author/creator | `pnx.display.creator[0]`, fallback `pnx.display.contributor[0]` |
+| Resource type | `pnx.display.type[0]` |
+| Format | `pnx.display.format[0]` |
+| Subject | `pnx.display.subject[0]` |
+| Description | `pnx.display.description[0]` (often absent for bare catalog records, that's normal, not a bug) |
+| Date | `pnx.display.creationdate[0]`, fallback `pnx.addata.date[0]` |
+| Source system | `pnx.display.source[0]` |
+| Record ID (needed for detail fetch) | `pnx.control.recordid[0]` |
 
-## Known risks
+Delivery/location fields (need `skipDelivery=N`; online link may still
+require the full-detail fetch, unconfirmed, see point 5 above):
 
-- Role misclassification: a user may pick the wrong role, or a faculty member may want undergraduate-level guidance. Allow the role to be changed mid conversation.
-- Escalation quality: too many handoffs undermines the point of the agent, too few undermines trust. Track escalation accuracy as an explicit evaluation metric.
-- OneSearch API access and reliability: build a fallback that links to the manual OneSearch page if a live call fails.
-- Two-stage retrieval latency: a live OneSearch search plus one refinement plus a RAG enrichment pass is slower than a single static lookup. Cap refinement at one retry (as decided), and show a loading state so this reads as thorough rather than slow.
-- OneSearch coverage gaps: OneSearch narrows the field but doesn't carry institutional context like how to use a resource or who owns it. The RAG enrichment step over LibGuides and the librarian directory stays necessary, not optional, even though OneSearch now handles the broad discovery search.
-- Librarian directory staleness: fold this directory into the same weekly refresh pipeline as the rest of the content.
-- Re-identification in small groups: even with topic-only tagging and no name attached, a rare combination of course, role, and topic could be identifiable. Aggregate dashboard views and suppress any breakdown below a small count threshold.
-- Dashboard access control: gate the dashboard behind proper staff authentication, never a shared or public link.
-- Scraping permissions and content staleness: contact UB Libraries early, build the weekly refresh pipeline early rather than as a late addition.
+| Field | Path |
+|---|---|
+| Online vs. physical | `delivery.deliveryCategory` |
+| Online link | `delivery.link[0]` (brief list) — verify against full-detail response |
+| Call number | `delivery.bestlocation.callNumber` |
+| Library/building | `delivery.bestlocation.mainLocation` |
+| Sub-location | `delivery.bestlocation.subLocation` |
+| Availability status | `delivery.bestlocation.itemAvailabilityStatus` |
+| Copies available | `delivery.bestlocation.number` |
 
-## Open items still pending confirmation from UB Libraries management
+Full-detail response field map: not yet locked in, capture one with the
+reference script below and update this table before building the detail
+parser.
 
-Do not assume answers to these. Build with a clear interface boundary so these can be plugged in once confirmed.
+### Retrieval flow to implement
 
-- Whether UB Libraries can grant API access to OneSearch/Primo discovery search, covering both broad search (databases, articles, items) and item-level availability lookups, one confirmation now covers what used to be two separate asks
-- Which live chat platform is currently in use, and how a handoff from the agent into that system should work
-- Who maintains the subject librarian directory, and whether it can be shared or accessed programmatically
-- Whether the library team wants input on how role-based recommendations are tuned
-- How the staff dashboard should be access-restricted (UB SSO/Shibboleth versus a shared staff login)
-- What topic and category taxonomy the library wants used for tagging conversations
-- Whether this data collection needs any privacy, IRB, or institutional review sign-off, even though it is aggregate and anonymized by design
+```
+user query
+  → get_session()            # reuse if <15 min old, else re-mint via Playwright
+  → search(query)             # requests.Session, brief list, skipDelivery=N
+  → return candidates to Layer 2   # STOP HERE, do not fetch detail yet
+  ...
+  → Layer 2 picks top 1-3 candidates
+  → for each chosen candidate: fetch_detail(record_id)   # only now, only for these
+  → return access info (link or location) to Layer 2 for the final answer
+```
 
-## Expected deliverables
+The critical rule: **never loop `fetch_detail()` over every search result.**
+That's the latency trap. Detail fetching is bounded by how many results get
+shown to the user (1-3), not by how many results OneSearch returned.
 
-- A live, publicly deployed navigation and recommendation agent, acting as a first-tier layer in front of the existing live chat
-- A documented source code repository covering the data pipeline, agent architecture, OneSearch integration, logging, and deployment configuration
-- A staff-only usage dashboard summarizing anonymized query patterns by role, topic category, and escalation rate
-- An evaluation report presenting RAGAS metrics and escalation accuracy against the golden test set
-- A final capstone report and presentation
+### Latency budget (target, document actual numbers once built)
+
+| Stage | Target |
+|---|---|
+| Session reuse (warm) | 0s |
+| Session mint (cold, rare, ~every 15 min) | 2-4s |
+| Search call | 0.3-1s |
+| Layer 2 ranking (not this repo's concern, noted for budget) | 1-3s |
+| Detail fetch (1-3 items, run concurrently not sequentially) | TBD, target <3s total |
+| **End-to-end target (warm session)** | **~3-6s** |
+
+Build in a hard timeout on the whole retrieval step (8-10s) with a graceful
+fallback: if it's exceeded, return whatever candidates were already
+fetched plus a direct OneSearch search-results link, rather than hanging.
+This is a courtesy integration against a third party's infrastructure;
+assume it can have a bad moment.
+
+### Caching
+
+Cache search results by normalized query text for a short TTL (a few
+minutes). This reduces load on UB's endpoint (see "quiet, well-behaved
+caller" above) and speeds up repeated/similar searches across users, which
+will be common for a shared academic topic.
+
+### Fallback path (not built now, document only)
+
+If this endpoint ever gets locked down: Ex Libris publishes a separate,
+officially sanctioned "Primo Search API guest mode"
+(`api-*.hosted.exlibrisgroup.com/primo/v1/search`), self-serve guest API
+key via the Ex Libris Developer Network. Narrower and slower to set up
+than what we're building, but a known, documented escape hatch. Worth a
+short paragraph in the capstone write-up's limitations section either way:
+this integration uses an undocumented endpoint at the same access level as
+an anonymous browser visit, rate-limited and monitored, with a sanctioned
+fallback identified if needed.
+
+## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
+
+This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
+
+Two considerations drove this shape: staying faithful to the spec's intent ("ranking, reasoning about which result best answers the user's actual question, and composing a natural-language answer all belong to Layer 2" — this implies a real reasoning step, not keyword dispatch), and not burning an LLM call plus a full OneSearch/RAG round trip on every trivial follow-up turn.
+
+**Two deterministic fast paths (no LLM call, no OneSearch/RAG call):**
+1. The user explicitly asks for a human ("talk to a real person", "human", etc.) → escalate immediately, passing conversation context to the live chat handoff.
+2. The user asks to format a citation for a candidate already resolved earlier in the same conversation → format directly with the deterministic citation tool (APA/MLA/Chicago), skip OneSearch and RAG entirely.
+
+**Default path (everything else):**
+The orchestrator fans the query out to OneSearch (search, refine once — Layer 1's `search_with_fallback`) and to the LibGuides/librarian-directory RAG context (Chroma similarity search) *in parallel*. Both results feed a single Rank + Compose node (LLM) that:
+- scores confidence and picks the top 1-3 candidates worth showing,
+- calls Layer 1's bounded `fetch_detail()` only for those chosen candidates (never looped over the full result set — this is the same rule Layer 1 enforces at the function-signature level, Layer 2 must not defeat it by calling it in a loop),
+- folds citation formatting into the composed answer when relevant,
+- escalates to a human librarian when confidence is low, instead of forcing an answer.
+
+Every turn, regardless of which path it took, writes one anonymized log entry (role, course if given, topic category — never raw query text or an identifier).
+
+## Reference scripts (already validated, use as the starting point)
+
+Two scripts already prove the approach works end to end against real UB
+data:
+- `onesearch_probe.py` — plain `requests` version, demonstrates the comma
+  encoding fix; will hit the bot-protection 400 on its own, kept as
+  reference for the request-shape fix, not for direct reuse.
+- `onesearch_probe_playwright.py` — working Playwright version. Confirms
+  real data retrieval, the `skipDelivery` route-interception fix, and
+  fetches the full-detail page for the top result. This is the closer
+  starting point; the production adapter should factor its logic into a
+  proper module (session minting separated from per-query search,
+  cookie reuse instead of a fresh browser launch per call, as described
+  above) rather than relaunching a browser every run.
+
+## Suggested module structure for this phase
+
+```
+onesearch/
+  __init__.py
+  session.py       # Playwright session mint + cookie extraction, 15-min reuse
+  client.py         # requests.Session-based search() and fetch_detail()
+  parser.py         # field extraction per the tables above, name/contributor cleanup
+  cache.py          # short-TTL query cache
+  models.py         # dataclasses: SearchCandidate, ResourceDetail
+tests/
+  test_parser.py    # unit tests against saved sample JSON, not live calls
+  test_client.py    # mocked, don't hit the live endpoint in CI
+```
+
+Save at least one real captured response (brief list and full detail) as a
+fixture file once confirmed, so the parser has something to test against
+without depending on live network access or UB's endpoint staying up
+during CI runs.
+
+## Acceptance criteria for this phase
+
+- [ ] Session minted once via Playwright, cookies reused for ~15 min, not
+      re-minted per search.
+- [ ] Search returns recommendation fields correctly for a real query.
+- [ ] Detail fetch confirmed working for both an online resource (link)
+      and a physical item (call number + location) — physical case still
+      needs a real test query, online case is confirmed.
+- [ ] Detail fetch only ever runs for a bounded, small number of results,
+      never looped over the full result set.
+- [ ] Hard timeout + graceful fallback implemented.
+- [ ] Basic response caching in place.
+- [ ] Real, identifying User-Agent on every request.
+
+## Development rules
+
+These apply to all future code-building work in this repo, both layers.
+
+- Build in phases, not as one large dump. A phase is one cohesive, testable unit — one module and its tests, or a tightly coupled pair (e.g. a scraper and the parser it feeds). Do not start the next phase until the current one is committed.
+- After finishing each phase, explain in plain language what the code does before moving on. The person running this needs to actually understand what each piece does, not just receive a diff to trust blindly.
+- Once a phase is reviewed and accepted, commit it, then `git push` to `origin`. Never batch multiple phases into a single commit or a single push.
