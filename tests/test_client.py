@@ -1,9 +1,11 @@
 import json
+import time
 from pathlib import Path
 from unittest.mock import MagicMock
 
 from onesearch.cache import QueryCache
 from onesearch.client import OneSearchClient
+from onesearch.models import SearchResult
 from onesearch.session import SessionCookies, SessionManager
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -103,3 +105,79 @@ def test_search_hits_cache_on_second_call():
     client.search("machine learning")
 
     assert http_get.call_count == 1
+
+
+def test_fetch_detail_only_calls_for_given_record_ids():
+    response = MagicMock()
+    response.status_code = 200
+    response.json.return_value = json.loads(
+        (FIXTURES / "onesearch_detail_response.json").read_text()
+    )
+    http_get = MagicMock(return_value=response)
+
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+        http_get=http_get,
+    )
+    details = client.fetch_detail(["alma991234567890001"])
+
+    assert http_get.call_count == 1
+    assert set(details.keys()) == {"alma991234567890001"}
+    assert details["alma991234567890001"].call_number == "QA76.87 .W66 2021"
+
+
+def test_fetch_detail_bounded_to_multiple_explicit_ids_only():
+    response = MagicMock()
+    response.status_code = 200
+    response.json.return_value = json.loads(
+        (FIXTURES / "onesearch_detail_response.json").read_text()
+    )
+    http_get = MagicMock(return_value=response)
+
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+        http_get=http_get,
+    )
+    client.fetch_detail(["a", "b", "c"])
+
+    assert http_get.call_count == 3
+
+
+def test_search_with_fallback_returns_candidates_when_fast():
+    response = MagicMock()
+    response.status_code = 200
+    response.json.return_value = json.loads(
+        (FIXTURES / "onesearch_brief_response.json").read_text()
+    )
+    http_get = MagicMock(return_value=response)
+
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+        http_get=http_get,
+    )
+    result = client.search_with_fallback("machine learning", timeout_seconds=5)
+
+    assert isinstance(result, SearchResult)
+    assert result.timed_out is False
+    assert len(result.candidates) == 2
+    assert result.fallback_link is None
+
+
+def test_search_with_fallback_times_out_gracefully():
+    def _slow_get(*args, **kwargs):
+        time.sleep(0.2)
+        raise AssertionError("should not be reached before timeout fires")
+
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+        http_get=_slow_get,
+    )
+    result = client.search_with_fallback("machine learning", timeout_seconds=0.05)
+
+    assert result.timed_out is True
+    assert result.candidates == []
+    assert "search.lib.buffalo.edu" in result.fallback_link
