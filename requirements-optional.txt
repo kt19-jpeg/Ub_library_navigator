@@ -1,0 +1,3 @@
+# Only needed for the matching LLM_PROVIDER
+langchain-anthropic   # LLM_PROVIDER=anthropic
+langchain-ollama      # LLM_PROVIDER=local without LLM_BASE_URL
