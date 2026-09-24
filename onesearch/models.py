@@ -18,19 +18,17 @@ class SearchCandidate:
     library: str | None
     sub_location: str | None
     availability_status: str | None
-    copies_available: str | None
 
 
 @dataclass(frozen=True)
 class ResourceDetail:
     record_id: str
     online_link: str | None
+    online_package: str | None
     call_number: str | None
     library: str | None
     sub_location: str | None
     availability_status: str | None
-    copies_available: str | None
-    raw: dict
 
 
 @dataclass(frozen=True)

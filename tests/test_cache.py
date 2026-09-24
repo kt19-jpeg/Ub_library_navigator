@@ -10,7 +10,6 @@ def _candidate(record_id="1"):
         format=None, subject=None, description=None, date=None, source=None,
         delivery_category=None, online_link=None, call_number=None,
         library=None, sub_location=None, availability_status=None,
-        copies_available=None,
     )
 
 

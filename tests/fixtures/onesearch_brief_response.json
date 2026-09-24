@@ -19,8 +19,7 @@
           "callNumber": "QA76.87 .W66 2021",
           "mainLocation": "Silverman Library",
           "subLocation": "Stacks",
-          "itemAvailabilityStatus": "available",
-          "number": "1"
+          "availabilityStatus": "available"
         }
       }
     },
@@ -40,7 +39,23 @@
       },
       "delivery": {
         "deliveryCategory": ["Alma-E"],
-        "link": ["https://search.lib.buffalo.edu/discovery/openurl?id=alma991234567890002"]
+        "link": [
+          {
+            "linkType": "thumbnail",
+            "linkURL": "https://proxy-na.hosted.exlibrisgroup.com/exl_rewrite/books.google.com/books?bibkeys=ISBN:1&jscmd=viewapi&callback=updateGBSCover"
+          }
+        ],
+        "GetIt1": [
+          {
+            "category": "Alma-E",
+            "links": [
+              {
+                "isLinktoOnline": true,
+                "link": "/view/action/uresolver.do?operation=resolveService&package_service_id=1&institutionId=4803&customerId=4800&VE=true"
+              }
+            ]
+          }
+        ]
       }
     }
   ]

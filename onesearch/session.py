@@ -38,8 +38,11 @@ def mint_session_via_playwright() -> SessionCookies:
 
         context.route("**/primaws/rest/pub/pnxs**", _force_delivery_params)
         page = context.new_page()
+        # vid=01SUNY_BUF:everything confirmed live 2026-09-24 — the site
+        # redirects a bare vid=01SUNY_BUF:UB request to this value; using
+        # :UB directly 400s on the very first bootstrap call the page makes.
         page.goto(
-            "https://search.lib.buffalo.edu/discovery/search?query=any,contains,test&vid=01SUNY_BUF:UB"
+            "https://search.lib.buffalo.edu/discovery/search?query=any,contains,test&vid=01SUNY_BUF:everything"
         )
         page.wait_for_load_state("networkidle")
 

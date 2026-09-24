@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from onesearch.parser import parse_brief_response, parse_detail_response
+from onesearch.parser import parse_brief_doc, parse_brief_response, parse_edelivery_response
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -37,15 +37,41 @@ def test_parse_brief_response_falls_back_creationdate_to_addata_date():
 
 def test_parse_brief_response_online_link_present():
     candidates = parse_brief_response(_load("onesearch_brief_response.json"))
+    # Absolutised from GetIt1; the thumbnail in delivery.link must be ignored.
     assert candidates[1].online_link == (
-        "https://search.lib.buffalo.edu/discovery/openurl?id=alma991234567890002"
+        "https://search.lib.buffalo.edu/view/action/uresolver.do?operation="
+        "resolveService&package_service_id=1&institutionId=4803&customerId=4800&VE=true"
     )
 
 
-def test_parse_detail_response():
-    detail = parse_detail_response(
-        "alma991234567890001", _load("onesearch_detail_response.json")
+def test_parse_brief_response_physical_record_has_no_online_link():
+    assert parse_brief_response(_load("onesearch_brief_response.json"))[0].online_link is None
+
+
+def test_parse_brief_doc_handles_explicit_null_bestlocation():
+    # Real UB responses can carry "bestlocation": null (not just an absent
+    # key) for online-only resources — confirmed against live data 2026-09-24.
+    doc = {
+        "pnx": {
+            "display": {"title": ["Some Online Resource"]},
+            "control": {"recordid": ["alma1"]},
+        },
+        "delivery": {"deliveryCategory": ["Alma-E"], "bestlocation": None},
+    }
+    candidate = parse_brief_doc(doc)
+    assert candidate.call_number is None
+    assert candidate.library is None
+
+
+def test_parse_edelivery_response_maps_record_ids_to_absolute_urls():
+    access = parse_edelivery_response(_load("onesearch_edelivery_response.json"))
+    url, package = access["alma990019605390204803"]
+    assert url.startswith("https://search.lib.buffalo.edu/view/action/uresolver.do?")
+    assert package == "view online"
+
+
+def test_parse_edelivery_response_ignores_envelope_and_serviceless_records():
+    access = parse_edelivery_response(
+        {"beaconO22": "1", "alma1": {"electronicServices": []}, "alma2": None}
     )
-    assert detail.call_number == "QA76.87 .W66 2021"
-    assert detail.library == "Silverman Library"
-    assert detail.record_id == "alma991234567890001"
+    assert access == {}
