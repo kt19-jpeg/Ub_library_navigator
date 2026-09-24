@@ -97,6 +97,8 @@ occasionally," not a stable contract. Build defensively:
    for actual per-query searches. Do not launch a browser per user search,
    that's the latency trap to avoid. See "Latency budget" below.
 
+   **Mint by waiting for the page's own `/pnxs` response** (`page.expect_response`), not `networkidle`: the site's analytics keep the network busy, so `networkidle` timed out at 30s (2/2 runs, 2026-09-24) while the response wait mints in 2.4-5.4s. `search_with_fallback` mints/reuses the session *before* starting its timeout clock and returns at the timeout instead of waiting for the slow worker.
+
 4. **`skipDelivery=Y` (the site's own default) suppresses both online
    links and physical location/call-number data.** Force
    `skipDelivery=N` and `pcAvailability=true` on outgoing requests
