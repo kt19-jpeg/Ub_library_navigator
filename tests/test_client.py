@@ -285,3 +285,72 @@ def test_search_with_fallback_times_out_gracefully():
     assert result.timed_out is True
     assert result.candidates == []
     assert "search.lib.buffalo.edu" in result.fallback_link
+
+
+def test_fallback_link_points_at_onesearch_results_page():
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+    )
+    link = client.fallback_link("mental health")
+    assert link == (
+        "https://search.lib.buffalo.edu/discovery/search?"
+        "query=any,contains,mental%20health&vid=01SUNY_BUF:everything"
+    )
+
+
+def test_search_with_fallback_uses_fallback_link_on_timeout():
+    def _slow_get(*args, **kwargs):
+        time.sleep(0.2)
+
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+        http_get=_slow_get,
+    )
+    result = client.search_with_fallback("mental health", timeout_seconds=0.05)
+    assert result.fallback_link == client.fallback_link("mental health")
+
+
+def test_record_link_points_at_onesearch_full_record_page():
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+    )
+    assert client.record_link("alma123") == (
+        "https://search.lib.buffalo.edu/discovery/fulldisplay?"
+        "docid=alma123&context=L&vid=01SUNY_BUF:everything"
+    )
+
+
+def test_search_with_fallback_returns_promptly_at_the_timeout():
+    def _slow_get(*args, **kwargs):
+        time.sleep(0.5)
+
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+        http_get=_slow_get,
+    )
+    start = time.monotonic()
+    result = client.search_with_fallback("mental health", timeout_seconds=0.05)
+
+    assert result.timed_out is True
+    assert time.monotonic() - start < 0.3  # did not wait for the slow worker
+
+
+def test_search_with_fallback_does_not_count_session_mint_against_the_timeout():
+    def _slow_mint():
+        time.sleep(0.2)
+        return SessionCookies(jsessionid="J", urm_st="1", urm_se="900001", institute="UB")
+
+    response = MagicMock()
+    response.json.return_value = {"docs": []}
+    client = OneSearchClient(
+        session_manager=SessionManager(mint_fn=_slow_mint),
+        cache=QueryCache(ttl_seconds=60),
+        http_get=MagicMock(return_value=response),
+    )
+    result = client.search_with_fallback("mental health", timeout_seconds=0.1)
+
+    assert result.timed_out is False

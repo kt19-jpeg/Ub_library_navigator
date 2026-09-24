@@ -155,6 +155,20 @@ class OneSearchClient:
             )
         return details
 
+    def fallback_link(self, query: str) -> str:
+        """Direct OneSearch results page for `query` (keywords only, no filters)."""
+        return (
+            "https://search.lib.buffalo.edu/discovery/search?"
+            f"query=any,contains,{urllib.parse.quote(query)}&vid={self._vid}"
+        )
+
+    def record_link(self, record_id: str) -> str:
+        """OneSearch full-record page for one record id."""
+        return (
+            "https://search.lib.buffalo.edu/discovery/fulldisplay?"
+            f"docid={record_id}&context=L&vid={self._vid}"
+        )
+
     def search_with_fallback(
         self,
         query: str,
@@ -165,14 +179,19 @@ class OneSearchClient:
         # Validate before spawning the worker so a bad filter raises here
         # instead of surfacing as a swallowed future exception.
         _build_facets(resource_type, peer_reviewed)
-        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+        # Mint (or reuse) the session before starting the clock: a cold mint
+        # takes a few seconds by itself and is not what this timeout bounds.
+        self._session_manager.get_cookies()
+        # No `with` block: its exit would wait for a slow worker and defeat the timeout.
+        pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        try:
             future = pool.submit(self.search, query, resource_type, peer_reviewed)
             try:
                 candidates = future.result(timeout=timeout_seconds)
                 return SearchResult(candidates=candidates, timed_out=False, fallback_link=None)
             except concurrent.futures.TimeoutError:
-                fallback_link = (
-                    "https://search.lib.buffalo.edu/discovery/search?"
-                    f"query=any,contains,{urllib.parse.quote(query)}&vid={self._vid}"
+                return SearchResult(
+                    candidates=[], timed_out=True, fallback_link=self.fallback_link(query)
                 )
-                return SearchResult(candidates=[], timed_out=True, fallback_link=fallback_link)
+        finally:
+            pool.shutdown(wait=False, cancel_futures=True)

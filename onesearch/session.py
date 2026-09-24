@@ -41,10 +41,16 @@ def mint_session_via_playwright() -> SessionCookies:
         # vid=01SUNY_BUF:everything confirmed live 2026-09-24 — the site
         # redirects a bare vid=01SUNY_BUF:UB request to this value; using
         # :UB directly 400s on the very first bootstrap call the page makes.
-        page.goto(
-            "https://search.lib.buffalo.edu/discovery/search?query=any,contains,test&vid=01SUNY_BUF:everything"
-        )
-        page.wait_for_load_state("networkidle")
+        # Wait for the page's own search response rather than "networkidle":
+        # the site's analytics keep the network busy, so networkidle timed out
+        # at 30s (confirmed live 2026-09-24) while this returns in 2-4s.
+        with page.expect_response(
+            lambda r: "/primaws/rest/pub/pnxs" in r.url and r.status == 200, timeout=30000
+        ):
+            page.goto(
+                "https://search.lib.buffalo.edu/discovery/search?query=any,contains,test&vid=01SUNY_BUF:everything",
+                wait_until="domcontentloaded",
+            )
 
         cookies = {c["name"]: c["value"] for c in context.cookies()}
         browser.close()
