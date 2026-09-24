@@ -12,6 +12,14 @@ In: model factory, query planner, OneSearch step (with one refinement), compose 
 
 Out (later slices): fast paths (human request, citation follow-up), escalation, citation tool, real RAG enrichment (a stub returns nothing), scrapers/Chroma/embeddings, logging, Streamlit UI/dashboard, evaluation. The empty stubs `agent/router.py`, `agent/escalation.py`, `agent/citation_tool.py` stay untouched.
 
+## Layer 1 changes this slice depends on
+
+Found while building the pipeline against live UB (2026-09-24); done as Task 1 of the plan:
+
+- `OneSearchClient.fallback_link(query)` and `record_link(record_id)` helpers (used by search degradation and answer rendering).
+- `search_with_fallback` now mints/reuses the session before starting its timeout clock and returns at the timeout instead of waiting for the slow worker (a `with ThreadPoolExecutor` block made a 9s timeout take ~34s).
+- Session mint waits for the page's own `/pnxs` response instead of `networkidle`, which now times out at 30s (response wait: 2.4-4.2s, 4/4 runs).
+
 ## Model layer: `agent/llm.py`
 
 `get_chat_model(provider=None, model=None) -> BaseChatModel`, driven by env vars `LLM_PROVIDER` (`openai` | `anthropic` | `local`, default `openai`), `LLM_MODEL`, `LLM_BASE_URL` (local only), plus `OPENAI_API_KEY` / `ANTHROPIC_API_KEY`.
