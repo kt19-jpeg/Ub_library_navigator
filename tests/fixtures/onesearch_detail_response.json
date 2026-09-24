@@ -1,0 +1,18 @@
+{
+  "pnx": {
+    "display": {
+      "title": ["Machine Learning for Coastal Systems"]
+    },
+    "control": { "recordid": ["alma991234567890001"] }
+  },
+  "delivery": {
+    "deliveryCategory": ["Alma-P"],
+    "bestlocation": {
+      "callNumber": "QA76.87 .W66 2021",
+      "mainLocation": "Silverman Library",
+      "subLocation": "Stacks",
+      "itemAvailabilityStatus": "available",
+      "number": "1"
+    }
+  }
+}
