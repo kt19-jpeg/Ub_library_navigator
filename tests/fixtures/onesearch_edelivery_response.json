@@ -1,0 +1,81 @@
+{
+  "beaconO22": "758",
+  "alma990019605390204803": {
+    "electronicServices": [
+      {
+        "adaptorid": "ALMA_01",
+        "ilsApiId": "53275935040004803",
+        "serviceUrl": "/view/action/uresolver.do?operation=resolveService&package_service_id=29626809790004803&institutionId=4803&customerId=4800&VE=true",
+        "licenceExist": "false",
+        "packageName": "view online",
+        "availiability": "",
+        "authNote": "",
+        "publicNote": "",
+        "hasAccess": false,
+        "serviceType": "ELECTRONIC",
+        "registrationRequired": false,
+        "numberOfFiles": 0,
+        "cdlItemAvailable": false,
+        "cdl": false,
+        "contextServiceId": "29626809790004803",
+        "fromNetwork": false,
+        "displayInEmbedViewer": true,
+        "collapse": false
+      }
+    ],
+    "serviceMode": [
+      "Viewit"
+    ],
+    "availability": [
+      "not_restricted"
+    ],
+    "availabilityLinks": [
+      "directlink"
+    ],
+    "displayedAvailability": "not_restricted",
+    "displayLocation": false,
+    "additionalLocations": false,
+    "digitalAuxiliaryMode": false,
+    "digitalAuxiliaryThumbnail": false,
+    "hideResourceSharing": false,
+    "consolidatedCoverage": "",
+    "electronicContextObjectId": "29627093340004803",
+    "GetIt1": [
+      {
+        "category": "Alma-E",
+        "links": [
+          {
+            "isLinktoOnline": true,
+            "getItTabText": "service_viewit",
+            "adaptorid": "ALMA_01",
+            "ilsApiId": "53275935040004803",
+            "link": "/view/action/uresolver.do?operation=resolveService&package_service_id=29626809790004803&institutionId=4803&customerId=4800&VE=true",
+            "inst4opac": "",
+            "@id": "_:0"
+          }
+        ]
+      }
+    ],
+    "link": [
+      {
+        "displayLabel": "About requesting UB Libraries materials",
+        "linkURL": "https://library.buffalo.edu/find-borrow/delivery.html",
+        "linkType": "addlink",
+        "publicNote": "Login to your <a href=\"https://search.lib.buffalo.edu/discovery/account?vid=01SUNY_BUF:everything&lang=en&section=overview\" target=\"_blank\">UB Libraries account</a> to see request options. You can place a Delivery+ request via the OneSearch record or by filling out the <a href=\"https://search.lib.buffalo.edu/discovery/blankIll?vid=01SUNY_BUF:everything\" target=\"_blank\">Delivery+ request form</a>. Delivery+ may not be available for all materials.",
+        "@id": "_:0"
+      },
+      {
+        "displayLabel": "Ask a Subject Librarian",
+        "linkURL": "https://library.buffalo.edu/askalibrarian/inperson/bysubject.html",
+        "linkType": "addlink",
+        "publicNote": "For assistance, contact the <a href=\"https://library.buffalo.edu/askalibrarian/inperson/bysubject.html\" target=\"_new\">subject librarian</a> in your area, ask at a <a href=\"https://library.buffalo.edu/hours/reference\" target=\"_new\">Library Services Desk</a>, email <a href=\"mailto:library@buffalo.edu\">library@buffalo.edu</a>, or <a href=\"https://library.buffalo.edu/askalibrarian/chat/instant.html\" target=\"_new\">chat</a> with a librarian.  We look forward to helping you.<br>",
+        "@id": "_:1"
+      }
+    ]
+  },
+  "alma9939979830304803": {
+    "digitalAuxiliaryMode": false,
+    "digitalAuxiliaryThumbnail": false,
+    "hideResourceSharing": false
+  }
+}

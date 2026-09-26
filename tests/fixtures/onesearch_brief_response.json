@@ -1,0 +1,62 @@
+{
+  "docs": [
+    {
+      "pnx": {
+        "display": {
+          "title": ["Machine Learning for Coastal Systems"],
+          "creator": ["Wong, Kau-Fui Vincent, author.$$QWong, Kau-Fui Vincent"],
+          "type": ["book"],
+          "format": ["Book, Print"],
+          "subject": ["Machine learning"],
+          "creationdate": ["2021"],
+          "source": ["Alma"]
+        },
+        "control": { "recordid": ["alma991234567890001"] }
+      },
+      "delivery": {
+        "deliveryCategory": ["Alma-P"],
+        "bestlocation": {
+          "callNumber": "QA76.87 .W66 2021",
+          "mainLocation": "Silverman Library",
+          "subLocation": "Stacks",
+          "availabilityStatus": "available"
+        }
+      }
+    },
+    {
+      "pnx": {
+        "display": {
+          "title": ["Introduction to Statistical Learning"],
+          "contributor": ["UB Data Science Working Group"],
+          "type": ["article"],
+          "format": ["Article"],
+          "subject": ["Statistics"],
+          "creationdate": [],
+          "source": ["Alma"]
+        },
+        "addata": { "date": ["2019"] },
+        "control": { "recordid": ["alma991234567890002"] }
+      },
+      "delivery": {
+        "deliveryCategory": ["Alma-E"],
+        "link": [
+          {
+            "linkType": "thumbnail",
+            "linkURL": "https://proxy-na.hosted.exlibrisgroup.com/exl_rewrite/books.google.com/books?bibkeys=ISBN:1&jscmd=viewapi&callback=updateGBSCover"
+          }
+        ],
+        "GetIt1": [
+          {
+            "category": "Alma-E",
+            "links": [
+              {
+                "isLinktoOnline": true,
+                "link": "/view/action/uresolver.do?operation=resolveService&package_service_id=1&institutionId=4803&customerId=4800&VE=true"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -2,11 +2,13 @@ streamlit
 langchain
 langgraph
 langchain-openai
+pydantic
 chromadb
 sqlalchemy
 playwright
 beautifulsoup4
 openai
+requests
 ragas
 langsmith
 python-dotenv

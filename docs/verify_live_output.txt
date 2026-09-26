@@ -1,0 +1,220 @@
+# python -m onesearch.verify_live "machine learning" "buffalo history"
+# run at 2026-09-24 14:15:47
+
+session mint (cold): 8.07s
+
+==============================================================================
+QUERY: machine learning
+==============================================================================
+search: 1.75s, 10 results
+
+detail: 2.46s, one batched call for 10 ids
+
+redirect checks: 1.16s for 8 online links
+
+[1] Machine Learning 
+    record_id:  alma9938776953404803
+    author:     Zhang, Yagang
+    date/type:  2010 | book | 1 online resource (446 pages) : illustrations
+    subject:    Machine learning
+    description: Machine learning techniques have the potential of alleviating the complexity of knowledge acquisition. This book presents today’s state and development tendencies of machine learning. It is a multi-author book. Taking...
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808620004803&institutionId=4803&customerId=4800&VE=true
+    package:    DOAB Directory of Open Access Books
+    redirect:   302 -> https://directory.doabooks.org/handle/20.500.12854/64818
+
+[2] Machine learning 
+    record_id:  alma9939127550604803
+    author:     Zhou, Zhi-Hua (Computer scientist), author.
+    date/type:  2021 | book | 1 online resource (460 pages)
+    subject:    Machine learning
+    description: Machine Learning, a vital and core area of artificial intelligence (AI), is propelling the AI field ever further and making it one of the most compelling areas of computer science research. This textbook offers a...
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808610004803&institutionId=4803&customerId=4800&VE=true
+    package:    SpringerLink Books
+    redirect:   302 -> https://gate.lib.buffalo.edu/login?&url=https://link.springer.com/10.1007/978-981-15-1967-3
+
+[3] Machine Learning 
+    record_id:  alma990023419210204803
+    author:     Mitchell, Tom M. (Tom Michael), 1951- author.
+    date/type:  ©1997 | book | xvii, 414 pages : illustrations ; 25 cm
+    subject:    Machine learning
+    description: Mitchell covers the field of machine learning, the study of algorithms that allow computer programs to automatically improve through experience and that automatically infer general laws from specific data.
+    access:     Alma-P
+    location:   Lockwood Library / Lockwood Library General Collection | call number: Q325.5 .M58 1997 | status: unavailable
+
+[4] Machine learning 
+    record_id:  alma9938777095504803
+    author:     Mellouk, Abdelhamid,-- editor
+    date/type:  2009 | book | 1 online resource (432 pages) : illustrations
+    subject:    Machine learning
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808600004803&institutionId=4803&customerId=4800&VE=true
+    package:    InTech Books Free
+    redirect:   302 -> http://www.intechopen.com/books/machine_learning
+
+[5] Machine Learning 
+    record_id:  alma9938777172704803
+    author:     Mellouk, Abdelhamid
+    date/type:  2009 | book | 1 online resource  (446 pages) : illustrations
+    subject:    Graphical modeling (Statistics)
+    description: Machine Learning can be defined in various ways related to a scientific domain concerned with the design and development of theoretical and implementation tools that allow building systems with some Human Like...
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808580004803&institutionId=4803&customerId=4800&VE=true
+    package:    DOAB Directory of Open Access Books
+    redirect:   302 -> https://directory.doabooks.org/handle/20.500.12854/64712
+
+[6] Machine learning : advances in research and applications 
+    record_id:  alma990038417100204803
+    author:     Inge, Roger,-- editor
+    date/type:  2017 | book | 1 online resource (212 pages) : illustrations (some color), graphs.
+    subject:    Machine learning
+    description: In chapter one, Lei Jia, PhD and Hua Gao, PhD analyze machine learning applications in small molecule and macromolecule drug discovery and development while comparing the similarities and differences between the two....
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808560004803&institutionId=4803&customerId=4800&VE=true
+    package:    EBSCOhost Ebooks
+    redirect:   302 -> https://gate.lib.buffalo.edu/login?&url=https://search.ebscohost.com/login.aspx?AN=1652565&direct=true&site=ehost-live&db=nlebk&custid=s8461472&authtype=ip%2Cuid&scope=site
+
+[7] Machine learning : an algorithmic perspective 
+    record_id:  alma9938846380804803
+    author:     Marsland, Stephen, eauthor.
+    date/type:  2014 | book | 1 online resource (xx, 430 pages) : illustrations.
+    subject:    Machine learning
+    description: A Proven, Hands-On Approach for Students without a Strong Statistical Foundation Since the best-selling first edition was published, there have been several prominent developments in the field of machine learning,...
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808550004803&institutionId=4803&customerId=4800&VE=true
+    package:    Ebook Central Perpetual, DDA and Subscription Titles
+    redirect:   302 -> https://gate.lib.buffalo.edu/login?&url=https://ebookcentral.proquest.com/lib/buffalo/detail.action?pq-origsite=primo&docID=1591570
+
+[8] Machine learning : a probabilistic perspective 
+    record_id:  alma9938803178604803
+    author:     Murphy, Kevin P., 1970- author.
+    date/type:  c2012 | book | 1 online resources (xxx, 1067 pages) : illustrations (some colour)
+    subject:    Machine learning
+    description: "Today's Web-enabled deluge of electronic data calls for automated methods of data analysis. Machine learning provides these, developing methods that can automatically detect patterns in data and then use the...
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808540004803&institutionId=4803&customerId=4800&VE=true
+    package:    Ebook Central Perpetual, DDA and Subscription Titles
+    redirect:   302 -> https://gate.lib.buffalo.edu/login?&url=https://ebookcentral.proquest.com/lib/buffalo/detail.action?pq-origsite=primo&docID=3339490
+
+[9] Machine learning : neural networks, genetic algorithms, and fuzzy systems 
+    record_id:  alma990016449900204803
+    author:     Adeli, Hojjat, 1950-
+    date/type:  ©1995 | book | xii, 211 pages : illustrations ; 24 cm
+    subject:    Machine learning
+    description: "Artificial Intelligence/Neural Networks Cutting-edge approaches to designing machine learning technologies ... One of the most fascinating and promising developments to emerge in the field of artificial intelligence...
+    access:     Alma-P
+    location:   Lockwood Library / Lockwood Library General Collection | call number: Q325.5 .A27 1995 | status: available
+
+[10] Machine Learning : The Basics 
+    record_id:  alma9939448538904803
+    author:     Jung, Alexander, author.
+    date/type:  2022 | book | 1 online resource (225 pages)
+    subject:    Machine learning
+    description: Machine learning (ML) has become a commonplace element in our everyday lives and a standard tool for many fields of science and engineering. To make optimal use of ML, it is essential to understand its underlying...
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626808530004803&institutionId=4803&customerId=4800&VE=true
+    package:    SpringerLink Books
+    redirect:   302 -> https://gate.lib.buffalo.edu/login?&url=https://link.springer.com/10.1007/978-981-16-8193-6
+
+SUMMARY: 10 results | 8 online-category | 8 with resolved link (8 redirect OK) | 2 with call number
+
+==============================================================================
+QUERY: buffalo history
+==============================================================================
+search: 1.93s, 10 results
+
+detail: 2.52s, one batched call for 10 ids
+
+redirect checks: 0.63s for 2 online links
+
+[1] Gangsters and organized crime in Buffalo : history, hits and headquarters 
+    record_id:  alma990035848470204803
+    author:     Rizzo, Michael F.
+    date/type:  ©2012 | book | 253 pages ; 23 cm
+    subject:    Organized crime -- New York (State) -- Buffalo -- History
+    access:     Alma-P
+    location:   Lockwood Library / Lockwood Library General Collection | call number: HV6452.N7 R587 2012 | status: unavailable
+
+[2] Baseball in Buffalo : images of baseball 
+    record_id:  alma990037871540204803
+    author:     Langendorfer, Paul
+    date/type:  2017 | book | 127 pages : illustrations, 23 cm.
+    subject:    Buffalo Bisons Baseball Club (N.Y.)
+    access:     Alma-P
+    location:   Lockwood Library / Lockwood Library General Collection | call number: GV863 .N49 L36 2017 | status: available
+
+[3] University of Buffalo : history, 1846-1904 : Departments of Medicine, Pharmacy, Law, Dentistry, Pedagogy 
+    record_id:  alma990015310150204803
+    author:     Long, Eli H. (Eli Herr), 1860-1949
+    date/type:  1905? | book | 12 pages : illustrations ; 27 cm
+    subject:    State University of New York at Buffalo -- History
+    access:     Alma-P
+    location:   Abbott Library (BUFHS) / Abbott Library History of Medicine | call number: LD 701.B42 L848 1905 | status: check_holdings
+
+[4] Western New York 101 : the 101 greatest moments in Buffalo history 
+    record_id:  alma990032433870204803
+    author:     Murphy, Dan (Journalist)
+    date/type:  ©2007 | book | 192 pages : illustrations ; 22 cm
+    subject:    Buffalo (N.Y.) -- History
+    access:     Alma-P
+    location:   Lockwood Library / Lockwood Library General Collection | call number: F129 .B857 M87 2007 | status: available
+
+[5] The Buffalo history works history and culture from the queen city of the Great Lakes.
+    record_id:  alma990019605390204803
+    author:     Heverin, Aaron T
+    date/type:  1999?- | book | Computer data.
+    subject:    Buffalo (N.Y.) -- History
+    description: Web site showcases different periods in the historical growth of the city of Buffalo. Site maintained by Aaron T. Heverin features photographs, documents and other items chronicling the history of the city and...
+    access:     Alma-E
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626791340004803&institutionId=4803&customerId=4800&VE=true
+    package:    view online
+    redirect:   302 -> http://www.buffalohistoryworks.com/
+
+[6] Forest Lawn Cemetery : Buffalo history preserved 
+    record_id:  alma990017746490204803
+    author:     Michaels, Albert L
+    date/type:  1996 | book | 160 pages : illustrations (some color), maps (some color) ; 32 cm
+    subject:    Forest Lawn (Cemetery : Buffalo, N.Y.)
+    access:     Alma-P
+    location:   Abbott Library (BUFHS) / Abbott Library Architecture & Planning General Collection | call number: F129 .B862 F674 1996 | status: available
+
+[7] Medical history in Buffalo, 1846-1996 : collected essays 
+    record_id:  alma990018275860204803
+    author:     Sentz, Lilli.
+    date/type:  1996 | book | xiv, 340 pages : illustrations ; 23 cm
+    subject:    State University of New York at Buffalo School of Medicine and Biomedical Sciences -- History
+    access:     Alma-P
+    location:   Abbott Library (BUFHS) / Abbott Library Health Sciences General Collection | call number: WZ 70.AN6 M489 1996 | status: available
+
+[8] Buffalo beer : the history of brewing in the Nickel City 
+    record_id:  alma9938989899404803
+    author:     Rizzo, Michael F., author.
+    date/type:  2015.  | book | 1 online resource (203 p.)
+    subject:    Brewing industry -- New York (State) -- Buffalo -- History
+    description: "Buffalo's appreciation for a frosty pint stretches back more than a century before anyone enjoyed a cold one with a basket of wings. By the middle of the 1800s, the industrial hub counted malt and beer among its most...
+    access:     Alma-P
+    location:   Lockwood Library / Lockwood Library General Collection | call number: HD9397 .U53 R69 2015 | status: available
+    online:     https://search.lib.buffalo.edu/view/action/uresolver.do?operation=resolveService&package_service_id=29626791330004803&institutionId=4803&customerId=4800&VE=true
+    package:    EBSCOhost Ebooks
+    redirect:   302 -> https://gate.lib.buffalo.edu/login?&url=https://search.ebscohost.com/login.aspx?AN=1189799&direct=true&site=ehost-live&db=nlebk&custid=s8461472&authtype=ip%2Cuid&scope=site
+
+[9] History newsletter.
+    record_id:  alma990022372520204803
+    author:     State University of New York at Buffalo-- Department of History
+    date/type:  1985- | journal | volumes ; 28 cm
+    subject:    State University of New York at Buffalo Department of History -- Faculty
+    access:     Alma-P
+    location:   Special Collections / University Archives Periodical Collection | call number: Archives 22/6/00-3 | status: available
+
+[10] University at Buffalo history banners, 2011.
+    record_id:  alma990022373120204803
+    author:     State University of New York at Buffalo-- University Archives
+    date/type:  2011 | collection | None
+    subject:    University of Buffalo -- History
+    description: Cloth banners created in 2011: The Medical School, Main and Virginia streets, 1849; the first graduates of the College of Arts and Sciences, 1920; Dedication of Foster Hall, the first building on the South Campus,...
+    access:     Alma-P
+    location:   Special Collections / University Archives | call number: Archives 3/3/1265 | status: available
+
+SUMMARY: 10 results | 1 online-category | 2 with resolved link (2 redirect OK) | 9 with call number
+

@@ -97,23 +97,30 @@ occasionally," not a stable contract. Build defensively:
    for actual per-query searches. Do not launch a browser per user search,
    that's the latency trap to avoid. See "Latency budget" below.
 
+   **Mint by waiting for the page's own `/pnxs` response** (`page.expect_response`), not `networkidle`: the site's analytics keep the network busy, so `networkidle` timed out at 30s (2/2 runs, 2026-09-24) while the response wait mints in 2.4-5.4s. `search_with_fallback` mints/reuses the session *before* starting its timeout clock and returns at the timeout instead of waiting for the slow worker.
+
 4. **`skipDelivery=Y` (the site's own default) suppresses both online
    links and physical location/call-number data.** Force
    `skipDelivery=N` and `pcAvailability=true` on outgoing requests
    (rewrite via Playwright route interception during the mint step, or set
    directly as params on the plain `requests` calls).
 
-5. **Even with `skipDelivery=N`, the brief search-results response does
-   NOT carry the "View Online" link or the full holdings data.** That data
-   lives in a separate full-record detail response
-   (`discovery/fulldisplay?docid=<record_id>&context=L&...`), fetched only
-   when a specific item is opened. Confirmed via captured network traffic.
-   **Do not fetch full detail for every search result.** Fetch it only for
-   the 1-3 items Layer 2 actually decides to show the user (see retrieval
-   flow below). Whether this detail fetch can also run over the
-   cookie-based `requests.Session()` or requires the browser is not yet
-   confirmed, test this before assuming either way, and note the answer
-   here once known.
+5. **Physical holdings come with the search; online links do not.** With
+   `skipDelivery=N` the brief response carries `delivery.bestlocation`
+   (call number, library, availability) for physical items, but online items
+   have no usable link there: `delivery.link[]` holds thumbnails and "About
+   requesting" entries, not the access link. The access link comes from a
+   separate `POST /primaws/rest/pub/edelivery?vid=<vid>` with body
+   `[{"recId": "<id>", "sharedDigitalCandidates": null}, ...]` (one batched
+   call for all ids). Confirmed live 2026-09-24 that it works from plain
+   `requests` with the minted cookies and needs only `vid` (no search-context
+   replay). Response: `{"<recId>": {"electronicServices": [{"serviceUrl":
+   "/view/action/uresolver.do?...", "packageName": ...}], "GetIt1": [...]}}`;
+   `serviceUrl` is host-relative (prefix `https://search.lib.buffalo.edu`) and
+   302s to the resource. **`fulldisplay` is not an API (404).** The site's
+   `POST /pub/delivery` needs the browser's Bearer token and 500s from
+   `requests`; it is not needed. Only call `/edelivery` for the 1-3 items
+   Layer 2 shows, never for the full result set.
 
 6. **Field quirks to handle in the parser:**
    - Names carry an internal separator: `"Wong, Kau-Fui Vincent,
@@ -125,6 +132,20 @@ occasionally," not a stable contract. Build defensively:
      human-readable label shown on the site ("Library Catalog"). Decide in
      Layer 2 whether the raw or display form matters more; don't assume
      they're the same string.
+
+7. **Filters (resource type, peer-reviewed) are facets, not keywords.**
+   `search(query, resource_type=None, peer_reviewed=False)` sends them as
+   `multiFacets=facet_rtype,include,<type>|,|facet_tlevel,include,peer_reviewed`
+   (literal commas, same rule as finding 1). `resource_type` is one of
+   `books, articles, journals, dissertations, videos`; an unknown value does
+   not error, it silently returns 0 hits, so the client raises `ValueError`
+   first. Filters are part of the cache key. **`query` must be keywords
+   only.** Sending a sentence like "find me peer reviewed journals on mental
+   health" returns 112k hits of articles that mention "peer"; the same intent
+   as `"mental health"` + `journals` + peer-reviewed returns 266 real
+   journals (confirmed live 2026-09-24). Turning language into keywords +
+   filters is Layer 2's job (query planning below). Note `search_with_fallback`'s
+   fallback link carries the keywords only, not the filters.
 
 ### Confirmed field map (brief search-results response, `doc` object)
 
@@ -149,16 +170,17 @@ require the full-detail fetch, unconfirmed, see point 5 above):
 | Field | Path |
 |---|---|
 | Online vs. physical | `delivery.deliveryCategory` |
-| Online link | `delivery.link[0]` (brief list) — verify against full-detail response |
+| Online link | `/edelivery` → `electronicServices[0].serviceUrl` (absolutise); brief `GetIt1[].links[]` where `isLinktoOnline` when present |
 | Call number | `delivery.bestlocation.callNumber` |
 | Library/building | `delivery.bestlocation.mainLocation` |
 | Sub-location | `delivery.bestlocation.subLocation` |
-| Availability status | `delivery.bestlocation.itemAvailabilityStatus` |
-| Copies available | `delivery.bestlocation.number` |
+| Availability status | `delivery.bestlocation.availabilityStatus` (`available` / `unavailable` / `check_holdings`, confirmed live 2026-09-24) |
 
-Full-detail response field map: not yet locked in, capture one with the
-reference script below and update this table before building the detail
-parser.
+There is no copies-count field in the real `bestlocation` object.
+
+Detail fetch = `/edelivery` for online access, merged with the physical
+fields already captured from the brief search (client remembers them per
+record id). Real `/edelivery` capture: `tests/fixtures/onesearch_edelivery_response.json`.
 
 ### Retrieval flow to implement
 
@@ -224,11 +246,21 @@ Two considerations drove this shape: staying faithful to the spec's intent ("ran
 2. The user asks to format a citation for a candidate already resolved earlier in the same conversation → format directly with the deterministic citation tool (APA/MLA/Chicago), skip OneSearch and RAG entirely.
 
 **Default path (everything else):**
-The orchestrator fans the query out to OneSearch (search, refine once — Layer 1's `search_with_fallback`) and to the LibGuides/librarian-directory RAG context (Chroma similarity search) *in parallel*. Both results feed a single Rank + Compose node (LLM) that:
-- scores confidence and picks the top 1-3 candidates worth showing,
-- calls Layer 1's bounded `fetch_detail()` only for those chosen candidates (never looped over the full result set — this is the same rule Layer 1 enforces at the function-signature level, Layer 2 must not defeat it by calling it in a loop),
-- folds citation formatting into the composed answer when relevant,
-- escalates to a human librarian when confidence is low, instead of forcing an answer.
+
+0. **Role** is captured once at the start of the conversation and kept in graph state. It is never sent to OneSearch; it steers planning and ranking below.
+1. **Query planning (one small LLM call, structured output).** Input: the user's message, the role, and the last few turns. Output, validated against a schema:
+   - `keywords`: 1-6 content words, no filler ("find me", "peer reviewed", "journals" are stripped out, they are not keywords),
+   - `resource_type`: one of Layer 1's `RESOURCE_TYPES` or `null`,
+   - `peer_reviewed`: bool,
+   - `needs_clarification`: optional short question when the request is genuinely ambiguous (e.g. "peer reviewed journals" = journal titles vs. articles from peer-reviewed journals).
+   Role informs defaults, e.g. an undergraduate asking about a broad topic leans to books / overview guides, a graduate student or faculty member leans to peer-reviewed articles. Explicit user wording always overrides the role default. Planning failures (bad JSON, unknown `resource_type`) fall back to `keywords = raw message`, no filters. This call can share a prompt with the fast-path classification so the turn costs one LLM round trip, not two (~1-2s of the 3-6s budget).
+   Example: "find me peer reviewed journals on mental health" → `keywords="mental health"`, `resource_type="journals"`, `peer_reviewed=true`.
+2. **Fan out in parallel** with the planned request: Layer 1 `search_with_fallback(keywords, resource_type=..., peer_reviewed=...)` and the LibGuides/librarian-directory RAG similarity search (which also uses the planned keywords, not the raw sentence). If OneSearch returns 0 results, refine once (two searches total): same keywords, all filters dropped, and tell the user which filters were relaxed.
+3. **Rank + Compose (LLM)** sees both result sets and:
+   - scores confidence and picks the top 1-3 candidates worth showing,
+   - calls Layer 1's bounded `fetch_detail()` only for those chosen candidates (never looped over the full result set, this is the same rule Layer 1 enforces at the function-signature level, Layer 2 must not defeat it by calling it in a loop),
+   - folds citation formatting into the composed answer when relevant,
+   - escalates to a human librarian when confidence is low, instead of forcing an answer.
 
 Every turn, regardless of which path it took, writes one anonymized log entry (role, course if given, topic category — never raw query text or an identifier).
 
@@ -272,9 +304,8 @@ during CI runs.
 - [ ] Session minted once via Playwright, cookies reused for ~15 min, not
       re-minted per search.
 - [ ] Search returns recommendation fields correctly for a real query.
-- [ ] Detail fetch confirmed working for both an online resource (link)
-      and a physical item (call number + location) — physical case still
-      needs a real test query, online case is confirmed.
+- [x] Detail fetch confirmed working live (2026-09-24) for both an online
+      resource (link) and a physical item (call number + location).
 - [ ] Detail fetch only ever runs for a bounded, small number of results,
       never looped over the full result set.
 - [ ] Hard timeout + graceful fallback implemented.

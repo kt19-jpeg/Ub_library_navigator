@@ -1,0 +1,329 @@
+UB LIBRARY NAVIGATOR - DEVELOPMENT LOG
+Date: 2026-09-24
+Branch: feature/layer1-onesearch
+Status at end of day: all 84 tests pass. Layer 1 (OneSearch) works on live UB data.
+Layer 2, slice 1 (the "agent core") works end to end with a local model (qwen2.5:14b via Ollama),
+but it is too slow with that model (see ISSUES, item 1).
+
+
+======================================================================
+1. THE SYSTEM IN ONE PICTURE
+======================================================================
+
+A student types a question. The system turns it into a search, gets results from UB's
+OneSearch, picks the best 1-3, and writes a short answer with real links and shelf locations.
+
+   user question + role
+          |
+          v
+   [PLAN]     LLM turns the sentence into keywords + filters
+          |     "find me peer reviewed journals on mental health"
+          |      -> keywords "mental health", type "journals", peer-reviewed yes
+          v
+   [SEARCH]   Layer 1 searches OneSearch (retries once without filters if nothing found)
+          |
+          v
+   [RAG]      placeholder for now (returns nothing)
+          |
+          v
+   [COMPOSE]  LLM picks the best 1-3 results and says why
+          |     code then fetches their links / call numbers and writes the final answer
+          v
+   answer text
+
+Layer 1 = the "onesearch/" folder (talks to UB's website). Layer 2 = the "agent/" folder
+(the LLM part that decides what to search and what to show).
+
+
+======================================================================
+2. WHAT EACH CODE MODULE DOES
+======================================================================
+
+--- Layer 1: onesearch/  (talks to UB OneSearch; knows nothing about LLMs) ---
+
+onesearch/session.py
+   Opens a hidden browser (Playwright) once, so UB's site gives us session cookies.
+   The cookies are reused for 15 minutes so we do not open a browser for every search.
+
+onesearch/client.py
+   The main door to OneSearch.
+   - search(query, resource_type, peer_reviewed): returns up to 10 results.
+     The two filters (books/articles/journals/dissertations/videos, and peer-reviewed)
+     are sent to UB as "facets".
+   - fetch_detail(ids): ONE batched call that gets the "view online" link for the chosen
+     items; physical items (call number, library, availability) are remembered from search.
+   - search_with_fallback(): search with a time limit; if too slow, returns a direct
+     OneSearch link instead of hanging.
+   - fallback_link() / record_link(): build OneSearch web page links.
+
+onesearch/parser.py
+   Reads UB's raw JSON and pulls out title, author, date, type, subject, description,
+   call number, library, availability, and online link.
+
+onesearch/models.py
+   Simple data containers: SearchCandidate, ResourceDetail, SearchResult.
+
+onesearch/cache.py
+   Remembers search results for a few minutes so repeated searches do not hit UB again.
+
+onesearch/verify_live.py
+   Manual script (not a test). Runs real searches against UB and prints every result with
+   its details. Saved output: docs/verify_live_output.txt
+
+--- Layer 2: agent/  (the LLM part) ---
+
+agent/models.py
+   Data shapes: QueryPlan (keywords + filters), Selection (which results to show),
+   AgentState (what is passed between steps), ROLES (undergraduate/graduate/faculty).
+
+agent/llm.py
+   Builds the chat model. Choose with settings: LLM_PROVIDER = openai, anthropic or local.
+   "local" uses Ollama, or any OpenAI-style local server through LLM_BASE_URL.
+   Gives a clear error if a key or package is missing.
+
+agent/planner.py
+   LLM call 1. Turns the user's sentence into keywords + filters.
+   If the model fails or gives junk, it falls back to searching the raw sentence.
+
+agent/onesearch_tool.py
+   The bridge between Layer 2 and Layer 1. Runs the search. If a filtered search finds
+   nothing, it searches ONE more time without filters and adds a note saying so.
+   If UB is down or slow, it returns a direct OneSearch link instead of crashing.
+
+agent/compose.py
+   LLM call 2 + final answer. The LLM only picks IDs and gives a one-line reason.
+   Code then checks the IDs are real (max 3), fetches the details, and writes the answer.
+   Links and shelf locations always come from real data, never from the LLM.
+
+agent/graph.py
+   Connects plan -> search -> rag -> compose (LangGraph). Records how long each step took.
+   If the planner asks a clarifying question, the turn stops there.
+
+agent/cli.py
+   The chat program you run: python -m agent.cli
+   Asks for your role, then chats. /role changes role, /quit exits, --debug shows the plan
+   and timings. Options: --provider and --model.
+
+agent/live_check.py
+   Manual script (not a test). Runs two real questions through the whole system with a
+   real model. Saved output: docs/layer2_live_check_output.txt
+
+--- Tests and helpers ---
+
+tests/fakes.py            A fake LLM so tests run with no internet and no API key.
+tests/test_*.py           84 tests in total, all offline.
+pytest.ini                Lets you just type "pytest".
+requirements-optional.txt Extra packages only needed for anthropic / local providers.
+
+--- Design and plan documents ---
+
+docs/superpowers/specs/2026-09-24-layer2-slice1-agent-core-design.md   the approved design
+docs/superpowers/plans/2026-09-24-layer2-slice1-agent-core.md          the step-by-step plan
+CLAUDE.md                 project brief; updated today with the new findings
+
+
+======================================================================
+3. WHAT WE DID TODAY, IN ORDER
+======================================================================
+
+Part A - Fixed and finished Layer 1 (OneSearch) against live UB data
+  1. Found the correct site ID. The old ID (01SUNY_BUF:UB) caused errors; the real one is
+     01SUNY_BUF:everything.
+  2. Fixed a crash when UB sends "bestlocation": null.
+  3. Reworked fetch_detail. The page we assumed (fulldisplay) does not exist. Using the
+     browser tools we found the real one: a batched call to /edelivery. It works with our
+     plain cookies and only needs the site ID.
+  4. Fixed wrong field names: the online link is in "GetIt1" (not delivery.link, which holds
+     thumbnails), availability key is "availabilityStatus", and there is no "copies" field.
+  5. Added search filters (resource_type, peer_reviewed) after showing that a raw sentence
+     like "find me peer reviewed journals on mental health" returns junk (112k articles that
+     mention "peer") while keywords + filters return 266 real journals.
+  6. Improved verify_live so it prints every result with all details and checks that each
+     online link really redirects. Result: 8 of 8 and 2 of 2 links worked.
+
+Part B - Designed Layer 2, slice 1 (the agent core)
+  7. Chose the first slice: plan + search + compose, run from a chat program, with RAG
+     stubbed. Everything else (fast paths, escalation, citations, real RAG, scrapers,
+     logging, web UI, dashboard, evaluation) waits for later slices.
+  8. Decided the model must be switchable (OpenAI / Anthropic / local Ollama).
+  9. Wrote the design spec and a task-by-task plan. All the plan's code was tested first.
+
+Part C - Built Layer 2 slice 1 (8 tasks, tests first each time)
+  Task 1  Layer 1 fixes found while testing live (see BUGS FOUND below)
+  Task 2  agent/models.py, fake model, pytest.ini
+  Task 3  agent/llm.py (model switching)
+  Task 4  agent/planner.py
+  Task 5  agent/onesearch_tool.py
+  Task 6  agent/compose.py
+  Task 7  agent/graph.py
+  Task 8  agent/cli.py, agent/live_check.py, README, CLAUDE.md notes
+
+Part D - Live test with the real local model (qwen2.5:14b through Ollama)
+  - "find me peer reviewed journals on mental health": planner produced keywords
+    "mental health", type journals, peer-reviewed yes. Answer listed 3 real journals with
+    UB links.
+  - "books about the history of Buffalo": keywords "history Buffalo", type books.
+    Answer listed 3 real books with call numbers and locations.
+
+
+======================================================================
+4. BUGS FOUND AND FIXED TODAY
+======================================================================
+
+  - Wrong site ID -> HTTP 400 errors.                                   FIXED
+  - Crash on "bestlocation": null.                                      FIXED
+  - Availability was always empty (wrong field name).                   FIXED
+  - Online link came from the wrong field (a thumbnail).                FIXED
+  - The 9-second search time limit really took about 34 seconds, because the code waited
+    for the slow search to finish anyway.                               FIXED
+  - The first search after a cold start always timed out, because opening the hidden
+    browser counted against the 9 seconds.                              FIXED
+  - Opening the hidden browser waited for the page to go "network idle", which now never
+    happens on UB's site (30 second failure). Now it waits for the page's own search
+    response instead: about 2.4 to 5.4 seconds.                         FIXED
+  - A commit had a "Co-Authored-By" line, which this repo forbids (see .claude/settings.json).
+    Removed it and force-pushed the branch (with your OK).              FIXED
+
+
+======================================================================
+5. ISSUES THAT NEED A LOOK (please review these)
+======================================================================
+
+MOST IMPORTANT
+
+  1. SPEED WITH THE LOCAL MODEL. A full answer took 58.8 s and 38.7 s. The target is 3-6 s.
+     The compose step alone took about 30 s (the first plan call took 23 s, which includes
+     loading the model). Search is fine (2-5 s). Likely cause: the compose prompt sends 10
+     results with long descriptions to a 14B model. Ideas to try: send only the top 5
+     results, shorten descriptions, use a smaller model for planning, or use a hosted model
+     (OpenAI / Anthropic) for compose. DECISION NEEDED from you.
+
+  2. OPENAI AND ANTHROPIC ARE NOT TESTED LIVE. Only the local Ollama model was run for real.
+     The OpenAI and Anthropic paths are only covered by tests with fake models. Need one live
+     run each once you have keys.
+
+  3. ANSWER QUALITY WITH A REAL MODEL IS ONLY SPOT-CHECKED. We ran 2 questions. There is no
+     evaluation set yet (RAGAS is planned for a later slice). Follow-up questions ("what
+     about books?") that rely on conversation history have NOT been tried live.
+
+  4. FOLLOW-UP HISTORY SENDS WHOLE ANSWERS. The chat program stores each full answer text in
+     the history and passes the last 3 into the planner prompt. Answers are long, so this
+     makes the planner prompt big and slow. Better: store only the previous keywords/filters.
+
+THINGS THAT WORK BUT ARE ROUGH
+
+  5. SOME RESULTS HAVE NO LINK OR LOCATION. Records from the e-book catalog (record IDs
+     starting "cdi_", for example "Baseball in Buffalo") get nothing from /edelivery. The
+     answer shows only the OneSearch record page link. Not wrong, but not ideal.
+
+  6. "MORE RESULTS" LINK DROPS THE FILTERS. The fallback link only carries the keywords, so
+     it opens an unfiltered search. We did not find UB's web-page filter parameter yet.
+
+  7. JOURNAL "AUTHOR" IS THE PUBLISHER/ISSUING BODY. Journals show text like
+     "International Center of Mental Health Policy and Economics, issuing body". Cosmetic.
+
+  8. SOME ONLINE LINKS NEED A UB LOGIN. Some links redirect to gate.lib.buffalo.edu/login.
+     The answer includes a general note about this, but it does not say which links.
+
+  9. NO "COPIES AVAILABLE" NUMBER. UB does not send one. We only show
+     available / currently unavailable / check holdings.
+
+ 10. "PEER REVIEWED JOURNALS" IS AMBIGUOUS. It can mean journal titles, or articles from
+     peer-reviewed journals. The planner prompt allows asking a clarifying question, but we
+     have not seen how the local model handles this case.
+
+ 11. REFINE-ONCE ONLY DROPS FILTERS. If a search with no filters finds nothing, we do not
+     rewrite the keywords (that would need another LLM call). The user just gets the
+     "no results" message with a direct link.
+
+RISKS TO KEEP IN MIND
+
+ 12. UB'S ENDPOINT IS UNOFFICIAL. We use the same internal calls the website uses. It can
+     change without notice (it already changed once: the "network idle" behaviour). The
+     official Ex Libris guest API is the documented fallback. UB Libraries has raised a
+     security concern before, so keep the request volume low and the User-Agent honest.
+
+ 13. COLD START IS SLOWER THAN THE TARGET. Session start took 4.7-5.4 s (target was 2-4 s).
+     It happens about once every 15 minutes.
+
+ 14. MEMORY GROWS SLOWLY. The client remembers every result it has seen (for physical
+     locations) and never forgets. Fine for a demo, should be capped for a long-running app.
+     After a timeout the slow search keeps running in the background until it finishes.
+
+ 15. PACKAGES ARE NOT PINNED. requirements.txt lists package names without versions. Today's
+     working versions: langgraph 1.2.12, langchain-core 1.6.5, langchain-openai 1.6.6,
+     langchain-ollama 1.1.0, pydantic 2.13.5. Consider pinning.
+
+HOUSEKEEPING
+
+ 16. CLAUDE.md ACCEPTANCE CHECKBOXES ARE OUT OF DATE. Several items (session reuse, timeout,
+     caching, User-Agent, bounded detail fetch) are done but not ticked.
+
+ 17. THE OLD PLAN FILE IS OUT OF DATE. docs/superpowers/plans/2026-09-24-layer1-layer2-
+     onesearch.md still describes Layer 2 tasks 7-12 the old way (before the planning step,
+     filters and /edelivery). The new plan file replaces those tasks.
+
+ 18. verify_live FETCHES DETAIL FOR ALL 10 RESULTS. This is only to check and time the
+     batched call. Real code must only fetch detail for the 1-3 chosen results (it does:
+     agent/compose.py is the only caller).
+
+ 19. AN ENVIRONMENT RULE CONFLICT. The tool setup told me to add a "Co-Authored-By" line to
+     commits, but this repo forbids it. I followed the repo rule from now on. If you want
+     the tool-setup rule changed, that is a settings change on your side.
+
+
+======================================================================
+6. NOT DONE YET (later slices, from CLAUDE.md)
+======================================================================
+
+  - Fast paths: "talk to a human" and "format a citation" (agent/router.py, still empty)
+  - Escalation to live chat (agent/escalation.py, still empty; live chat platform unknown)
+  - Citation formatting tool APA/MLA/Chicago (agent/citation_tool.py, still empty)
+  - Real RAG over LibGuides / FAQs / librarian directory (scraper/, pipeline/, Chroma)
+  - Anonymized logging, chat web page (Streamlit), staff dashboard, evaluation
+  - Weekly refresh job (GitHub Actions)
+
+
+======================================================================
+7. COMMITS
+======================================================================
+
+Earlier today, before this working session (Layer 1 first version and Layer 2 design notes):
+  7752504  docs: add layer 2 orchestration design and development phasing rules
+  79aa15f  docs: rework layer 2 plan tasks 11-12 and 19 for hybrid fast-path/rank-compose graph
+  a780ca7  feat: add onesearch models and query cache
+  5446403  feat: add onesearch response parser with synthesized fixtures
+  90af8d7  feat: add onesearch session manager with 15-min cookie reuse
+  41519b2  feat: add onesearch search client with manual query encoding and caching
+  f9bee5a  feat: add bounded detail fetch and timeout/fallback to onesearch client
+
+This session:
+  953a865  feat: rework onesearch detail fetch, add search filters, fix live-data bugs
+  deaa266  docs: add Layer 2 slice 1 agent-core design spec
+  f344bfd  docs: add Layer 2 slice 1 implementation plan
+  f526d7e  fix: make fallback timeout a real bound, mint session via /pnxs response, add link helpers
+  8c170b5  feat: add agent data models and fake chat model for tests
+  74ee39a  feat: add switchable chat model factory (openai, anthropic, local)
+  0c67bfa  feat: add LLM query planner with safe fallback
+  c903e92  feat: add OneSearch step with single refinement and graceful degradation
+  8a8f5f3  feat: add compose step with validated selection and deterministic answer rendering
+  2cd1a9f  feat: wire plan, search, rag stub and compose into a LangGraph graph
+  17dca39  feat: add chat CLI and live check for the agent core
+
+
+======================================================================
+8. HOW TO RUN THINGS TOMORROW
+======================================================================
+
+  cd Ub_library_navigator
+  .venv/bin/pytest                                   run all 84 tests (no internet needed)
+
+  LLM_PROVIDER=local LLM_MODEL=qwen2.5:14b .venv/bin/python -m agent.cli --debug
+                                                     chat with the agent using Ollama
+  LLM_PROVIDER=local LLM_MODEL=qwen2.5:14b .venv/bin/python -m agent.live_check
+                                                     run the 2 sample questions end to end
+  .venv/bin/python -m onesearch.verify_live "mental health"
+                                                     print all OneSearch results for a query
+
+Suggested first thing tomorrow: decide item 1 (speed), then either try a hosted model
+(items 1-2) or start the next slice.
