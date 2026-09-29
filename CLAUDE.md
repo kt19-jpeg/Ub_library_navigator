@@ -289,6 +289,22 @@ dict-merge reducer (`agent/models.py`) to fix this. Also: LangGraph rejects two 
 `add_conditional_edges` calls from the same source node (`Branch with name already exists`); one
 routing function returning `["run_search", "run_rag"]` fans out to both correctly.
 
+**Distance cutoffs are tuned from real embeddings, not the spec's starting guess
+(`agent/rag.py`).** Confirmed live 2026-09-28 against the real 372-record store with 11 test
+queries: `text-embedding-3-small` puts short, formulaic phrases (`"<Subject> subject librarian:
+<Name>"`, `"<Subject> databases (<N> available)"`) much closer together than natural-language
+titles, so one global cutoff doesn't work. Genuine `librarian_subject`/`database_subject` matches
+land at 1.08-1.55 cosine distance, with nonsense queries starting around 1.6; genuine
+`help_topic` matches (varied real titles) land at 0.59-0.79, with irrelevant hits at 1.26+. Final
+values: `LIBRARIAN_SUBJECT: 1.6`, `HELP_TOPIC: 1.1`, `DATABASE_SUBJECT: 1.6` (the spec's original
+`0.5` for all three let almost nothing through). Live check output:
+`docs/rag_live_check_output.txt`.
+
+**`pipeline/refresh.py` needed a `main()` entrypoint the plan omitted.** `python -m
+pipeline.refresh` silently did nothing (no `if __name__ == "__main__":` block existed) until one
+was added; confirmed the gap live before fixing it (the command produced no output and did not
+touch `data/processed/records.json` or `vectorstore/`).
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
