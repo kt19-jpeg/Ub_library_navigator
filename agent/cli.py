@@ -60,9 +60,13 @@ def build_default_graph(provider: str | None = None, model_name: str | None = No
     from onesearch.cache import QueryCache
     from onesearch.client import OneSearchClient
     from onesearch.session import SessionManager
+    from pipeline.embed import open_rag_collection
 
     client = OneSearchClient(session_manager=SessionManager(), cache=QueryCache(ttl_seconds=300))
-    return build_graph(model, client)
+    # None (no OPENAI_API_KEY, or `python pipeline/refresh.py` hasn't been run yet)
+    # is fine: build_graph then always returns an empty RagContext for this chat.
+    collection = open_rag_collection()
+    return build_graph(model, client, collection=collection)
 
 
 def main(argv: list[str] | None = None) -> int:
