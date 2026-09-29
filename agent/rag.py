@@ -9,12 +9,21 @@ RAG_TOP_K = {
     HELP_TOPIC: 3,
     DATABASE_SUBJECT: 2,
 }
-# Cosine distance from text-embedding-3-small; a starting point, tuned against real
-# queries with agent/rag_live_check.py before this slice is considered done.
+# Cosine distance from text-embedding-3-small. Tuned against real embeddings of the
+# live 2026-09-28 data (372 records) with 11 test queries via agent/rag_live_check.py
+# and a throwaway distance dump. text-embedding-3-small puts unrelated short phrases
+# much closer together than word2vec-era intuition suggests, so these thresholds are
+# per-type, not one global value:
+#   - help_topic: real titles are natural-language and varied, so genuine matches
+#     cluster low (0.59-0.79) with clear separation from irrelevant hits (1.26+).
+#   - librarian_subject / database_subject: entries are short, formulaic phrases
+#     ("<Subject> subject librarian: <Name>", "<Subject> databases (<N> available)"),
+#     so even unrelated pairs sit close together; genuine matches ranged 1.08-1.55,
+#     nonsense queries ("xylophone repair") started at 1.6. Cutoffs sit at that gap.
 RAG_DISTANCE_CUTOFF = {
-    LIBRARIAN_SUBJECT: 0.5,
-    HELP_TOPIC: 0.5,
-    DATABASE_SUBJECT: 0.5,
+    LIBRARIAN_SUBJECT: 1.6,
+    HELP_TOPIC: 1.1,
+    DATABASE_SUBJECT: 1.6,
 }
 
 

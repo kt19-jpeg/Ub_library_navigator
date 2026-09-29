@@ -87,3 +87,20 @@ def refresh_all(
     for record in new_records:
         counts[record.type] = counts.get(record.type, 0) + 1
     return RefreshResult(counts=counts, warnings=warnings)
+
+
+def main() -> int:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    result = refresh_all()
+    print(f"counts: {result.counts}")
+    for warning in result.warnings:
+        print(f"warning: {warning}")
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.exit(main())

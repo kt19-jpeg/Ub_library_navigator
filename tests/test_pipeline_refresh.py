@@ -123,3 +123,17 @@ def test_missing_embedding_key_still_writes_the_snapshot(tmp_path, monkeypatch):
     assert any("embedding sync skipped" in w for w in result.warnings)
     from pipeline.snapshot import load_snapshot
     assert load_snapshot(tmp_path / "records.json") == []
+
+
+def test_main_prints_counts_and_warnings_and_returns_zero(monkeypatch, capsys):
+    from pipeline.refresh import RefreshResult, main
+
+    monkeypatch.setattr("pipeline.refresh.refresh_all", lambda: RefreshResult(
+        counts={"help_topic": 1}, warnings=["something to note"]
+    ))
+    monkeypatch.setattr("dotenv.load_dotenv", lambda *a, **k: None)
+
+    assert main() == 0
+    out = capsys.readouterr().out
+    assert "help_topic" in out
+    assert "something to note" in out
