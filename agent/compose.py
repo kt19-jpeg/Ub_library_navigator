@@ -1,6 +1,6 @@
 import json
 
-from agent.models import AgentState, Selection, SelectionItem
+from agent.models import AgentState, RagContext, Selection, SelectionItem
 from onesearch.client import OneSearchClient
 from onesearch.models import ResourceDetail, SearchCandidate
 
@@ -40,13 +40,24 @@ def _candidate_view(candidate: SearchCandidate) -> dict:
     }
 
 
+def _rag_summary(rag_context: RagContext) -> dict:
+    """Compact, JSON-able view of the RAG hits for the compose prompt: titles only,
+    no URLs (the LLM never writes links; render_rag_sections does that from the
+    real Record objects)."""
+    return {
+        "subject_librarians": [r.metadata.get("subject") for r in rag_context.librarians],
+        "help_pages": [r.metadata.get("title") for r in rag_context.help_topics],
+        "database_subjects": [r.metadata.get("subject") for r in rag_context.databases],
+    }
+
+
 def select_results(
-    model, role: str, message: str, candidates: list[SearchCandidate], rag_context: list
+    model, role: str, message: str, candidates: list[SearchCandidate], rag_context: RagContext
 ) -> Selection:
     """LLM call: choose which candidates to show. Raises if the model fails."""
     lines = [f"role: {role}", f"request: {message}"]
-    if rag_context:
-        lines.append("library guide context: " + json.dumps(rag_context, default=str))
+    if not rag_context.is_empty():
+        lines.append("library guide context: " + json.dumps(_rag_summary(rag_context)))
     lines.append("candidates:")
     lines.extend(json.dumps(_candidate_view(c)) for c in candidates)
     structured = model.with_structured_output(Selection)
@@ -100,6 +111,7 @@ def render_answer(
     keywords: str,
     notes: list[str],
     client: OneSearchClient,
+    rag_context: RagContext,
 ) -> str:
     by_id = {c.record_id: c for c in candidates}
     out = [f'Here is what I found for "{keywords}":']
@@ -121,13 +133,43 @@ def render_answer(
     if any_online:
         out.append("Some online resources ask you to log in with your UB credentials.")
     out.append(f"More results: {client.fallback_link(keywords)}")
+    rag_lines = render_rag_sections(rag_context)
+    if rag_lines:
+        out.append("")
+        out.extend(rag_lines)
     return "\n".join(out)
 
 
-def _render_no_answer(headline: str, notes: list[str], more_link: str) -> str:
+def render_rag_sections(rag_context: RagContext) -> list[str]:
+    """The library-guide footer: subject librarian, helpful pages, database browse
+    link. Code-rendered from real Record metadata, same rule as the rest of this
+    module - the LLM never writes a link or a name here."""
+    out: list[str] = []
+    if rag_context.librarians:
+        top = rag_context.librarians[0]
+        names = ", ".join(l["name"] for l in top.metadata["librarians"])
+        urls = ", ".join(l["profile_url"] for l in top.metadata["librarians"])
+        out.append(f"Subject librarian: {names} - {urls}")
+    if rag_context.help_topics:
+        out.append("Helpful pages:")
+        for topic in rag_context.help_topics[:2]:
+            out.append(f"- {topic.metadata['title']}: {topic.metadata['url']}")
+    if rag_context.databases:
+        top = rag_context.databases[0]
+        out.append(f"Browse databases in {top.metadata['subject']}: {top.metadata['browse_url']}")
+    return out
+
+
+def _render_no_answer(
+    headline: str, notes: list[str], more_link: str, rag_context: RagContext
+) -> str:
     out = [headline]
     out.extend(f"Note: {n}" for n in notes)
     out.append(f"You can browse the full OneSearch results here: {more_link}")
+    rag_lines = render_rag_sections(rag_context)
+    if rag_lines:
+        out.append("")
+        out.extend(rag_lines)
     return "\n".join(out)
 
 
@@ -138,17 +180,18 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     result = state["search_result"]
     candidates = result.candidates
     notes = list(state.get("notes", []))
+    rag_context = state.get("rag_context") or RagContext()
     more_link = result.fallback_link or client.fallback_link(plan.keywords)
 
     if not candidates:
         answer = _render_no_answer(
-            f'I could not find results for "{plan.keywords}".', notes, more_link
+            f'I could not find results for "{plan.keywords}".', notes, more_link, rag_context
         )
         return {"selection": [], "details": {}, "answer": answer}
 
     try:
         selection = select_results(
-            model, state["role"], state["message"], candidates, state.get("rag_context", [])
+            model, state["role"], state["message"], candidates, rag_context
         )
         items = validate_selection(selection.items, candidates)
         confidence = selection.confidence
@@ -159,7 +202,7 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
 
     if confidence == "low" or not items:
         answer = _render_no_answer(
-            "I am not confident I found a good match for that.", notes, more_link
+            "I am not confident I found a good match for that.", notes, more_link, rag_context
         )
         return {"selection": [], "details": {}, "answer": answer}
 
@@ -169,5 +212,5 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
         details = {}
         notes.append("I could not load the full access details for these.")
 
-    answer = render_answer(items, candidates, details, plan.keywords, notes, client)
+    answer = render_answer(items, candidates, details, plan.keywords, notes, client, rag_context)
     return {"selection": items, "details": details, "answer": answer}
