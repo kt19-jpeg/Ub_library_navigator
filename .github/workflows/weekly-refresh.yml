@@ -1,8 +1,8 @@
-name: weekly-refresh
+name: refresh
 
 on:
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: "0 6 1,15 * *"
   workflow_dispatch:
 
 jobs:
@@ -18,16 +18,15 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Install Playwright browsers
-        run: playwright install --with-deps chromium
-
-      - name: Run scrape and embed pipeline
+      - name: Run scrape, sanity-check, and embed pipeline
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python pipeline/refresh.py
+        run: python -m pipeline.refresh
 
-      - name: Run evaluation suite
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
-        run: python evaluation/run_ragas.py
+      - name: Open a pull request with the updated snapshot
+        uses: peter-evans/create-pull-request@v6
+        with:
+          add-paths: data/processed/records.json
+          commit-message: "chore: refresh library-guide data snapshot"
+          title: "Scheduled library-guide data refresh"
+          branch: automated/data-refresh

@@ -17,6 +17,18 @@ Providers: `LLM_PROVIDER=openai|anthropic|local`, `LLM_MODEL=...`. For `anthropi
 
 Example with Ollama: `LLM_PROVIDER=local LLM_MODEL=qwen2.5:14b .venv/bin/python -m agent.cli --debug`
 
+## Refresh the library-guide data (optional, for RAG)
+
+```bash
+.venv/bin/python -m pipeline.refresh          # fetch, parse, snapshot, embed
+.venv/bin/python -m agent.rag_live_check      # spot-check retrieval
+```
+
+Needs `OPENAI_API_KEY` for embeddings. Without it, `pipeline/refresh.py` still updates
+`data/processed/records.json` and just skips the embedding step; the chat agent runs fine with
+no library-guide data at all, it just won't have a "Subject librarian" / "Helpful pages" /
+"Browse databases" footer on its answers.
+
 ## Tests
 
 ```bash
