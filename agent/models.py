@@ -1,8 +1,10 @@
-from typing import Literal, TypedDict
+import operator
+from typing import Annotated, Literal, TypedDict
 
 from pydantic import BaseModel, Field
 
 from onesearch.models import ResourceDetail, SearchResult
+from pipeline.records import Record
 
 ROLES = ("undergraduate", "graduate", "faculty")
 
@@ -44,15 +46,33 @@ class Selection(BaseModel):
     )
 
 
+class RagContext(BaseModel):
+    """Library-guide hits added alongside OneSearch results. Each list is already
+    filtered by distance cutoff and capped, sorted best-first."""
+
+    model_config = {"arbitrary_types_allowed": True}
+
+    librarians: list[Record] = Field(default_factory=list)
+    help_topics: list[Record] = Field(default_factory=list)
+    databases: list[Record] = Field(default_factory=list)
+
+    def is_empty(self) -> bool:
+        return not (self.librarians or self.help_topics or self.databases)
+
+
+def merge_timings(current: dict, new: dict) -> dict:
+    return {**current, **new}
+
+
 class AgentState(TypedDict, total=False):
     role: str
     message: str
     history: list[dict]  # [{"user": str, "assistant": str}], most recent last
     plan: QueryPlan
     search_result: SearchResult
-    rag_context: list
+    rag_context: RagContext
     selection: list[SelectionItem]
     details: dict[str, ResourceDetail]
     answer: str
-    notes: list[str]
-    timings: dict[str, float]
+    notes: Annotated[list[str], operator.add]
+    timings: Annotated[dict[str, float], merge_timings]
