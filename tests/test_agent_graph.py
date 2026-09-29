@@ -55,7 +55,7 @@ def test_full_turn_plans_searches_and_composes():
     assert "Core journal in the field." in out["answer"]
     assert out["plan"].resource_type == "journals"
     assert set(out["timings"]) == {"plan", "search", "rag", "compose"}
-    assert out["rag_context"] == []
+    assert out["rag_context"] is None  # no collection passed to build_graph in this test
 
 
 def test_clarifying_question_ends_the_turn_before_searching():
@@ -84,3 +84,34 @@ def test_planner_failure_still_produces_an_answer():
         "mental health help", resource_type=None, peer_reviewed=False
     )
     assert "Community Mental Health Journal" in out["answer"]
+
+
+def test_rag_hits_flow_through_to_the_final_answer(tmp_path):
+    import chromadb
+
+    from pipeline.embed import COLLECTION_NAME, sync_collection
+    from pipeline.records import LIBRARIAN_SUBJECT, Record
+    from tests.fake_embeddings import FakeEmbeddingFunction
+
+    client_ = chromadb.PersistentClient(path=str(tmp_path))
+    collection = client_.get_or_create_collection(COLLECTION_NAME, embedding_function=FakeEmbeddingFunction())
+    sync_collection(
+        [Record(id="librarian:mental-health", type=LIBRARIAN_SUBJECT, text="mental health", metadata={
+            "subject": "Mental Health", "librarians": [{"name": "Doe, Jane", "profile_url": "https://staff/doe"}]
+        })],
+        collection,
+    )
+    import agent.rag as rag_module
+    for t in rag_module.RAG_DISTANCE_CUTOFF:
+        rag_module.RAG_DISTANCE_CUTOFF[t] = 999.0  # fake embeddings aren't semantic; see tests/test_agent_rag.py
+
+    model = FakeChatModel(
+        QueryPlan(keywords="mental health", resource_type="journals", peer_reviewed=True),
+        Selection(items=[SelectionItem(record_id="j1", reason="Core journal in the field.")], confidence="high"),
+    )
+    graph = build_graph(model, _client(), collection=collection)
+
+    out = graph.invoke({"role": "graduate", "message": "mental health journals", "history": []})
+
+    assert out["rag_context"].librarians[0].metadata["subject"] == "Mental Health"
+    assert "Subject librarian: Doe, Jane - https://staff/doe" in out["answer"]

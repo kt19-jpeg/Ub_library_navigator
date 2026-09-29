@@ -235,6 +235,76 @@ this integration uses an undocumented endpoint at the same access level as
 an anonymous browser visit, rate-limited and monitored, with a sanctioned
 fallback identified if needed.
 
+## Layer 2, slice 2: RAG data pipeline (built)
+
+A small, structured knowledge base built from 3 curated UB Libraries pages, embedded in Chroma,
+and queried in parallel with OneSearch so an answer can point to "who can help" and "where to
+look" even when OneSearch finds nothing. Full design:
+`docs/superpowers/specs/2026-09-27-rag-data-pipeline-design.md`. Implementation plan:
+`docs/superpowers/plans/2026-09-27-rag-data-pipeline.md`.
+
+**The 3 sources** (fixed list, not a site crawl, `pipeline/sources.py`):
+
+| Source | URL | Yields |
+|---|---|---|
+| Subject librarians | `library.buffalo.edu/help-support/askalibrarian/inperson/bysubject.html` | subject -> librarian name(s) + profile URL (confirmed live 2026-09-27: 132 records) |
+| Help A-Z | `library.buffalo.edu/help/browse.html?title=` | topic title -> URL, an index only, not page content (157 records) |
+| Databases A-Z | `research.lib.buffalo.edu/az.php` | subject category -> database count; the per-database list itself is loaded by JS from an endpoint `robots.txt` disallows, so only categories are indexed, not individual databases (83 records) |
+
+Contact details are never stored: a librarian record holds only `name` + `profile_url`, and the
+user follows the link for current email/phone. This also means no personal contact data is stored
+by this pipeline at all.
+
+**A real bug in Python's standard library, found and worked around (`scraper/fetch.py`):**
+`urllib.robotparser` reconstructs each `Disallow` rule through `urlparse`/`urlunparse`, which
+silently drops a bare trailing `"?"`. UB's real `research.lib.buffalo.edu/robots.txt` has
+`Disallow: /az.php?` (block only the query-string form used by the site's own AJAX calls);
+`urllib.robotparser` turns that into the rule `/az.php` and would wrongly block the bare page this
+pipeline needs. Confirmed live 2026-09-27. `scraper/fetch.py` reads the `User-agent: *` group's
+`Disallow` lines itself and does a literal prefix match instead, which gets this right (fetching
+the bare `az.php` succeeds; `/az.php?subject=...` is still correctly blocked). Every fetch also
+waits 10s between requests to the same host and sends the same identifying User-Agent as Layer 1.
+
+**Update safety (`pipeline/refresh.py`):** each of the 3 sources is refreshed independently. A
+failed fetch, or a parse that returns under half the previous record count (a likely layout
+change, not real data loss), keeps that source's old records unchanged and records a warning —
+never wipes data. A real update fully replaces that source's records, so entries that actually
+disappeared are removed too. The merged result is written to the committed, sorted
+`data/processed/records.json` (so a refresh's diff is readable) and synced into Chroma
+(`pipeline/embed.py`), which only re-embeds records whose content actually changed.
+
+**Retrieval (`agent/rag.py`) degrades silently:** no `OPENAI_API_KEY`, no Chroma store built yet,
+or a query failure all give an empty `RagContext`, never an exception — the chat agent (and its
+OneSearch results) keep working with zero library-guide data. The chat model (`LLM_PROVIDER`,
+e.g. `local` via Ollama) and the embedding backend (always OpenAI's `text-embedding-3-small`,
+`pipeline/embed.py`) are independent: you can run planning/compose entirely on a local model and
+still need `OPENAI_API_KEY` only for the embedding step.
+
+**A real LangGraph gotcha, confirmed directly before relying on it (`agent/graph.py`):** the
+graph now runs `search` and `rag` in parallel (`plan -> {search, rag} -> compose`, was strictly
+sequential in slice 1). Two nodes in the same step both write `state["notes"]` and
+`state["timings"]`; without a merge reducer, LangGraph raises `InvalidUpdateError` on the second
+write. `AgentState.notes` gets `Annotated[list[str], operator.add]` and `.timings` gets a small
+dict-merge reducer (`agent/models.py`) to fix this. Also: LangGraph rejects two separate
+`add_conditional_edges` calls from the same source node (`Branch with name already exists`); one
+routing function returning `["run_search", "run_rag"]` fans out to both correctly.
+
+**Distance cutoffs are tuned from real embeddings, not the spec's starting guess
+(`agent/rag.py`).** Confirmed live 2026-09-28 against the real 372-record store with 11 test
+queries: `text-embedding-3-small` puts short, formulaic phrases (`"<Subject> subject librarian:
+<Name>"`, `"<Subject> databases (<N> available)"`) much closer together than natural-language
+titles, so one global cutoff doesn't work. Genuine `librarian_subject`/`database_subject` matches
+land at 1.08-1.55 cosine distance, with nonsense queries starting around 1.6; genuine
+`help_topic` matches (varied real titles) land at 0.59-0.79, with irrelevant hits at 1.26+. Final
+values: `LIBRARIAN_SUBJECT: 1.6`, `HELP_TOPIC: 1.1`, `DATABASE_SUBJECT: 1.6` (the spec's original
+`0.5` for all three let almost nothing through). Live check output:
+`docs/rag_live_check_output.txt`.
+
+**`pipeline/refresh.py` needed a `main()` entrypoint the plan omitted.** `python -m
+pipeline.refresh` silently did nothing (no `if __name__ == "__main__":` block existed) until one
+was added; confirmed the gap live before fixing it (the command produced no output and did not
+touch `data/processed/records.json` or `vectorstore/`).
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

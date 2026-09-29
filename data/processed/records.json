@@ -1,0 +1,4621 @@
+[
+  {
+    "id": "db:african-african-american-studies",
+    "type": "database_subject",
+    "text": "African & African American Studies databases (17 available)",
+    "metadata": {
+      "subject": "African & African American Studies",
+      "count": 17,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "9d2f670ac133960dcc2dc820e92808edea5b51f379e9a32e419e55ce86a366be"
+  },
+  {
+    "id": "db:american-studies",
+    "type": "database_subject",
+    "text": "American Studies databases (24 available)",
+    "metadata": {
+      "subject": "American Studies",
+      "count": 24,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "8871c326d841ebed1e8810b05d2ccd23578d9ddf320519f27a448241b4ba776e"
+  },
+  {
+    "id": "db:anatomy",
+    "type": "database_subject",
+    "text": "Anatomy databases (5 available)",
+    "metadata": {
+      "subject": "Anatomy",
+      "count": 5,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "425deed66e98093cd0eeb6c95e379733ee79dfdd58f0802c81b2878c18639add"
+  },
+  {
+    "id": "db:anthropology",
+    "type": "database_subject",
+    "text": "Anthropology databases (10 available)",
+    "metadata": {
+      "subject": "Anthropology",
+      "count": 10,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "022be6a8a221da5ab2d9d7fbcb9492780150868ca6ed97007c79154df1e41394"
+  },
+  {
+    "id": "db:archaeology",
+    "type": "database_subject",
+    "text": "Archaeology databases (9 available)",
+    "metadata": {
+      "subject": "Archaeology",
+      "count": 9,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "838a9294f3ba41125b4504e870f2491f1a7b8f3c730dd5d3c863071d97d419d8"
+  },
+  {
+    "id": "db:architecture-planning",
+    "type": "database_subject",
+    "text": "Architecture & Planning databases (11 available)",
+    "metadata": {
+      "subject": "Architecture & Planning",
+      "count": 11,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "50f7504d7d00237481dbf26562521b7432c1abda8dc6b1602fde1954b706bd2b"
+  },
+  {
+    "id": "db:art",
+    "type": "database_subject",
+    "text": "Art databases (16 available)",
+    "metadata": {
+      "subject": "Art",
+      "count": 16,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "a9cde3b6d3ede91c5a12348c981bc1ccfc8d22cba0bca037bc4046c4c999e399"
+  },
+  {
+    "id": "db:art-history",
+    "type": "database_subject",
+    "text": "Art History databases (9 available)",
+    "metadata": {
+      "subject": "Art History",
+      "count": 9,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "98fefb38c259bf7aeaa7d78873b4912412c0a0d4cd3d82b3dd827aac5451d089"
+  },
+  {
+    "id": "db:asian-studies",
+    "type": "database_subject",
+    "text": "Asian Studies databases (16 available)",
+    "metadata": {
+      "subject": "Asian Studies",
+      "count": 16,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "28ce8dbea2ad6477c7ca5d741f921719fdc59220537b01e03099bfa3ff325922"
+  },
+  {
+    "id": "db:astronomy-astrophysics",
+    "type": "database_subject",
+    "text": "Astronomy / Astrophysics databases (4 available)",
+    "metadata": {
+      "subject": "Astronomy / Astrophysics",
+      "count": 4,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "a1f241ec2ae320a566914b364546938b42eda727814275dd32053b7b322af131"
+  },
+  {
+    "id": "db:bioinformatics",
+    "type": "database_subject",
+    "text": "Bioinformatics databases (19 available)",
+    "metadata": {
+      "subject": "Bioinformatics",
+      "count": 19,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "65e5537ee467159c3799ad89c078655823f93c024fa64e8e7fc51a73a0c9abe9"
+  },
+  {
+    "id": "db:biological-sciences",
+    "type": "database_subject",
+    "text": "Biological Sciences databases (22 available)",
+    "metadata": {
+      "subject": "Biological Sciences",
+      "count": 22,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "a79b6fd7de9628754218c45ed667a58d750acf20b5de0159e03f628e03878ec8"
+  },
+  {
+    "id": "db:biomedical-databases",
+    "type": "database_subject",
+    "text": "Biomedical Databases databases (107 available)",
+    "metadata": {
+      "subject": "Biomedical Databases",
+      "count": 107,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "996854365034cff61b207b2844756d06996c7e49eb0b190c924bcaeec13917c4"
+  },
+  {
+    "id": "db:biomedical-sciences",
+    "type": "database_subject",
+    "text": "Biomedical Sciences databases (39 available)",
+    "metadata": {
+      "subject": "Biomedical Sciences",
+      "count": 39,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "ce51ca93d24dbc3fb70c685d09b36acb56ac8e0142fa874626a48c0ed0db2c4b"
+  },
+  {
+    "id": "db:buffalo-ny",
+    "type": "database_subject",
+    "text": "Buffalo, NY databases (4 available)",
+    "metadata": {
+      "subject": "Buffalo, NY",
+      "count": 4,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "60d1a84cbdcb2b202f2cb2faf2ccd1bd6cfd4198778eebabaab1ea5ba23f0395"
+  },
+  {
+    "id": "db:business-management",
+    "type": "database_subject",
+    "text": "Business & Management databases (37 available)",
+    "metadata": {
+      "subject": "Business & Management",
+      "count": 37,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "2ff59e9fb5accd9a8f152f7b2b8c4103721590d0a6ea1e2e7651ba7e3e2be4f7"
+  },
+  {
+    "id": "db:chemistry",
+    "type": "database_subject",
+    "text": "Chemistry databases (32 available)",
+    "metadata": {
+      "subject": "Chemistry",
+      "count": 32,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "e2c2bb41172718d70977185397365c976db1ce8653eecfcb99993d7989cfbd8f"
+  },
+  {
+    "id": "db:classics",
+    "type": "database_subject",
+    "text": "Classics databases (14 available)",
+    "metadata": {
+      "subject": "Classics",
+      "count": 14,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "0787a57bca7ad0b8442fb251295bae119224c0ed0c3a0700043b5e9448b30d9e"
+  },
+  {
+    "id": "db:communication",
+    "type": "database_subject",
+    "text": "Communication databases (9 available)",
+    "metadata": {
+      "subject": "Communication",
+      "count": 9,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "f1759d4dcbe10ede5cbad6d61a78c21a76edf8ecfaa331e5340162034ed2cedc"
+  },
+  {
+    "id": "db:communicative-disorders",
+    "type": "database_subject",
+    "text": "Communicative Disorders databases (1 available)",
+    "metadata": {
+      "subject": "Communicative Disorders",
+      "count": 1,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "6dfac435dbc6f2db2d1c44c5860aa1018162e788e617576b5b39c1311e6a9719"
+  },
+  {
+    "id": "db:comparative-literature",
+    "type": "database_subject",
+    "text": "Comparative Literature databases (109 available)",
+    "metadata": {
+      "subject": "Comparative Literature",
+      "count": 109,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "a19fbb44709e2dc26041e6681aa6f4f91c27fa1436c6fefe69ed0c364c9c5c04"
+  },
+  {
+    "id": "db:complementary-medicine",
+    "type": "database_subject",
+    "text": "Complementary Medicine databases (4 available)",
+    "metadata": {
+      "subject": "Complementary Medicine",
+      "count": 4,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "d7f88ebea12952a19c4780b63b72eaf735452f5382fdb4cceadf4c12f20de268"
+  },
+  {
+    "id": "db:computer-science",
+    "type": "database_subject",
+    "text": "Computer Science databases (30 available)",
+    "metadata": {
+      "subject": "Computer Science",
+      "count": 30,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "3081530e6c3e73be510047f51aa24e750b60de95735ae283767065aaa59fd508"
+  },
+  {
+    "id": "db:consumer-health",
+    "type": "database_subject",
+    "text": "Consumer Health databases (9 available)",
+    "metadata": {
+      "subject": "Consumer Health",
+      "count": 9,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "27abf80050acf289d0e20918f4910c4f39b1eea118097fdaef90c88db157b829"
+  },
+  {
+    "id": "db:dance",
+    "type": "database_subject",
+    "text": "Dance databases (9 available)",
+    "metadata": {
+      "subject": "Dance",
+      "count": 9,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "701afd297de5843456270ae08794da0dea61a63c06f852b68368d645ddf688fe"
+  },
+  {
+    "id": "db:dental-medicine",
+    "type": "database_subject",
+    "text": "Dental Medicine databases (15 available)",
+    "metadata": {
+      "subject": "Dental Medicine",
+      "count": 15,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "e60c280788093b233f60f27d1179de02b059144ea969d561a918e7959f5c6e89"
+  },
+  {
+    "id": "db:digital-scholarship",
+    "type": "database_subject",
+    "text": "Digital Scholarship databases (2 available)",
+    "metadata": {
+      "subject": "Digital Scholarship",
+      "count": 2,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "e1ad7552be84da947ba72ac22cd40a20aff4db799d38efeb8084d5a707930092"
+  },
+  {
+    "id": "db:ecology-environment",
+    "type": "database_subject",
+    "text": "Ecology & Environment databases (16 available)",
+    "metadata": {
+      "subject": "Ecology & Environment",
+      "count": 16,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "b2f92dacac83121a901dfe3fa9f3ddd16a2e869d1f75ab1e8c8a216fe539fc20"
+  },
+  {
+    "id": "db:economics",
+    "type": "database_subject",
+    "text": "Economics databases (23 available)",
+    "metadata": {
+      "subject": "Economics",
+      "count": 23,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "aee1cbd2346ef08b27a751acac253f3bda205d2a9a70c320433723bd65fcffdf"
+  },
+  {
+    "id": "db:education",
+    "type": "database_subject",
+    "text": "Education databases (7 available)",
+    "metadata": {
+      "subject": "Education",
+      "count": 7,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "658ecd228c4f9e4e552d5a2be3565cb268cf45a7fbe2a4e214d68bd7879d12b8"
+  },
+  {
+    "id": "db:engineering-computer-science",
+    "type": "database_subject",
+    "text": "Engineering & Computer Science databases (50 available)",
+    "metadata": {
+      "subject": "Engineering & Computer Science",
+      "count": 50,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "69015d42d73ac033e35b1a63251843077db8628e4685fe54329be6c294fb8bcb"
+  },
+  {
+    "id": "db:english",
+    "type": "database_subject",
+    "text": "English databases (38 available)",
+    "metadata": {
+      "subject": "English",
+      "count": 38,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "9ca9260d0ebe70c12f9aa19e45eb9ee93f69c406c80fe89e86b1e78395aaa349"
+  },
+  {
+    "id": "db:entrepreneurship",
+    "type": "database_subject",
+    "text": "Entrepreneurship databases (13 available)",
+    "metadata": {
+      "subject": "Entrepreneurship",
+      "count": 13,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "75d8288f160b0c3b0feb5102ac552638e7e804ddfc1581e7f4114faa24d28814"
+  },
+  {
+    "id": "db:epidemiology",
+    "type": "database_subject",
+    "text": "Epidemiology databases (5 available)",
+    "metadata": {
+      "subject": "Epidemiology",
+      "count": 5,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "5721c9b676434e809adad2c3da81bc8de7416e4c2e505adf3bd7caed5fd7eff4"
+  },
+  {
+    "id": "db:film-media-studies",
+    "type": "database_subject",
+    "text": "Film & Media Studies databases (12 available)",
+    "metadata": {
+      "subject": "Film & Media Studies",
+      "count": 12,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "4b13cde8c1e8d9f2b14d0eaf9469de2c90c1b6ba20026be5d939bda5ac4f93d5"
+  },
+  {
+    "id": "db:french",
+    "type": "database_subject",
+    "text": "French databases (50 available)",
+    "metadata": {
+      "subject": "French",
+      "count": 50,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "bb5c1f99434e68b3e213a7d43af86cf57f0f0a30e0ecf1ab7a16edf385a784d8"
+  },
+  {
+    "id": "db:gender-and-sexuality",
+    "type": "database_subject",
+    "text": "Gender and Sexuality databases (14 available)",
+    "metadata": {
+      "subject": "Gender and Sexuality",
+      "count": 14,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "97bfbec3672bc75c6f9242f6d5ab1c9b6f808d5dfe46034d2d8fba2fac985f96"
+  },
+  {
+    "id": "db:genomics",
+    "type": "database_subject",
+    "text": "Genomics databases (16 available)",
+    "metadata": {
+      "subject": "Genomics",
+      "count": 16,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "74668061d705f52e03784c992657aab139d079c68fb6f441b9f88fcbe00c42f2"
+  },
+  {
+    "id": "db:geography",
+    "type": "database_subject",
+    "text": "Geography databases (11 available)",
+    "metadata": {
+      "subject": "Geography",
+      "count": 11,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "f77939f63135443d9a9d25f07449e57e2ba4419e5cab19727ef85e0c9c515d57"
+  },
+  {
+    "id": "db:geology",
+    "type": "database_subject",
+    "text": "Geology databases (15 available)",
+    "metadata": {
+      "subject": "Geology",
+      "count": 15,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "35e65dc22c6bb1049814391b65b49752bdcadd70b477318d7e446bbefc6ad606"
+  },
+  {
+    "id": "db:global-gender-studies",
+    "type": "database_subject",
+    "text": "Global Gender Studies databases (2 available)",
+    "metadata": {
+      "subject": "Global Gender Studies",
+      "count": 2,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "153eac52667d34605b35b8bc42515d5a34d4f628ffacd57dcbce0593cd77437f"
+  },
+  {
+    "id": "db:government-information",
+    "type": "database_subject",
+    "text": "Government Information databases (1 available)",
+    "metadata": {
+      "subject": "Government Information",
+      "count": 1,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "5be51bae8ab99ebff3fb715308998f2d5ef864e95dbb75ffd0b43875aa3f32b9"
+  },
+  {
+    "id": "db:history",
+    "type": "database_subject",
+    "text": "History databases (72 available)",
+    "metadata": {
+      "subject": "History",
+      "count": 72,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "96fbeb4532fc531762dee3b3d7f2768dd0de0dc4021eff8b43d6508012bada3a"
+  },
+  {
+    "id": "db:indigenous-studies",
+    "type": "database_subject",
+    "text": "Indigenous Studies databases (17 available)",
+    "metadata": {
+      "subject": "Indigenous Studies",
+      "count": 17,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "f8557b610dbdea81f1139a16a8cb8f8b76d5b0a017d05189657b77edcc251933"
+  },
+  {
+    "id": "db:information-science",
+    "type": "database_subject",
+    "text": "Information Science databases (4 available)",
+    "metadata": {
+      "subject": "Information Science",
+      "count": 4,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "16f5d9bc4cea12028d441df02d3922194c69fcf1ab95df7629513649933c2093"
+  },
+  {
+    "id": "db:law",
+    "type": "database_subject",
+    "text": "Law databases (72 available)",
+    "metadata": {
+      "subject": "Law",
+      "count": 72,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "018fda463a1d92d6a4f6520cc038cef6913605449e78179e4acf75ca9de5c95c"
+  },
+  {
+    "id": "db:law-related",
+    "type": "database_subject",
+    "text": "Law-Related databases (37 available)",
+    "metadata": {
+      "subject": "Law-Related",
+      "count": 37,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "28c3fd767b6e5b946d2a87a77803a2f4561613b980cba58fd74b541a9df96d00"
+  },
+  {
+    "id": "db:linguistics",
+    "type": "database_subject",
+    "text": "Linguistics databases (9 available)",
+    "metadata": {
+      "subject": "Linguistics",
+      "count": 9,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "dee11bb85935a32398226acf5160aedc18cacdc90a9dcf29139826e7b232a27c"
+  },
+  {
+    "id": "db:literature",
+    "type": "database_subject",
+    "text": "Literature databases (28 available)",
+    "metadata": {
+      "subject": "Literature",
+      "count": 28,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "751c33f83474d20e8a8494d915a24f65982f34763fd3bb292cf27abce8bd3e93"
+  },
+  {
+    "id": "db:local-history",
+    "type": "database_subject",
+    "text": "Local History databases (2 available)",
+    "metadata": {
+      "subject": "Local History",
+      "count": 2,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "d4ea529a3a039d7b0b17602e3443e35049f6840bec77dd798ac1f90fc98285a9"
+  },
+  {
+    "id": "db:maps",
+    "type": "database_subject",
+    "text": "Maps databases (5 available)",
+    "metadata": {
+      "subject": "Maps",
+      "count": 5,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "c74e8f1ac86608df6884bb43705f56f75d6ec0f6083061a72115a2e67475fb64"
+  },
+  {
+    "id": "db:mathematics",
+    "type": "database_subject",
+    "text": "Mathematics databases (8 available)",
+    "metadata": {
+      "subject": "Mathematics",
+      "count": 8,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "daae321724ae2b1befac1290edbca68b81e71ffc21133cb488a1498d3d878854"
+  },
+  {
+    "id": "db:medicine",
+    "type": "database_subject",
+    "text": "Medicine databases (77 available)",
+    "metadata": {
+      "subject": "Medicine",
+      "count": 77,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "9592675c1418d75c8800f05960f51e60d030c1f80ae2f08a3089817d5586d673"
+  },
+  {
+    "id": "db:music",
+    "type": "database_subject",
+    "text": "Music databases (23 available)",
+    "metadata": {
+      "subject": "Music",
+      "count": 23,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "844ab990cc9070a6ef146b2b5ae00ea316a853f6658b1e7031c59566f984caf3"
+  },
+  {
+    "id": "db:newspapers",
+    "type": "database_subject",
+    "text": "Newspapers databases (12 available)",
+    "metadata": {
+      "subject": "Newspapers",
+      "count": 12,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "36b8cd51322e4c41041b18e746a459cd09f642447cf413027cf1da621be23c7a"
+  },
+  {
+    "id": "db:nursing",
+    "type": "database_subject",
+    "text": "Nursing databases (24 available)",
+    "metadata": {
+      "subject": "Nursing",
+      "count": 24,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "56653f05adaa7490b2df9b040208fa8a0ddd43543792d174b343e75c9f4b41fc"
+  },
+  {
+    "id": "db:occupational-therapy",
+    "type": "database_subject",
+    "text": "Occupational Therapy databases (13 available)",
+    "metadata": {
+      "subject": "Occupational Therapy",
+      "count": 13,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "baa2fe136eeff1350463d37c18a42751eb24aefc5e84271fc33caf2087fe1167"
+  },
+  {
+    "id": "db:patents",
+    "type": "database_subject",
+    "text": "Patents databases (6 available)",
+    "metadata": {
+      "subject": "Patents",
+      "count": 6,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "fa52bccdc3fe557b3b7d1899f96ad9e986b0d6ad6d1b9889ea4987d81140b014"
+  },
+  {
+    "id": "db:pharmaceutical-sciences",
+    "type": "database_subject",
+    "text": "Pharmaceutical Sciences databases (16 available)",
+    "metadata": {
+      "subject": "Pharmaceutical Sciences",
+      "count": 16,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "80b204d82e859888eb9e93c8d3f01fdf822cea90b2cfb5946528a4acdf90fa62"
+  },
+  {
+    "id": "db:pharmacology-and-toxicology",
+    "type": "database_subject",
+    "text": "Pharmacology and Toxicology databases (17 available)",
+    "metadata": {
+      "subject": "Pharmacology and Toxicology",
+      "count": 17,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "4eed57bbbdd3dfcfc284036eea105fe624f657e42990fdd8b7f7a854b15a7e94"
+  },
+  {
+    "id": "db:pharmacy",
+    "type": "database_subject",
+    "text": "Pharmacy databases (19 available)",
+    "metadata": {
+      "subject": "Pharmacy",
+      "count": 19,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "df841a420d2a75ed4768f8042c5f003c0e63a0910e611cbf104308c77d0e5c51"
+  },
+  {
+    "id": "db:philosophy",
+    "type": "database_subject",
+    "text": "Philosophy databases (49 available)",
+    "metadata": {
+      "subject": "Philosophy",
+      "count": 49,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "a9aea7852dd06fcb56f81285f367af80a415c68e4172bba1eeb509fbfed64f42"
+  },
+  {
+    "id": "db:physical-therapy",
+    "type": "database_subject",
+    "text": "Physical Therapy databases (13 available)",
+    "metadata": {
+      "subject": "Physical Therapy",
+      "count": 13,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "3bfa5985a9ba37294ae6d7f758a5a5569d8f25b35569bbab9f4c2e5af2f777c9"
+  },
+  {
+    "id": "db:physics",
+    "type": "database_subject",
+    "text": "Physics databases (30 available)",
+    "metadata": {
+      "subject": "Physics",
+      "count": 30,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "179897cf113d83b57db3776956c010f50f3ff55601b265b0a09e85c41b6b43f7"
+  },
+  {
+    "id": "db:political-science",
+    "type": "database_subject",
+    "text": "Political Science databases (47 available)",
+    "metadata": {
+      "subject": "Political Science",
+      "count": 47,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "9a051bb58d3f5887d95b4a0ccbc16c7f892b9f4174abccdd178a02ebcc4fcf88"
+  },
+  {
+    "id": "db:psychology",
+    "type": "database_subject",
+    "text": "Psychology databases (14 available)",
+    "metadata": {
+      "subject": "Psychology",
+      "count": 14,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "91daa30597c8cc553100d6f9c6b643848f90ccfd7a21b9576c801bf3bcd771bb"
+  },
+  {
+    "id": "db:public-health",
+    "type": "database_subject",
+    "text": "Public Health databases (17 available)",
+    "metadata": {
+      "subject": "Public Health",
+      "count": 17,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "160ff66dc50ae94c5439c15169f0630afa91e12692911d5fe7e88e3b87f68f54"
+  },
+  {
+    "id": "db:rehabilitation-assistive-technology",
+    "type": "database_subject",
+    "text": "Rehabilitation & Assistive Technology databases (11 available)",
+    "metadata": {
+      "subject": "Rehabilitation & Assistive Technology",
+      "count": 11,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "39ddb0c9e20e06c4f907bd659bee58d64c94d1538fa963fe14a186924a616d69"
+  },
+  {
+    "id": "db:religion",
+    "type": "database_subject",
+    "text": "Religion databases (8 available)",
+    "metadata": {
+      "subject": "Religion",
+      "count": 8,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "40e81f84d9a495e8dff29821efea596bab609e3e4e9b908416172ed6b64d7431"
+  },
+  {
+    "id": "db:romance-languages",
+    "type": "database_subject",
+    "text": "Romance Languages databases (11 available)",
+    "metadata": {
+      "subject": "Romance Languages",
+      "count": 11,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "f18c166990db69f83f3307b3370c797ae50e6fd530a8ac6f36b8ee8365ce9cbb"
+  },
+  {
+    "id": "db:science",
+    "type": "database_subject",
+    "text": "Science databases (3 available)",
+    "metadata": {
+      "subject": "Science",
+      "count": 3,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "3d4d7cd0513e9303497fe9c35893a00ad52ac58c8eced17ee9619be5acfcef33"
+  },
+  {
+    "id": "db:social-work",
+    "type": "database_subject",
+    "text": "Social Work databases (31 available)",
+    "metadata": {
+      "subject": "Social Work",
+      "count": 31,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "06ff8d7ad1877e186c5dadeaa64442c2c2a0f8d1071369f538c946a7e4d1b406"
+  },
+  {
+    "id": "db:sociology",
+    "type": "database_subject",
+    "text": "Sociology databases (19 available)",
+    "metadata": {
+      "subject": "Sociology",
+      "count": 19,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "184b50fc1454973b7474c838885e6418abf88d0eafac22ad96e494a18aaf1614"
+  },
+  {
+    "id": "db:spanish",
+    "type": "database_subject",
+    "text": "Spanish databases (50 available)",
+    "metadata": {
+      "subject": "Spanish",
+      "count": 50,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "ad6d0c03cec3c5c8370a7308f7a4c03d0be073f12f0896af1a5f38890b5df3d4"
+  },
+  {
+    "id": "db:sports-medicine",
+    "type": "database_subject",
+    "text": "Sports Medicine databases (12 available)",
+    "metadata": {
+      "subject": "Sports Medicine",
+      "count": 12,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "90f66596578fbcdf43a55b0bb0d8449d6e338d39e61cb2bfc4ce12e7b079540d"
+  },
+  {
+    "id": "db:streaming-media",
+    "type": "database_subject",
+    "text": "Streaming Media databases (9 available)",
+    "metadata": {
+      "subject": "Streaming Media",
+      "count": 9,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "3b5a402625a556cea4fe58faae119ce93bc8cdbda1b324fbaa3fb5967704fcc9"
+  },
+  {
+    "id": "db:streaming-video",
+    "type": "database_subject",
+    "text": "Streaming Video databases (10 available)",
+    "metadata": {
+      "subject": "Streaming Video",
+      "count": 10,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "134634f4b1dc55ed5ffc22d015f80e8d3c1646add5ce46e1870420a918624565"
+  },
+  {
+    "id": "db:sustainability",
+    "type": "database_subject",
+    "text": "Sustainability databases (5 available)",
+    "metadata": {
+      "subject": "Sustainability",
+      "count": 5,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "497d320dd11154153faea51f20e631aab8e86970c420e654f8c8d8bdababd9a4"
+  },
+  {
+    "id": "db:theatre",
+    "type": "database_subject",
+    "text": "Theatre databases (17 available)",
+    "metadata": {
+      "subject": "Theatre",
+      "count": 17,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "837e45c417048395feee2a5d6e51f81b507cdcadf3b799e0b070ef678fc7092c"
+  },
+  {
+    "id": "db:top-biomedical-databases",
+    "type": "database_subject",
+    "text": "Top Biomedical Databases databases (12 available)",
+    "metadata": {
+      "subject": "Top Biomedical Databases",
+      "count": 12,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "e61ab1088afffbf277fea99e544d0d61392c92e06d677628fe6aebeb6cbb2773"
+  },
+  {
+    "id": "db:us-history",
+    "type": "database_subject",
+    "text": "US History databases (88 available)",
+    "metadata": {
+      "subject": "US History",
+      "count": 88,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "867c9312a51e22212bdc54607be037cc3bc0b354a6615d7f54873cd035628d54"
+  },
+  {
+    "id": "db:western-new-york",
+    "type": "database_subject",
+    "text": "Western New York databases (1 available)",
+    "metadata": {
+      "subject": "Western New York",
+      "count": 1,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "ff9665a0f937ed06e9d0236d8f0d1b40f04db9495564bce92a9bd2dd9f59452e"
+  },
+  {
+    "id": "db:world-history",
+    "type": "database_subject",
+    "text": "World History databases (84 available)",
+    "metadata": {
+      "subject": "World History",
+      "count": 84,
+      "browse_url": "https://research.lib.buffalo.edu/az.php"
+    },
+    "content_hash": "745a6a543c5932e406e734bc9454413456202c56bb1a3b95e02f8c5f6e0624cc"
+  },
+  {
+    "id": "help:1capen",
+    "type": "help_topic",
+    "text": "1Capen",
+    "metadata": {
+      "title": "1Capen",
+      "url": "https://www.buffalo.edu/1capen.html"
+    },
+    "content_hash": "5b630898336c0c2fbebd9c629fd941ff1f3b801c999a5ad7c5301282b7d82dac"
+  },
+  {
+    "id": "help:abbott-library",
+    "type": "help_topic",
+    "text": "Abbott Library",
+    "metadata": {
+      "title": "Abbott Library",
+      "url": "https://library.buffalo.edu/abbott"
+    },
+    "content_hash": "b9800cc99f818ceba05b36f38e950e6efe8b3282e7468a5110082d192bbfe284"
+  },
+  {
+    "id": "help:academic-integrity-university-at-buffalo",
+    "type": "help_topic",
+    "text": "Academic Integrity - University at Buffalo",
+    "metadata": {
+      "title": "Academic Integrity - University at Buffalo",
+      "url": "https://www.buffalo.edu/academic-integrity.html"
+    },
+    "content_hash": "dcf37e0c1cb7e76c3b91db3219e708c47125eae3c5ef09c0978be534a7ad9621"
+  },
+  {
+    "id": "help:accessibility-resources",
+    "type": "help_topic",
+    "text": "Accessibility Resources",
+    "metadata": {
+      "title": "Accessibility Resources",
+      "url": "http://www.buffalo.edu/studentlife/who-we-are/departments/accessibility.html"
+    },
+    "content_hash": "a15589de1171cef75891c901ad98ef1bc844ac70d5c7b2af5478b7bb74d82329"
+  },
+  {
+    "id": "help:alumni",
+    "type": "help_topic",
+    "text": "Alumni",
+    "metadata": {
+      "title": "Alumni",
+      "url": "https://library.buffalo.edu/visitors"
+    },
+    "content_hash": "119fb84b34897ada22520bcfc5d7a6805b860692903db7042244180a7ac8d93f"
+  },
+  {
+    "id": "help:arcgis-software-esri",
+    "type": "help_topic",
+    "text": "ArcGIS Software (ESRI)",
+    "metadata": {
+      "title": "ArcGIS Software (ESRI)",
+      "url": "http://research.lib.buffalo.edu/gis-courses"
+    },
+    "content_hash": "34863b125f6048e59ffd3432395d72878fa7234b142939429d44f2d5615de753"
+  },
+  {
+    "id": "help:architecture-planning-library-apl",
+    "type": "help_topic",
+    "text": "Architecture & Planning Library (APL)",
+    "metadata": {
+      "title": "Architecture & Planning Library (APL)",
+      "url": "https://library.buffalo.edu/apl"
+    },
+    "content_hash": "10d097c2b50eb647a62d1ff8217a3cc3164111b298712f7c4e3fd2ead4d1fbc0"
+  },
+  {
+    "id": "help:ask-a-librarian",
+    "type": "help_topic",
+    "text": "Ask A Librarian",
+    "metadata": {
+      "title": "Ask A Librarian",
+      "url": "https://library.buffalo.edu/askalibrarian"
+    },
+    "content_hash": "6fe5a7b7fc99f80a82c01c0e0e7242674d0a242191ad38bf67e6044ab7fc64c2"
+  },
+  {
+    "id": "help:biographical-information",
+    "type": "help_topic",
+    "text": "Biographical Information",
+    "metadata": {
+      "title": "Biographical Information",
+      "url": "http://research.lib.buffalo.edu/biographical-information"
+    },
+    "content_hash": "b95fff5734ca4c4e84e129e89245710c1148f9d112a0d0d1345f6b3cc7052dc3"
+  },
+  {
+    "id": "help:bonnie-and-vern-bullough-history-of-nursing-collection-the",
+    "type": "help_topic",
+    "text": "Bonnie and Vern Bullough History of Nursing Collection, The",
+    "metadata": {
+      "title": "Bonnie and Vern Bullough History of Nursing Collection, The",
+      "url": "https://library.buffalo.edu/specialcollections/historyofmedicine/collections/hom-collections/detail.html?ID=1"
+    },
+    "content_hash": "99c687fd89faba811b12cc977114df67e28dafa7e1727e66ac088b2067f606c9"
+  },
+  {
+    "id": "help:book-reviews",
+    "type": "help_topic",
+    "text": "Book Reviews",
+    "metadata": {
+      "title": "Book Reviews",
+      "url": "http://research.lib.buffalo.edu/book-reviews"
+    },
+    "content_hash": "2b7909838da83a8c4ee9821302ad825966d53804ec4860ad2169670d61ec44b8"
+  },
+  {
+    "id": "help:borrowing-materials-from-the-university-libraries",
+    "type": "help_topic",
+    "text": "Borrowing Materials from the University Libraries",
+    "metadata": {
+      "title": "Borrowing Materials from the University Libraries",
+      "url": "https://library.buffalo.edu/borrowing"
+    },
+    "content_hash": "24ff980cc0029d2b8ecfaa5fb4552a7acfe75f40eb4c8581183b1abd45ba5db8"
+  },
+  {
+    "id": "help:campus-closing",
+    "type": "help_topic",
+    "text": "Campus closing",
+    "metadata": {
+      "title": "Campus closing",
+      "url": "http://www.buffalo.edu/news/our-services/emergency-communications.html"
+    },
+    "content_hash": "1a5615cf54d5eb2501e67f22e1b2f1c92930542cb6771d861b9341a9adb1d872"
+  },
+  {
+    "id": "help:campus-dining-shops",
+    "type": "help_topic",
+    "text": "Campus Dining & Shops",
+    "metadata": {
+      "title": "Campus Dining & Shops",
+      "url": "http://myubcard.com/dining"
+    },
+    "content_hash": "f33867c67575af40f1806b7a220c75b5d9300da38d5eb82a2aa84370e2d6be93"
+  },
+  {
+    "id": "help:career-services",
+    "type": "help_topic",
+    "text": "Career Services",
+    "metadata": {
+      "title": "Career Services",
+      "url": "http://www.buffalo.edu/career.html"
+    },
+    "content_hash": "64994055a6c4e892945671fade77926b425fd10e438baa1fd48bfb96ea7d2ead"
+  },
+  {
+    "id": "help:catalog-help",
+    "type": "help_topic",
+    "text": "Catalog - Help",
+    "metadata": {
+      "title": "Catalog - Help",
+      "url": "https://research.lib.buffalo.edu/search-tips/getting-started"
+    },
+    "content_hash": "9365925c4daf60b3178dad5297945b409ccaf385b2f4c24602cccbc0d3890b86"
+  },
+  {
+    "id": "help:center-for-excellence-in-writing",
+    "type": "help_topic",
+    "text": "Center for Excellence in Writing",
+    "metadata": {
+      "title": "Center for Excellence in Writing",
+      "url": "http://www.buffalo.edu/writing.html"
+    },
+    "content_hash": "bf4dac69592ba2d67b23c8284784d92d2861d9886b6d98a3fc43c03c9a4777c9"
+  },
+  {
+    "id": "help:changing-your-ubit-password",
+    "type": "help_topic",
+    "text": "Changing Your UBIT Password",
+    "metadata": {
+      "title": "Changing Your UBIT Password",
+      "url": "http://www.buffalo.edu/content/www/ubit/service-guides/accounts/your-ubitname-account/managing-your-ubitname-and-password/forgot-password.html"
+    },
+    "content_hash": "4bfbd68ffd1c5a9a62b2ee45e15c9120d5646b7d214da654744e82205d3bf8ea"
+  },
+  {
+    "id": "help:charles-b-sears-law-library",
+    "type": "help_topic",
+    "text": "Charles B. Sears Law Library",
+    "metadata": {
+      "title": "Charles B. Sears Law Library",
+      "url": "http://law.lib.buffalo.edu"
+    },
+    "content_hash": "720360adffab4871d1bf25f0e442e198daf7d3fc9ce00900a0458194ba323541"
+  },
+  {
+    "id": "help:chat-with-a-librarian",
+    "type": "help_topic",
+    "text": "Chat with a Librarian",
+    "metadata": {
+      "title": "Chat with a Librarian",
+      "url": "https://library.buffalo.edu/askalibrarian/chat"
+    },
+    "content_hash": "692d20894b4cc7b4bfb4ee56cbadb3646a5dd529cc57cc85ffb07ad9956b1f08"
+  },
+  {
+    "id": "help:citing-sources",
+    "type": "help_topic",
+    "text": "Citing Sources",
+    "metadata": {
+      "title": "Citing Sources",
+      "url": "http://research.lib.buffalo.edu/citingsources"
+    },
+    "content_hash": "f33754a315339afa10ed4295ef150eb59054077d394f6727dc021b1e0b676bdc"
+  },
+  {
+    "id": "help:class-schedules",
+    "type": "help_topic",
+    "text": "Class schedules",
+    "metadata": {
+      "title": "Class schedules",
+      "url": "https://www.buffalo.edu/registrar/classes-and-grades/class-schedules/view-and-understand-the-class-schedule.html"
+    },
+    "content_hash": "5f299c65c3ee2fdcd80ff3ddf08a74c6f2324a696e7b81a4009ef2ec6ca7c248"
+  },
+  {
+    "id": "help:classrooms-in-silverman-lockwood-libraries",
+    "type": "help_topic",
+    "text": "Classrooms in Silverman & Lockwood Libraries",
+    "metadata": {
+      "title": "Classrooms in Silverman & Lockwood Libraries",
+      "url": "https://library.buffalo.edu/educational/classrooms.html"
+    },
+    "content_hash": "d114a48a3d234efddfc7ad078f70db4d76b20799177c67f29906f93365934650"
+  },
+  {
+    "id": "help:clear-browser-cache",
+    "type": "help_topic",
+    "text": "Clear Browser Cache",
+    "metadata": {
+      "title": "Clear Browser Cache",
+      "url": "https://library.buffalo.edu/cache"
+    },
+    "content_hash": "b5dccc91a86033fbd12297db1591831db31ca97570e3f460a3e56f9797832eb4"
+  },
+  {
+    "id": "help:comprehensive-fee",
+    "type": "help_topic",
+    "text": "Comprehensive Fee",
+    "metadata": {
+      "title": "Comprehensive Fee",
+      "url": "https://www.buffalo.edu/studentaccounts/tuition-and-fees/broad-based-fees/comprehensive-fee.html"
+    },
+    "content_hash": "a8a7fbe8641e33620f6b69177491298a7d01f10b1e0a8132c3a18a5b06361df0"
+  },
+  {
+    "id": "help:computers-in-the-libraries",
+    "type": "help_topic",
+    "text": "Computers in the Libraries",
+    "metadata": {
+      "title": "Computers in the Libraries",
+      "url": "https://library.buffalo.edu/use/computers-scanners"
+    },
+    "content_hash": "7d9c4a03e3a8951b41508781f7aebb2f205094623f1e85e5199d88158e4f3486"
+  },
+  {
+    "id": "help:computing-and-network-use-policy",
+    "type": "help_topic",
+    "text": "Computing and Network Use Policy",
+    "metadata": {
+      "title": "Computing and Network Use Policy",
+      "url": "https://www.buffalo.edu/administrative-services/policy1/ub-policy-lib/computer-network-use.html"
+    },
+    "content_hash": "579d8876622589a0076a255b244b08163efa31c7b7ea07a81f60aa4a036c12ac"
+  },
+  {
+    "id": "help:computing-sites-software-and-stations",
+    "type": "help_topic",
+    "text": "Computing Sites Software and Stations",
+    "metadata": {
+      "title": "Computing Sites Software and Stations",
+      "url": "https://www.buffalo.edu/ubit/services/computing-sites/discover-what-kinds.html"
+    },
+    "content_hash": "986cae04d23af96102ddc8823ac80c3fc892509597c28cd9d7c39c79867287a4"
+  },
+  {
+    "id": "help:confidentiality-of-library-records-policy",
+    "type": "help_topic",
+    "text": "Confidentiality of Library Records Policy",
+    "metadata": {
+      "title": "Confidentiality of Library Records Policy",
+      "url": "https://library.buffalo.edu/aboutus/policies/information-use/confidentiality.html"
+    },
+    "content_hash": "06fdba48694c48dfc16b4bc3783ec894531b9c5edfab34adcc70cc21f136b849"
+  },
+  {
+    "id": "help:contact-the-libraries",
+    "type": "help_topic",
+    "text": "Contact the Libraries",
+    "metadata": {
+      "title": "Contact the Libraries",
+      "url": "https://library.buffalo.edu/aboutus/contactus"
+    },
+    "content_hash": "b3d13a12d316926ef53debab5072e9ef8bf848d9d4a38667b41fd416a4cbf90f"
+  },
+  {
+    "id": "help:copyright-fair-use",
+    "type": "help_topic",
+    "text": "Copyright & Fair Use",
+    "metadata": {
+      "title": "Copyright & Fair Use",
+      "url": "https://library.buffalo.edu/aboutus/policies/information-use/copyright.html"
+    },
+    "content_hash": "392192218d8f277ee3a5c13bd0e9c2afd51057c082cb4d335bb4130aba8f32dc"
+  },
+  {
+    "id": "help:corporate-borrower-program",
+    "type": "help_topic",
+    "text": "Corporate Borrower Program",
+    "metadata": {
+      "title": "Corporate Borrower Program",
+      "url": "https://library.buffalo.edu/visitors/borrowing.html"
+    },
+    "content_hash": "90bc6dc677d9df64e08ab561bab354ed00741f4b904e83b3a63065fa003ac09a"
+  },
+  {
+    "id": "help:country-studies",
+    "type": "help_topic",
+    "text": "Country Studies",
+    "metadata": {
+      "title": "Country Studies",
+      "url": "https://www.loc.gov/collections/country-studies/about-this-collection/"
+    },
+    "content_hash": "c1d997224d54243e10030824a34dc883d90dc53c5ad61167dcfa0bf2dc055426"
+  },
+  {
+    "id": "help:course-catalogs",
+    "type": "help_topic",
+    "text": "Course Catalogs",
+    "metadata": {
+      "title": "Course Catalogs",
+      "url": "https://catalogs.buffalo.edu/"
+    },
+    "content_hash": "8d0eded445f5f28b540bfb8f1b0ea19b82fb21fda472eaac6fd2a86378d6cc79"
+  },
+  {
+    "id": "help:course-reserve",
+    "type": "help_topic",
+    "text": "Course Reserve",
+    "metadata": {
+      "title": "Course Reserve",
+      "url": "https://search.lib.buffalo.edu/discovery/search?vid=01SUNY_BUF:reserve"
+    },
+    "content_hash": "c74972d8b95bc3d5d7e9b9653136fbe4d9aa75d3ba09548329a22214b3163f0e"
+  },
+  {
+    "id": "help:course-reserve-common-problems-and-solutions",
+    "type": "help_topic",
+    "text": "Course Reserve, Common Problems and Solutions",
+    "metadata": {
+      "title": "Course Reserve, Common Problems and Solutions",
+      "url": "https://library.buffalo.edu/find-borrow/course-reserve/common-problems.html"
+    },
+    "content_hash": "a309816be7044db99a292f46753773680c693a9ee5a22c7f42caad6471695b8f"
+  },
+  {
+    "id": "help:course-reserve-loan-period-information",
+    "type": "help_topic",
+    "text": "Course Reserve Loan Period Information",
+    "metadata": {
+      "title": "Course Reserve Loan Period Information",
+      "url": "https://library.buffalo.edu/find-borrow/borrowing.loan-periods.html"
+    },
+    "content_hash": "3ab627d23a1a756b48e06078372548f8ebb8d1e00dda47e809f2d5ae4ee51c3d"
+  },
+  {
+    "id": "help:curriculum-assessment-and-teaching-transformation-catt",
+    "type": "help_topic",
+    "text": "Curriculum, Assessment and Teaching Transformation (CATT)",
+    "metadata": {
+      "title": "Curriculum, Assessment and Teaching Transformation (CATT)",
+      "url": "https://www.buffalo.edu/catt.html"
+    },
+    "content_hash": "05955e20131fde3807c61a72a84c79f1bca2183a54093cf8a38a5e5dcd71b9ef"
+  },
+  {
+    "id": "help:data-management",
+    "type": "help_topic",
+    "text": "Data Management",
+    "metadata": {
+      "title": "Data Management",
+      "url": "https://library.buffalo.edu/research/rds.html"
+    },
+    "content_hash": "4cb66fa79ff81af4780a393d40f9d8efad9c1a74eb4a12ad7e975910f649bfe2"
+  },
+  {
+    "id": "help:delivery-we-ll-get-it-for-you",
+    "type": "help_topic",
+    "text": "Delivery+, We'll Get It For You!",
+    "metadata": {
+      "title": "Delivery+, We'll Get It For You!",
+      "url": "https://library.buffalo.edu/delivery"
+    },
+    "content_hash": "257829fed7a8ce106af2c65a12247cd583177011e7e6866894d687bd658e1753"
+  },
+  {
+    "id": "help:development-of-the-ub-campuses-north-and-south",
+    "type": "help_topic",
+    "text": "Development of the UB Campuses, North and South",
+    "metadata": {
+      "title": "Development of the UB Campuses, North and South",
+      "url": "https://library.buffalo.edu/archives/campuses"
+    },
+    "content_hash": "8bba2c86017d61336c13b73b9193334cd37e61d97ca2270c729f792ae96f0fc1"
+  },
+  {
+    "id": "help:digital-collections",
+    "type": "help_topic",
+    "text": "Digital Collections",
+    "metadata": {
+      "title": "Digital Collections",
+      "url": "http://digital.lib.buffalo.edu"
+    },
+    "content_hash": "c6852775f31dada49792a946746d31e8915ac13754ebaed766f5af898809865a"
+  },
+  {
+    "id": "help:digital-course-reserve",
+    "type": "help_topic",
+    "text": "Digital Course Reserve",
+    "metadata": {
+      "title": "Digital Course Reserve",
+      "url": "https://library.buffalo.edu/find-borrow/course-reserve/digital-course-reserve.html"
+    },
+    "content_hash": "fcf7546e249d340a4a4958d2ac6a471f655c57c248706928864f33826b9295bc"
+  },
+  {
+    "id": "help:directions-to-the-libraries",
+    "type": "help_topic",
+    "text": "Directions to the Libraries",
+    "metadata": {
+      "title": "Directions to the Libraries",
+      "url": "https://library.buffalo.edu/aboutus/contactus/directions"
+    },
+    "content_hash": "8447a15ffbe9644e49f59cf8133f22b04ba438a6675435b2de61c309421d771f"
+  },
+  {
+    "id": "help:dissertations-theses",
+    "type": "help_topic",
+    "text": "Dissertations & Theses",
+    "metadata": {
+      "title": "Dissertations & Theses",
+      "url": "http://research.lib.buffalo.edu/dissertations-theses-research"
+    },
+    "content_hash": "2e5f90fe21ba18059a7c7943ef4427d1e2e4b9220e676f4ae398ee0150b064a8"
+  },
+  {
+    "id": "help:downloadable-software-for-students-faculty-staff",
+    "type": "help_topic",
+    "text": "Downloadable software for students, faculty & staff",
+    "metadata": {
+      "title": "Downloadable software for students, faculty & staff",
+      "url": "http://www.buffalo.edu/ubit/service-guides/software.html"
+    },
+    "content_hash": "f10cd4bb50b45dbdafe06b2a4375947ed361b41740fe82db32584869da7a7520"
+  },
+  {
+    "id": "help:east-asian-collection",
+    "type": "help_topic",
+    "text": "East Asian Collection",
+    "metadata": {
+      "title": "East Asian Collection",
+      "url": "https://library.buffalo.edu/lml/collections/"
+    },
+    "content_hash": "bdaaefa35d126cc1f61bf716ab4b6dad0297e6befbe61c4146ce299f1eb8b3a7"
+  },
+  {
+    "id": "help:edgar-r-mcguire-historical-medical-instrument-collection",
+    "type": "help_topic",
+    "text": "Edgar R. McGuire Historical Medical Instrument Collection",
+    "metadata": {
+      "title": "Edgar R. McGuire Historical Medical Instrument Collection",
+      "url": "http://digital.lib.buffalo.edu/collection/LIB-HSL001"
+    },
+    "content_hash": "3acead7700c9d42ac1d324995b2ab9d2b08bb38a590e69ccbd4c755ea4eaa833"
+  },
+  {
+    "id": "help:electronic-poetry-center-epc",
+    "type": "help_topic",
+    "text": "Electronic Poetry Center (EPC)",
+    "metadata": {
+      "title": "Electronic Poetry Center (EPC)",
+      "url": "http://epc.buffalo.edu"
+    },
+    "content_hash": "d60a540ed074f634dd0dfcdd0f9e302ca05d18795ff57ee774cc9adb7c1eb5fd"
+  },
+  {
+    "id": "help:employment-in-the-libraries",
+    "type": "help_topic",
+    "text": "Employment in the Libraries",
+    "metadata": {
+      "title": "Employment in the Libraries",
+      "url": "https://library.buffalo.edu/jobs"
+    },
+    "content_hash": "66e41de4bd3bcdbdd056c5625b5e289752a3850a589e25dbedfed2430a0d2013"
+  },
+  {
+    "id": "help:endnote-software",
+    "type": "help_topic",
+    "text": "Endnote\u2122 Software",
+    "metadata": {
+      "title": "Endnote\u2122 Software",
+      "url": "https://library.buffalo.edu/endnote"
+    },
+    "content_hash": "361061dfba2d4e75d8b092eab507f60390a51e830e3c566eca074e971a0ed37b"
+  },
+  {
+    "id": "help:equipment-loans",
+    "type": "help_topic",
+    "text": "Equipment Loans",
+    "metadata": {
+      "title": "Equipment Loans",
+      "url": "https://library.buffalo.edu/equipment"
+    },
+    "content_hash": "fd638309088525a6cfbca0b7fab5add9509c65055d062ea22cc5f308424390a7"
+  },
+  {
+    "id": "help:eric",
+    "type": "help_topic",
+    "text": "ERIC",
+    "metadata": {
+      "title": "ERIC",
+      "url": "http://research.lib.buffalo.edu/ERIC"
+    },
+    "content_hash": "72cbfed0a21e2eed854553632f3212edbabbab25faefe2eb248fbba062a97b26"
+  },
+  {
+    "id": "help:exhibitions-in-the-libraries",
+    "type": "help_topic",
+    "text": "Exhibitions in the Libraries",
+    "metadata": {
+      "title": "Exhibitions in the Libraries",
+      "url": "https://library.buffalo.edu/exhibitions"
+    },
+    "content_hash": "50d32c4007058a99c8747a0b413646649171e851839234d580995ef191fa1acd"
+  },
+  {
+    "id": "help:faculty-support",
+    "type": "help_topic",
+    "text": "Faculty Support",
+    "metadata": {
+      "title": "Faculty Support",
+      "url": "https://library.buffalo.edu/faculty/"
+    },
+    "content_hash": "e545b2b4034f817dedb26b56e9577166d619641d689952788803f3a29be281eb"
+  },
+  {
+    "id": "help:final-exam-schedule",
+    "type": "help_topic",
+    "text": "Final Exam Schedule",
+    "metadata": {
+      "title": "Final Exam Schedule",
+      "url": "http://registrar.buffalo.edu/schedules/finalexams.php"
+    },
+    "content_hash": "368ad8aae87f73f592ebc35f71457c8df4d1fa5db2e999ec17d4d341aef59fb4"
+  },
+  {
+    "id": "help:fines-lost-items",
+    "type": "help_topic",
+    "text": "Fines & Lost Items",
+    "metadata": {
+      "title": "Fines & Lost Items",
+      "url": "https://library.buffalo.edu/find-borrow/borrowing.fines.html"
+    },
+    "content_hash": "d463e231ca97b26fadd8e9d7b541d4bf6d5f452afa6324586558695b89fee458"
+  },
+  {
+    "id": "help:floor-plans-for-the-libraries",
+    "type": "help_topic",
+    "text": "Floor Plans for the Libraries",
+    "metadata": {
+      "title": "Floor Plans for the Libraries",
+      "url": "https://library.buffalo.edu/hours/floor-plans"
+    },
+    "content_hash": "cf7a36f43d7f08e7c1bd96f8853adc5e8fe0e0e048e3e2e83711f28f8c2452ed"
+  },
+  {
+    "id": "help:friends-of-the-university-libraries-borrower-program",
+    "type": "help_topic",
+    "text": "Friends of the University Libraries Borrower Program",
+    "metadata": {
+      "title": "Friends of the University Libraries Borrower Program",
+      "url": "https://library.buffalo.edu/visitors/friends.html"
+    },
+    "content_hash": "2056039db90e7eaa0fd145426864a95704851f304c3ddead62a6dacc7c0655c6"
+  },
+  {
+    "id": "help:george-kelley-paperback-pulp-fiction-collection",
+    "type": "help_topic",
+    "text": "George Kelley Paperback & Pulp Fiction Collection",
+    "metadata": {
+      "title": "George Kelley Paperback & Pulp Fiction Collection",
+      "url": "https://library.buffalo.edu/libraries-collections/lml/collections/kelley.html"
+    },
+    "content_hash": "9118a1ed43f5e71cb7488949a6654d86fb225f283ef88576f35ab1d9594a1586"
+  },
+  {
+    "id": "help:gifts-of-books-and-other-library-materials",
+    "type": "help_topic",
+    "text": "Gifts of Books and Other Library Materials",
+    "metadata": {
+      "title": "Gifts of Books and Other Library Materials",
+      "url": "https://library.buffalo.edu/support/make-a-gift/materials"
+    },
+    "content_hash": "adb91bd987d0b244c026ab8cf459c3804d65682c670fe421bf24b58f6274806a"
+  },
+  {
+    "id": "help:government-documents-canadian",
+    "type": "help_topic",
+    "text": "Government Documents - Canadian",
+    "metadata": {
+      "title": "Government Documents - Canadian",
+      "url": "http://research.lib.buffalo.edu/canfedgov"
+    },
+    "content_hash": "279e8e1af990757f50c1c9ca821456d497f7fb2109da48dece9ddc7b87318293"
+  },
+  {
+    "id": "help:government-documents-european-union",
+    "type": "help_topic",
+    "text": "Government Documents - European Union",
+    "metadata": {
+      "title": "Government Documents - European Union",
+      "url": "http://research.lib.buffalo.edu/eurounion"
+    },
+    "content_hash": "c80b84252e392de00370c5c6f05f87c62aa66db11a1796fa3cdb46f4fc29570c"
+  },
+  {
+    "id": "help:government-documents-federal-government",
+    "type": "help_topic",
+    "text": "Government Documents - Federal Government",
+    "metadata": {
+      "title": "Government Documents - Federal Government",
+      "url": "http://research.lib.buffalo.edu/fedgov"
+    },
+    "content_hash": "473118e47d20cfbad14df53cebdb687cf85c389cede0d7e409e38eada74dd4d8"
+  },
+  {
+    "id": "help:high-school-students-visits",
+    "type": "help_topic",
+    "text": "High School Students Visits",
+    "metadata": {
+      "title": "High School Students Visits",
+      "url": "https://library.buffalo.edu/educational/instruction.html"
+    },
+    "content_hash": "69e8741b764e42fe11485d8c094509ff28316ad23c0fe72e0db91e113b161dc6"
+  },
+  {
+    "id": "help:hours-for-the-libraries",
+    "type": "help_topic",
+    "text": "Hours for the Libraries",
+    "metadata": {
+      "title": "Hours for the Libraries",
+      "url": "https://library.buffalo.edu/hours"
+    },
+    "content_hash": "9bb9f7043a303f97f31d008804739aa284340c7953db3659a4b472ed3438c128"
+  },
+  {
+    "id": "help:hubnet",
+    "type": "help_topic",
+    "text": "HUBNET",
+    "metadata": {
+      "title": "HUBNET",
+      "url": "http://hubnet.buffalo.edu"
+    },
+    "content_hash": "fa7055220db48743f233b77b435ef46d996acaad3f3009fc9bdd1fb983899b0e"
+  },
+  {
+    "id": "help:institutional-repository",
+    "type": "help_topic",
+    "text": "Institutional Repository",
+    "metadata": {
+      "title": "Institutional Repository",
+      "url": "https://ubir.buffalo.edu"
+    },
+    "content_hash": "04c14f68f95bec5024ced15da59b11effb4c3a2e218f86fed1bdb8d1aefbc764"
+  },
+  {
+    "id": "help:instruction-in-the-libraries",
+    "type": "help_topic",
+    "text": "Instruction in the Libraries",
+    "metadata": {
+      "title": "Instruction in the Libraries",
+      "url": "https://library.buffalo.edu/educational"
+    },
+    "content_hash": "b76ea7a58f2b618473b4f983e3319a7d2d7b42fd0ccbd1707e66829d56bebe61"
+  },
+  {
+    "id": "help:international-leisure-reading-collection",
+    "type": "help_topic",
+    "text": "International Leisure Reading Collection",
+    "metadata": {
+      "title": "International Leisure Reading Collection",
+      "url": "https://library.buffalo.edu/lml/collections/"
+    },
+    "content_hash": "2de72ca42eb2bf218911ec3d449fd2a3ff78ab4a7daaf7ab0d132d237bc9d225"
+  },
+  {
+    "id": "help:james-joyce-collection",
+    "type": "help_topic",
+    "text": "James Joyce Collection",
+    "metadata": {
+      "title": "James Joyce Collection",
+      "url": "https://library.buffalo.edu/jamesjoyce"
+    },
+    "content_hash": "41cc17df7b5006794e460f29122191a6dcb0ccbaa7edf47714115c5ccfd116ae"
+  },
+  {
+    "id": "help:john-lord-o-brian-papers",
+    "type": "help_topic",
+    "text": "John Lord O'Brian Papers",
+    "metadata": {
+      "title": "John Lord O'Brian Papers",
+      "url": "https://library.buffalo.edu/law/collections/special-collections/rare-books/obrian.html"
+    },
+    "content_hash": "cd327e39b1409bbde81b26cf7998cf510fa53e02ea094fa57387d4792e4af5b5"
+  },
+  {
+    "id": "help:journal-titles-abbreviations",
+    "type": "help_topic",
+    "text": "Journal Titles Abbreviations",
+    "metadata": {
+      "title": "Journal Titles Abbreviations",
+      "url": "https://images.webofknowledge.com/images/help/WOS/A_abrvjt.html"
+    },
+    "content_hash": "98635bd61e8815183c35f41ac869f04cc50eda9a7b81f084e27d0ea5133aba5b"
+  },
+  {
+    "id": "help:juvenile-collection",
+    "type": "help_topic",
+    "text": "Juvenile Collection",
+    "metadata": {
+      "title": "Juvenile Collection",
+      "url": "https://library.buffalo.edu/lml/collections"
+    },
+    "content_hash": "b1947631f4d36fc9288b5bbdeced44faa2e4d28d865e91b7e6dbdb87d003e5b3"
+  },
+  {
+    "id": "help:laptops-7-days-loan",
+    "type": "help_topic",
+    "text": "Laptops - 7 Days Loan",
+    "metadata": {
+      "title": "Laptops - 7 Days Loan",
+      "url": "https://library.buffalo.edu/equipment"
+    },
+    "content_hash": "c79c4d5909bfa005d8602238ac33eea2caa9b90724acec0776b0aea1f9768c57"
+  },
+  {
+    "id": "help:law-school-archives",
+    "type": "help_topic",
+    "text": "Law School Archives",
+    "metadata": {
+      "title": "Law School Archives",
+      "url": "https://library.buffalo.edu/law/collections/special-collections/law-archives/archives.html"
+    },
+    "content_hash": "f44a2ba184df91bdf855bc2146eac383b21731f763abc2f32d9dc7ffe322582d"
+  },
+  {
+    "id": "help:librarian-subject-specialist-directory",
+    "type": "help_topic",
+    "text": "Librarian Subject Specialist Directory",
+    "metadata": {
+      "title": "Librarian Subject Specialist Directory",
+      "url": "https://library.buffalo.edu/askalibrarian/inperson/bysubject.html"
+    },
+    "content_hash": "93cbeb7328866ad4a83b4b4b7ab82fdf52011f54aedd40cccaba5127fe27e04a"
+  },
+  {
+    "id": "help:libraries-annex",
+    "type": "help_topic",
+    "text": "Libraries Annex",
+    "metadata": {
+      "title": "Libraries Annex",
+      "url": "https://library.buffalo.edu/annex"
+    },
+    "content_hash": "a54b6c6f4359b71ad444f65eca560f4dddb2a1fa395c59da7532cbe627e3eac8"
+  },
+  {
+    "id": "help:libraries-catalog",
+    "type": "help_topic",
+    "text": "Libraries' Catalog",
+    "metadata": {
+      "title": "Libraries' Catalog",
+      "url": "https://search.lib.buffalo.edu/discovery/search?vid=01SUNY_BUF:everything&tab=LibraryCatalog&search_scope=MyInstitution"
+    },
+    "content_hash": "2f7577251f83a53f7053a202477c84725b7ef23aec41a52dc93222dc30b3146b"
+  },
+  {
+    "id": "help:library-of-congress-call-numbers",
+    "type": "help_topic",
+    "text": "Library of Congress Call Numbers",
+    "metadata": {
+      "title": "Library of Congress Call Numbers",
+      "url": "http://www.loc.gov/catdir/cpso/lcco"
+    },
+    "content_hash": "7dd860012cb8a4fc304ca42e49d6c87adbf04cac058512c3107a05241949d3a3"
+  },
+  {
+    "id": "help:library-research-station",
+    "type": "help_topic",
+    "text": "Library Research Station",
+    "metadata": {
+      "title": "Library Research Station",
+      "url": "https://library.buffalo.edu/use/computers-scanners/library-research-stations.html"
+    },
+    "content_hash": "905476c940fa92452ea4751ae7524c51d2f5636ef2e368be088c852acce93efb"
+  },
+  {
+    "id": "help:library-skills-workbook",
+    "type": "help_topic",
+    "text": "Library Skills Workbook",
+    "metadata": {
+      "title": "Library Skills Workbook",
+      "url": "https://library.buffalo.edu/educational/library-skills-workbook"
+    },
+    "content_hash": "41f1a2c35cedcfc9e959d6b7abcc32837904b14c29598afe411401715902ed33"
+  },
+  {
+    "id": "help:library-staff-directory",
+    "type": "help_topic",
+    "text": "Library Staff Directory",
+    "metadata": {
+      "title": "Library Staff Directory",
+      "url": "https://library.buffalo.edu/staff"
+    },
+    "content_hash": "bccbfe0767fdbbc801f758771270c3f46b1cb3b02933021d7af2feb2de72ed8e"
+  },
+  {
+    "id": "help:library-workshops",
+    "type": "help_topic",
+    "text": "Library Workshops",
+    "metadata": {
+      "title": "Library Workshops",
+      "url": "http://booking.lib.buffalo.edu/calendar/workshops"
+    },
+    "content_hash": "b5e194b0b494234efac4a3f0a03cec3776fdf79b22d0b1a970cfca641e60d890"
+  },
+  {
+    "id": "help:loan-periods-in-the-libraries",
+    "type": "help_topic",
+    "text": "Loan Periods in the Libraries",
+    "metadata": {
+      "title": "Loan Periods in the Libraries",
+      "url": "https://library.buffalo.edu/find-borrow/borrowing.loan-periods.html"
+    },
+    "content_hash": "719cf5a35867207a20fef484eba47b5043272e0ad2a32048b1fea0e2279d8e17"
+  },
+  {
+    "id": "help:lockwood-memorial-library",
+    "type": "help_topic",
+    "text": "Lockwood Memorial Library",
+    "metadata": {
+      "title": "Lockwood Memorial Library",
+      "url": "https://library.buffalo.edu/lml"
+    },
+    "content_hash": "3b5c3733b2da79f05e798f97f4abc39be309093c4b21b2ab3d1d242587ce44b2"
+  },
+  {
+    "id": "help:love-canal-collection",
+    "type": "help_topic",
+    "text": "Love Canal Collection",
+    "metadata": {
+      "title": "Love Canal Collection",
+      "url": "https://library.buffalo.edu/specialcollections/archives/collections-guides/lovecanal.html"
+    },
+    "content_hash": "86b0facf9b3a650c0a77031c6d8c4193c3286dcb292a7d8d7b593b3e69998784"
+  },
+  {
+    "id": "help:map-collection",
+    "type": "help_topic",
+    "text": "Map Collection",
+    "metadata": {
+      "title": "Map Collection",
+      "url": "https://library.buffalo.edu/maps"
+    },
+    "content_hash": "bfe2b00b30e68c641f9799d6cc9bd9137490d9d8ae7d91d371cb21a30ef8ba74"
+  },
+  {
+    "id": "help:marilyn-l-haas-iroquois-book-collection",
+    "type": "help_topic",
+    "text": "Marilyn L. Haas Iroquois Book Collection",
+    "metadata": {
+      "title": "Marilyn L. Haas Iroquois Book Collection",
+      "url": "https://library.buffalo.edu/law/collections/special-collections/rare-books/haas.html"
+    },
+    "content_hash": "ece4778437a36e5727e8780e0d160e277ae758e11edf175b658824bc0131bb54"
+  },
+  {
+    "id": "help:metro-rail-public-transportation",
+    "type": "help_topic",
+    "text": "Metro Rail, public transportation",
+    "metadata": {
+      "title": "Metro Rail, public transportation",
+      "url": "http://metro.nfta.com/"
+    },
+    "content_hash": "5f9a2fc36a1880abf2e1a2b6e27080c1bb5425393db8c72a92c845a2e7cd4e0d"
+  },
+  {
+    "id": "help:microforms-collections",
+    "type": "help_topic",
+    "text": "Microforms Collections",
+    "metadata": {
+      "title": "Microforms Collections",
+      "url": "http://research.lib.buffalo.edu/microforms-collection"
+    },
+    "content_hash": "a135d0e94d9b82077ee8fe1cfd6705e163a967b71aaac68ef15ff18a71a62e42"
+  },
+  {
+    "id": "help:morris-l-cohen-rare-book-collection-law-school-archives",
+    "type": "help_topic",
+    "text": "Morris L. Cohen Rare Book Collection & Law School Archives",
+    "metadata": {
+      "title": "Morris L. Cohen Rare Book Collection & Law School Archives",
+      "url": "https://library.buffalo.edu/law/collections/special-collections/rare-books/cohen.html"
+    },
+    "content_hash": "b77beff1cff6684af250f9bd6fbc1fe12a7d7a5d07ed149a5eb38d8120d88ca6"
+  },
+  {
+    "id": "help:music-library",
+    "type": "help_topic",
+    "text": "Music Library",
+    "metadata": {
+      "title": "Music Library",
+      "url": "https://library.buffalo.edu/music"
+    },
+    "content_hash": "6b913975e053fea29a4ed3277ce7c4984898021f9844549279623ea7460c4987"
+  },
+  {
+    "id": "help:my-account",
+    "type": "help_topic",
+    "text": "My Account",
+    "metadata": {
+      "title": "My Account",
+      "url": "https://library.buffalo.edu/myaccount"
+    },
+    "content_hash": "2a801c3893d2779da5f5f7c340e60279e87002901660acc7c22f3b86adf3747b"
+  },
+  {
+    "id": "help:myub",
+    "type": "help_topic",
+    "text": "MyUB",
+    "metadata": {
+      "title": "MyUB",
+      "url": "https://myub.buffalo.edu/"
+    },
+    "content_hash": "f380fabbbb9c6ec4e97c1c6336e26c9fa829418cccd2560d580b884fb04cd363"
+  },
+  {
+    "id": "help:national-center-for-case-study-teaching-in-science",
+    "type": "help_topic",
+    "text": "National Center for Case Study Teaching in Science",
+    "metadata": {
+      "title": "National Center for Case Study Teaching in Science",
+      "url": "https://www.nsta.org/case-studies"
+    },
+    "content_hash": "2e4c17b80525f4a1166397b14856f47cef78e9c943db123a49ac7b666d86176b"
+  },
+  {
+    "id": "help:national-library-of-medicine-call-numbers",
+    "type": "help_topic",
+    "text": "National Library of Medicine Call numbers",
+    "metadata": {
+      "title": "National Library of Medicine Call numbers",
+      "url": "https://www.nlm.nih.gov/class/OutlineofNLMClassificationSchedule.html"
+    },
+    "content_hash": "dbd438b41e408b9bd26e50513d4cf76ce80c10e9fd23349f4d15549007c8a1a9"
+  },
+  {
+    "id": "help:newspaper-research",
+    "type": "help_topic",
+    "text": "Newspaper Research",
+    "metadata": {
+      "title": "Newspaper Research",
+      "url": "http://research.lib.buffalo.edu/newspaper-research"
+    },
+    "content_hash": "2511d394d51935ec430d2be84a81dd0f64d0bae3de979234bc75cb0f15ececa1"
+  },
+  {
+    "id": "help:north-campus-address-format-and-zip-4-codes",
+    "type": "help_topic",
+    "text": "North Campus Address Format and Zip + 4 Codes",
+    "metadata": {
+      "title": "North Campus Address Format and Zip + 4 Codes",
+      "url": "https://www.buffalo.edu/administrative-services/campus-mail/mailing-address-format.html"
+    },
+    "content_hash": "811716cd7a541163c3ef304fb71125499fba692a93e5f0a0c61223e448d2dc35"
+  },
+  {
+    "id": "help:nursing-research-guide",
+    "type": "help_topic",
+    "text": "Nursing Research Guide",
+    "metadata": {
+      "title": "Nursing Research Guide",
+      "url": "http://research.lib.buffalo.edu/nursing"
+    },
+    "content_hash": "a0695af5acd8661d6d748c5f6155e03ace494af8b9983600680f6a98ca0526b4"
+  },
+  {
+    "id": "help:off-campus-access",
+    "type": "help_topic",
+    "text": "Off-Campus Access",
+    "metadata": {
+      "title": "Off-Campus Access",
+      "url": "https://library.buffalo.edu/off-campus/"
+    },
+    "content_hash": "1f22dda8abfa8bc4d704f43e0bbf756a252babac9d0b6c04d4e15168a0ca0cf8"
+  },
+  {
+    "id": "help:official-academic-calendar",
+    "type": "help_topic",
+    "text": "Official Academic Calendar",
+    "metadata": {
+      "title": "Official Academic Calendar",
+      "url": "http://registrar.buffalo.edu/calendars/"
+    },
+    "content_hash": "21d8d9c816e586c2abee583fa6c01fe6160baa008b9f489061f393526225c883"
+  },
+  {
+    "id": "help:onesearch",
+    "type": "help_topic",
+    "text": "OneSearch",
+    "metadata": {
+      "title": "OneSearch",
+      "url": "https://search.lib.buffalo.edu/discovery/search?vid=01SUNY_BUF:everything"
+    },
+    "content_hash": "a777bb8ccb7566e1042179346f7336757d52618451e27b8c34bf8cdd3117f408"
+  },
+  {
+    "id": "help:openport-on-campus-connections-for-laptops",
+    "type": "help_topic",
+    "text": "OpenPort, on-campus connections for laptops",
+    "metadata": {
+      "title": "OpenPort, on-campus connections for laptops",
+      "url": "https://www.buffalo.edu/ubit/services/all/wired-network.html"
+    },
+    "content_hash": "449406205fd529c99c53a760e120085960e58bc96a3642b830dd38c43117022b"
+  },
+  {
+    "id": "help:oscar-a-silverman-library",
+    "type": "help_topic",
+    "text": "Oscar A. Silverman Library",
+    "metadata": {
+      "title": "Oscar A. Silverman Library",
+      "url": "https://library.buffalo.edu/silverman"
+    },
+    "content_hash": "8b98c1285f2fb724202470d0ce45b9e871f21407fb82b6815d296b758df81945"
+  },
+  {
+    "id": "help:parking-and-transportation",
+    "type": "help_topic",
+    "text": "Parking and Transportation",
+    "metadata": {
+      "title": "Parking and Transportation",
+      "url": "http://www.buffalo.edu/parking.html"
+    },
+    "content_hash": "ba818b038d6e4ada15c451115c149f0bf61ba17073fdf5216f16954b8e4c7ab9"
+  },
+  {
+    "id": "help:patents-guide",
+    "type": "help_topic",
+    "text": "Patents Guide",
+    "metadata": {
+      "title": "Patents Guide",
+      "url": "http://research.lib.buffalo.edu/patents"
+    },
+    "content_hash": "5eb281f988e4ab67c5629dbd9db27f24e2fb7b921741813ce5ea686a53af0572"
+  },
+  {
+    "id": "help:photocopy-and-fax",
+    "type": "help_topic",
+    "text": "Photocopy and Fax",
+    "metadata": {
+      "title": "Photocopy and Fax",
+      "url": "https://library.buffalo.edu/use/printing/#photocopy-fax"
+    },
+    "content_hash": "b9dd6d3a2e11d9661a9e2391fb7778d8bdf3ce4e78d73acdefc8409d899d96d9"
+  },
+  {
+    "id": "help:placing-items-on-course-reserve",
+    "type": "help_topic",
+    "text": "Placing Items on Course Reserve",
+    "metadata": {
+      "title": "Placing Items on Course Reserve",
+      "url": "https://library.buffalo.edu/reserve/instructor"
+    },
+    "content_hash": "8ecb1b02aab6abafe4055f7e249699e0b7e633dc587b673e4ff0b24598d24cb2"
+  },
+  {
+    "id": "help:poetry-collection-the",
+    "type": "help_topic",
+    "text": "Poetry Collection, The",
+    "metadata": {
+      "title": "Poetry Collection, The",
+      "url": "https://library.buffalo.edu/pl"
+    },
+    "content_hash": "039d6856cff7dbf8ae301d0596c774247127180a687e5d9bed4df4f799220f6e"
+  },
+  {
+    "id": "help:polish-arts-club-member-borrowing-privileges",
+    "type": "help_topic",
+    "text": "Polish Arts Club Member Borrowing Privileges",
+    "metadata": {
+      "title": "Polish Arts Club Member Borrowing Privileges",
+      "url": "https://library.buffalo.edu/visitors/borrowing.html"
+    },
+    "content_hash": "20958c1b8f62c7769374d5832879730161c8a6cb0c3f0966951427dadbe54c2a"
+  },
+  {
+    "id": "help:polish-room",
+    "type": "help_topic",
+    "text": "Polish Room",
+    "metadata": {
+      "title": "Polish Room",
+      "url": "https://library.buffalo.edu/polish-room"
+    },
+    "content_hash": "5d1010791557e21112d12ceee5d7e9a0c4b1e811e9ebf9389a4eec3a844c1f2a"
+  },
+  {
+    "id": "help:polish-royal-documents",
+    "type": "help_topic",
+    "text": "Polish Royal Documents",
+    "metadata": {
+      "title": "Polish Royal Documents",
+      "url": "https://library.buffalo.edu/libraries-collections/abbott/polish-room/documents.html"
+    },
+    "content_hash": "ea7eca54c537113030eaafa27d232fa1789e9ca2c55ec981b940d3fea32440a8"
+  },
+  {
+    "id": "help:printing-at-ub",
+    "type": "help_topic",
+    "text": "Printing at UB",
+    "metadata": {
+      "title": "Printing at UB",
+      "url": "https://www.buffalo.edu/ubit/services/print-anywhere.html"
+    },
+    "content_hash": "8b07a9aa5e0751f8a7ea3557058c4438d840764dbfc7fc2b1ad12d9ddb12b670"
+  },
+  {
+    "id": "help:protect-your-copyright",
+    "type": "help_topic",
+    "text": "Protect Your Copyright \u00a9",
+    "metadata": {
+      "title": "Protect Your Copyright \u00a9",
+      "url": "https://research.lib.buffalo.edu/copyright"
+    },
+    "content_hash": "6b5ca96ad08f4c10b236b59326438c077130967f01433a85d7d89e1da0d0c906"
+  },
+  {
+    "id": "help:proxy-borrowers",
+    "type": "help_topic",
+    "text": "Proxy Borrowers",
+    "metadata": {
+      "title": "Proxy Borrowers",
+      "url": "https://library.buffalo.edu/borrowing"
+    },
+    "content_hash": "7a085c50fa5fba40e3d6a9f8efc4c6ade76e45af56363b3d89a691eff0538b22"
+  },
+  {
+    "id": "help:proxy-server-bookmarklet",
+    "type": "help_topic",
+    "text": "Proxy Server Bookmarklet",
+    "metadata": {
+      "title": "Proxy Server Bookmarklet",
+      "url": "https://library.buffalo.edu/off-campus"
+    },
+    "content_hash": "913e8211ce67e2333fb982fcc00e2333a52291d962ea1b1a05c9ae21d38b2248"
+  },
+  {
+    "id": "help:public-access-to-computers",
+    "type": "help_topic",
+    "text": "Public Access to Computers",
+    "metadata": {
+      "title": "Public Access to Computers",
+      "url": "https://library.buffalo.edu/use/visitors/computer-access.html"
+    },
+    "content_hash": "55568930506af0d0a19414d76c8858215eee4b5d098bb37e393f1d6e0471a518"
+  },
+  {
+    "id": "help:purchase-recommendation",
+    "type": "help_topic",
+    "text": "Purchase Recommendation",
+    "metadata": {
+      "title": "Purchase Recommendation",
+      "url": "https://library.buffalo.edu/aboutus/contactus/purchase.html"
+    },
+    "content_hash": "4c7a9c347c3db663a792ba8d8cf115df93499f82a2ae62de346c756ca0d13ab6"
+  },
+  {
+    "id": "help:regional-library-catalogs",
+    "type": "help_topic",
+    "text": "Regional Library Catalogs",
+    "metadata": {
+      "title": "Regional Library Catalogs",
+      "url": "http://research.lib.buffalo.edu/other-catalogs"
+    },
+    "content_hash": "456ae79032f4001e55a9cdf06c47174f8d0db44e28b32a07606f36a690faacd8"
+  },
+  {
+    "id": "help:register-to-vote",
+    "type": "help_topic",
+    "text": "Register to Vote",
+    "metadata": {
+      "title": "Register to Vote",
+      "url": "http://www.elections.ny.gov/VotingRegister.html"
+    },
+    "content_hash": "15198c3e22da8c49361c92d37ccdb623a5372542d181b39b81ba06c00c5cd9bf"
+  },
+  {
+    "id": "help:renewing-and-returning-library-materials",
+    "type": "help_topic",
+    "text": "Renewing and Returning Library Materials",
+    "metadata": {
+      "title": "Renewing and Returning Library Materials",
+      "url": "https://library.buffalo.edu/find-borrow/borrowing.renewing-materials.html"
+    },
+    "content_hash": "a39c70e5644fcabbcadefbf02171238b5ef4f638d5c79368b6fbd7ebdb1e07cb"
+  },
+  {
+    "id": "help:research-consultation-with-subject-librarian",
+    "type": "help_topic",
+    "text": "Research Consultation with Subject Librarian",
+    "metadata": {
+      "title": "Research Consultation with Subject Librarian",
+      "url": "https://library.buffalo.edu/askalibrarian/inperson/research-consultation.html"
+    },
+    "content_hash": "bb47713ae543e1ca76d4ddb0fd1b40ac0b1710dd96410a722349f4d5d548b65a"
+  },
+  {
+    "id": "help:research-tips",
+    "type": "help_topic",
+    "text": "Research Tips",
+    "metadata": {
+      "title": "Research Tips",
+      "url": "https://research.lib.buffalo.edu/onestopguide"
+    },
+    "content_hash": "60a9703b1ea9bb8789fa090c72cc2eb55359851f32d1776537aa89472c5bfa85"
+  },
+  {
+    "id": "help:reserve-a-room",
+    "type": "help_topic",
+    "text": "Reserve a Room",
+    "metadata": {
+      "title": "Reserve a Room",
+      "url": "https://booking.lib.buffalo.edu/reserve/silverman"
+    },
+    "content_hash": "8b7a4c5c02d2b9acef11f21fa433f7214d4a3ab5f6cb7db089d18f00f299ff61"
+  },
+  {
+    "id": "help:robert-l-brown-history-of-medicine",
+    "type": "help_topic",
+    "text": "Robert L. Brown History of Medicine",
+    "metadata": {
+      "title": "Robert L. Brown History of Medicine",
+      "url": "https://library.buffalo.edu/historyofmedicine"
+    },
+    "content_hash": "2463ff99c2ccbbaf4b9ce68e1b3661451236bafbd01da2fa7ac97ea5b2ee3b23"
+  },
+  {
+    "id": "help:rudy-bruner-award-digital-archive",
+    "type": "help_topic",
+    "text": "Rudy Bruner Award Digital Archive",
+    "metadata": {
+      "title": "Rudy Bruner Award Digital Archive",
+      "url": "https://rudybruneraward.lib.buffalo.edu/page/home"
+    },
+    "content_hash": "42fc76e9dde3f1864b096c920fabc149de1ec5f01dcd7c9b37d2f003ead3f13b"
+  },
+  {
+    "id": "help:scanners-in-the-libraries",
+    "type": "help_topic",
+    "text": "Scanners in the Libraries",
+    "metadata": {
+      "title": "Scanners in the Libraries",
+      "url": "https://library.buffalo.edu/use/computers-scanners/scanners.html"
+    },
+    "content_hash": "a7c1afc790294f7b54d1fec81f59ab3e8d40d4cd7da92b1488f8e459f366bdaa"
+  },
+  {
+    "id": "help:scholarly-communication-publishing",
+    "type": "help_topic",
+    "text": "Scholarly Communication & Publishing",
+    "metadata": {
+      "title": "Scholarly Communication & Publishing",
+      "url": "https://library.buffalo.edu/scholarly"
+    },
+    "content_hash": "e8c9097a3b6ee0eae7d7136bc907de64d20c6295453c8f252518641bd3ec09d2"
+  },
+  {
+    "id": "help:science-engineering-resources",
+    "type": "help_topic",
+    "text": "Science & Engineering Resources",
+    "metadata": {
+      "title": "Science & Engineering Resources",
+      "url": "https://library.buffalo.edu/lml/collections/sel"
+    },
+    "content_hash": "760cbec66c6ed84f10227b2e1fdd66afe95ae48ef2530b66dcbd689c9bef9894"
+  },
+  {
+    "id": "help:senior-auditors-program",
+    "type": "help_topic",
+    "text": "Senior Auditors Program",
+    "metadata": {
+      "title": "Senior Auditors Program",
+      "url": "https://library.buffalo.edu/visitors/borrowing.html"
+    },
+    "content_hash": "330b5689a29b0f0dc2a5f8e68c9b08e484cc33e12989a7b89bc33efe0a57cb23"
+  },
+  {
+    "id": "help:small-claims-incident-at-ub",
+    "type": "help_topic",
+    "text": "Small Claims Incident at UB",
+    "metadata": {
+      "title": "Small Claims Incident at UB",
+      "url": "https://www.buffalo.edu/administrative-services/forms-catalog/facilities/small-claims-incident-report.html"
+    },
+    "content_hash": "c765c3af50110c5de6d6a5f61dd57fb9ff9635ec66e2cd55d7a300492e6c204f"
+  },
+  {
+    "id": "help:south-campus-address-format-and-zip-4-codes",
+    "type": "help_topic",
+    "text": "South Campus Address Format and Zip + 4 Codes",
+    "metadata": {
+      "title": "South Campus Address Format and Zip + 4 Codes",
+      "url": "https://www.buffalo.edu/administrative-services/campus-mail/mailing-address-format.html"
+    },
+    "content_hash": "43ebb2c307bd8c50ffee31e2b0b2676f575f42784513efe8e109f5cfe45cc9bf"
+  },
+  {
+    "id": "help:special-collections",
+    "type": "help_topic",
+    "text": "Special Collections",
+    "metadata": {
+      "title": "Special Collections",
+      "url": "https://library.buffalo.edu/specialcollections"
+    },
+    "content_hash": "7e69b18f4ada62d7e816b65ffbbaf4d1df50fb3af44a1a3a2a3ef1e19c386572"
+  },
+  {
+    "id": "help:spectrum-the",
+    "type": "help_topic",
+    "text": "Spectrum, The",
+    "metadata": {
+      "title": "Spectrum, The",
+      "url": "http://digital.lib.buffalo.edu/collection/LIB-UA006"
+    },
+    "content_hash": "7705580fb17af8e9e441ff97a8d74f69ab3207c8ac3da941ed673dd3f15396e8"
+  },
+  {
+    "id": "help:standards-and-specifications",
+    "type": "help_topic",
+    "text": "Standards and Specifications",
+    "metadata": {
+      "title": "Standards and Specifications",
+      "url": "http://research.lib.buffalo.edu/standards"
+    },
+    "content_hash": "b1016d514e3704cac7e108fe85ba5722c59e922392ad62568b51a5bfad9ad50f"
+  },
+  {
+    "id": "help:streaming-media-in-the-ub-libraries",
+    "type": "help_topic",
+    "text": "Streaming Media in the UB Libraries",
+    "metadata": {
+      "title": "Streaming Media in the UB Libraries",
+      "url": "https://research.lib.buffalo.edu/streaming"
+    },
+    "content_hash": "ea7276191268cfdea7f77e6a86697544b5ecf3d012c7b892d9baee892228c5ae"
+  },
+  {
+    "id": "help:study-room-policies",
+    "type": "help_topic",
+    "text": "Study Room Policies",
+    "metadata": {
+      "title": "Study Room Policies",
+      "url": "https://library.buffalo.edu/about/policies/use-security/study-rooms.html"
+    },
+    "content_hash": "02459c2cd4028fd77f50eef33a720e92d8c3263ef5899d61463f036454388da8"
+  },
+  {
+    "id": "help:study-spaces",
+    "type": "help_topic",
+    "text": "Study Spaces",
+    "metadata": {
+      "title": "Study Spaces",
+      "url": "https://library.buffalo.edu/studyspaces"
+    },
+    "content_hash": "d9165e7cbc0632f8e9ac9b08e8031f352cf58b8170b67194f910e1380a149ad3"
+  },
+  {
+    "id": "help:support-the-libraries",
+    "type": "help_topic",
+    "text": "Support the Libraries",
+    "metadata": {
+      "title": "Support the Libraries",
+      "url": "https://library.buffalo.edu/support"
+    },
+    "content_hash": "e0c01e87900cc34f3441d73596d7dcbba67eec8ee934d4200dc2b7eef2565ae4"
+  },
+  {
+    "id": "help:telephone-directories-online",
+    "type": "help_topic",
+    "text": "Telephone Directories Online",
+    "metadata": {
+      "title": "Telephone Directories Online",
+      "url": "http://research.lib.buffalo.edu/telephone-directory"
+    },
+    "content_hash": "a3c492d6659fb65322cdc746e42c022e16842e1f8c98feaf30b1c576423c001c"
+  },
+  {
+    "id": "help:translation-services-in-buffalo",
+    "type": "help_topic",
+    "text": "Translation Services in Buffalo",
+    "metadata": {
+      "title": "Translation Services in Buffalo",
+      "url": "https://iibuffalo.org/interpreting-translation/services/"
+    },
+    "content_hash": "d786bd7b9ec7aec3fe1d6433835421977948945f4ef0a9a0055f9de7e6cb5f42"
+  },
+  {
+    "id": "help:ub-box",
+    "type": "help_topic",
+    "text": "UB Box",
+    "metadata": {
+      "title": "UB Box",
+      "url": "http://www.buffalo.edu/ubit/ubbox.html"
+    },
+    "content_hash": "f09da82faa548580f2b57d96ea974e4b5dd632945ccf6a5eba5a5de4446ba117"
+  },
+  {
+    "id": "help:ub-emergency-procedures",
+    "type": "help_topic",
+    "text": "UB Emergency Procedures",
+    "metadata": {
+      "title": "UB Emergency Procedures",
+      "url": "http://emergency.buffalo.edu"
+    },
+    "content_hash": "4c021d2043b33d0b927211b70e550d7d801c862ab08d9684dc51d18d929d65a3"
+  },
+  {
+    "id": "help:ub-guidelines-for-submitting-dissertations",
+    "type": "help_topic",
+    "text": "UB guidelines for submitting Dissertations",
+    "metadata": {
+      "title": "UB guidelines for submitting Dissertations",
+      "url": "http://grad.buffalo.edu/study/graduate/etd.html"
+    },
+    "content_hash": "d8739842675b8d0dd760ee5dc3e172423051ce57002cd5a23c9d23b7f62192bd"
+  },
+  {
+    "id": "help:ub-online-directory",
+    "type": "help_topic",
+    "text": "UB Online Directory",
+    "metadata": {
+      "title": "UB Online Directory",
+      "url": "http://www.buffalo.edu/directory"
+    },
+    "content_hash": "eea6755b42bf1fe1b413de7752b507c13bd0247afb126ada44245fc08178e0cc"
+  },
+  {
+    "id": "help:ubit-alerts",
+    "type": "help_topic",
+    "text": "UBIT Alerts",
+    "metadata": {
+      "title": "UBIT Alerts",
+      "url": "https://www.buffalo.edu/ubit/news/alerts.html"
+    },
+    "content_hash": "13f8d429934e1c2c555d5978814f58506a7b32ab85510c6246dfe3bc45b5023d"
+  },
+  {
+    "id": "help:ubit-help-center",
+    "type": "help_topic",
+    "text": "UBIT Help Center",
+    "metadata": {
+      "title": "UBIT Help Center",
+      "url": "http://www.buffalo.edu/ubit/help"
+    },
+    "content_hash": "29b5f8854e9d6b16099fbf97dcb669e435ac9afb92f3957b3ed20f6d8a6b6261"
+  },
+  {
+    "id": "help:ublearns",
+    "type": "help_topic",
+    "text": "UBLearns",
+    "metadata": {
+      "title": "UBLearns",
+      "url": "https://www.buffalo.edu/lms/guides-students.html"
+    },
+    "content_hash": "c327c8d15242d10d476d29739d91daff6a0d033faef243ba4aea78028cfe4707"
+  },
+  {
+    "id": "help:ubreathe-free-smoking-policy",
+    "type": "help_topic",
+    "text": "UBreathe Free, Smoking Policy",
+    "metadata": {
+      "title": "UBreathe Free, Smoking Policy",
+      "url": "http://www.buffalo.edu/administrative-services/wellness-work-life-balance/for-faculty-and-staff/ubreathe-free.html"
+    },
+    "content_hash": "34210cf685633b3f905372209b47f4bf18c55d9961709f3fc8cf5bb6af07411a"
+  },
+  {
+    "id": "help:university-archives",
+    "type": "help_topic",
+    "text": "University Archives",
+    "metadata": {
+      "title": "University Archives",
+      "url": "https://library.buffalo.edu/archives"
+    },
+    "content_hash": "1d9a865e86504fa699c877417b639aadb8fa07eaebe5e10d292673cd38ac7800"
+  },
+  {
+    "id": "help:university-at-buffalo-buildings-and-campus-maps",
+    "type": "help_topic",
+    "text": "University at Buffalo Buildings and Campus Maps",
+    "metadata": {
+      "title": "University at Buffalo Buildings and Campus Maps",
+      "url": "https://www.buffalo.edu/home/visiting-ub/CampusMaps.html"
+    },
+    "content_hash": "1805967469226687e61062b1b3df29608822b48d72389b006aee3290fe6c896d"
+  },
+  {
+    "id": "help:vending-machines-at-ub",
+    "type": "help_topic",
+    "text": "Vending Machines at UB",
+    "metadata": {
+      "title": "Vending Machines at UB",
+      "url": "http://myubcard.com/shops/vending"
+    },
+    "content_hash": "b7c69e3801e7916d5b647daa17c86947c0ccb3fc76e1663e547b6d2014b49a25"
+  },
+  {
+    "id": "help:video-recording-studios",
+    "type": "help_topic",
+    "text": "Video Recording Studios",
+    "metadata": {
+      "title": "Video Recording Studios",
+      "url": "https://library.buffalo.edu/video-recording-studios"
+    },
+    "content_hash": "1f6579bf8abbb43ae0b3349d1338ed330ad7d9fd5d796d1f62d74ac83a941c47"
+  },
+  {
+    "id": "help:visiting-ub",
+    "type": "help_topic",
+    "text": "Visiting UB",
+    "metadata": {
+      "title": "Visiting UB",
+      "url": "http://www.buffalo.edu/home/visiting-ub.html"
+    },
+    "content_hash": "7b8b363bd3523e389c7efae84505a7482cb4a60739477c29501d0de1b270e0fc"
+  },
+  {
+    "id": "help:visitor-information",
+    "type": "help_topic",
+    "text": "Visitor Information",
+    "metadata": {
+      "title": "Visitor Information",
+      "url": "https://library.buffalo.edu/visitors"
+    },
+    "content_hash": "673017426747178289490e9ef6c0a9ae0e99dbcf88af01bc47cca2e4b92938ee"
+  },
+  {
+    "id": "help:your-ubitname",
+    "type": "help_topic",
+    "text": "Your UBITName",
+    "metadata": {
+      "title": "Your UBITName",
+      "url": "http://www.buffalo.edu/ubit/service-guides/accounts/your-ubitname-account.html"
+    },
+    "content_hash": "0791a108245fdebbfebf683aeee25c6fc23e460c1439c153027574cfb78859a6"
+  },
+  {
+    "id": "librarian:african-african-american-studies",
+    "type": "librarian_subject",
+    "text": "African & African-American Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "African & African-American Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "205e4e6debd0463132330125ccc250b637200bcff86f45c4c0007a499d7f1734"
+  },
+  {
+    "id": "librarian:american-studies",
+    "type": "librarian_subject",
+    "text": "American Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "American Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "a09c1e925967ecb741293d756ace16f1fc13a934012852c5b1c48841b45978f4"
+  },
+  {
+    "id": "librarian:anatomy",
+    "type": "librarian_subject",
+    "text": "Anatomy subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Anatomy",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "edec8e3d557e4135825808ab80e5dd2d720a664c29453de5afb10cee196a8512"
+  },
+  {
+    "id": "librarian:anesthesiology",
+    "type": "librarian_subject",
+    "text": "Anesthesiology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Anesthesiology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "276ff56d3f7999f433a5b867a376a65bde6ef394f10c58f094f63ea6e3d5eb3d"
+  },
+  {
+    "id": "librarian:anthropology",
+    "type": "librarian_subject",
+    "text": "Anthropology subject librarian: Estrada, Natalia",
+    "metadata": {
+      "subject": "Anthropology",
+      "librarians": [
+        {
+          "name": "Estrada, Natalia",
+          "profile_url": "https://library.buffalo.edu/staff/nestrada"
+        }
+      ]
+    },
+    "content_hash": "f9868ac1a69399d89e3a5a84452a60c748ebae6357f2a21a0d46b381b14c2a54"
+  },
+  {
+    "id": "librarian:architecture",
+    "type": "librarian_subject",
+    "text": "Architecture subject librarian: Orcutt, Rose",
+    "metadata": {
+      "subject": "Architecture",
+      "librarians": [
+        {
+          "name": "Orcutt, Rose",
+          "profile_url": "https://library.buffalo.edu/staff/rorcutt"
+        }
+      ]
+    },
+    "content_hash": "97ace0c0f3cc583e858a56fc2f37f454d4586049dc90b032042537df183679bf"
+  },
+  {
+    "id": "librarian:archives",
+    "type": "librarian_subject",
+    "text": "Archives subject librarian: Dunbar, Hope",
+    "metadata": {
+      "subject": "Archives",
+      "librarians": [
+        {
+          "name": "Dunbar, Hope",
+          "profile_url": "https://library.buffalo.edu/staff/hdunbar"
+        }
+      ]
+    },
+    "content_hash": "ef5ac0131a83f1341e63a59cd076054215fa8cacc2d772f695114d3f3be7f312"
+  },
+  {
+    "id": "librarian:art",
+    "type": "librarian_subject",
+    "text": "Art subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Art",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "d09d00b3f0b56006fc317907cbc0209c4d67f34cd66baebbe9958c2fc27da896"
+  },
+  {
+    "id": "librarian:arts-management",
+    "type": "librarian_subject",
+    "text": "Arts Management subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Arts Management",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "9fc31937c6d72985241f88cef43efcc13ed7b2c25df239836b9bd1dc78827382"
+  },
+  {
+    "id": "librarian:asian-studies",
+    "type": "librarian_subject",
+    "text": "Asian Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Asian Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "aa3162c940cf6a5f38816bec82fe2f863ff5976eebe85ccfa0d0ec333131d13b"
+  },
+  {
+    "id": "librarian:athletics",
+    "type": "librarian_subject",
+    "text": "Athletics subject librarian: Sajecki, Bryan",
+    "metadata": {
+      "subject": "Athletics",
+      "librarians": [
+        {
+          "name": "Sajecki, Bryan",
+          "profile_url": "https://library.buffalo.edu/staff/bsajecki"
+        }
+      ]
+    },
+    "content_hash": "6079c6816d59b6d89aedbbd3ec46225247a0ab6a26e6027caa375de1b9ee91f3"
+  },
+  {
+    "id": "librarian:biochemistry",
+    "type": "librarian_subject",
+    "text": "Biochemistry subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Biochemistry",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "080b6aa30fb262b0d60bc9574dca34274d4139797d554e46d9a3d0e6041922a5"
+  },
+  {
+    "id": "librarian:bioethics",
+    "type": "librarian_subject",
+    "text": "Bioethics subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Bioethics",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "40c3c194842a23d6d0c640ce81a323399014828751e8533ec427297a58a57309"
+  },
+  {
+    "id": "librarian:bioinformatics",
+    "type": "librarian_subject",
+    "text": "Bioinformatics subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Bioinformatics",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "12bb4c7368707cd1e052994b8c97fe94cc4ee55cbeea19b85624ac1f43fd92a9"
+  },
+  {
+    "id": "librarian:biological-sciences",
+    "type": "librarian_subject",
+    "text": "Biological Sciences subject librarian: Mayersohn, Anna",
+    "metadata": {
+      "subject": "Biological Sciences",
+      "librarians": [
+        {
+          "name": "Mayersohn, Anna",
+          "profile_url": "https://library.buffalo.edu/about/staff/profile.html?fullName=amayersohn"
+        }
+      ]
+    },
+    "content_hash": "24010e92d12e81f27a6f388d58fda38571230b318255293668f3f7badf9c5bb5"
+  },
+  {
+    "id": "librarian:biophysics",
+    "type": "librarian_subject",
+    "text": "Biophysics subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Biophysics",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "dc8e9fbf525ae9ffbca6ce1d8a379f02b558b7165830f3d08e2e870ff57628e8"
+  },
+  {
+    "id": "librarian:biostatistics",
+    "type": "librarian_subject",
+    "text": "Biostatistics subject librarian: Zafron, Michelle",
+    "metadata": {
+      "subject": "Biostatistics",
+      "librarians": [
+        {
+          "name": "Zafron, Michelle",
+          "profile_url": "https://library.buffalo.edu/staff/mzafron"
+        }
+      ]
+    },
+    "content_hash": "9dd42dcd9ac4bb5bf9381e4c9fef6ae44f48f773801c9824175de840b1fe3ec1"
+  },
+  {
+    "id": "librarian:business",
+    "type": "librarian_subject",
+    "text": "Business subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Business",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "064e1cb6ef1022e569aaa29130fc85876c543e4893d69a87be0dbe4dfe31935f"
+  },
+  {
+    "id": "librarian:canadian-studies",
+    "type": "librarian_subject",
+    "text": "Canadian Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Canadian Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "59242ee1763bdc3e40657c879dc1b233ceb3d6b5f86cff255e6f1511ce7b23d9"
+  },
+  {
+    "id": "librarian:caribbean-cultural-studies",
+    "type": "librarian_subject",
+    "text": "Caribbean Cultural Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Caribbean Cultural Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "281f17d4806cd35dfbcd67091fe4c6a005b5b3710e741c1e2c6ef8c7fb912e46"
+  },
+  {
+    "id": "librarian:cell-biology",
+    "type": "librarian_subject",
+    "text": "Cell Biology subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Cell Biology",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "aa66d744347ab939358ea72db7783e531aa9827383acaa4624211d8e8d540ae2"
+  },
+  {
+    "id": "librarian:census",
+    "type": "librarian_subject",
+    "text": "Census subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Census",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "88f6aa70843ea8a2dd4f1bf73c022f1106cf5bfe35bc961d9eba6717b410a2ac"
+  },
+  {
+    "id": "librarian:chemistry",
+    "type": "librarian_subject",
+    "text": "Chemistry subject librarian: Mayersohn, Anna",
+    "metadata": {
+      "subject": "Chemistry",
+      "librarians": [
+        {
+          "name": "Mayersohn, Anna",
+          "profile_url": "https://library.buffalo.edu/about/staff/profile.html?fullName=amayersohn"
+        }
+      ]
+    },
+    "content_hash": "8ad2c69696b037f9ccbbe604d70432174fd79380570ea500a5946e6fc5bfb867"
+  },
+  {
+    "id": "librarian:children-s-young-adult-literature",
+    "type": "librarian_subject",
+    "text": "Children's & Young Adult Literature subject librarian: Taddeo, Laura",
+    "metadata": {
+      "subject": "Children's & Young Adult Literature",
+      "librarians": [
+        {
+          "name": "Taddeo, Laura",
+          "profile_url": "https://library.buffalo.edu/staff/ltaddeo"
+        }
+      ]
+    },
+    "content_hash": "659ef9572fecd746ce9dbd1963e5ed9ba764e5034e224082a28b6244dde30727"
+  },
+  {
+    "id": "librarian:classics",
+    "type": "librarian_subject",
+    "text": "Classics subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Classics",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "110215b8ed3ab896d5921b706005654dd8a99dd0219d921aa101c30fb0fd69c5"
+  },
+  {
+    "id": "librarian:clinical-laboratory-sciences",
+    "type": "librarian_subject",
+    "text": "Clinical Laboratory Sciences subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Clinical Laboratory Sciences",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "f852c0c32929dc402348b3fb9079c6b7e07e01bc51f9807bb5650073fc3bb77a"
+  },
+  {
+    "id": "librarian:communication",
+    "type": "librarian_subject",
+    "text": "Communication subject librarian: Kamela, Mary",
+    "metadata": {
+      "subject": "Communication",
+      "librarians": [
+        {
+          "name": "Kamela, Mary",
+          "profile_url": "https://library.buffalo.edu/staff/mkamela"
+        }
+      ]
+    },
+    "content_hash": "9417024669eff76703b5789e423fc1a403a8c8068359a3bf268ce3efbe2963a8"
+  },
+  {
+    "id": "librarian:communicative-disorders-and-sciences",
+    "type": "librarian_subject",
+    "text": "Communicative Disorders and Sciences subject librarian: Rose, Pam",
+    "metadata": {
+      "subject": "Communicative Disorders and Sciences",
+      "librarians": [
+        {
+          "name": "Rose, Pam",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "eaffa537d2cf9dd43dbd24bfcc5849c0cedf0c4ddb713477a90521ac8ea90bb7"
+  },
+  {
+    "id": "librarian:community-health-and-health-behavior",
+    "type": "librarian_subject",
+    "text": "Community Health and Health Behavior subject librarian: Zafron, Michelle",
+    "metadata": {
+      "subject": "Community Health and Health Behavior",
+      "librarians": [
+        {
+          "name": "Zafron, Michelle",
+          "profile_url": "https://library.buffalo.edu/staff/mzafron"
+        }
+      ]
+    },
+    "content_hash": "c50d66e58055f02d9415b12b62a1b4057b5c6cd87cefd190eafd67b3dbd0041b"
+  },
+  {
+    "id": "librarian:comparative-literature",
+    "type": "librarian_subject",
+    "text": "Comparative Literature subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Comparative Literature",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "629f745fd71e8fac387fde0e5983f70f2cf440ba458eb6e429ea1da8c181a0dd"
+  },
+  {
+    "id": "librarian:complementary-alternative-medicine",
+    "type": "librarian_subject",
+    "text": "Complementary/Alternative Medicine subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Complementary/Alternative Medicine",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "1c6c508a2d136c2ce742931bd60c5e0a68b368153780f36e2a9ac88e255b732e"
+  },
+  {
+    "id": "librarian:computational-and-data-enabled-science-engineering",
+    "type": "librarian_subject",
+    "text": "Computational and Data-Enabled Science & Engineering subject librarian: Rowley, Erin",
+    "metadata": {
+      "subject": "Computational and Data-Enabled Science & Engineering",
+      "librarians": [
+        {
+          "name": "Rowley, Erin",
+          "profile_url": "https://library.buffalo.edu/staff/erowley"
+        }
+      ]
+    },
+    "content_hash": "8981fb402e837b9d9cfe0862d2d2309ca6da7104fda180521ceda9621b55059d"
+  },
+  {
+    "id": "librarian:computer-science",
+    "type": "librarian_subject",
+    "text": "Computer Science subject librarian: Hackenberg, Jill",
+    "metadata": {
+      "subject": "Computer Science",
+      "librarians": [
+        {
+          "name": "Hackenberg, Jill",
+          "profile_url": "https://library.buffalo.edu/staff/jhackenberg"
+        }
+      ]
+    },
+    "content_hash": "d0f3828f59be4a95a6f00e94df6b0ae31beaf1aebad067566766a201308ae0f8"
+  },
+  {
+    "id": "librarian:consumer-health",
+    "type": "librarian_subject",
+    "text": "Consumer Health subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Consumer Health",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "e1dea0b8f99903075fc594a4000f44200294555b8212cc0b96d258a40e462b20"
+  },
+  {
+    "id": "librarian:cora-p-maloney-college",
+    "type": "librarian_subject",
+    "text": "Cora P. Maloney College subject librarian: Thomas, Nicole",
+    "metadata": {
+      "subject": "Cora P. Maloney College",
+      "librarians": [
+        {
+          "name": "Thomas, Nicole",
+          "profile_url": "https://library.buffalo.edu/staff/nthomas"
+        }
+      ]
+    },
+    "content_hash": "ccc8ec8ebbe29b7d88ba833c35b503caaf1bfac2d0d7573df2349a57c5899d6f"
+  },
+  {
+    "id": "librarian:dance",
+    "type": "librarian_subject",
+    "text": "Dance subject librarian: Chiarella, Deborah",
+    "metadata": {
+      "subject": "Dance",
+      "librarians": [
+        {
+          "name": "Chiarella, Deborah",
+          "profile_url": "https://library.buffalo.edu/staff/dchiarella"
+        }
+      ]
+    },
+    "content_hash": "947e5658cf47754133b11439c0a539db4473b469c3e707abee78c637ec63e307"
+  },
+  {
+    "id": "librarian:dental-medicine",
+    "type": "librarian_subject",
+    "text": "Dental Medicine subject librarian: Hollister, Jessica",
+    "metadata": {
+      "subject": "Dental Medicine",
+      "librarians": [
+        {
+          "name": "Hollister, Jessica",
+          "profile_url": "https://library.buffalo.edu/staff/jhollister"
+        }
+      ]
+    },
+    "content_hash": "4b73afac717caeeeab6dbc123ba494ae98df7df2bac89692c0d15546a96c5acc"
+  },
+  {
+    "id": "librarian:dermatology",
+    "type": "librarian_subject",
+    "text": "Dermatology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Dermatology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "0feb06972f0085ac1f0bf8c280ce7c69ba7caf13d586f1978bb65ea184ea91cf"
+  },
+  {
+    "id": "librarian:early-christian-church",
+    "type": "librarian_subject",
+    "text": "Early Christian Church subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Early Christian Church",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "7f0c2c15aac7e03638506b1642bee4ad8c040205380b2c6285678b8ef4f01717"
+  },
+  {
+    "id": "librarian:economics",
+    "type": "librarian_subject",
+    "text": "Economics subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Economics",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "9d4c469a358194c493583221bf0757892f3f4820b0e669436c33609a51407fd0"
+  },
+  {
+    "id": "librarian:education",
+    "type": "librarian_subject",
+    "text": "Education subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Education",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "e3d9c108e65c56634dcb6985f83684439654afd3d83be2c69ea0c999715caf10"
+  },
+  {
+    "id": "librarian:emergency-medicine",
+    "type": "librarian_subject",
+    "text": "Emergency Medicine subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Emergency Medicine",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "3f36a22f70a2ae8134a84de41ab10f024c968ca0cf1bc4123d5f934a5e58b06c"
+  },
+  {
+    "id": "librarian:engineering",
+    "type": "librarian_subject",
+    "text": "Engineering subject librarian: Rowley, Erin, Wood, Ally",
+    "metadata": {
+      "subject": "Engineering",
+      "librarians": [
+        {
+          "name": "Rowley, Erin",
+          "profile_url": "https://library.buffalo.edu/staff/erowley"
+        },
+        {
+          "name": "Wood, Ally",
+          "profile_url": "https://library.buffalo.edu/staff/awood"
+        }
+      ]
+    },
+    "content_hash": "e0759cdd167cd2baedec5072675bb05d4b73c377148b75e9d21a67a0c19fe6ba"
+  },
+  {
+    "id": "librarian:engineering-education",
+    "type": "librarian_subject",
+    "text": "Engineering Education subject librarian: Rowley, Erin, Wood, Ally",
+    "metadata": {
+      "subject": "Engineering Education",
+      "librarians": [
+        {
+          "name": "Rowley, Erin",
+          "profile_url": "https://library.buffalo.edu/staff/erowley"
+        },
+        {
+          "name": "Wood, Ally",
+          "profile_url": "https://library.buffalo.edu/staff/awood"
+        }
+      ]
+    },
+    "content_hash": "2d0d2e29006adfac824b5cdade6b73e79f311b1aeed5016dc8fa1dcbfa3c9eb1"
+  },
+  {
+    "id": "librarian:english-american-literature",
+    "type": "librarian_subject",
+    "text": "English & American Literature subject librarian: Taddeo, Laura",
+    "metadata": {
+      "subject": "English & American Literature",
+      "librarians": [
+        {
+          "name": "Taddeo, Laura",
+          "profile_url": "https://library.buffalo.edu/staff/ltaddeo"
+        }
+      ]
+    },
+    "content_hash": "2bd96cbd7d3e8f5307f6debd02551e45c9ff76cc38eab624e083c3a704897d27"
+  },
+  {
+    "id": "librarian:environment-and-sustainability",
+    "type": "librarian_subject",
+    "text": "Environment and Sustainability subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Environment and Sustainability",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "f82ba85367dd468a6a7fe88786d17d7f5cafdf1eae641262590564e3b2d878c2"
+  },
+  {
+    "id": "librarian:environmental-geosciences",
+    "type": "librarian_subject",
+    "text": "Environmental Geosciences subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Environmental Geosciences",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "c5e56df504ad499394a49d17e19569cf7ca2d8be524d8e84a521d0f0744f5c8a"
+  },
+  {
+    "id": "librarian:epidemiology-and-environmental-health",
+    "type": "librarian_subject",
+    "text": "Epidemiology and Environmental Health subject librarian: Zafron, Michelle",
+    "metadata": {
+      "subject": "Epidemiology and Environmental Health",
+      "librarians": [
+        {
+          "name": "Zafron, Michelle",
+          "profile_url": "https://library.buffalo.edu/staff/mzafron"
+        }
+      ]
+    },
+    "content_hash": "5365fc4000a6a62f03568b9c9e008334cd7c049554f29de6e25dc6798073c251"
+  },
+  {
+    "id": "librarian:evolution-ecology-behavior",
+    "type": "librarian_subject",
+    "text": "Evolution, Ecology & Behavior subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Evolution, Ecology & Behavior",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "f3ef6efa2d59ee054ad7ac385564431e5f63bbc0f2618d0a2679f9061fc8e14a"
+  },
+  {
+    "id": "librarian:exercise-science-nutrition-sciences",
+    "type": "librarian_subject",
+    "text": "Exercise Science & Nutrition Sciences subject librarian: Nichols, Keith",
+    "metadata": {
+      "subject": "Exercise Science & Nutrition Sciences",
+      "librarians": [
+        {
+          "name": "Nichols, Keith",
+          "profile_url": "https://library.buffalo.edu/staff/knichols"
+        }
+      ]
+    },
+    "content_hash": "23124ff6ed32e95561795e19396f733786f25bc7eacae9bafba14978838a6f4e"
+  },
+  {
+    "id": "librarian:family-medicine",
+    "type": "librarian_subject",
+    "text": "Family Medicine subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Family Medicine",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "2312822d865a8138c1f06ca8c5aea072df4f5f558e2fcdab8e3803ee3ab73efc"
+  },
+  {
+    "id": "librarian:finance",
+    "type": "librarian_subject",
+    "text": "Finance subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Finance",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "8f76782e8d87ce3a2f870c45041c0c3e33e4e3d04ae19ac08eaa6601571c9d06"
+  },
+  {
+    "id": "librarian:geographic-information-systems-gis",
+    "type": "librarian_subject",
+    "text": "Geographic Information Systems (GIS) subject librarian: Kim, Sam",
+    "metadata": {
+      "subject": "Geographic Information Systems (GIS)",
+      "librarians": [
+        {
+          "name": "Kim, Sam",
+          "profile_url": "https://library.buffalo.edu/staff/skim"
+        }
+      ]
+    },
+    "content_hash": "54b043a0b20174b44fbb11bc39d87d6a2df620df5215ac5ea4f96eab1c01ce4f"
+  },
+  {
+    "id": "librarian:geography-human",
+    "type": "librarian_subject",
+    "text": "Geography, Human subject librarian: Kim, Sam",
+    "metadata": {
+      "subject": "Geography, Human",
+      "librarians": [
+        {
+          "name": "Kim, Sam",
+          "profile_url": "https://library.buffalo.edu/staff/skim"
+        }
+      ]
+    },
+    "content_hash": "54638db8522595f06f0fc3bb18498e4ea0e082ef0ffb9ad73605e7c2f58189c3"
+  },
+  {
+    "id": "librarian:geography-physical",
+    "type": "librarian_subject",
+    "text": "Geography, Physical subject librarian: Kim, Sam",
+    "metadata": {
+      "subject": "Geography, Physical",
+      "librarians": [
+        {
+          "name": "Kim, Sam",
+          "profile_url": "https://library.buffalo.edu/staff/skim"
+        }
+      ]
+    },
+    "content_hash": "b899ffe2cbc471eb2a779947aeb53ddf3cb6a638ae650a6429d96479c9d34713"
+  },
+  {
+    "id": "librarian:geology",
+    "type": "librarian_subject",
+    "text": "Geology subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Geology",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "9d6a225fe305c61bddd81636fefddb171e296a2854e57aa1c99e5217d035b000"
+  },
+  {
+    "id": "librarian:geriatrics",
+    "type": "librarian_subject",
+    "text": "Geriatrics subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Geriatrics",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "4a7e321d4c878b65f3dcd079d261c8d16993c6bc610af6959fbb2028a895412a"
+  },
+  {
+    "id": "librarian:german-language-literature",
+    "type": "librarian_subject",
+    "text": "German Language & Literature subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "German Language & Literature",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "b15e34f0e5231cd98e1894aeccb4f33378035f6659ce965141889ffe07dd514b"
+  },
+  {
+    "id": "librarian:global-gender-studies",
+    "type": "librarian_subject",
+    "text": "Global Gender Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Global Gender Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "abd1fa611e631603e3f2f9461b7533d859fe85294e9a116df575e7d6a6688de9"
+  },
+  {
+    "id": "librarian:government-information-u-s-business-economics-and-statistical-information",
+    "type": "librarian_subject",
+    "text": "Government Information \u2013 U.S. - Business, economics, and statistical information subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Government Information \u2013 U.S. - Business, economics, and statistical information",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "b09a3cd567472e866a03499ae04ae27d37e042098ecab1e3384c6dc20038b228"
+  },
+  {
+    "id": "librarian:government-information-u-s-law",
+    "type": "librarian_subject",
+    "text": "Government Information - U.S. - Law subject librarian: Chapman, Rebecca, Detweiler, Brian, Walsh, Tiffany, Waters, Austin",
+    "metadata": {
+      "subject": "Government Information - U.S. - Law",
+      "librarians": [
+        {
+          "name": "Chapman, Rebecca",
+          "profile_url": "https://library.buffalo.edu/staff/rchapman"
+        },
+        {
+          "name": "Detweiler, Brian",
+          "profile_url": "https://library.buffalo.edu/staff/bdetweiler"
+        },
+        {
+          "name": "Walsh, Tiffany",
+          "profile_url": "https://library.buffalo.edu/staff/twalsh"
+        },
+        {
+          "name": "Waters, Austin",
+          "profile_url": "https://library.buffalo.edu/staff/bwaters"
+        }
+      ]
+    },
+    "content_hash": "78e9975188f2b424d62312f99d1fcd184fa08db1a8c7689d4225e0a8c605c273"
+  },
+  {
+    "id": "librarian:graphic-novels",
+    "type": "librarian_subject",
+    "text": "Graphic Novels subject librarian: Taddeo, Laura",
+    "metadata": {
+      "subject": "Graphic Novels",
+      "librarians": [
+        {
+          "name": "Taddeo, Laura",
+          "profile_url": "https://library.buffalo.edu/staff/ltaddeo"
+        }
+      ]
+    },
+    "content_hash": "9d3f9e2ea69c1205196452645dfe8e5e19a977ded157291bdd2665bfc8bfd33c"
+  },
+  {
+    "id": "librarian:historical-manuscript-collection",
+    "type": "librarian_subject",
+    "text": "Historical & Manuscript Collection subject librarian: Dunbar, Hope, Elia, Marie",
+    "metadata": {
+      "subject": "Historical & Manuscript Collection",
+      "librarians": [
+        {
+          "name": "Dunbar, Hope",
+          "profile_url": "https://library.buffalo.edu/staff/hdunbar"
+        },
+        {
+          "name": "Elia, Marie",
+          "profile_url": "https://library.buffalo.edu/staff/melia"
+        }
+      ]
+    },
+    "content_hash": "cb71c81a47989073f6df8bcbee1570a6553072a2fbccf940a25080034b31cb59"
+  },
+  {
+    "id": "librarian:history",
+    "type": "librarian_subject",
+    "text": "History subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "History",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "434739cf0fffb3814301031dea9aa9e421b1d3002bd13a4efc777ab6e98ccd02"
+  },
+  {
+    "id": "librarian:history-of-medicine",
+    "type": "librarian_subject",
+    "text": "History of Medicine subject librarian: Mages, Keith",
+    "metadata": {
+      "subject": "History of Medicine",
+      "librarians": [
+        {
+          "name": "Mages, Keith",
+          "profile_url": "https://library.buffalo.edu/about/staff/profile.html?fullName=kmages"
+        }
+      ]
+    },
+    "content_hash": "b1517a92ed107d32af59424c46725660db876d3abbd0d9f1fd9e58992a13e900"
+  },
+  {
+    "id": "librarian:honors-college",
+    "type": "librarian_subject",
+    "text": "Honors College subject librarian: Kamela, Mary",
+    "metadata": {
+      "subject": "Honors College",
+      "librarians": [
+        {
+          "name": "Kamela, Mary",
+          "profile_url": "https://library.buffalo.edu/staff/mkamela"
+        }
+      ]
+    },
+    "content_hash": "fb5f50cc508145aee62ed63f2e38279d1e7a01632d82a59b0f79ecc256221e7b"
+  },
+  {
+    "id": "librarian:immunology",
+    "type": "librarian_subject",
+    "text": "Immunology subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Immunology",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "c2d71fea4398dced58a50cb8ba363608752a3b7118db23012a1b991d0d9fab7e"
+  },
+  {
+    "id": "librarian:indigenous-studies",
+    "type": "librarian_subject",
+    "text": "Indigenous Studies subject librarian: Chapman, Rebecca",
+    "metadata": {
+      "subject": "Indigenous Studies",
+      "librarians": [
+        {
+          "name": "Chapman, Rebecca",
+          "profile_url": "https://library.buffalo.edu/staff/rchapman"
+        }
+      ]
+    },
+    "content_hash": "f3cfa9668b603f859e0d8b056de1a9f09814cb03abde5e01ae34a656d4fdf287"
+  },
+  {
+    "id": "librarian:interdisciplinary-degree-programs",
+    "type": "librarian_subject",
+    "text": "Interdisciplinary Degree Programs subject librarian: Walsh, Tiffany",
+    "metadata": {
+      "subject": "Interdisciplinary Degree Programs",
+      "librarians": [
+        {
+          "name": "Walsh, Tiffany",
+          "profile_url": "https://library.buffalo.edu/staff/twalsh"
+        }
+      ]
+    },
+    "content_hash": "8feb340881be5ed3f229dce76f3f2db772817ad46082b50ceb294655c97d3759"
+  },
+  {
+    "id": "librarian:jewish-studies",
+    "type": "librarian_subject",
+    "text": "Jewish Studies subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Jewish Studies",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "6a29869c44793be2fa63093a40d770ec45ff832f52c4490c27e7c5ab0fb055eb"
+  },
+  {
+    "id": "librarian:latino-a-studies",
+    "type": "librarian_subject",
+    "text": "Latino/a Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Latino/a Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "0ca1f577484680e62e1ff819bcf5a5a5f5bfcfe13b0e096a07ffb6c97df3ba52"
+  },
+  {
+    "id": "librarian:law",
+    "type": "librarian_subject",
+    "text": "Law subject librarian: Chapman, Rebecca, Detweiler, Brian, Walsh, Tiffany, Waters, Austin",
+    "metadata": {
+      "subject": "Law",
+      "librarians": [
+        {
+          "name": "Chapman, Rebecca",
+          "profile_url": "https://library.buffalo.edu/staff/rchapman"
+        },
+        {
+          "name": "Detweiler, Brian",
+          "profile_url": "https://library.buffalo.edu/staff/bdetweiler"
+        },
+        {
+          "name": "Walsh, Tiffany",
+          "profile_url": "https://library.buffalo.edu/staff/twalsh"
+        },
+        {
+          "name": "Waters, Austin",
+          "profile_url": "https://library.buffalo.edu/staff/bwaters"
+        }
+      ]
+    },
+    "content_hash": "11a0eea550ba94f182f69cfcbb6d327ea9e5a37c3bc2e6c49bcee2a8542398f1"
+  },
+  {
+    "id": "librarian:learning-instruction",
+    "type": "librarian_subject",
+    "text": "Learning & Instruction subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Learning & Instruction",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "287de4ec82259a8e93a09d8942ba3791384b5222b36ba60fffc549a02e71568f"
+  },
+  {
+    "id": "librarian:library-information-science",
+    "type": "librarian_subject",
+    "text": "Library & Information Science subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Library & Information Science",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "8030af4f134185c86cd81d3971a10cb4b8feba9bec05bd8e71b4860fb9dfbe46"
+  },
+  {
+    "id": "librarian:linguistics",
+    "type": "librarian_subject",
+    "text": "Linguistics subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Linguistics",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "e155a4a8963db51fbf1a155fa5e3d52a3f97f993bc9089c7373ebd3154deb45c"
+  },
+  {
+    "id": "librarian:love-canal",
+    "type": "librarian_subject",
+    "text": "Love Canal subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Love Canal",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "74456ecda8b7d08cd2ffa04ba0874bd61756242d59329dae5036d5173c473a95"
+  },
+  {
+    "id": "librarian:management",
+    "type": "librarian_subject",
+    "text": "Management subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Management",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "675dbeb8017d16aa48a6310b00e42cd1459a505881e9a50cfdb76bc78e26997a"
+  },
+  {
+    "id": "librarian:mathematics",
+    "type": "librarian_subject",
+    "text": "Mathematics subject librarian: Hackenberg, Jill",
+    "metadata": {
+      "subject": "Mathematics",
+      "librarians": [
+        {
+          "name": "Hackenberg, Jill",
+          "profile_url": "https://library.buffalo.edu/staff/jhackenberg"
+        }
+      ]
+    },
+    "content_hash": "c5ad5aa2355fdee6cd4b2c582b5224b503ea002080d1a6ead5b7c81eb547e6e0"
+  },
+  {
+    "id": "librarian:media-study",
+    "type": "librarian_subject",
+    "text": "Media Study subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Media Study",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "865cf2ca498832ad12aeabebfcf58d4ba29fc9ddd645d4ef09450a5e9a793e9f"
+  },
+  {
+    "id": "librarian:medicine-biomedical-sciences",
+    "type": "librarian_subject",
+    "text": "Medicine & Biomedical Sciences subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Medicine & Biomedical Sciences",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "16b6e3e3ce7044925954bbc61f0da61ed1316661e14b984eeff1fc7243de1f0b"
+  },
+  {
+    "id": "librarian:meteorology",
+    "type": "librarian_subject",
+    "text": "Meteorology subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Meteorology",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "e3d9a76f1d22ff2107205e4900f3a496da056b72b30e1cc5515d0b2eb3bc5fc5"
+  },
+  {
+    "id": "librarian:microbiology",
+    "type": "librarian_subject",
+    "text": "Microbiology subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Microbiology",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "f884ebabc55c359a0bdd76ae0139f37bceb213f4f1b12cb7ee951feac22d8f3c"
+  },
+  {
+    "id": "librarian:molecular-biology",
+    "type": "librarian_subject",
+    "text": "Molecular Biology subject librarian: Rose, Pamela",
+    "metadata": {
+      "subject": "Molecular Biology",
+      "librarians": [
+        {
+          "name": "Rose, Pamela",
+          "profile_url": "https://library.buffalo.edu/staff/prose"
+        }
+      ]
+    },
+    "content_hash": "9835193ab7588968f825080762f07afe8dc861a380e63b45f1d42fce94c95710"
+  },
+  {
+    "id": "librarian:multi-media-streaming-resources",
+    "type": "librarian_subject",
+    "text": "Multi-Media/Streaming Resources subject librarian: Taddeo, Laura, Cunningham, Kate",
+    "metadata": {
+      "subject": "Multi-Media/Streaming Resources",
+      "librarians": [
+        {
+          "name": "Taddeo, Laura",
+          "profile_url": "https://library.buffalo.edu/staff/ltaddeo"
+        },
+        {
+          "name": "Cunningham, Kate",
+          "profile_url": "https://library.buffalo.edu/staff/kcunningham"
+        }
+      ]
+    },
+    "content_hash": "650c0898dc236676c12fe8d2a629067ea692dd63744edb983b0304e3933cac5f"
+  },
+  {
+    "id": "librarian:music",
+    "type": "librarian_subject",
+    "text": "Music subject librarian: Chiarella, Deborah",
+    "metadata": {
+      "subject": "Music",
+      "librarians": [
+        {
+          "name": "Chiarella, Deborah",
+          "profile_url": "https://library.buffalo.edu/staff/dchiarella"
+        }
+      ]
+    },
+    "content_hash": "d68c399081c810a78d87639d0dac03e8551f66a22acb70b22f24d79471c19fab"
+  },
+  {
+    "id": "librarian:neurology",
+    "type": "librarian_subject",
+    "text": "Neurology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Neurology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "79d79c8649cfe51e82c9954a1ade8de5274a0546c0277250ad9075b1b9ce8743"
+  },
+  {
+    "id": "librarian:neuroscience",
+    "type": "librarian_subject",
+    "text": "Neuroscience subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Neuroscience",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "6df2d4536cab89afe39809e8c793cc4d1a7c1b058f2a658cc8e991ccd8d65b1a"
+  },
+  {
+    "id": "librarian:neurosurgery",
+    "type": "librarian_subject",
+    "text": "Neurosurgery subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Neurosurgery",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "0d108621c53fa56646ae6e8f58d7b1ee4802d37df3cce1326f659740e5b3cdc7"
+  },
+  {
+    "id": "librarian:newspapers-current",
+    "type": "librarian_subject",
+    "text": "Newspapers, Current subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Newspapers, Current",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "0fdf33d503f580e6bc64261471ad558a6d4a2cce186782f7abf63652b86a9c78"
+  },
+  {
+    "id": "librarian:newspapers-historical",
+    "type": "librarian_subject",
+    "text": "Newspapers, Historical subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Newspapers, Historical",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "8a853e61817ba7b5ccff0850fa14b2a0857b9c61fe51c5f6ca0847d741c08716"
+  },
+  {
+    "id": "librarian:nuclear-medicine",
+    "type": "librarian_subject",
+    "text": "Nuclear Medicine subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Nuclear Medicine",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "ac75776107eb29f2cea5690d79bca00f0f182968d0ea2f592614b4ec50d66055"
+  },
+  {
+    "id": "librarian:nursing",
+    "type": "librarian_subject",
+    "text": "Nursing subject librarian: Thomas, Nicole",
+    "metadata": {
+      "subject": "Nursing",
+      "librarians": [
+        {
+          "name": "Thomas, Nicole",
+          "profile_url": "https://library.buffalo.edu/about/staff/profile.html?fullName=nthomas"
+        }
+      ]
+    },
+    "content_hash": "60dcc71583fde404b9cf5dc5b106e691aa174b0cbe5062e98e702d9eda134d93"
+  },
+  {
+    "id": "librarian:nutrition",
+    "type": "librarian_subject",
+    "text": "Nutrition subject librarian: Nichols, Keith",
+    "metadata": {
+      "subject": "Nutrition",
+      "librarians": [
+        {
+          "name": "Nichols, Keith",
+          "profile_url": "https://library.buffalo.edu/staff/knichols"
+        }
+      ]
+    },
+    "content_hash": "f74a1ef062e060aa3063d93f500c956c1cb70684d80086df3c2652de904f6c79"
+  },
+  {
+    "id": "librarian:obstetrics-gynecology",
+    "type": "librarian_subject",
+    "text": "Obstetrics/Gynecology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Obstetrics/Gynecology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "3b0c6104280cccd797d7078785ce51094e0af295b2da49fca14d567933426a62"
+  },
+  {
+    "id": "librarian:occupational-therapy",
+    "type": "librarian_subject",
+    "text": "Occupational Therapy subject librarian: Nichols, Keith",
+    "metadata": {
+      "subject": "Occupational Therapy",
+      "librarians": [
+        {
+          "name": "Nichols, Keith",
+          "profile_url": "https://library.buffalo.edu/staff/knichols"
+        }
+      ]
+    },
+    "content_hash": "b9b4710c7b54bc1d2275a74338b3e57b25ed1bb19dfd93d0c24abd2d238b8dbb"
+  },
+  {
+    "id": "librarian:ophthalmology",
+    "type": "librarian_subject",
+    "text": "Ophthalmology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Ophthalmology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "25baa8d8630d1e33d73e413f6f37ea056fe97b0e0217fb41b10a18761a69453f"
+  },
+  {
+    "id": "librarian:otolaryngology",
+    "type": "librarian_subject",
+    "text": "Otolaryngology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Otolaryngology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "ff54766e224ceac37f817c98c287846413e9cb6c529d9877dc3528c3a594b84d"
+  },
+  {
+    "id": "librarian:pathology",
+    "type": "librarian_subject",
+    "text": "Pathology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Pathology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "9547bbc8d08090aa9ec3a457a013209922c4e1d7f12877d565c7e4f4d5d74258"
+  },
+  {
+    "id": "librarian:pediatrics",
+    "type": "librarian_subject",
+    "text": "Pediatrics subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Pediatrics",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "5cab5a8c6aee32dd28c5af63386ff43ceb440576fb9b081699b328c75a47710f"
+  },
+  {
+    "id": "librarian:pharmacy-pharmaceutical-sciences",
+    "type": "librarian_subject",
+    "text": "Pharmacy & Pharmaceutical Sciences subject librarian: Maloney, Molly",
+    "metadata": {
+      "subject": "Pharmacy & Pharmaceutical Sciences",
+      "librarians": [
+        {
+          "name": "Maloney, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mmaloney"
+        }
+      ]
+    },
+    "content_hash": "2f2a7c981a4578c19c1622d7644d4ead81e6c8d90021f220fe04f8b4ffa85efb"
+  },
+  {
+    "id": "librarian:philosophy",
+    "type": "librarian_subject",
+    "text": "Philosophy subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Philosophy",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "578113ccff73d9a58798e248387a61be7d55b86fd0de87487b62a11251998560"
+  },
+  {
+    "id": "librarian:physical-therapy",
+    "type": "librarian_subject",
+    "text": "Physical Therapy subject librarian: Nichols, Keith",
+    "metadata": {
+      "subject": "Physical Therapy",
+      "librarians": [
+        {
+          "name": "Nichols, Keith",
+          "profile_url": "https://library.buffalo.edu/staff/knichols"
+        }
+      ]
+    },
+    "content_hash": "c97e15bb069c5283cc1ff4231f1dee4e31409d45d8781127a123bab4b0686440"
+  },
+  {
+    "id": "librarian:physics",
+    "type": "librarian_subject",
+    "text": "Physics subject librarian: Mayersohn, Anna",
+    "metadata": {
+      "subject": "Physics",
+      "librarians": [
+        {
+          "name": "Mayersohn, Anna",
+          "profile_url": "https://library.buffalo.edu/about/staff/profile.html?fullName=amayersohn"
+        }
+      ]
+    },
+    "content_hash": "adb25d5e70535355678cfcd76786d65e8834e60d2c3c410615b895affe543703"
+  },
+  {
+    "id": "librarian:physiology",
+    "type": "librarian_subject",
+    "text": "Physiology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Physiology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "cb4a1c5d4bd8dde0ff94fced3e3d807be078d2703ba7f226cb099e9287f5badf"
+  },
+  {
+    "id": "librarian:planning-urban-regional",
+    "type": "librarian_subject",
+    "text": "Planning, Urban & Regional subject librarian: Orcutt, Rose",
+    "metadata": {
+      "subject": "Planning, Urban & Regional",
+      "librarians": [
+        {
+          "name": "Orcutt, Rose",
+          "profile_url": "https://library.buffalo.edu/staff/rorcutt"
+        }
+      ]
+    },
+    "content_hash": "5b2b1201cd0f04b4088c6df3d83ea5e330949513b796047fa2fbb0620bbd4548"
+  },
+  {
+    "id": "librarian:poetry-poetics",
+    "type": "librarian_subject",
+    "text": "Poetry/Poetics subject librarian: Fraser, Alison, Maynard, James",
+    "metadata": {
+      "subject": "Poetry/Poetics",
+      "librarians": [
+        {
+          "name": "Fraser, Alison",
+          "profile_url": "https://library.buffalo.edu/staff/afraser"
+        },
+        {
+          "name": "Maynard, James",
+          "profile_url": "https://library.buffalo.edu/staff/jmaynard"
+        }
+      ]
+    },
+    "content_hash": "f4a9f4519e4b60af595ea1c06115021f170f09f3b82753ecf91a51b17903922e"
+  },
+  {
+    "id": "librarian:polish-studies",
+    "type": "librarian_subject",
+    "text": "Polish Studies subject librarian: Orcutt, Rose",
+    "metadata": {
+      "subject": "Polish Studies",
+      "librarians": [
+        {
+          "name": "Orcutt, Rose",
+          "profile_url": "https://library.buffalo.edu/staff/rorcutt"
+        }
+      ]
+    },
+    "content_hash": "45af2e3be62fdda3fe54f106451d3b49eef167ec6fea4f5e5fab35702ac46762"
+  },
+  {
+    "id": "librarian:political-science",
+    "type": "librarian_subject",
+    "text": "Political Science subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Political Science",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "a88bb2339d302e83d645e2ef4b63de0f9502552ce311e4d3a4cfb3515bb4de20"
+  },
+  {
+    "id": "librarian:psychiatry-behavioral-disorders",
+    "type": "librarian_subject",
+    "text": "Psychiatry & Behavioral Disorders subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Psychiatry & Behavioral Disorders",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "9baa0c71005b7954347beb08d8d29981a71cb365e3a8bb04c3946704dd0eb1fe"
+  },
+  {
+    "id": "librarian:psychology",
+    "type": "librarian_subject",
+    "text": "Psychology subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Psychology",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "e87294da2992b01a903d277fdb856f612b61f21e64c1142166ac624adb4c3c99"
+  },
+  {
+    "id": "librarian:public-health",
+    "type": "librarian_subject",
+    "text": "Public Health subject librarian: Zafron, Michelle",
+    "metadata": {
+      "subject": "Public Health",
+      "librarians": [
+        {
+          "name": "Zafron, Michelle",
+          "profile_url": "https://library.buffalo.edu/staff/mzafron"
+        }
+      ]
+    },
+    "content_hash": "cbe3d491af2edef3c6b7a90b51f7f7e8af1aead8f13705e945e7183d9c1329f3"
+  },
+  {
+    "id": "librarian:radiation-oncology",
+    "type": "librarian_subject",
+    "text": "Radiation Oncology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Radiation Oncology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "fd10dba047f216821adb1dd72fd17e6c073167c9584dbcea58013ecc707f092b"
+  },
+  {
+    "id": "librarian:rare-books",
+    "type": "librarian_subject",
+    "text": "Rare Books subject librarian: Fraser, Alison",
+    "metadata": {
+      "subject": "Rare Books",
+      "librarians": [
+        {
+          "name": "Fraser, Alison",
+          "profile_url": "https://library.buffalo.edu/staff/afraser"
+        }
+      ]
+    },
+    "content_hash": "cf44802650b97f15ac95496f8a5994e1db41c1b30657ac02627f3de2f22b07b8"
+  },
+  {
+    "id": "librarian:reference-arts-humanities-social-sciences",
+    "type": "librarian_subject",
+    "text": "Reference, Arts, Humanities & Social Sciences subject librarian: Taddeo, Laura",
+    "metadata": {
+      "subject": "Reference, Arts, Humanities & Social Sciences",
+      "librarians": [
+        {
+          "name": "Taddeo, Laura",
+          "profile_url": "https://library.buffalo.edu/staff/ltaddeo"
+        }
+      ]
+    },
+    "content_hash": "e715d1909af578374e6caf02589f5e01e791b14f582b37353d362a56917fd2f2"
+  },
+  {
+    "id": "librarian:reference-health-sciences",
+    "type": "librarian_subject",
+    "text": "Reference, Health Sciences subject librarian: Zafron, Michelle",
+    "metadata": {
+      "subject": "Reference, Health Sciences",
+      "librarians": [
+        {
+          "name": "Zafron, Michelle",
+          "profile_url": "https://library.buffalo.edu/staff/mzafron"
+        }
+      ]
+    },
+    "content_hash": "e32e86477015bf1a3c49f89ed7c549f8e5c637062e4e8a9016bd027dc3e3d747"
+  },
+  {
+    "id": "librarian:reference-science-engineering",
+    "type": "librarian_subject",
+    "text": "Reference, Science & Engineering subject librarian: Stoss, Fred",
+    "metadata": {
+      "subject": "Reference, Science & Engineering",
+      "librarians": [
+        {
+          "name": "Stoss, Fred",
+          "profile_url": "https://library.buffalo.edu/staff/fstoss"
+        }
+      ]
+    },
+    "content_hash": "e8e3febf1b427d8919964b8c15e15fb0d353eabb43be8c7921d583b3f5d0e478"
+  },
+  {
+    "id": "librarian:regional-history",
+    "type": "librarian_subject",
+    "text": "Regional History subject librarian: Dunbar, Hope, Elia, Marie",
+    "metadata": {
+      "subject": "Regional History",
+      "librarians": [
+        {
+          "name": "Dunbar, Hope",
+          "profile_url": "https://library.buffalo.edu/staff/hdunbar"
+        },
+        {
+          "name": "Elia, Marie",
+          "profile_url": "https://library.buffalo.edu/staff/melia"
+        }
+      ]
+    },
+    "content_hash": "e05a1961bfdff0e3de0fa25d4d4a9a19022a876f5e4f8deb48844e10bb8f3287"
+  },
+  {
+    "id": "librarian:rehabilitation-science",
+    "type": "librarian_subject",
+    "text": "Rehabilitation Science subject librarian: Nichols, Keith",
+    "metadata": {
+      "subject": "Rehabilitation Science",
+      "librarians": [
+        {
+          "name": "Nichols, Keith",
+          "profile_url": "https://library.buffalo.edu/staff/knichols"
+        }
+      ]
+    },
+    "content_hash": "e0d96d0e81991826cd12cae0695645b5762d73f2222aeeffd004ae5170ff7ecc"
+  },
+  {
+    "id": "librarian:religious-studies",
+    "type": "librarian_subject",
+    "text": "Religious Studies subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Religious Studies",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "ef7526fb3ae9382d0d0dfeca884516dfd1d6adac5a7a0de508fa3151f61e3060"
+  },
+  {
+    "id": "librarian:romance-languages-literatures",
+    "type": "librarian_subject",
+    "text": "Romance Languages & Literatures subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Romance Languages & Literatures",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "e62765f75718ae8d515d128b06b70836c90cb968656163fd4e7991d5036e6e2e"
+  },
+  {
+    "id": "librarian:social-work",
+    "type": "librarian_subject",
+    "text": "Social Work subject librarian: Sajecki, Bryan",
+    "metadata": {
+      "subject": "Social Work",
+      "librarians": [
+        {
+          "name": "Sajecki, Bryan",
+          "profile_url": "https://library.buffalo.edu/staff/bsajecki"
+        }
+      ]
+    },
+    "content_hash": "6af509a4f1906cb55e80f5e124d901865a7331baa3ded2106ee20584a9f40a95"
+  },
+  {
+    "id": "librarian:sociology",
+    "type": "librarian_subject",
+    "text": "Sociology subject librarian: Klotzbach-Russell, Carolyn",
+    "metadata": {
+      "subject": "Sociology",
+      "librarians": [
+        {
+          "name": "Klotzbach-Russell, Carolyn",
+          "profile_url": "https://library.buffalo.edu/staff/cklotzbach-russell"
+        }
+      ]
+    },
+    "content_hash": "e8fd4167e6c3710fef7d2abfd0080f8aaa3b05a1baff0e36b6a6fcc23fe164a8"
+  },
+  {
+    "id": "librarian:sports-medicine",
+    "type": "librarian_subject",
+    "text": "Sports Medicine subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Sports Medicine",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "c02042f8187312e8d255e105bfeb10b2346594bdb0a1a360c21e207cf8a943a9"
+  },
+  {
+    "id": "librarian:surgery",
+    "type": "librarian_subject",
+    "text": "Surgery subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Surgery",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "d91f93dfec7c1153466b2cb83c6f7cef13e6fe417447d340bb04befb71fc0b30"
+  },
+  {
+    "id": "librarian:theatre",
+    "type": "librarian_subject",
+    "text": "Theatre subject librarian: Chiarella, Deborah",
+    "metadata": {
+      "subject": "Theatre",
+      "librarians": [
+        {
+          "name": "Chiarella, Deborah",
+          "profile_url": "https://library.buffalo.edu/staff/dchiarella"
+        }
+      ]
+    },
+    "content_hash": "d533b405d3d1ef9e99c48a4238f25e9d4101ff4e9b7c65e56a64c36913befa99"
+  },
+  {
+    "id": "librarian:toxicology",
+    "type": "librarian_subject",
+    "text": "Toxicology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Toxicology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "b431cb4f6058d75d253148ea98cc84d2582a8de9697e2b712a4e2c0991a02eb0"
+  },
+  {
+    "id": "librarian:transnational-studies",
+    "type": "librarian_subject",
+    "text": "Transnational Studies subject librarian: Poremski, Molly",
+    "metadata": {
+      "subject": "Transnational Studies",
+      "librarians": [
+        {
+          "name": "Poremski, Molly",
+          "profile_url": "https://library.buffalo.edu/staff/mporemski"
+        }
+      ]
+    },
+    "content_hash": "c01359d761487af280140aca72043be653427455477043900960419a5b58bbce"
+  },
+  {
+    "id": "librarian:ub-history",
+    "type": "librarian_subject",
+    "text": "UB History subject librarian: Dunbar, Hope, Elia, Marie",
+    "metadata": {
+      "subject": "UB History",
+      "librarians": [
+        {
+          "name": "Dunbar, Hope",
+          "profile_url": "https://library.buffalo.edu/staff/hdunbar"
+        },
+        {
+          "name": "Elia, Marie",
+          "profile_url": "https://library.buffalo.edu/staff/melia"
+        }
+      ]
+    },
+    "content_hash": "c851a449255ea0492c4745b13f50d26bbd0ff75eb7835347303b27892d5b5359"
+  },
+  {
+    "id": "librarian:urban-regional-planning",
+    "type": "librarian_subject",
+    "text": "Urban & Regional Planning subject librarian: Orcutt, Rose",
+    "metadata": {
+      "subject": "Urban & Regional Planning",
+      "librarians": [
+        {
+          "name": "Orcutt, Rose",
+          "profile_url": "https://library.buffalo.edu/staff/rorcutt"
+        }
+      ]
+    },
+    "content_hash": "dc47739563eefc390451b53204d2b9198b5c540bc10a43ec3eb5562b32ccdffa"
+  },
+  {
+    "id": "librarian:urology",
+    "type": "librarian_subject",
+    "text": "Urology subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Urology",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "280a92a7e7d2b26973035b3a892da27cee5f2db902f50bbdb52e658e6cc05e75"
+  },
+  {
+    "id": "librarian:visual-studies",
+    "type": "librarian_subject",
+    "text": "Visual Studies subject librarian: Kicey, Michael",
+    "metadata": {
+      "subject": "Visual Studies",
+      "librarians": [
+        {
+          "name": "Kicey, Michael",
+          "profile_url": "https://library.buffalo.edu/staff/mkicey"
+        }
+      ]
+    },
+    "content_hash": "b9af3041676a6672434c7400d172f2ebac7f9dba394ad10f7ed7180d4582bb2f"
+  },
+  {
+    "id": "librarian:women-s-health",
+    "type": "librarian_subject",
+    "text": "Women's Health subject librarian: Aronoff, Nell, Mueller, Laurel",
+    "metadata": {
+      "subject": "Women's Health",
+      "librarians": [
+        {
+          "name": "Aronoff, Nell",
+          "profile_url": "https://library.buffalo.edu/staff/naronoff"
+        },
+        {
+          "name": "Mueller, Laurel",
+          "profile_url": "https://library.buffalo.edu/staff/lmueller"
+        }
+      ]
+    },
+    "content_hash": "8bb221aa61ee12126ba0d7e256177fa47524a7377df43494943feba8b7f9eb7b"
+  }
+]

@@ -7,7 +7,7 @@ from agent.compose import (
     select_results,
     validate_selection,
 )
-from agent.models import QueryPlan, Selection, SelectionItem
+from agent.models import QueryPlan, RagContext, Selection, SelectionItem
 from onesearch.models import ResourceDetail, SearchCandidate, SearchResult
 from tests.fakes import FakeChatModel
 
@@ -46,7 +46,7 @@ def _state(candidates, **extra):
         "message": "find me peer reviewed journals on mental health",
         "plan": QueryPlan(keywords="mental health"),
         "search_result": SearchResult(candidates=candidates, timed_out=False, fallback_link=None),
-        "rag_context": [],
+        "rag_context": RagContext(),
         "notes": [],
     }
     state.update(extra)
@@ -67,7 +67,7 @@ def test_select_results_sends_truncated_candidate_json_and_role():
     long = "x" * (DESCRIPTION_CHARS + 100)
     model = FakeChatModel(Selection(items=[], confidence="low"))
 
-    select_results(model, "faculty", "the request", [_candidate("a1", description=long)], [])
+    select_results(model, "faculty", "the request", [_candidate("a1", description=long)], RagContext())
 
     human = model.calls[0][1][1]
     assert "role: faculty" in human and "request: the request" in human
@@ -155,3 +155,52 @@ def test_compose_with_no_candidates_skips_the_model_and_gives_the_link():
     assert "could not find results" in out["answer"]
     assert "https://direct/link" in out["answer"]
     assert "OneSearch was slow to respond." in out["answer"]
+
+
+def test_compose_appends_rag_sections_to_a_normal_answer():
+    from pipeline.records import DATABASE_SUBJECT, HELP_TOPIC, LIBRARIAN_SUBJECT, Record
+
+    candidates = [_candidate("e1")]
+    model = FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="Fits.")], confidence="high"))
+    client = _client()
+    rag_context = RagContext(
+        librarians=[Record(id="librarian:mh", type=LIBRARIAN_SUBJECT, text="", metadata={
+            "subject": "Mental Health", "librarians": [{"name": "Doe, Jane", "profile_url": "https://staff/doe"}]
+        })],
+        help_topics=[Record(id="help:citing", type=HELP_TOPIC, text="", metadata={
+            "title": "Citing Sources", "url": "https://research/citingsources"
+        })],
+        databases=[Record(id="db:mh", type=DATABASE_SUBJECT, text="", metadata={
+            "subject": "Psychology", "count": 12, "browse_url": "https://research/az.php"
+        })],
+    )
+
+    out = compose(_state(candidates, rag_context=rag_context), model, client)
+
+    answer = out["answer"]
+    assert "Subject librarian: Doe, Jane - https://staff/doe" in answer
+    assert "Helpful pages:" in answer and "- Citing Sources: https://research/citingsources" in answer
+    assert "Browse databases in Psychology: https://research/az.php" in answer
+
+
+def test_compose_appends_rag_sections_even_with_no_candidates():
+    from pipeline.records import HELP_TOPIC, Record
+
+    rag_context = RagContext(help_topics=[
+        Record(id="help:a", type=HELP_TOPIC, text="", metadata={"title": "Ask A Librarian", "url": "https://x"})
+    ])
+    state = _state([], rag_context=rag_context)
+
+    out = compose(state, FakeChatModel(), _client())
+
+    assert "Helpful pages:" in out["answer"]
+    assert "- Ask A Librarian: https://x" in out["answer"]
+
+
+def test_compose_omits_rag_footer_when_context_is_empty():
+    out = compose(_state([_candidate("e1")], rag_context=RagContext()),
+                   FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="ok")], confidence="high")),
+                   _client())
+    assert "Subject librarian" not in out["answer"]
+    assert "Helpful pages" not in out["answer"]
+    assert "Browse databases" not in out["answer"]

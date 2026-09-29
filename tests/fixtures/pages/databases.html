@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>A-Z Databases</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script>
+        var is_bootstrap = 0;
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noarchive"/>
+    <link rel="canonical" href="https://research.lib.buffalo.edu/az.php"/>
+<!-- favicon.twig -->
+<link rel="apple-touch-icon" sizes="180x180" href="//d2jv02qf7xgjwx.cloudfront.net/apps/common/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//d2jv02qf7xgjwx.cloudfront.net/apps/common/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="//d2jv02qf7xgjwx.cloudfront.net/apps/common/favicon/favicon-16x16.png">
+<link rel="manifest" href="//d2jv02qf7xgjwx.cloudfront.net/apps/common/favicon/site.webmanifest">
+<link rel="mask-icon" href="//d2jv02qf7xgjwx.cloudfront.net/apps/common/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="//d2jv02qf7xgjwx.cloudfront.net/apps/common/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#ffc40d">
+<meta name="msapplication-config" content="//d2jv02qf7xgjwx.cloudfront.net/apps/common/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<!-- !favicon.twig -->
+
+
+<link rel="stylesheet" href="https://static-assets-us.libguides.com/web/jquery/css/jquery-ui.min.css?2691"/>
+
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="https://static-assets-us.libguides.com/web/css3.29.3/lg-public.min.css"/>
+
+    <script type="text/javascript" src="https://static-assets-us.libguides.com/web/jquery/js/1.12.4_jquery.min.js"></script>
+
+<!-- js_include_fallback_lg.twig -->
+<script src="//code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>jQuery.ui || document.write('<script src="https://static-assets-us.libguides.com/web/jquery/js/jquery-ui.min.js?2691">\x3C/script>');</script>
+<!-- !js_include_fallback_lg.twig -->
+
+    <script type="text/javascript" src="https://static-assets-us.libguides.com/web/js3.29.3/lg-public.min.js"></script>
+
+    <script src="https://static-assets-us.libguides.com/web/select2-3.5.2/select2.js"></script>
+    <link rel="stylesheet" href="https://static-assets-us.libguides.com/web/select2-3.5.2/select2.css"/>
+
+    <link rel="stylesheet" href="https://library2.buffalo.edu/css/style-libapps.css?v=2.0">
+<script async src="https://www.buffalo.edu/long-term-alert-banner.js"></script>
+<link rel="shortcut icon" href="https://library2.buffalo.edu/favicon.ico" />
+
+<style>
+
+#s-lg-guide-tabs-title-bar { border: 0 }
+.s-lib-box-content .slick-next:focus, .s-lib-box-content .slick-prev:focus {outline: 1px solid black;}
+
+</style>
+
+
+<script>
+    var springStats = springStats || {};
+    springStats.saConfig = springStats.saConfig || {
+        site_id: 8497,
+        tracking_parameters: {"_st_site_id":8497},
+        tracking_server_host: "libguides-proc.springyaws.com"
+    };
+</script>
+<script  src="https://static-assets-us.libguides.com/web/js/sa.min.js?3116"></script>
+
+
+<script type="text/javascript">
+    var title_base = "A-Z Databases";
+    var search_data = {"terms":""};
+
+    springSpace.publicObj = new springSpace.public.Public({
+        constant: {
+            PROCESSING: {},
+            CONTENT: {}
+        }
+    });
+
+    jQuery(document).ready(function () {
+        if (window.history && history.pushState) {
+            jQuery(window).bind("popstate", function (e) {
+                // Don\'t reload list if this is the result of a skip link hash update.
+                if (location.hash !== "#s-lib-public-main" && springSpace.azList.historyEdited) {
+                    // location.search will return URL encoded values which will end up causing double-encoding when jQuery sends the loadAzList request.
+                    var search_terms = decodeURIComponent(springSpace.Util.getQSParam({
+                        name: "q",
+                        qs: location.search
+                    }));
+
+                    springSpace.publicObj.loadAzList({
+                        first: springSpace.Util.getQSParam({name: "a", qs: location.search}),
+                        subject_id: springSpace.Util.getQSParam({name: "s", qs: location.search}),
+                        type_id: springSpace.Util.getQSParam({name: "t", qs: location.search}),
+                        vendor_id: springSpace.Util.getQSParam({name: "v", qs: location.search}),
+                        access_mode_id: springSpace.Util.getQSParam({name: "am", qs: location.search}),
+                        page: springSpace.Util.getQSParam({name: "p", qs: location.search}),
+                        search: springSpace.Util.escapeHtml(search_terms),
+                        site_id: 8497,
+                        action: "back"
+                    });
+                }
+            });
+        }
+
+        springSpace.azList.initSelections();
+
+        // note that loadAzList is called with handle_alpha_filter=true so we can apply any passed in first-letter
+        // filters after the search is complete
+        if (springSpace.publicObj.getSearchTerm() == "") {
+            springSpace.publicObj.loadAzList({
+                first: "",
+                subject_id: "",
+                type_id: "",
+                vendor_id: "",
+                access_mode_id: "",
+                page: 0,
+                search: search_data.terms,
+                site_id: 8497,
+                action: "init"
+            }, true);
+        }
+        // else, call filterAzBySearch so the passed in search string will be recorded
+        else {
+            springSpace.publicObj.filterAzBySearch(8497);
+        }
+    });
+
+    springSpace.azList = {
+        referrer: document.referrer,
+        az_preview: "",
+        locations: [],
+        historyEdited: false,
+        is_widget: 0,
+        site_domain: "",
+        init_filters: {
+            subject: "",
+            vendor: "",
+            type: "",
+            alpha: "",
+            search: search_data.terms
+        },
+        letter_selected: "", // "first" alpha letter selecte so we can keep track.
+        letter_alpha_map: {
+            pound: "#",
+            all: ""
+        },
+        getAlphaMap: function (letter) {
+            if (letter == "pound" || letter == "all") {
+                return this.letter_alpha_map[letter]
+            } else {
+                return letter;
+            }
+        },
+        reset: function () {
+            this.letter_selected = "";
+            jQuery(".s-lg-az-first").removeClass("bold");
+            jQuery(".s-lg-az-search").val("");
+            springSpace.publicObj.clearAzSelection("s-lg-sel-az-types");
+            springSpace.publicObj.clearAzSelection("s-lg-sel-subjects");
+            springSpace.publicObj.clearAzSelection("s-lg-sel-az-vendors");
+            springSpace.publicObj.clearAzSelection("s-lg-sel-az-access-modes");
+            springSpace.publicObj.loadAzList({
+                site_id: 8497
+            });
+        },
+        initSelections: function () {
+            // subject filter
+            if (this.init_filters.subject == 0) {
+                springSpace.publicObj.clearAzSelection("s-lg-sel-subjects");
+            }
+
+            // type filter
+            if (this.init_filters.type == 0) {
+                springSpace.publicObj.clearAzSelection("s-lg-sel-az-types");
+            }
+
+            // vendor filter
+            if (this.init_filters.vendor == 0) {
+                springSpace.publicObj.clearAzSelection("s-lg-sel-az-vendors");
+            }
+
+            // access modes filter
+            if (this.init_filters.access_modes == 0) {
+                springSpace.publicObj.clearAzSelection("s-lg-sel-az-access-modes");
+            }
+
+            // this.init_filters.alpha must be handled after the search results come back, so handling was moved inside
+            // the loadAzList() call itself
+
+            // search term
+            if (this.init_filters.search == "") {
+                jQuery(".s-lg-az-search").val("");
+            } else {
+                jQuery(".s-lg-az-search").val(this.init_filters.search);
+            }
+        }
+    };
+
+    
+        jQuery(document).ready(function () {
+            springSpace.springTrack.trackPage({_st_type_id: '17'});
+        });
+    
+</script>
+
+
+<!-- BEGIN: Analytics code --><!-- Google Tag Manager - University Libraries -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KR6QJL9');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager - University Communications -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T5KRRKT');</script>
+<!-- End Google Tag Manager --><!-- END: Analytics code -->
+
+</head>
+<style>#s-lg-az-index .btn-group > .btn-link {padding: 0px;}</style>
+
+<body class="s-lib-public-body two-column" id="databases">
+		<a class="visuallyhidden" href="#content">Skip to main content</a>
+
+
+
+  <header>
+	<div class="innerheader">
+	  <div class="core-header">
+		<div class="inner" data-with-topnav="true">
+		  <div class="top with-parent-organizations">
+			<div class="ub-title">
+			  <a href="//www.buffalo.edu/">
+				<span>University at Buffalo</span>
+				<span class="ada-hidden">(UB)</span>
+			  </a>
+			  <div class="arrow"></div>
+			</div>
+			<div class="parent-organizations">
+			  <a href="https://library.buffalo.edu">University Libraries</a>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="top-header">
+	  <div class="inner-content">
+		<div class="ub-logo">
+		  <span class="ada-hidden">University at Buffalo (UB)</span>
+		</div>
+
+		<div class="left">
+		  <div class="parent-organizations">
+			<a href="https://library.buffalo.edu">University Libraries</a>
+		  </div>
+		  <div class="site-title">
+			<div class="title">
+			  <a href="https://research.lib.buffalo.edu/az.php" target="_self">
+				Databases A-Z
+			  </a>
+			</div>
+		  </div>
+		</div>
+
+		<div class="right">
+		  <div class="tasknav" data-set="task">
+			<div class="buttoncomponent button-myaccount">
+			  <a href="https://search.lib.buffalo.edu/discovery/account?vid=01SUNY_BUF:everything&amp;lang=en&amp;section=overview">
+				My Account
+			  </a>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </header>
+
+  <div class="mobile-tabs">
+	<form>
+	  <select class="tinynav tinynav1" id="tinynav1" onchange="location = this.value;">
+		<option value="https://search.lib.buffalo.edu/discovery/search?vid=01SUNY_BUF:everything">OneSearch</option>
+		<option value="https://search.lib.buffalo.edu/discovery/search?vid=01SUNY_BUF:reserve">Course Reserve</option>
+		<option selected value="https://research.lib.buffalo.edu/az.php">Databases A-Z</option>
+		
+	  </select>
+	</form>
+  </div>
+
+  <div class="nav-main">
+	<nav class="nav-global">
+	  <ul>
+		<li>
+		  <a class="section-1 parent" href="https://search.lib.buffalo.edu/discovery/search?vid=01SUNY_BUF:everything">OneSearch</a>
+		</li>
+		<li>
+		  <a class="section-2 parent" href="https://search.lib.buffalo.edu/discovery/search?vid=01SUNY_BUF:reserve" target="_self">Course Reserve</a>
+		</li>
+		<li class="active">
+		  <a class="section-3 parent" href="https://research.lib.buffalo.edu/az.php">Databases A-Z</a>
+		</li>
+		
+	  </ul>
+	</nav>
+  </div>
+
+
+
+<div class="page">
+<div class="container">
+
+<div id="wrapper">
+
+<div class="alpha-list">
+
+<h1>Databases By Title:</h1>
+<br>
+<div id="s-lg-az-index" class="pad-right-sm">
+<div class="btn-group" role="group" aria-label="Alpha-list to filter by first letter of database name"><button type="button" class="s-lg-az-header s-lg-az-first btn btn-link bold" id="s-lg-az-first-all" onclick="springSpace.publicObj.quickFilterAzByFirst('', 8497, 'All');">All</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-a" aria-label="Filter Results A" onclick="springSpace.publicObj.quickFilterAzByFirst('a', 8497);">A</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-b" aria-label="Filter Results B" onclick="springSpace.publicObj.quickFilterAzByFirst('b', 8497);">B</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-c" aria-label="Filter Results C" onclick="springSpace.publicObj.quickFilterAzByFirst('c', 8497);">C</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-d" aria-label="Filter Results D" onclick="springSpace.publicObj.quickFilterAzByFirst('d', 8497);">D</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-e" aria-label="Filter Results E" onclick="springSpace.publicObj.quickFilterAzByFirst('e', 8497);">E</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-f" aria-label="Filter Results F" onclick="springSpace.publicObj.quickFilterAzByFirst('f', 8497);">F</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-g" aria-label="Filter Results G" onclick="springSpace.publicObj.quickFilterAzByFirst('g', 8497);">G</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-h" aria-label="Filter Results H" onclick="springSpace.publicObj.quickFilterAzByFirst('h', 8497);">H</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-i" aria-label="Filter Results I" onclick="springSpace.publicObj.quickFilterAzByFirst('i', 8497);">I</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-j" aria-label="Filter Results J" onclick="springSpace.publicObj.quickFilterAzByFirst('j', 8497);">J</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-k" aria-label="Filter Results K" onclick="springSpace.publicObj.quickFilterAzByFirst('k', 8497);">K</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-l" aria-label="Filter Results L" onclick="springSpace.publicObj.quickFilterAzByFirst('l', 8497);">L</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-m" aria-label="Filter Results M" onclick="springSpace.publicObj.quickFilterAzByFirst('m', 8497);">M</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-n" aria-label="Filter Results N" onclick="springSpace.publicObj.quickFilterAzByFirst('n', 8497);">N</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-o" aria-label="Filter Results O" onclick="springSpace.publicObj.quickFilterAzByFirst('o', 8497);">O</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-p" aria-label="Filter Results P" onclick="springSpace.publicObj.quickFilterAzByFirst('p', 8497);">P</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-q" aria-label="Filter Results Q" onclick="springSpace.publicObj.quickFilterAzByFirst('q', 8497);">Q</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-r" aria-label="Filter Results R" onclick="springSpace.publicObj.quickFilterAzByFirst('r', 8497);">R</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-s" aria-label="Filter Results S" onclick="springSpace.publicObj.quickFilterAzByFirst('s', 8497);">S</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-t" aria-label="Filter Results T" onclick="springSpace.publicObj.quickFilterAzByFirst('t', 8497);">T</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-u" aria-label="Filter Results U" onclick="springSpace.publicObj.quickFilterAzByFirst('u', 8497);">U</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-v" aria-label="Filter Results V" onclick="springSpace.publicObj.quickFilterAzByFirst('v', 8497);">V</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-w" aria-label="Filter Results W" onclick="springSpace.publicObj.quickFilterAzByFirst('w', 8497);">W</button><button type="button" class="s-lg-disabled-text-contrast btn btn-link" disabled="disabled">X</button><button type="button" class="s-lg-disabled-text-contrast btn btn-link" disabled="disabled">Y</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-z" aria-label="Filter Results Z" onclick="springSpace.publicObj.quickFilterAzByFirst('z', 8497);">Z</button><button type="button" class="s-lg-az-header btn btn-link s-lg-az-first" id="s-lg-az-first-pound" aria-label="Filter Results #" onclick="springSpace.publicObj.quickFilterAzByFirst('pound', 8497);">#</button></div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+
+function toggleAndChangeText() {
+     $('#left').toggle();
+     if ($('#left').css('display') == 'none') {
+          $('hide-left').html('Search &amp; Browse Databases');
+     }
+     else {
+          $('.hide-left').html('Close');
+     }
+}
+
+</script>
+
+
+
+
+<a class="hide-left" href="javascript:toggleAndChangeText();">Search &amp; Browse Databases</a>
+
+<aside id="left">
+<div class="inner">
+		
+		
+	<table class="basic">
+	<tr>
+	<th>Find Databases by Keyword</th>
+  	</tr>
+  	<tr>
+        <td>
+        
+        <div class="search-wrap">
+<div class="search-box-sm">
+	
+	<form role="search" onsubmit="springSpace.publicObj.filterAzBySearch(8497); return false;">
+		<label for="s-lg-az-search" class="visuallyhidden">Search Options</label>
+     	<div class="search-field-sm"><input type="text" name="name" id="s-lg-az-search" class="s-lg-az-search" placeholder="Find Databases by Keyword"></div>
+   
+   		<input type="submit" value="" class="search-button-sm" name="submit">
+		
+	</form>
+
+</div>
+</div>
+
+
+
+   
+     </td>
+     
+      </tr>
+      
+      </table>
+      
+  <br>
+  <br>    
+ <table class="basic">
+	<tr>
+	<th>Browse Databases by</th>
+  	</tr>
+     
+<tr>
+<td>
+<div id="col-subjects">
+     <label class="control-label sr-only" for="s-lg-sel-subjects">Database Subject Filter</label><select id="s-lg-sel-subjects" name="s-lg-sel-subjects" class="s-lg-sel-subjects form-control" onChange="springSpace.publicObj.filterAzBySubject(jQuery(this).val(), 8497);"><option value="" selected>All Subjects</option><option value="94213">African &amp; African American Studies (17)</option><option value="93969">American Studies (24)</option><option value="182614">Anatomy (5)</option><option value="93970">Anthropology (10)</option><option value="93971">Archaeology (9)</option><option value="93972">Architecture &amp; Planning (11)</option><option value="93973">Art (16)</option><option value="152892">Art History (9)</option><option value="93974">Asian Studies (16)</option><option value="93975">Astronomy / Astrophysics (4)</option><option value="94217">Bioinformatics (19)</option><option value="93976">Biological Sciences (22)</option><option value="93977">Biomedical Databases (107)</option><option value="212178">Biomedical Sciences (39)</option><option value="181524">Buffalo, NY (4)</option><option value="94170">Business &amp; Management (37)</option><option value="94171">Chemistry (32)</option><option value="94172">Classics (14)</option><option value="105117">Communication (9)</option><option value="195187">Communicative Disorders (1)</option><option value="148529">Comparative Literature (109)</option><option value="212185">Complementary Medicine (4)</option><option value="94175">Computer Science (30)</option><option value="212179">Consumer Health (9)</option><option value="118398">Dance (9)</option><option value="212173">Dental Medicine (15)</option><option value="159707">Digital Scholarship (2)</option><option value="94178">Ecology &amp; Environment (16)</option><option value="93966">Economics (23)</option><option value="94179">Education (7)</option><option value="94180">Engineering &amp; Computer Science (50)</option><option value="175723">English (38)</option><option value="184522">Entrepreneurship (13)</option><option value="154299">Epidemiology (5)</option><option value="94195">Film &amp; Media Studies (12)</option><option value="148533">French (50)</option><option value="151681">Gender and Sexuality (14)</option><option value="212180">Genomics (16)</option><option value="94185">Geography (11)</option><option value="94186">Geology (15)</option><option value="94187">Global Gender Studies (2)</option><option value="94188">Government Information (1)</option><option value="94190">History (72)</option><option value="214472">Indigenous Studies (17)</option><option value="94192">Information Science (4)</option><option value="94191">Law (72)</option><option value="156889">Law-Related (37)</option><option value="94193">Linguistics (9)</option><option value="102095">Literature (28)</option><option value="202532">Local History (2)</option><option value="94214">Maps (5)</option><option value="94194">Mathematics (8)</option><option value="93944">Medicine (77)</option><option value="94196">Music (23)</option><option value="181715">Newspapers (12)</option><option value="94197">Nursing (24)</option><option value="143341">Occupational Therapy (13)</option><option value="151730">Patents (6)</option><option value="201777">Pharmaceutical Sciences (16)</option><option value="194537">Pharmacology and Toxicology (17)</option><option value="94198">Pharmacy (19)</option><option value="94199">Philosophy (49)</option><option value="143342">Physical Therapy (13)</option><option value="94200">Physics (30)</option><option value="94201">Political Science (47)</option><option value="94202">Psychology (14)</option><option value="94203">Public Health (17)</option><option value="104048">Rehabilitation &amp; Assistive Technology (11)</option><option value="94205">Religion (8)</option><option value="94206">Romance Languages (11)</option><option value="159056">Science (3)</option><option value="94207">Social Work (31)</option><option value="94208">Sociology (19)</option><option value="148534">Spanish (50)</option><option value="154364">Sports Medicine (12)</option><option value="159107">Streaming Media (9)</option><option value="159106">Streaming Video (10)</option><option value="175855">Sustainability (5)</option><option value="94209">Theatre (17)</option><option value="256925">Top Biomedical Databases (12)</option><option value="148532">US History (88)</option><option value="181523">Western New York (1)</option><option value="148531">World History (84)</option></select>
+</div>
+<br>
+<div id="col-types">
+    <label class="control-label sr-only" for="s-lg-sel-az-types">Database Types Filter</label><select id="s-lg-sel-az-types" name="s-lg-sel-az-types" class="s-lg-sel-az-types form-control" onchange="springSpace.publicObj.filterAzByType(jQuery(this).val(), 8497);" data-placeholder="All Database Types"><option value="" selected>All Database Types</option><option value="61214">Alumni (2)</option><option value="18593">Full Text (338)</option><option value="64088">Health Sciences Students Only (1)</option><option value="18589">In-House (6)</option><option value="50877">Law Only (7)</option><option value="18594">Partial Full Text (106)</option><option value="18588">Public (129)</option><option value="64089">select Health Sciences faculty (1)</option><option value="22205">Streaming Media (20)</option><option value="18591">Trial Database (1)</option><option value="16878">UB Only (519)</option></select>
+</div>
+<br>
+<div id="col-vendors">
+    <label class="control-label sr-only" for="s-lg-sel-az-vendors">Database Vendors Filter</label><select id="s-lg-sel-az-vendors" name="s-lg-sel-az-vendors" class="s-lg-sel-az-vendors form-control" onchange="springSpace.publicObj.filterAzByVendor(jQuery(this).val(), 8497);" data-placeholder="All Vendors / Providers"><option value="" selected>All Vendors / Providers</option><option value="123430">A-R Editions (1)</option><option value="123149">a+t Architecture Publishers (1)</option><option value="42870">AAAS (1)</option><option value="42867">ABC-CLIO (2)</option><option value="42835">Accessible Archives Inc. (3)</option><option value="42834">ACM (Association for Computing Machinery) (1)</option><option value="130080">Actar Publishers (1)</option><option value="123152">Agency for Healthcare Research and Quality (1)</option><option value="42911">AIAA (1)</option><option value="42840">Alexander Street Press (4)</option><option value="132285">ALM (2)</option><option value="123147">American Academy of Family Physicians (1)</option><option value="42877">American Anthropological Association (1)</option><option value="123155">American Archive of Public Broadcasting (1)</option><option value="42822">American Chemical Society (5)</option><option value="123219">American City Business Journals (2)</option><option value="42827">American Institute of Physics (1)</option><option value="123157">American Legal Publishing (1)</option><option value="42802">American Library Association (1)</option><option value="42799">American Mathematical Society (2)</option><option value="42932">American Physical Society (1)</option><option value="123285">American Psychiatric Association (2)</option><option value="123151">American Society of Health-System Pharmacists, Inc. (2)</option><option value="123214">Annual Reviews (1)</option><option value="42874">ARTStor (1)</option><option value="42931">ASCE (2)</option><option value="59660">ASM (1)</option><option value="42824">ASME (American Society of Mechanical Engineers (1)</option><option value="145896">Aspen Publishing (1)</option><option value="42814">Association for Asian Studies (1)</option><option value="80592">ASTM (1)</option><option value="139416">Austin Classical Guitar (1)</option><option value="42845">Bender (1)</option><option value="42838">BEPRESS (2)</option><option value="123216">Bloomsbury Publishing (2)</option><option value="123221">BMJ Publishing (1)</option><option value="78543">Brepolis (1)</option><option value="78542">Brill (1)</option><option value="123291">British Library (1)</option><option value="123248">Building Green (1)</option><option value="123384">BYU Law (1)</option><option value="42936">C-SPAN (2)</option><option value="139355">Cabells (1)</option><option value="123252">Cambridge Crystallographic Data Centre (1)</option><option value="42843">Cambridge University Press (5)</option><option value="42871">Cell Press (1)</option><option value="123314">Center for Homeland Defense and Security (1)</option><option value="42809">Chadwyck (3)</option><option value="42808">Chemical Abstracts Service (1)</option><option value="123255">Chronicle of Higher Education (1)</option><option value="70251">Clarivate (20)</option><option value="123254">cnki.net (2)</option><option value="123256">CNRTL (1)</option><option value="42929">Cold Spring Harbor Laboratory Press (2)</option><option value="42806">Columbia University Press (3)</option><option value="123279">congress.gov (1)</option><option value="42821">Congressional Quarterly (1)</option><option value="148393">Cornell Lab of Ornithology (1)</option><option value="42914">Cornell University (1)</option><option value="42887">Cornell University Library (1)</option><option value="141380">Covidence (1)</option><option value="123281">Dave Leip's Atlas of U.S. Elections (1)</option><option value="75283">deGruyter (4)</option><option value="123280">DETAIL Business Information GmbH (1)</option><option value="123283">Digital Public Library of America (1)</option><option value="122209">Digital Science & Research Solutions (1)</option><option value="123284">DOAB (1)</option><option value="42847">Dow Jones (2)</option><option value="123609">East View Information Services, Inc. (1)</option><option value="42861">ebrary (1)</option><option value="42793">EBSCO (55)</option><option value="123289">Electronic Arts Intermix (1)</option><option value="42789">Elsevier (11)</option><option value="123405">Empire State Library Network (1)</option><option value="123293">European Patent Office (1)</option><option value="123294">European Union (1)</option><option value="122425">Ex Libris (2)</option><option value="42848">Federal Reserve (1)</option><option value="42894">Federal Reserve Bank of St. Louis (3)</option><option value="122434">FT Group (1)</option><option value="42798">Gale (121)</option><option value="57814">Gartner (1)</option><option value="81516">GeoLytics (1)</option><option value="42916">Getty (1)</option><option value="42879">Getty Conservation Institute (1)</option><option value="42882">Google (4)</option><option value="42832">Government of Canada (1)</option><option value="42812">Greenwood Publishing Group (1)</option><option value="42810">HarpWeek (1)</option><option value="42928">Harvard (1)</option><option value="123381">Harvard Kennedy School (1)</option><option value="42898">Harvard University Press (2)</option><option value="123312">HathiTrust (1)</option><option value="42795">Hein (2)</option><option value="123313">Henry Stewart Talks Ltd (1)</option><option value="123296">Historical Information Gatherers (1)</option><option value="123317">IBISWorld (1)</option><option value="136498">ICE Learning Center (1)</option><option value="123386">ICH (1)</option><option value="123318">ICSD (1)</option><option value="42893">Idea Group Inc. (1)</option><option value="42813">IEEE (1)</option><option value="42857">Indiana University (1)</option><option value="123297">Information Today (1)</option><option value="42890">Ingenta (1)</option><option value="123290">Insider Intelligence (1)</option><option value="123319">INSPIRE (1)</option><option value="123244">Institute of Historical Research (1)</option><option value="42826">Institute of Physics (1)</option><option value="42818">InteLex (1)</option><option value="42864">InteLex Corporation (1)</option><option value="123288">International Code Council (1)</option><option value="131084">International Federation of Operational Research Societies (1)</option><option value="101072">International Monetary Fund (2)</option><option value="146864">Intertek (1)</option><option value="135017">IPA Source (1)</option><option value="151743">JAMA Network (1)</option><option value="123409">Jisc (1)</option><option value="42801">John Hopkins University (3)</option><option value="123382">JoVE (1)</option><option value="42796">JSTOR (4)</option><option value="123383">Kanopy (1)</option><option value="42830">Knovel (2)</option><option value="42923">LexisNexis (3)</option><option value="42836">Library of Congress (3)</option><option value="143814">Luminate (1)</option><option value="123387">LYRASIS (1)</option><option value="42841">MCB University Press Ltd (1)</option><option value="49925">McGraw Hill (6)</option><option value="42917">Mergent, Inc (5)</option><option value="42937">Michigan State University Department of History (1)</option><option value="123429">Moody's (1)</option><option value="42908">Morgan & Claypool (2)</option><option value="123388">MSI GmbH (2)</option><option value="42859">NAA (1)</option><option value="42922">National Academy of Sciences (1)</option><option value="42869">National Journal Group Inc. (1)</option><option value="139517">National New Play Network (1)</option><option value="123431">National Rehabilitation Information Center (NARIC) (1)</option><option value="42805">National Transportation Library (2)</option><option value="42819">Nature Publishing Groups (1)</option><option value="42868">Naxos Digital Services (1)</option><option value="42828">NBER (1)</option><option value="123620">New York Heritage (1)</option><option value="42906">New York State Library (1)</option><option value="42785">New York University (1)</option><option value="42846">Newsbank (3)</option><option value="133653">nkoda (1)</option><option value="42912">NY 3Rs Association (1)</option><option value="42804">OCLC (3)</option><option value="54254">OECD (3)</option><option value="123408">On the Boards (1)</option><option value="123406">OnArchitecture (1)</option><option value="123292">Open Engineering, Inc. (1)</option><option value="130895">Optica Publishing Group (1)</option><option value="42856">Oriental Institute Research Archives (1)</option><option value="123410">OTseeker (1)</option><option value="42788">Ovid (17)</option><option value="42927">Oxford (1)</option><option value="42800">Oxford University Press (23)</option><option value="123411">Oyez (1)</option><option value="123412">PACER  (Public Access to Court Electronic Records) (1)</option><option value="42921">Palgrave Macmillan (1)</option><option value="123415">Persee (1)</option><option value="123416">Philosophy Documentation Center (2)</option><option value="123421">PolicyMap (1)</option><option value="123286">POLITICO (1)</option><option value="123146">Primal Pictures (1)</option><option value="42790">ProQuest (45)</option><option value="42888">Readex (2)</option><option value="122725">Reuters (1)</option><option value="123432">RISM (1)</option><option value="42903">Rittenhouse (1)</option><option value="123433">Rock's Backpages (1)</option><option value="42858">Royal Anthropological Institute (1)</option><option value="42825">RSC (Royal Society of Chemistry) (2)</option><option value="123434">S&P Global (1)</option><option value="123435">SAE International (1)</option><option value="42919">Salem Press (2)</option><option value="123436">Science.gov Alliance (1)</option><option value="42823">SIAM (Society for Industrial & Applied Mathematics) (1)</option><option value="123610">Social Explorer Inc. (1)</option><option value="42910">Social Science Electronic Publishing (3)</option><option value="123611">SPIE (1)</option><option value="42892">Springer (3)</option><option value="123218">SRI International (1)</option><option value="42900">Stanford University (1)</option><option value="123615">Supreme Court of the United States (2)</option><option value="42935">Swank Motion Pictures, Inc. (1)</option><option value="138379">Syracuse University (1)</option><option value="42815">Taylor & Francis Group (2)</option><option value="42915">Taylor and Francis Group (1)</option><option value="151927">TDS Health (2)</option><option value="129839">The New York Times (1)</option><option value="105928">Therapeutic Research Center (1)</option><option value="106872">Third Iron (3)</option><option value="42803">Thomson (3)</option><option value="126277">Trellis Legal, LLC (1)</option><option value="123613">Trip Database Ltd. (1)</option><option value="42873">U.S Dept. of Commerce (2)</option><option value="123150">U.S. Department of Agriculture (1)</option><option value="42895">U.S. Department of Commerce (1)</option><option value="42855">U.S. Department of Energy (1)</option><option value="42880">U.S. Environmental Protection Agency (1)</option><option value="42854">U.S. General Services Administration (1)</option><option value="42791">U.S. Government Printing Office (3)</option><option value="42787">U.S. National Library of Medicine (7)</option><option value="123257">udpweb (1)</option><option value="42837">United Nations (4)</option><option value="123618">United States Patent and Trademark Office (1)</option><option value="123617">United States Pharmacopeial Convention (1)</option><option value="42875">University at Buffalo (2)</option><option value="42876">University at Buffalo Libraries (5)</option><option value="42833">University of California at Irvine (1)</option><option value="42891">University of California at Los Angeles (1)</option><option value="42842">University of Chicago (1)</option><option value="78423">University of Chicago Press (2)</option><option value="42913">University of Connecticut (2)</option><option value="42865">University of Michigan (4)</option><option value="138503">University of North Carolina - Chapel Hill (1)</option><option value="42853">University of Pennsylvania (1)</option><option value="123414">University of Sydney (1)</option><option value="123156">University of Virginia Press (1)</option><option value="42878">University of Wisconsin-Milwaukee (1)</option><option value="147262">Uniworld (1)</option><option value="42831">Verlag Biering & Brinkmann (1)</option><option value="123619">visualDx (1)</option><option value="123298">Weizmann Institute of Science (1)</option><option value="68840">West Academic (2)</option><option value="42839">Western New York Library Resources Council (1)</option><option value="42829">Wiley (9)</option><option value="123413">WIPO (World Intellectual Property Organization) (1)</option><option value="42902">WoltersKluwer (5)</option><option value="123417">World Microfilms Publications (1)</option><option value="123630">WorldTradeLaw.net LLC (1)</option></select>
+</div>
+    </td>  
+  </tr>
+      
+     </table>
+
+
+</div>
+	</aside>
+
+<div id="content">
+       
+            
+	<h2 id="s-lg-az-result-count" aria-live="polite" class="bold s-lib-text-lg pad-right-med"></h2> <button id="s-lg-az-reset" class="btn btn-default btn-sm s-lib-hide" type="button" onclick="springSpace.azList.reset();">Clear Filters/Browse All Databases</button>
+						
+
+
+<div id="s-lg-az-content" class="pad-right-sm pad-top-med">
+<div>Loading...</div>
+</div>
+
+
+</div> <!-- end #content -->
+
+</div> <!-- end wrapper -->
+
+</div> <!-- end container -->
+</div> <!-- end page -->
+
+
+
+ <!-- END: content -->
+        <!-- BEGIN: Page Footer -->
+        
+        <!-- END: Page Footer -->
+        <div id="s-lib-alert" title="">
+                            <div id="s-lib-alert-content"></div>
+                       </div>        
+                <div id="s-lib-popover-title" class="hide">
+                    <span class="text-info"><strong>title</strong></span> 
+                    <button type="button" id="popclose" class="close" onclick="jQuery('.s-lib-popover').popover('hide')">&times;</button> 
+                </div>
+                <div id="s-lib-popover-content" class="hide"><i class="fa fa-refresh fa-spin"></i> Loading...
+                    <button class="btn btn-default btn-sm popclose" type="button">Close</button>
+                </div>        
+			<div id="s-lib-scroll-top" title="Back to Top">
+				<span class="fa-stack fa-lg">
+				  <i class="fa fa-square-o fa-stack-2x"></i>
+				  <i class="fa fa-angle-double-up fa-stack-1x" style="position:relative; bottom:2px;"></i>
+				</span>
+			</div>        
+        <!-- BEGIN: Custom Footer -->
+        <footer>
+
+
+<div class="footer">
+
+<img class="ub-logo-footer" src="https://library2.buffalo.edu/img/ub-logo-two-line.png" alt="University at Buffalo  The State University of New York" width="241" height="32">
+
+<div class="contact">
+
+<div class="social">
+<ul>
+<li><a href="https://instagram.com/ublibraries" target="_blank" class="instagram" aria-label="instagram"></a></li>
+<li><a href="https://tiktok.com/@ublibraries" target="_blank" class="tiktok" aria-label="tiktok"></a></li>
+<li><a href="https://www.facebook.com/ublibraries" target="_blank" class="facebook" aria-label="facebook"></a></li>
+<li><a href="https://twitter.com/ublibraries" target="_blank" class="twitter" aria-label="twitter"></a></li>
+<li><a href="https://www.youtube.com/user/ublibraries" target="_blank" class="youtube" aria-label="youtube"></a></li>
+
+</ul>
+
+
+</div>
+
+
+<strong>University at Buffalo Libraries</strong><br>
+433 Capen Hall<br>
+Buffalo, NY 14260-1625<br>
+716-645-2965<br>
+
+<ul class="contact-nav">
+<li><a href="https://library.buffalo.edu/aboutus/contactus">Contact Us</a></li>
+<li><a href="https://library.buffalo.edu/aboutus/contactus/directions">Directions</a></li>
+<li><a href="https://library.buffalo.edu/aboutus/contactus/report-a-problem.html">Report a Problem</a></li>
+</ul>
+
+
+
+</div>
+
+
+
+<div class="copyright">
+© <script>
+  document.write(new Date().getFullYear());
+</script> <a href="https://buffalo.edu">University at Buffalo</a>. All rights reserved.  |  <a href="https://www.buffalo.edu/administrative-services/policy-compliance-and-internal-controls/policy/ub-policy-lib/privacy.html">Privacy</a>  |  <a href="https://library.buffalo.edu/accessibility">Accessibility</a>
+            </div>
+    
+
+
+
+</div>
+
+    
+</footer>
+        <!-- END: Custom Footer -->
+	</body>
+</html>
