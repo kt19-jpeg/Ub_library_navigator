@@ -53,7 +53,13 @@ already apply everywhere").
   Layer 1 uses).
 - Checks the exact three URLs above against each host's `robots.txt` before the first run and
   raises if any is disallowed (defense against the URL list changing later, not expected to
-  trigger today).
+  trigger today). **Does not use `urllib.robotparser`**: it reconstructs each rule through
+  `urlparse`/`urlunparse`, which silently drops a bare trailing "?" — confirmed live 2026-09-27,
+  it turns `Disallow: /az.php?` into the rule `/az.php` and would wrongly block the bare page we
+  need (the site's own intent, per the trailing "?", is to block only the querystring form used
+  by its AJAX calls). `scraper/fetch.py` reads the `User-agent: *` group's `Disallow` lines
+  itself and does a literal prefix match, which handles this correctly (confirmed live: fetching
+  `research.lib.buffalo.edu/az.php` succeeds, `/az.php?subject=...` would still be blocked).
 - Waits at least 10 seconds between requests to the same host (module-level state; irrelevant
   within one run of 3 requests but keeps the rule if the source list grows).
 - One attempt per page, 20s timeout. A failure is caught by the caller (`pipeline/refresh.py`),
