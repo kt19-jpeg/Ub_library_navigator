@@ -117,6 +117,19 @@ def test_compose_low_confidence_is_honest_and_skips_detail_fetch():
     assert out["selection"] == []
 
 
+def test_compose_low_confidence_includes_the_live_chat_escalation():
+    from agent.escalation import LIVE_CHAT_URL
+
+    model = FakeChatModel(Selection(items=[], confidence="low"))
+    client = _client()
+
+    out = compose(_state([_candidate("a")]), model, client)
+
+    assert LIVE_CHAT_URL in out["answer"]
+    assert "graduate" in out["answer"]
+    assert "find me peer reviewed journals on mental health" in out["answer"]
+
+
 def test_compose_llm_failure_falls_back_to_top_three_without_reasons():
     candidates = [_candidate(str(i), title=f"T{i}") for i in range(5)]
     model = FakeChatModel(RuntimeError("provider down"))
@@ -155,6 +168,15 @@ def test_compose_with_no_candidates_skips_the_model_and_gives_the_link():
     assert "could not find results" in out["answer"]
     assert "https://direct/link" in out["answer"]
     assert "OneSearch was slow to respond." in out["answer"]
+
+
+def test_compose_with_no_candidates_also_includes_the_live_chat_escalation():
+    from agent.escalation import LIVE_CHAT_URL
+
+    out = compose(_state([]), FakeChatModel(), _client())
+
+    assert LIVE_CHAT_URL in out["answer"]
+    assert "Context to paste into the chat:" in out["answer"]
 
 
 def test_compose_appends_rag_sections_to_a_normal_answer():

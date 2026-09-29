@@ -1,5 +1,6 @@
 import json
 
+from agent.escalation import build_escalation_block
 from agent.models import AgentState, RagContext, Selection, SelectionItem
 from onesearch.client import OneSearchClient
 from onesearch.models import ResourceDetail, SearchCandidate
@@ -161,7 +162,12 @@ def render_rag_sections(rag_context: RagContext) -> list[str]:
 
 
 def _render_no_answer(
-    headline: str, notes: list[str], more_link: str, rag_context: RagContext
+    headline: str,
+    notes: list[str],
+    more_link: str,
+    rag_context: RagContext,
+    role: str,
+    message: str,
 ) -> str:
     out = [headline]
     out.extend(f"Note: {n}" for n in notes)
@@ -170,6 +176,8 @@ def _render_no_answer(
     if rag_lines:
         out.append("")
         out.extend(rag_lines)
+    out.append("")
+    out.append(build_escalation_block(role, message, notes))
     return "\n".join(out)
 
 
@@ -185,7 +193,8 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
 
     if not candidates:
         answer = _render_no_answer(
-            f'I could not find results for "{plan.keywords}".', notes, more_link, rag_context
+            f'I could not find results for "{plan.keywords}".',
+            notes, more_link, rag_context, state["role"], state["message"],
         )
         return {"selection": [], "details": {}, "answer": answer}
 
@@ -202,7 +211,8 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
 
     if confidence == "low" or not items:
         answer = _render_no_answer(
-            "I am not confident I found a good match for that.", notes, more_link, rag_context
+            "I am not confident I found a good match for that.",
+            notes, more_link, rag_context, state["role"], state["message"],
         )
         return {"selection": [], "details": {}, "answer": answer}
 
