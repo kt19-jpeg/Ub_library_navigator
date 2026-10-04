@@ -13,6 +13,7 @@ class FakeGraph:
             "plan": QueryPlan(keywords=state["message"]),
             "timings": {"plan": 0.1},
             "notes": ["a note"],
+            "citations": {"r1": {"apa": "APA citation.", "mla": "MLA citation.", "chicago": "Chicago citation."}},
         }
 
 
@@ -90,3 +91,20 @@ def test_main_reports_missing_key_and_exits_nonzero(monkeypatch, capsys):
 
     assert main([]) == 2
     assert "OPENAI_API_KEY" in capsys.readouterr().err
+
+
+def test_citations_flag_prints_citations_for_each_result():
+    read, write, written = _io("graduate", "q1", "/quit")
+
+    run_chat(FakeGraph(), read=read, write=write, citations=True)
+
+    assert any("[citations for r1]" in line for line in written)
+    assert any("APA: APA citation." in line for line in written)
+
+
+def test_citations_hidden_by_default():
+    read, write, written = _io("graduate", "q1", "/quit")
+
+    run_chat(FakeGraph(), read=read, write=write)
+
+    assert not any("citations for" in line for line in written)
