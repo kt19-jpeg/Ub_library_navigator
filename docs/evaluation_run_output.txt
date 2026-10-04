@@ -1,0 +1,7 @@
+Note: LangSmith tracing is not configured; continuing without it.
+Planning accuracy:      1.0
+Clarification accuracy: 1.0
+RAG hit accuracy:       1.0
+Faithfulness accuracy:  0.8648648648648649
+Escalation: TP=0 FP=0 TN=14 FN=1
+Full report written to evaluation/last_run.json

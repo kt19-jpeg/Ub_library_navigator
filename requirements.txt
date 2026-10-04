@@ -9,7 +9,6 @@ playwright
 beautifulsoup4
 openai
 requests
-ragas
 langsmith
 python-dotenv
 pytest

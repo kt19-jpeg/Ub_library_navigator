@@ -305,6 +305,61 @@ pipeline.refresh` silently did nothing (no `if __name__ == "__main__":` block ex
 was added; confirmed the gap live before fixing it (the command produced no output and did not
 touch `data/processed/records.json` or `vectorstore/`).
 
+## Layer 2, slice 3: live chat escalation (built)
+
+When OneSearch/RAG can't confidently help, the answer now includes a link to UB's real live chat
+plus a copyable context summary (`agent/escalation.py`). Confirmed live 2026-09-29: UB's chat
+widget (LibraryH3lp, `library.buffalo.edu/help-support/askalibrarian/chat/instant.html`) has no
+API and no documented way to pre-fill a message — the raw page ships an unresolved `{queue}`
+placeholder only filled in by UB's own JavaScript at load time, and the resulting widget is a
+plain "type here to chat" box. So this links to the real page directly (never construct an h3lp
+iframe URL — the queue id is an internal detail) and gives the user a paste-ready summary instead
+of trying to auto-inject anything.
+
+## Layer 2, slice 4: evaluation suite (built)
+
+A manual script, `python -m evaluation.run_eval`, scores the real agent's behavior against a
+15-question golden set tagged by role. Full design: `docs/superpowers/specs/2026-09-30-evaluation-suite-design.md`.
+Plan: `docs/superpowers/plans/2026-09-30-evaluation-suite.md`.
+
+**The `ragas` package is not used.** Confirmed live 2026-09-30: every release from 0.3.9 through
+0.4.3 unconditionally imports `langchain_community.chat_models.vertexai.ChatVertexAI` at module
+load time, which no longer exists in current `langchain-community` (Vertex AI chat support moved
+to a separate package) — `import ragas` fails outright for anyone not using Google Vertex AI.
+Tracked upstream in ragas#2741, #2753, #2995, #2745, with an unmerged fix (PR #3017). The one
+metric that would have used it (faithfulness of the LLM's "Why" reasons) is a small LLM-judge
+function instead (`evaluation/faithfulness.py`), using this project's own `agent.llm.get_chat_model()`.
+
+**The golden set labels expected behavior, not expected search results** (`resource_type`/
+`peer_reviewed` the planner should pick, whether the turn should escalate, which RAG type should
+hit) — OneSearch is live and external, so a golden set of expected titles would go stale as UB's
+catalog changes.
+
+**Two real findings from tuning the golden set against live data, not assumptions:**
+- Directory/nonsense questions ("who is the subject librarian for chemistry") have no well-defined
+  planning target: the planner has no way to know these aren't literal topic searches (the same
+  limitation the RAG pipeline spec already documents), so these questions set
+  `check_planning: false` rather than encode an unrealistic expectation.
+- One question's `peer_reviewed` flipped between two live runs on the same unchanged input — a
+  genuinely probabilistic role-default nudge (faculty + research-flavored phrasing), not a bug.
+  Also set `check_planning: false` with a note, rather than pin a flaky expectation.
+
+**LangSmith tracing needs zero code changes.** Confirmed live against the installed `langsmith`
+0.14.0: it reads `LANGSMITH_TRACING_V2` (falling back to `LANGCHAIN_TRACING_V2`) and matching
+`_API_KEY`/`_PROJECT` vars purely from the environment, through LangChain's global callback
+manager — any compiled LangGraph graph traces automatically once these are set.
+`evaluation/langsmith_config.py`'s `tracing_configured()` only decides whether to print a heads-up
+that tracing is off; `run_eval.py` still runs without it.
+
+**Confirmed live baseline** (2026-10-01, real UB data + real OpenAI calls, `docs/evaluation_run_output.txt`):
+planning accuracy 1.0, clarification accuracy 1.0, RAG hit accuracy 1.0, faithfulness accuracy
+0.86-0.94 across runs, escalation confusion matrix TN=14 with the one true-escalation question
+sometimes landing as a true positive and sometimes as a false negative run to run — real LLM
+calls aren't perfectly deterministic even at temperature 0, so a result in the same neighborhood
+confirms the suite works; it is not expected to match exactly every run. Not CI-wired in this
+slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
+the golden set and metrics are proven out further.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

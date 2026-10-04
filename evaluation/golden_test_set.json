@@ -1,1 +1,138 @@
-[]
+[
+  {
+    "id": "buffalo-history-undergrad",
+    "role": "undergraduate",
+    "message": "books about the history of Buffalo",
+    "expected_resource_type": "books",
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": null
+  },
+  {
+    "id": "citing-sources-help",
+    "role": "undergraduate",
+    "message": "where can I find help citing my sources",
+    "expected_resource_type": null,
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": "help_topic",
+    "check_planning": false
+  },
+  {
+    "id": "mental-health-undergrad",
+    "role": "undergraduate",
+    "message": "mental health resources",
+    "expected_resource_type": "books",
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": null
+  },
+  {
+    "id": "videos-undergrad",
+    "role": "undergraduate",
+    "message": "videos about ancient Rome for my class",
+    "expected_resource_type": "videos",
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": null
+  },
+  {
+    "id": "printing-help-undergrad",
+    "role": "undergraduate",
+    "message": "how do I print on campus",
+    "expect_clarification": true
+  },
+  {
+    "id": "mental-health-journals-grad",
+    "role": "graduate",
+    "message": "find me peer reviewed journals on mental health",
+    "expected_resource_type": "journals",
+    "expected_peer_reviewed": true,
+    "should_escalate": false,
+    "expected_rag_type": null
+  },
+  {
+    "id": "chemistry-articles-grad",
+    "role": "graduate",
+    "message": "chemistry resources",
+    "expected_resource_type": "articles",
+    "expected_peer_reviewed": true,
+    "should_escalate": false,
+    "expected_rag_type": null
+  },
+  {
+    "id": "chemistry-librarian-grad",
+    "role": "graduate",
+    "message": "who is the subject librarian for chemistry",
+    "expected_resource_type": null,
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": "librarian_subject",
+    "check_planning": false
+  },
+  {
+    "id": "archaeology-books-grad",
+    "role": "graduate",
+    "message": "books on archaeology methods",
+    "expected_resource_type": "books",
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": null
+  },
+  {
+    "id": "ambiguous-help-grad",
+    "role": "graduate",
+    "message": "can you help me with something",
+    "expect_clarification": true
+  },
+  {
+    "id": "nonsense-escalate-undergrad",
+    "role": "undergraduate",
+    "message": "xylophone repair instructions for my pet hamster",
+    "expected_resource_type": null,
+    "expected_peer_reviewed": false,
+    "should_escalate": true,
+    "expected_rag_type": null,
+    "check_planning": false
+  },
+  {
+    "id": "cs-databases-faculty",
+    "role": "faculty",
+    "message": "what databases are available for computer science research",
+    "expected_resource_type": null,
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": "database_subject",
+    "check_planning": false
+  },
+  {
+    "id": "anatomy-librarian-faculty",
+    "role": "faculty",
+    "message": "anatomy subject librarian contact",
+    "expected_resource_type": null,
+    "expected_peer_reviewed": false,
+    "should_escalate": false,
+    "expected_rag_type": "librarian_subject",
+    "check_planning": false
+  },
+  {
+    "id": "buffalo-history-peer-reviewed-faculty",
+    "role": "faculty",
+    "message": "scholarly articles on the history of Buffalo",
+    "expected_resource_type": "articles",
+    "expected_peer_reviewed": true,
+    "should_escalate": false,
+    "expected_rag_type": null
+  },
+  {
+    "id": "dissertations-faculty",
+    "role": "faculty",
+    "message": "recent dissertations on climate change",
+    "expected_resource_type": "dissertations",
+    "expected_peer_reviewed": true,
+    "should_escalate": false,
+    "expected_rag_type": null,
+    "check_planning": false,
+    "_note": "peer_reviewed flipped between live runs for this role-default nudge (confirmed 2026-09-30); inherently probabilistic, not a bug."
+  }
+]
