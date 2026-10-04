@@ -18,6 +18,17 @@ class SearchCandidate:
     library: str | None
     sub_location: str | None
     availability_status: str | None
+    # Citation data (agent/citation_tool.py), confirmed free in the brief response's
+    # pnx.addata (no extra fetch): see onesearch/parser.py for real field provenance.
+    authors: list[str] | None = None
+    journal_title: str | None = None
+    volume: str | None = None
+    issue: str | None = None
+    pages: str | None = None
+    doi: str | None = None
+    isbn: str | None = None
+    publisher: str | None = None
+    place_of_publication: str | None = None
 
 
 @dataclass(frozen=True)

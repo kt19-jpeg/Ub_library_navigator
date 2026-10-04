@@ -1,0 +1,764 @@
+{
+  "pnx": {
+    "links": {
+      "openurl": [
+        "$$Topenurl_article"
+      ],
+      "openurlfulltext": [
+        "$$Topenurlfull_article"
+      ],
+      "backlink": [
+        "$$Uhttps://www.ncbi.nlm.nih.gov/pubmed/34852489$$D View this record in MEDLINE/PubMed$$Hfree_for_read$$Pomit_proxy_true",
+        "$$Uhttps://www.osti.gov/biblio/1832071$$D View this record in Osti.gov$$Hfree_for_read$$Pomit_proxy_true",
+        "$$Uhttps://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-462360$$DView record from Swedish Publication Index (Uppsala universitet)$$Hfree_for_read$$Pomit_proxy_true"
+      ],
+      "thumbnail": [
+        "$$Tsyndetics_thumb_exl"
+      ],
+      "linktohtml": [
+        "$$Uhttps://gate.lib.buffalo.edu/login?&url=https://pubs.aip.org/jcp/article-lookup/doi/10.1063/5.0059356$$EHTML$$Gscitation$$H$$Pomit_proxy_true"
+      ],
+      "linkunpaywall": [
+        "$$Uhttps://aip.scitation.org/doi/pdf/10.1063/5.0059356$$GUnpaywall$$Hfree_for_read"
+      ],
+      "linktorsrcadditional": [
+        "$$Uhttps://aip.scitation.org/doi/pdf/10.1063/5.0059356$$EView_record_in_Unpaywall$$FView_record_in_$$GUnpaywall$$Hfree_for_read$$Pomit_proxy_true"
+      ],
+      "openurladditional": [
+        "$$Topenurlfull_article"
+      ]
+    },
+    "search": {
+      "fulltext": [
+        "true"
+      ],
+      "sourceid": [
+        "ADTOC"
+      ],
+      "recordid": [
+        "eNp9kstuEzEUhkcIRENhwQugEWwaRFpfZuwxC6SQlItUCVUCtpY94ySuZuzBl1R5Hx4UJ5MG2qKubNnf_5_j_zjLXkJwCgHBZ-UpACXDJXmUjSCo2IQSBh5nIwAQnDACyFH2zPsrAACkqHiaHeGiKlFRsVH2-zIKE2KXz1aq0z64TT6zXWdNPnd6rVwuTJPPRRBSeOXzk8vZ_ON4d3hfeG6W2qgtM-zG7_NpDLYTQSe_rUaboJztlRNStzpscpEqLfPadn0MO0y0eX0w7J1dOtH559mThWi9erFfj7Mfn86_z75MLr59_jqbXkwkhSxMqkIIioBkDS4pUlJS0hSSUlI3WDUSVxgumJAAl3XFCryQjZANQAgphIgoJT7O3g6-0fRicy3alvdOd8JtOAR8GzUv-T7qBL8bYH-t-igPpBWaz_XPKbduyWPkBUGYgIR_GPDEdqqplQlOtLdUt2-MXvGlXfOKwAIhlgxeDwbWB819rYOqV7U1RtWBwwojQGGCTvZVnP0VlQ88RVmrthVG2eg5IqAkANCd35s76JWNLg1gR4GC0IJViXr1b9uHfm9-UALOBqB21nunFjx1thtleoVu_xvc-I7ioZD3E_E3rgd4bd1fkPfN4iH4vvMfkQ8BYg"
+      ],
+      "title": [
+        "Quantum Chemistry Common Driver and Databases (QCDB) and Quantum Chemistry Engine (QCEngine): Automation and interoperability among computational chemistry programs",
+        "The Journal of chemical physics"
+      ],
+      "subject": [
+        "Computational chemistry",
+        "Physics",
+        "Practice Guidelines as Topic",
+        "Quantum chemistry",
+        "Vibrational spectra"
+      ],
+      "recordtype": [
+        "article"
+      ],
+      "creator": [
+        "Smith, Daniel G. A.",
+        "Lolinco, Annabelle T.",
+        "Glick, Zachary L.",
+        "Lee, Jiyoung",
+        "Alenaizan, Asem",
+        "Barnes, Taylor A.",
+        "Borca, Carlos H.",
+        "Di Remigio, Roberto",
+        "Dotson, David L.",
+        "Ehlert, Sebastian",
+        "Heide, Alexander G.",
+        "Herbst, Michael F.",
+        "Hermann, Jan",
+        "Hicks, Colton B.",
+        "Horton, Joshua T.",
+        "Hurtado, Adrian G.",
+        "Kraus, Peter",
+        "Kruse, Holger",
+        "Lee, Sebastian J. R.",
+        "Misiewicz, Jonathon P.",
+        "Naden, Levi N.",
+        "Ramezanghorbani, Farhad",
+        "Scheurer, Maximilian",
+        "Schriber, Jeffrey B.",
+        "Simmonett, Andrew C.",
+        "Steinmetzer, Johannes",
+        "Wagner, Jeffrey R.",
+        "Ward, Logan",
+        "Welborn, Matthew",
+        "Altarawy, Doaa",
+        "Anwar, Jamshed",
+        "Chodera, John D.",
+        "Dreuw, Andreas",
+        "Kulik, Heather J.",
+        "Liu, Fang",
+        "Mart\u00ednez, Todd J.",
+        "Matthews, Devin A.",
+        "Schaefer, Henry F.",
+        "\u0160poner, Ji\u0159\u00ed",
+        "Turney, Justin M.",
+        "Wang, Lee-Ping",
+        "De Silva, Nuwan",
+        "King, Rollin A.",
+        "Stanton, John F.",
+        "Gordon, Mark S.",
+        "Windus, Theresa L.",
+        "Sherrill, C. David",
+        "Burns, Lori A."
+      ],
+      "creationdate": [
+        "2021"
+      ],
+      "orcidid": [
+        "https://orcid.org/0000-0002-7545-4416",
+        "https://orcid.org/0000-0003-1322-4997",
+        "https://orcid.org/0000-0003-2371-1318",
+        "https://orcid.org/0000-0003-2852-5864",
+        "https://orcid.org/0000-0001-7006-9378",
+        "https://orcid.org/0000-0003-3072-9946",
+        "https://orcid.org/0000-0002-1686-778X",
+        "https://orcid.org/0000-0002-5452-9239",
+        "https://orcid.org/0000-0003-0378-7921",
+        "https://orcid.org/0000-0002-0871-664X",
+        "https://orcid.org/0000-0001-8626-0900",
+        "https://orcid.org/0000-0003-0592-3464",
+        "https://orcid.org/0000-0003-2834-318X",
+        "https://orcid.org/0000-0002-5570-7666",
+        "https://orcid.org/0000-0002-1173-4187",
+        "https://orcid.org/0000-0002-5921-9272",
+        "https://orcid.org/0000-0002-3692-5027",
+        "https://orcid.org/0000-0003-0542-119X",
+        "https://orcid.org/0000-0003-0252-2083",
+        "https://orcid.org/0000-0001-6906-8191",
+        "https://orcid.org/0000-0002-1443-5764",
+        "https://orcid.org/0000-0001-5879-2942",
+        "https://orcid.org/0000-0002-9780-8123",
+        "https://orcid.org/0000-0002-6425-9551",
+        "https://orcid.org/0000-0001-7809-771X",
+        "https://orcid.org/0000-0002-7795-4422",
+        "https://orcid.org/0000-0001-6065-3167",
+        "https://orcid.org/0000-0003-2345-9781",
+        "https://orcid.org/0000-0003-2493-6893",
+        "https://orcid.org/0000-0002-2460-8059",
+        "https://orcid.org/0000-0003-2795-5483",
+        "https://orcid.org/0000-0002-0560-1513",
+        "https://orcid.org/0000-0003-0900-2849",
+        "https://orcid.org/0000-0002-5862-5113",
+        "https://orcid.org/0000-0002-2779-0749",
+        "https://orcid.org/0000-0001-8694-7200",
+        "https://orcid.org/0000-0003-3659-0711",
+        "https://orcid.org/0000-0002-1323-5939",
+        "https://orcid.org/0000-0003-1721-0330",
+        "https://orcid.org/0000-0001-6558-6186",
+        "https://orcid.org/0000-0002-4359-5003",
+        "https://orcid.org/0000-0001-6448-0873",
+        "https://orcid.org/0000-0001-9396-1094",
+        "https://orcid.org/0000-0002-4798-8947",
+        "https://orcid.org/0000-0001-9342-0191",
+        "https://orcid.org/0000-0003-0683-7613",
+        "https://orcid.org/0000-0002-5216-2859",
+        "https://orcid.org/0000000224608059",
+        "https://orcid.org/0000000297808123",
+        "https://orcid.org/0000000275454416",
+        "https://orcid.org/0000000327955483",
+        "https://orcid.org/0000000306837613",
+        "https://orcid.org/0000000317210330",
+        "https://orcid.org/0000000186260900",
+        "https://orcid.org/0000000160653167",
+        "https://orcid.org/0000000227790749",
+        "https://orcid.org/000000032834318X",
+        "https://orcid.org/0000000170069378",
+        "https://orcid.org/000000021686778X",
+        "https://orcid.org/0000000259219272",
+        "https://orcid.org/0000000193420191",
+        "https://orcid.org/0000000243595003",
+        "https://orcid.org/0000000214435764",
+        "https://orcid.org/0000000164480873",
+        "https://orcid.org/0000000330729946",
+        "https://orcid.org/0000000254529239",
+        "https://orcid.org/0000000213235939",
+        "https://orcid.org/0000000328525864",
+        "https://orcid.org/000000030542119X",
+        "https://orcid.org/0000000303787921",
+        "https://orcid.org/0000000247988947",
+        "https://orcid.org/0000000336590711",
+        "https://orcid.org/0000000252162859",
+        "https://orcid.org/0000000323459781",
+        "https://orcid.org/0000000186947200",
+        "https://orcid.org/000000017809771X",
+        "https://orcid.org/0000000313224997",
+        "https://orcid.org/0000000169068191",
+        "https://orcid.org/0000000193961094",
+        "https://orcid.org/0000000323711318",
+        "https://orcid.org/0000000205601513",
+        "https://orcid.org/0000000255707666",
+        "https://orcid.org/0000000309002849",
+        "https://orcid.org/0000000305923464",
+        "https://orcid.org/0000000158792942",
+        "https://orcid.org/0000000264259551",
+        "https://orcid.org/0000000277954422",
+        "https://orcid.org/0000000165586186",
+        "https://orcid.org/0000000236925027",
+        "https://orcid.org/0000000258625113",
+        "https://orcid.org/0000000324936893",
+        "https://orcid.org/000000020871664X",
+        "https://orcid.org/0000000211734187",
+        "https://orcid.org/0000000302522083"
+      ],
+      "creatorcontrib": [
+        "Smith, Daniel G. A.",
+        "Lolinco, Annabelle T.",
+        "Glick, Zachary L.",
+        "Lee, Jiyoung",
+        "Alenaizan, Asem",
+        "Barnes, Taylor A.",
+        "Borca, Carlos H.",
+        "Di Remigio, Roberto",
+        "Dotson, David L.",
+        "Ehlert, Sebastian",
+        "Heide, Alexander G.",
+        "Herbst, Michael F.",
+        "Hermann, Jan",
+        "Hicks, Colton B.",
+        "Horton, Joshua T.",
+        "Hurtado, Adrian G.",
+        "Kraus, Peter",
+        "Kruse, Holger",
+        "Lee, Sebastian J. R.",
+        "Misiewicz, Jonathon P.",
+        "Naden, Levi N.",
+        "Ramezanghorbani, Farhad",
+        "Scheurer, Maximilian",
+        "Schriber, Jeffrey B.",
+        "Simmonett, Andrew C.",
+        "Steinmetzer, Johannes",
+        "Wagner, Jeffrey R.",
+        "Ward, Logan",
+        "Welborn, Matthew",
+        "Altarawy, Doaa",
+        "Anwar, Jamshed",
+        "Chodera, John D.",
+        "Dreuw, Andreas",
+        "Kulik, Heather J.",
+        "Liu, Fang",
+        "Mart\u00ednez, Todd J.",
+        "Matthews, Devin A.",
+        "Schaefer, Henry F.",
+        "\u0160poner, Ji\u0159\u00ed",
+        "Turney, Justin M.",
+        "Wang, Lee-Ping",
+        "De Silva, Nuwan",
+        "King, Rollin A.",
+        "Stanton, John F.",
+        "Gordon, Mark S.",
+        "Windus, Theresa L.",
+        "Sherrill, C. David",
+        "Burns, Lori A."
+      ],
+      "issn": [
+        "0021-9606",
+        "1089-7690",
+        "1520-9032",
+        "1089-7690"
+      ],
+      "addtitle": [
+        "J Chem Phys"
+      ],
+      "general": [
+        "American Institute of Physics",
+        "AIP Publishing LLC"
+      ],
+      "rsrctype": [
+        "article"
+      ],
+      "startdate": [
+        "20211128"
+      ],
+      "enddate": [
+        "20211128"
+      ],
+      "scope": [
+        "AAYXX",
+        "CITATION",
+        "NPM",
+        "8FD",
+        "H8D",
+        "L7M",
+        "7X8",
+        "OTOTI",
+        "5PM",
+        "ACNBI",
+        "ADTPV",
+        "AOWAS",
+        "D8T",
+        "DF2",
+        "ZZAVC",
+        "ADTOC",
+        "UNPAY"
+      ],
+      "description": [
+        "Community efforts in the computational molecular sciences (CMS) are evolving toward modular, open, and interoperable interfaces that work with existing community codes to provide more functionality and composability than could be achieved with a single program. The Quantum Chemistry Common Driver and Databases (QCDB) project provides such capability through an application programming interface (API) that facilitates interoperability across multiple quantum chemistry software packages. In tandem with the Molecular Sciences Software Institute and their Quantum Chemistry Archive ecosystem, the unique functionalities of several CMS programs are integrated, including CFOUR, GAMESS, NWChem, OpenMM, Psi4, Qcore, TeraChem, and Turbomole, to provide common computational functions, i.e., energy, gradient, and Hessian computations as well as molecular properties such as atomic charges and vibrational frequency analysis. Both standard users and power users benefit from adopting these APIs as they lower the language barrier of input styles and enable a standard layout of variables and data. These designs allow end-to-end interoperable programming of complex computations and provide best practices options by default."
+      ]
+    },
+    "delivery": {
+      "fulltext": [
+        "fulltext_multiple"
+      ],
+      "delcategory": [
+        "Remote Search Resource"
+      ]
+    },
+    "display": {
+      "title": [
+        "Quantum Chemistry Common Driver and Databases (QCDB) and Quantum Chemistry Engine (QCEngine): Automation and interoperability among computational chemistry programs"
+      ],
+      "type": [
+        "article"
+      ],
+      "source": [
+        "Unpaywall for CDI: Periodical Content",
+        "AIP Journals (American Institute of Physics)"
+      ],
+      "creator": [
+        "Smith, Daniel G. A. ; Lolinco, Annabelle T. ; Glick, Zachary L. ; Lee, Jiyoung ; Alenaizan, Asem ; Barnes, Taylor A. ; Borca, Carlos H. ; Di Remigio, Roberto ; Dotson, David L. ; Ehlert, Sebastian ; Heide, Alexander G. ; Herbst, Michael F. ; Hermann, Jan ; Hicks, Colton B. ; Horton, Joshua T. ; Hurtado, Adrian G. ; Kraus, Peter ; Kruse, Holger ; Lee, Sebastian J. R. ; Misiewicz, Jonathon P. ; Naden, Levi N. ; Ramezanghorbani, Farhad ; Scheurer, Maximilian ; Schriber, Jeffrey B. ; Simmonett, Andrew C. ; Steinmetzer, Johannes ; Wagner, Jeffrey R. ; Ward, Logan ; Welborn, Matthew ; Altarawy, Doaa ; Anwar, Jamshed ; Chodera, John D. ; Dreuw, Andreas ; Kulik, Heather J. ; Liu, Fang ; Mart\u00ednez, Todd J. ; Matthews, Devin A. ; Schaefer, Henry F. ; \u0160poner, Ji\u0159\u00ed ; Turney, Justin M. ; Wang, Lee-Ping ; De Silva, Nuwan ; King, Rollin A. ; Stanton, John F. ; Gordon, Mark S. ; Windus, Theresa L. ; Sherrill, C. David ; Burns, Lori A."
+      ],
+      "publisher": [
+        "United States: American Institute of Physics"
+      ],
+      "ispartof": [
+        "The Journal of chemical physics, 2021-11, Vol.155 (20), p.204801"
+      ],
+      "identifier": [
+        "ISSN: 0021-9606",
+        "ISSN: 1089-7690",
+        "ISSN: 1520-9032",
+        "EISSN: 1089-7690",
+        "DOI: 10.1063/5.0059356",
+        "PMID: 34852489",
+        "CODEN: JCPSA6"
+      ],
+      "language": [
+        "eng"
+      ],
+      "rights": [
+        "Author(s)",
+        "2021 Author(s). Published under an exclusive license by AIP Publishing.",
+        "2021 Author(s). 2021 Author(s)"
+      ],
+      "snippet": [
+        ".... The Quantum Chemistry Common Driver and Databases (QCDB) project provides such capability through an application programming interface (API..."
+      ],
+      "lds50": [
+        "peer_reviewed"
+      ],
+      "oa": [
+        "free_for_read"
+      ],
+      "description": [
+        "Community efforts in the computational molecular sciences (CMS) are evolving toward modular, open, and interoperable interfaces that work with existing community codes to provide more functionality and composability than could be achieved with a single program. The Quantum Chemistry Common Driver and Databases (QCDB) project provides such capability through an application programming interface (API) that facilitates interoperability across multiple quantum chemistry software packages. In tandem with the Molecular Sciences Software Institute and their Quantum Chemistry Archive ecosystem, the unique functionalities of several CMS programs are integrated, including CFOUR, GAMESS, NWChem, OpenMM, Psi4, Qcore, TeraChem, and Turbomole, to provide common computational functions, i.e., energy, gradient, and Hessian computations as well as molecular properties such as atomic charges and vibrational frequency analysis. Both standard users and power users benefit from adopting these APIs as they lower the language barrier of input styles and enable a standard layout of variables and data. These designs allow end-to-end interoperable programming of complex computations and provide best practices options by default."
+      ],
+      "subject": [
+        "Computational chemistry ;  Physics ;  Practice Guidelines as Topic ;  Quantum chemistry ;  Vibrational spectra"
+      ],
+      "keyword": [
+        "Application programming interface ;  ARTICLES ;  Frequency analysis ;  Index Medicus ;  Interoperability ;  Software packages"
+      ]
+    },
+    "addata": {
+      "abstract": [
+        "Community efforts in the computational molecular sciences (CMS) are evolving toward modular, open, and interoperable interfaces that work with existing community codes to provide more functionality and composability than could be achieved with a single program. The Quantum Chemistry Common Driver and Databases (QCDB) project provides such capability through an application programming interface (API) that facilitates interoperability across multiple quantum chemistry software packages. In tandem with the Molecular Sciences Software Institute and their Quantum Chemistry Archive ecosystem, the unique functionalities of several CMS programs are integrated, including CFOUR, GAMESS, NWChem, OpenMM, Psi4, Qcore, TeraChem, and Turbomole, to provide common computational functions, i.e., energy, gradient, and Hessian computations as well as molecular properties such as atomic charges and vibrational frequency analysis. Both standard users and power users benefit from adopting these APIs as they lower the language barrier of input styles and enable a standard layout of variables and data. These designs allow end-to-end interoperable programming of complex computations and provide best practices options by default."
+      ],
+      "jtitle": [
+        "The Journal of chemical physics"
+      ],
+      "genre": [
+        "article"
+      ],
+      "orcidid": [
+        "https://orcid.org/0000-0002-7545-4416",
+        "https://orcid.org/0000-0003-1322-4997",
+        "https://orcid.org/0000-0003-2371-1318",
+        "https://orcid.org/0000-0003-2852-5864",
+        "https://orcid.org/0000-0001-7006-9378",
+        "https://orcid.org/0000-0003-3072-9946",
+        "https://orcid.org/0000-0002-1686-778X",
+        "https://orcid.org/0000-0002-5452-9239",
+        "https://orcid.org/0000-0003-0378-7921",
+        "https://orcid.org/0000-0002-0871-664X",
+        "https://orcid.org/0000-0001-8626-0900",
+        "https://orcid.org/0000-0003-0592-3464",
+        "https://orcid.org/0000-0003-2834-318X",
+        "https://orcid.org/0000-0002-5570-7666",
+        "https://orcid.org/0000-0002-1173-4187",
+        "https://orcid.org/0000-0002-5921-9272",
+        "https://orcid.org/0000-0002-3692-5027",
+        "https://orcid.org/0000-0003-0542-119X",
+        "https://orcid.org/0000-0003-0252-2083",
+        "https://orcid.org/0000-0001-6906-8191",
+        "https://orcid.org/0000-0002-1443-5764",
+        "https://orcid.org/0000-0001-5879-2942",
+        "https://orcid.org/0000-0002-9780-8123",
+        "https://orcid.org/0000-0002-6425-9551",
+        "https://orcid.org/0000-0001-7809-771X",
+        "https://orcid.org/0000-0002-7795-4422",
+        "https://orcid.org/0000-0001-6065-3167",
+        "https://orcid.org/0000-0003-2345-9781",
+        "https://orcid.org/0000-0003-2493-6893",
+        "https://orcid.org/0000-0002-2460-8059",
+        "https://orcid.org/0000-0003-2795-5483",
+        "https://orcid.org/0000-0002-0560-1513",
+        "https://orcid.org/0000-0003-0900-2849",
+        "https://orcid.org/0000-0002-5862-5113",
+        "https://orcid.org/0000-0002-2779-0749",
+        "https://orcid.org/0000-0001-8694-7200",
+        "https://orcid.org/0000-0003-3659-0711",
+        "https://orcid.org/0000-0002-1323-5939",
+        "https://orcid.org/0000-0003-1721-0330",
+        "https://orcid.org/0000-0001-6558-6186",
+        "https://orcid.org/0000-0002-4359-5003",
+        "https://orcid.org/0000-0001-6448-0873",
+        "https://orcid.org/0000-0001-9396-1094",
+        "https://orcid.org/0000-0002-4798-8947",
+        "https://orcid.org/0000-0001-9342-0191",
+        "https://orcid.org/0000-0003-0683-7613",
+        "https://orcid.org/0000-0002-5216-2859",
+        "https://orcid.org/0000000224608059",
+        "https://orcid.org/0000000297808123",
+        "https://orcid.org/0000000275454416",
+        "https://orcid.org/0000000327955483",
+        "https://orcid.org/0000000306837613",
+        "https://orcid.org/0000000317210330",
+        "https://orcid.org/0000000186260900",
+        "https://orcid.org/0000000160653167",
+        "https://orcid.org/0000000227790749",
+        "https://orcid.org/000000032834318X",
+        "https://orcid.org/0000000170069378",
+        "https://orcid.org/000000021686778X",
+        "https://orcid.org/0000000259219272",
+        "https://orcid.org/0000000193420191",
+        "https://orcid.org/0000000243595003",
+        "https://orcid.org/0000000214435764",
+        "https://orcid.org/0000000164480873",
+        "https://orcid.org/0000000330729946",
+        "https://orcid.org/0000000254529239",
+        "https://orcid.org/0000000213235939",
+        "https://orcid.org/0000000328525864",
+        "https://orcid.org/000000030542119X",
+        "https://orcid.org/0000000303787921",
+        "https://orcid.org/0000000247988947",
+        "https://orcid.org/0000000336590711",
+        "https://orcid.org/0000000252162859",
+        "https://orcid.org/0000000323459781",
+        "https://orcid.org/0000000186947200",
+        "https://orcid.org/000000017809771X",
+        "https://orcid.org/0000000313224997",
+        "https://orcid.org/0000000169068191",
+        "https://orcid.org/0000000193961094",
+        "https://orcid.org/0000000323711318",
+        "https://orcid.org/0000000205601513",
+        "https://orcid.org/0000000255707666",
+        "https://orcid.org/0000000309002849",
+        "https://orcid.org/0000000305923464",
+        "https://orcid.org/0000000158792942",
+        "https://orcid.org/0000000264259551",
+        "https://orcid.org/0000000277954422",
+        "https://orcid.org/0000000165586186",
+        "https://orcid.org/0000000236925027",
+        "https://orcid.org/0000000258625113",
+        "https://orcid.org/0000000324936893",
+        "https://orcid.org/000000020871664X",
+        "https://orcid.org/0000000211734187",
+        "https://orcid.org/0000000302522083"
+      ],
+      "issn": [
+        "0021-9606",
+        "1089-7690",
+        "1520-9032"
+      ],
+      "addtitle": [
+        "J Chem Phys"
+      ],
+      "oa": [
+        "free_for_read"
+      ],
+      "au": [
+        "Smith, Daniel G. A.",
+        "Lolinco, Annabelle T.",
+        "Glick, Zachary L.",
+        "Lee, Jiyoung",
+        "Alenaizan, Asem",
+        "Barnes, Taylor A.",
+        "Borca, Carlos H.",
+        "Di Remigio, Roberto",
+        "Dotson, David L.",
+        "Ehlert, Sebastian",
+        "Heide, Alexander G.",
+        "Herbst, Michael F.",
+        "Hermann, Jan",
+        "Hicks, Colton B.",
+        "Horton, Joshua T.",
+        "Hurtado, Adrian G.",
+        "Kraus, Peter",
+        "Kruse, Holger",
+        "Lee, Sebastian J. R.",
+        "Misiewicz, Jonathon P.",
+        "Naden, Levi N.",
+        "Ramezanghorbani, Farhad",
+        "Scheurer, Maximilian",
+        "Schriber, Jeffrey B.",
+        "Simmonett, Andrew C.",
+        "Steinmetzer, Johannes",
+        "Wagner, Jeffrey R.",
+        "Ward, Logan",
+        "Welborn, Matthew",
+        "Altarawy, Doaa",
+        "Anwar, Jamshed",
+        "Chodera, John D.",
+        "Dreuw, Andreas",
+        "Kulik, Heather J.",
+        "Liu, Fang",
+        "Mart\u00ednez, Todd J.",
+        "Matthews, Devin A.",
+        "Schaefer, Henry F.",
+        "\u0160poner, Ji\u0159\u00ed",
+        "Turney, Justin M.",
+        "Wang, Lee-Ping",
+        "De Silva, Nuwan",
+        "King, Rollin A.",
+        "Stanton, John F.",
+        "Gordon, Mark S.",
+        "Windus, Theresa L.",
+        "Sherrill, C. David",
+        "Burns, Lori A."
+      ],
+      "atitle": [
+        "Quantum Chemistry Common Driver and Databases (QCDB) and Quantum Chemistry Engine (QCEngine): Automation and interoperability among computational chemistry programs"
+      ],
+      "date": [
+        "2021-11-28"
+      ],
+      "risdate": [
+        "2021"
+      ],
+      "volume": [
+        "155"
+      ],
+      "issue": [
+        "20"
+      ],
+      "spage": [
+        "204801"
+      ],
+      "pages": [
+        "204801-"
+      ],
+      "eissn": [
+        "1089-7690"
+      ],
+      "coden": [
+        "JCPSA6"
+      ],
+      "ristype": [
+        "JOUR"
+      ],
+      "cop": [
+        "United States"
+      ],
+      "pub": [
+        "American Institute of Physics"
+      ],
+      "doi": [
+        "10.1063/5.0059356"
+      ],
+      "pmid": [
+        "34852489"
+      ],
+      "tpages": [
+        "22"
+      ],
+      "format": [
+        "journal"
+      ]
+    },
+    "facets": {
+      "creationdate": [
+        "2021"
+      ],
+      "language": [
+        "eng"
+      ],
+      "topic": [
+        "Computational chemistry",
+        "Physics",
+        "Practice Guidelines as Topic",
+        "Quantum chemistry",
+        "Vibrational spectra"
+      ],
+      "prefilter": [
+        "articles"
+      ],
+      "collection": [
+        "CrossRef",
+        "PubMed",
+        "Technology Research Database",
+        "Aerospace Database",
+        "Advanced Technologies Database with Aerospace",
+        "MEDLINE - Academic",
+        "OSTI.GOV",
+        "PubMed Central (Full Participant titles)",
+        "SWEPUB Uppsala universitet full text",
+        "SwePub",
+        "SwePub Articles",
+        "SWEPUB Freely available online",
+        "SWEPUB Uppsala universitet",
+        "SwePub Articles full text",
+        "Unpaywall for CDI: Periodical Content",
+        "Unpaywall"
+      ],
+      "toplevel": [
+        "peer_reviewed",
+        "online_resources"
+      ],
+      "frbrgroupid": [
+        "cdi_FETCH-LOGICAL-b719t-84aa720b9d3572ebb76d4b776cd3edb3831f9ab035c8943fbdabd0222e226a5b3"
+      ],
+      "frbrtype": [
+        "5"
+      ],
+      "jtitle": [
+        "The Journal of chemical physics"
+      ],
+      "creatorcontrib": [
+        "Smith, Daniel G. A.",
+        "Lolinco, Annabelle T.",
+        "Glick, Zachary L.",
+        "Lee, Jiyoung",
+        "Alenaizan, Asem",
+        "Barnes, Taylor A.",
+        "Borca, Carlos H.",
+        "Di Remigio, Roberto",
+        "Dotson, David L.",
+        "Ehlert, Sebastian",
+        "Heide, Alexander G.",
+        "Herbst, Michael F.",
+        "Hermann, Jan",
+        "Hicks, Colton B.",
+        "Horton, Joshua T.",
+        "Hurtado, Adrian G.",
+        "Kraus, Peter",
+        "Kruse, Holger",
+        "Lee, Sebastian J. R.",
+        "Misiewicz, Jonathon P.",
+        "Naden, Levi N.",
+        "Ramezanghorbani, Farhad",
+        "Scheurer, Maximilian",
+        "Schriber, Jeffrey B.",
+        "Simmonett, Andrew C.",
+        "Steinmetzer, Johannes",
+        "Wagner, Jeffrey R.",
+        "Ward, Logan",
+        "Welborn, Matthew",
+        "Altarawy, Doaa",
+        "Anwar, Jamshed",
+        "Chodera, John D.",
+        "Dreuw, Andreas",
+        "Kulik, Heather J.",
+        "Liu, Fang",
+        "Mart\u00ednez, Todd J.",
+        "Matthews, Devin A.",
+        "Schaefer, Henry F.",
+        "\u0160poner, Ji\u0159\u00ed",
+        "Turney, Justin M.",
+        "Wang, Lee-Ping",
+        "De Silva, Nuwan",
+        "King, Rollin A.",
+        "Stanton, John F.",
+        "Gordon, Mark S.",
+        "Windus, Theresa L.",
+        "Sherrill, C. David",
+        "Burns, Lori A."
+      ],
+      "rsrctype": [
+        "articles"
+      ]
+    },
+    "sort": {
+      "author": [
+        "Smith, Daniel G. A. ; Lolinco, Annabelle T. ; Glick, Zachary L. ; Lee, Jiyoung ; Alenaizan, Asem ; Barnes, Taylor A. ; Borca, Carlos H. ; Di Remigio, Roberto ; Dotson, David L. ; Ehlert, Sebastian ; Heide, Alexander G. ; Herbst, Michael F. ; Hermann, Jan ; Hicks, Colton B. ; Horton, Joshua T. ; Hurtado, Adrian G. ; Kraus, Peter ; Kruse, Holger ; Lee, Sebastian J. R. ; Misiewicz, Jonathon P. ; Naden, Levi N. ; Ramezanghorbani, Farhad ; Scheurer, Maximilian ; Schriber, Jeffrey B. ; Simmonett, Andrew C. ; Steinmetzer, Johannes ; Wagner, Jeffrey R. ; Ward, Logan ; Welborn, Matthew ; Altarawy, Doaa ; Anwar, Jamshed ; Chodera, John D. ; Dreuw, Andreas ; Kulik, Heather J. ; Liu, Fang ; Mart\u00ednez, Todd J. ; Matthews, Devin A. ; Schaefer, Henry F. ; \u0160poner, Ji\u0159\u00ed ; Turney, Justin M. ; Wang, Lee-Ping ; De Silva, Nuwan ; King, Rollin A. ; Stanton, John F. ; Gordon, Mark S. ; Windus, Theresa L. ; Sherrill, C. David ; Burns, Lori A."
+      ],
+      "title": [
+        "Quantum Chemistry Common Driver and Databases (QCDB) and Quantum Chemistry Engine (QCEngine): Automation and interoperability among computational chemistry programs"
+      ],
+      "creationdate": [
+        "20211128"
+      ]
+    },
+    "control": {
+      "sourceid": [
+        "proquest_unpay"
+      ],
+      "recordid": [
+        "cdi_unpaywall_primary_10_1063_5_0059356"
+      ],
+      "sourcerecordid": [
+        "2600467498"
+      ],
+      "originalsourceid": [
+        "FETCH-LOGICAL-b719t-84aa720b9d3572ebb76d4b776cd3edb3831f9ab035c8943fbdabd0222e226a5b3"
+      ],
+      "recordtype": [
+        "article"
+      ],
+      "addsrcrecordid": [
+        "eNp9kstuEzEUhkcIRENhwQugEWwaRFpfZuwxC6SQlItUCVUCtpY94ySuZuzBl1R5Hx4UJ5MG2qKubNnf_5_j_zjLXkJwCgHBZ-UpACXDJXmUjSCo2IQSBh5nIwAQnDACyFH2zPsrAACkqHiaHeGiKlFRsVH2-zIKE2KXz1aq0z64TT6zXWdNPnd6rVwuTJPPRRBSeOXzk8vZ_ON4d3hfeG6W2qgtM-zG7_NpDLYTQSe_rUaboJztlRNStzpscpEqLfPadn0MO0y0eX0w7J1dOtH559mThWi9erFfj7Mfn86_z75MLr59_jqbXkwkhSxMqkIIioBkDS4pUlJS0hSSUlI3WDUSVxgumJAAl3XFCryQjZANQAgphIgoJT7O3g6-0fRicy3alvdOd8JtOAR8GzUv-T7qBL8bYH-t-igPpBWaz_XPKbduyWPkBUGYgIR_GPDEdqqplQlOtLdUt2-MXvGlXfOKwAIhlgxeDwbWB819rYOqV7U1RtWBwwojQGGCTvZVnP0VlQ88RVmrthVG2eg5IqAkANCd35s76JWNLg1gR4GC0IJViXr1b9uHfm9-UALOBqB21nunFjx1thtleoVu_xvc-I7ioZD3E_E3rgd4bd1fkPfN4iH4vvMfkQ8BYg"
+      ],
+      "sourcetype": [
+        "Open Access Repository"
+      ],
+      "sourceformat": [
+        "XML"
+      ],
+      "sourcesystem": [
+        "Other"
+      ],
+      "pqid": [
+        "2600467498"
+      ],
+      "iscdi": [
+        "true"
+      ],
+      "pmcid": [
+        "PMC8614229"
+      ],
+      "score": [
+        "0.008109366"
+      ]
+    }
+  },
+  "delivery": {
+    "link": [],
+    "deliveryCategory": [
+      "Remote Search Resource"
+    ],
+    "availability": [
+      "fulltext_multiple"
+    ],
+    "displayLocation": false,
+    "additionalLocations": false,
+    "physicalItemTextCodes": "",
+    "feDisplayOtherLocations": false,
+    "displayedAvailability": "true",
+    "holding": [],
+    "almaOpenurl": "https://na05.alma.exlibrisgroup.com/view/uresolver/01SUNY_BUF/openurl?ctx_enc=info:ofi/enc:UTF-8&ctx_id=10_1&ctx_tim=2026-10-04 14:43:26&ctx_ver=Z39.88-2004&url_ctx_fmt=info:ofi/fmt:kev:mtx:ctx&url_ver=Z39.88-2004&rfr_id=info:sid/primo.exlibrisgroup.com-proquest_unpay&rft_val_fmt=info:ofi/fmt:kev:mtx:journal&rft.genre=article&rft.atitle=Quantum+Chemistry+Common+Driver+and+Databases+%28QCDB%29+and+Quantum+Chemistry+Engine+%28QCEngine%29%3A+Automation+and+interoperability+among+computational+chemistry+programs&rft.jtitle=The+Journal+of+chemical+physics&rft.au=Smith%2C+Daniel+G.+A.&rft.date=2021-11-28&rft.volume=155&rft.issue=20&rft.spage=204801&rft.pages=204801-&rft.issn=0021-9606&rft.eissn=1089-7690&rft.coden=JCPSA6&rft_id=info:doi/10.1063%2F5.0059356&rft.pub=American+Institute+of+Physics&rft.place=United+States&rft_id=info:pmid/34852489&rft_dat=<proquest_unpay>2600467498</proquest_unpay>&svc_dat=viewit&rft_pqid=2600467498"
+  },
+  "context": "PC",
+  "adaptor": "Primo Central",
+  "extras": {
+    "citationTrails": {
+      "citing": [
+        "FETCH-LOGICAL-b719t-84aa720b9d3572ebb76d4b776cd3edb3831f9ab035c8943fbdabd0222e226a5b3"
+      ],
+      "citedby": [
+        "FETCH-LOGICAL-b719t-84aa720b9d3572ebb76d4b776cd3edb3831f9ab035c8943fbdabd0222e226a5b3"
+      ]
+    },
+    "timesCited": {}
+  },
+  "@id": "https://na05.alma.exlibrisgroup.com/primaws/rest/pub/pnxs/PC/cdi_unpaywall_primary_10_1063_5_0059356"
+}

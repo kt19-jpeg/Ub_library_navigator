@@ -75,3 +75,46 @@ def test_parse_edelivery_response_ignores_envelope_and_serviceless_records():
         {"beaconO22": "1", "alma1": {"electronicServices": []}, "alma2": None}
     )
     assert access == {}
+
+
+def test_parse_brief_doc_extracts_citation_fields_from_a_real_article():
+    doc = _load("onesearch_article_doc.json")
+    candidate = parse_brief_doc(doc)
+
+    assert candidate.authors[0] == "Smith, Daniel G. A."
+    assert len(candidate.authors) == 48
+    assert candidate.journal_title == "The Journal of chemical physics"
+    assert candidate.volume == "155"
+    assert candidate.issue == "20"
+    assert candidate.pages == "204801"  # single-page: trailing "-" stripped
+    assert candidate.doi == "10.1063/5.0059356"
+    assert candidate.publisher == "American Institute of Physics"
+    assert candidate.isbn is None
+
+
+def test_parse_brief_doc_extracts_citation_fields_from_a_real_book():
+    doc = _load("onesearch_book_doc.json")
+    candidate = parse_brief_doc(doc)
+
+    assert candidate.authors == ["Brooker, Charlie", "Repper, Julie."]
+    assert candidate.isbn == "9780443103834"
+    assert candidate.publisher == "Churchill Livingstone Elsevier"
+    assert candidate.place_of_publication == "Edinburgh"
+    assert candidate.journal_title is None  # the book/article distinguisher
+    assert candidate.doi is None
+
+
+def test_parse_brief_doc_handles_page_range():
+    doc = _load("onesearch_article_doc.json")
+    doc["pnx"]["addata"]["spage"] = ["3276"]
+    doc["pnx"]["addata"]["epage"] = ["3289"]
+    candidate = parse_brief_doc(doc)
+    assert candidate.pages == "3276-3289"
+
+
+def test_parse_brief_doc_citation_fields_are_none_when_addata_absent():
+    doc = {"pnx": {"display": {"title": ["X"]}, "control": {"recordid": ["r1"]}}}
+    candidate = parse_brief_doc(doc)
+    assert candidate.authors is None
+    assert candidate.journal_title is None
+    assert candidate.pages is None

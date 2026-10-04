@@ -31,6 +31,29 @@ def _online_link_from_getit(delivery: dict) -> str | None:
     return None
 
 
+def _citation_authors(addata: dict) -> list[str] | None:
+    # Confirmed live 2026-10-04: which key holds the author list varies by record,
+    # not cleanly by type — a real journal article had "au" with "addau" absent;
+    # a real book had "addau" with "au" absent. Both are already "Last, First"
+    # strings (no $$Q markers), unlike display.creator.
+    authors = addata.get("au") or addata.get("addau")
+    return list(authors) if authors else None
+
+
+def _citation_pages(addata: dict) -> str | None:
+    spage = _first(addata.get("spage"))
+    epage = _first(addata.get("epage"))
+    if spage and epage:
+        return f"{spage}-{epage}"
+    if spage:
+        return spage
+    # Confirmed live 2026-10-04: a single-page article's "pages" value itself
+    # carries a trailing "-" with no epage ("204801-"); strip it rather than
+    # show a dangling dash in a citation.
+    pages = _first(addata.get("pages"))
+    return pages.rstrip("-") if pages else None
+
+
 def parse_brief_doc(doc: dict) -> SearchCandidate:
     # Real responses can carry an explicit `null` for these keys (not just
     # omit them), and dict.get(key, default) only falls back to default
@@ -49,6 +72,15 @@ def parse_brief_doc(doc: dict) -> SearchCandidate:
     date = _first(display.get("creationdate")) or _first(addata.get("date"))
 
     return SearchCandidate(
+        authors=_citation_authors(addata),
+        journal_title=_first(addata.get("jtitle")),
+        volume=_first(addata.get("volume")),
+        issue=_first(addata.get("issue")),
+        pages=_citation_pages(addata),
+        doi=_first(addata.get("doi")),
+        isbn=_first(addata.get("isbn")),
+        publisher=_first(addata.get("pub")),
+        place_of_publication=_first(addata.get("cop")),
         record_id=_first(control.get("recordid")),
         title=_first(display.get("title")),
         author=author,
