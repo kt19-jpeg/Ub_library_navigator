@@ -11,6 +11,23 @@ ROLES = ("undergraduate", "graduate", "faculty")
 # Mirrors onesearch.client.RESOURCE_TYPES (a test enforces they stay equal).
 ResourceType = Literal["books", "articles", "journals", "dissertations", "videos"]
 
+# A coarse, anonymized topic bucket for logging (analytics/log_writer.py) — never the
+# query text itself. Broad on purpose: narrow enough to be useful on a dashboard,
+# broad enough that a single category can't narrow down to an individual (CLAUDE.md's
+# own re-identification concern).
+TopicCategory = Literal[
+    "sciences",
+    "health_and_medicine",
+    "engineering_and_technology",
+    "social_sciences",
+    "business_and_economics",
+    "humanities_and_arts",
+    "law",
+    "education",
+    "library_services",  # meta/service questions: "who's my librarian", citing, printing
+    "other",
+]
+
 
 class QueryPlan(BaseModel):
     """What the planner extracts from a natural-language message."""
@@ -27,6 +44,9 @@ class QueryPlan(BaseModel):
     needs_clarification: str | None = Field(
         default=None,
         description="A short question to ask the user if the request is genuinely ambiguous.",
+    )
+    topic_category: TopicCategory = Field(
+        default="other", description="A coarse subject bucket, for anonymized logging only."
     )
 
 
