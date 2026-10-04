@@ -1,0 +1,18 @@
+# UB brand theme. Colors sourced from two confirmed-real places: library.buffalo.edu's
+# own site CSS (#005BBB, the primary action color) and pixel-sampled from the reference
+# UB AI Assistant mockup (docs/design/ub-ai-assistant-reference.png) for the rest.
+[theme]
+base = "light"
+primaryColor = "#005BBB"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F8FD"
+textColor = "#002163"
+linkColor = "#005BBB"
+font = "Public Sans:https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap"
+baseRadius = "medium"
+borderColor = "#D7E9FE"
+
+[theme.sidebar]
+backgroundColor = "#F4F8FD"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#002163"
