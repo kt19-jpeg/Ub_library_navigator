@@ -360,6 +360,25 @@ confirms the suite works; it is not expected to match exactly every run. Not CI-
 slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
 the golden set and metrics are proven out further.
 
+## Layer 2, slice 6: explicit human-request fast path (built)
+
+The first of CLAUDE.md's two originally-sketched deterministic fast paths (the second, citation
+formatting, shipped inline instead — see the citation tool section once that slice lands). A new
+`entry` node runs before `plan`: `agent/router.py`'s `is_human_request()` is a small, deliberately
+conservative regex match — no LLM call, matching CLAUDE.md's "deterministic fast path" requirement
+exactly. A clear match ("talk to a human," "connect me with a librarian," a bare "human") escalates
+immediately via the existing `agent/escalation.py` block, skipping `plan`/`search`/`rag`/`compose`
+entirely. Kept narrow on purpose: an unusual phrasing of the same request just falls through to
+the normal flow instead of a false positive, the safer failure mode for a fast path that skips
+ranking.
+
+**Real regression found and fixed by actually running this live, not just testing offline:**
+`--debug` (CLI) and the Streamlit debug toggle both assumed `state["plan"]` always exists and
+crashed with `KeyError: 'plan'` the moment the fast path actually fired, since `entry` ends the
+turn before `plan_node` ever runs. Both now check `"plan" in state` first. Confirmed live
+afterward: the fast path short-circuits cleanly (`timings` shows only `entry`), and an ordinary
+query right after it in the same session is unaffected.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

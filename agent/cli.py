@@ -40,7 +40,8 @@ def run_chat(graph, read=input, write=print, debug: bool = False) -> None:
         state = graph.invoke({"role": role, "message": message, "history": history})
         answer = state["answer"]
         if debug:
-            write(f"[plan] {state['plan'].model_dump()}")
+            if "plan" in state:  # absent when the human-request fast path short-circuits
+                write(f"[plan] {state['plan'].model_dump()}")
             write(f"[timings] {state.get('timings', {})}")
             for note in state.get("notes", []):
                 write(f"[note] {note}")

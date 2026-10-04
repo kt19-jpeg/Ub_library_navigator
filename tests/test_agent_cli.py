@@ -90,3 +90,18 @@ def test_main_reports_missing_key_and_exits_nonzero(monkeypatch, capsys):
 
     assert main([]) == 2
     assert "OPENAI_API_KEY" in capsys.readouterr().err
+
+
+def test_debug_does_not_crash_when_plan_is_absent():
+    # Regression: confirmed live 2026-10-05 — the human-request fast path ends a
+    # turn before plan_node ever runs, so state["plan"] doesn't exist; --debug
+    # used to assume it always did and crashed with KeyError.
+    class NoPlanGraph:
+        def invoke(self, state):
+            return {"answer": "I'll connect you with a librarian.", "timings": {"entry": 0.01}, "notes": []}
+
+    read, write, written = _io("graduate", "talk to a human", "/quit")
+
+    run_chat(NoPlanGraph(), read=read, write=write, debug=True)
+
+    assert any("connect you with a librarian" in line for line in written)

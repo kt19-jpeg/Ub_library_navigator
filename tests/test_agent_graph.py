@@ -54,7 +54,7 @@ def test_full_turn_plans_searches_and_composes():
     assert "https://search.lib.buffalo.edu/view/j1" in out["answer"]
     assert "Core journal in the field." in out["answer"]
     assert out["plan"].resource_type == "journals"
-    assert set(out["timings"]) == {"plan", "search", "rag", "compose"}
+    assert set(out["timings"]) == {"entry", "plan", "search", "rag", "compose"}
     assert out["rag_context"] is None  # no collection passed to build_graph in this test
 
 
@@ -115,3 +115,34 @@ def test_rag_hits_flow_through_to_the_final_answer(tmp_path):
 
     assert out["rag_context"].librarians[0].metadata["subject"] == "Mental Health"
     assert "Subject librarian: Doe, Jane - https://staff/doe" in out["answer"]
+
+
+def test_explicit_human_request_escalates_without_any_llm_or_layer1_call():
+    model = FakeChatModel()  # no scripted responses: a call would raise IndexError
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({"role": "graduate", "message": "I want to talk to a human", "history": []})
+
+    assert model.calls == []
+    client.search_with_fallback.assert_not_called()
+    client.fetch_detail.assert_not_called()
+    assert "librarian" in out["answer"].lower()
+    from agent.escalation import LIVE_CHAT_URL
+    assert LIVE_CHAT_URL in out["answer"]
+    assert set(out["timings"]) == {"entry"}
+
+
+def test_ordinary_query_is_unaffected_by_the_human_request_fast_path():
+    model = FakeChatModel(
+        QueryPlan(keywords="chemistry"),
+        Selection(items=[SelectionItem(record_id="j1", reason="Fits.")], confidence="high"),
+    )
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({"role": "graduate", "message": "chemistry resources", "history": []})
+
+    assert "entry" in out["timings"]
+    assert "plan" in out["timings"]
+    client.search_with_fallback.assert_called_once()

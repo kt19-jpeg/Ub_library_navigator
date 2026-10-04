@@ -3,10 +3,12 @@ import time
 from langgraph.graph import END, StateGraph
 
 from agent.compose import compose
+from agent.escalation import build_escalation_block
 from agent.models import AgentState
 from agent.onesearch_tool import run_onesearch
 from agent.planner import plan_query
 from agent.rag import query_rag
+from agent.router import is_human_request
 
 
 def _timed(name: str, fn):
@@ -23,10 +25,19 @@ def _timed(name: str, fn):
 
 
 def build_graph(model, client, collection=None):
-    """plan -> {search, rag} -> compose, search and rag run in parallel. A
-    clarifying question from the planner ends the turn early with that question
-    as the answer. `collection` is the Chroma collection for RAG; None means "no
-    library-guide data yet" (rag always returns an empty RagContext)."""
+    """entry -> plan -> {search, rag} -> compose, search and rag run in parallel.
+    `entry` is a deterministic fast path (CLAUDE.md, "Two deterministic fast
+    paths"): an explicit request for a human skips plan/search/rag/compose
+    entirely, no LLM call. A clarifying question from the planner ends the turn
+    early with that question as the answer. `collection` is the Chroma
+    collection for RAG; None means "no library-guide data yet" (rag always
+    returns an empty RagContext)."""
+
+    def entry_node(state: AgentState) -> dict:
+        if is_human_request(state["message"]):
+            block = build_escalation_block(state["role"], state["message"], [])
+            return {"answer": f"I'll connect you with a librarian.\n\n{block}"}
+        return {}
 
     def plan_node(state: AgentState) -> dict:
         plan = plan_query(model, state["role"], state["message"], state.get("history", []))
@@ -46,11 +57,17 @@ def build_graph(model, client, collection=None):
         return compose(state, model, client)
 
     graph = StateGraph(AgentState)
+    graph.add_node("entry", _timed("entry", entry_node))
     graph.add_node("plan", _timed("plan", plan_node))
     graph.add_node("search", _timed("search", search_node))
     graph.add_node("rag", _timed("rag", rag_node))
     graph.add_node("compose", _timed("compose", compose_node))
-    graph.set_entry_point("plan")
+    graph.set_entry_point("entry")
+
+    def after_entry(state: AgentState):
+        return "escalate" if state.get("answer") else "plan"
+
+    graph.add_conditional_edges("entry", after_entry, {"escalate": END, "plan": "plan"})
 
     def after_plan(state: AgentState):
         # A clarifying question ends the turn right away (no search, no rag
