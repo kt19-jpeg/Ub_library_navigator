@@ -190,6 +190,13 @@ if message:
     answer = state["answer"]
     with st.chat_message("assistant", avatar="🦬"):
         st.write(answer)
+        titles_by_id = {c.record_id: c.title for c in state["search_result"].candidates}
+        for record_id, styles in state.get("citations", {}).items():
+            title = titles_by_id.get(record_id, record_id)
+            with st.expander(f"Cite: {title}"):
+                for style_name, text in styles.items():
+                    st.markdown(f"**{style_name.upper()}**")
+                    st.markdown(text)
         if debug:
             st.caption(f"plan: {state['plan'].model_dump()}")
             st.caption(f"timings: {state.get('timings', {})}")

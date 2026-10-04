@@ -360,6 +360,39 @@ confirms the suite works; it is not expected to match exactly every run. Not CI-
 slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
 the golden set and metrics are proven out further.
 
+## Layer 2, slice 5: citation tool (built)
+
+Deterministic APA/MLA/Chicago citation formatting, rendered inline (collapsed by default) with
+every result the agent shows — `agent/citation_tool.py`. Full design:
+`docs/superpowers/specs/2026-10-04-citation-tool-design.md`. Plan:
+`docs/superpowers/plans/2026-10-04-citation-tool.md`.
+
+**Not the conversational "cite that" fast path CLAUDE.md originally sketched.** That would need
+persisting structured candidate data across turns (today's `history` is plain text) and resolving
+which prior result a follow-up refers to. Rendering a citation for every result the moment it's
+shown sidesteps both problems — deferred, not abandoned.
+
+**The data was already free.** Confirmed live 2026-10-04: a real peer-reviewed article's
+`pnx.addata` has `jtitle`, `volume`, `issue`, `pages`, `doi`, `pub`, and an author list; a real
+book's has `pub`, `cop`, `isbn`, and an author list — all already present in the brief search
+response Layer 1 already fetches, just never parsed before. One field-naming surprise: which key
+holds the author list isn't consistent by record type (`au` on one real article with `addau`
+absent; `addau` on a real book with `au` absent) — `onesearch/parser.py` checks both.
+
+**Two real bugs found and fixed by actually running this against live data**, not left to chance —
+both have regression tests: (1) the Chicago formatter interpolated a missing `volume`/`issue`
+straight into an f-string, rendering the literal word "None" for journal-title records with no
+article-level volume data; (2) the MLA formatter always put a comma after the year assuming page
+numbers would follow, leaving a dangling comma with no closing period when pages are missing.
+
+**Known, accepted limitations, not further "fixed":** (a) author-count handling is simplified —
+1-2 authors listed in full, 3+ as "et al.", for every style, not each style's real cutoff; (b)
+some OneSearch records list an issuing organization as author, not a person ("International
+Center of Mental Health Policy and Economics, issuing body") — the formatter can't tell the
+difference from a personal "Last, First" name, so APA output can read oddly (an "i. b." initial
+from "issuing body"), and a no-comma organizational name can end up with a doubled period
+("...Psychiatrists.."). Cosmetic, not a crash or a missing/garbled citation.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
