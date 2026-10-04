@@ -410,6 +410,42 @@ real row into `analytics/sessions.db` — confirmed by literally finding the fil
 Every CLI test now injects a no-op `log_fn`; `analytics/*.db` is also now gitignored as a second
 layer of defense.
 
+## Layer 2, slice 8: staff usage dashboard (built)
+
+CLAUDE.md capability 8: a library-staff-only view summarizing query volume by role, topic
+category breakdown, and escalation rate, reading the logging DB from slice 7. Full design:
+`docs/superpowers/specs/2026-10-05-staff-dashboard-design.md`. Built autonomously; decisions below
+are documented for later review, not agreed in conversation.
+
+**Auth is a simple, swappable shared-password gate, not real SSO** — the original brief says the
+real method (UB SSO vs. a shared staff login) is still pending library confirmation, so
+`analytics/auth.py` implements one method (`"password"`) behind a small registry keyed by the
+already-existing `STAFF_DASHBOARD_AUTH_METHOD` env var. Swapping in real SSO later means adding a
+key to that registry, not rewriting the dashboard page. Unset or unrecognized method fails
+*closed* (no access) — confirmed live: with the env var unset, `check_staff_access()` denies
+regardless of the password given; with it set to `"password"` and a real `STAFF_DASHBOARD_PASSWORD`,
+the right password passes and any wrong one is denied.
+
+**Small-count suppression, per the brief's own re-identification warning.** Any role or topic
+group under `MIN_GROUP_COUNT = 5` rows is folded into one `"Other (suppressed)"` bucket in
+`analytics/dashboard_queries.py` rather than shown with its own count — confirmed live against a
+seeded DB (a 2-row "staff" group and a 1-row "other" topic both correctly disappeared into their
+respective suppressed buckets, counts still summing to the real total). Escalation rate is
+deliberately exposed as a single aggregate percentage with no group-by at all: a cross-tab like
+"1 faculty member, law, escalated" would be far more identifying than either dimension alone, so
+no function in that module computes one.
+
+**No raw-row browsing.** The dashboard page only ever renders pre-aggregated counts from
+`analytics/dashboard_queries.py` — there is no view of individual `LogEntry` rows, which would
+otherwise let someone pattern-match a sequence of role/topic/timestamp rows back toward a single
+real conversation even without a name attached.
+
+**`streamlit_app/pages/1_Staff_Dashboard.py`** wires the auth gate (session-state-held, a login
+form shown until a correct password is entered, a sign-out button to re-lock it) to the three
+required views plus a total-turns metric, inheriting the existing UB theme automatically since
+Streamlit multipage apps share one `.streamlit/config.toml`. If `STAFF_DASHBOARD_AUTH_METHOD`
+isn't configured at all, the page shows a plain setup message instead of a silent lockout.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
