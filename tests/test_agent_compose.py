@@ -4,6 +4,7 @@ from agent.compose import (
     DESCRIPTION_CHARS,
     MAX_SHOWN,
     compose,
+    render_human_help_answer,
     select_results,
     validate_selection,
 )
@@ -217,6 +218,33 @@ def test_compose_appends_rag_sections_even_with_no_candidates():
 
     assert "Helpful pages:" in out["answer"]
     assert "- Ask A Librarian: https://x" in out["answer"]
+
+
+def test_render_human_help_answer_includes_rag_info_and_escalation():
+    from agent.escalation import LIVE_CHAT_URL
+    from pipeline.records import LIBRARIAN_SUBJECT, Record
+
+    rag_context = RagContext(librarians=[Record(id="librarian:mh", type=LIBRARIAN_SUBJECT, text="", metadata={
+        "subject": "Mental Health", "librarians": [{"name": "Doe, Jane", "profile_url": "https://staff/doe"}]
+    })])
+
+    answer = render_human_help_answer(
+        "graduate", "these results are not what I need, can someone help me directly?", rag_context
+    )
+
+    assert "Subject librarian: Doe, Jane - https://staff/doe" in answer
+    assert LIVE_CHAT_URL in answer
+    assert "Context to paste into the chat:" in answer
+    assert "these results are not what I need" in answer
+
+
+def test_render_human_help_answer_without_rag_hits_still_escalates():
+    from agent.escalation import LIVE_CHAT_URL
+
+    answer = render_human_help_answer("faculty", "can someone help me directly?", RagContext())
+
+    assert "Subject librarian" not in answer
+    assert LIVE_CHAT_URL in answer
 
 
 def test_compose_omits_rag_footer_when_context_is_empty():

@@ -16,6 +16,7 @@ def test_query_plan_defaults():
     assert plan.resource_type is None
     assert plan.peer_reviewed is False
     assert plan.needs_clarification is None
+    assert plan.wants_human_help is False
 
 
 def test_query_plan_rejects_unknown_resource_type():

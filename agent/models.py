@@ -28,6 +28,14 @@ class QueryPlan(BaseModel):
         default=None,
         description="A short question to ask the user if the request is genuinely ambiguous.",
     )
+    wants_human_help: bool = Field(
+        default=False,
+        description=(
+            "True only if the message signals dissatisfaction with results already shown, or "
+            "directly asks for a person/librarian/specific human help, rather than asking for "
+            "another automated search. False for an ordinary search or a refinement of one."
+        ),
+    )
 
 
 class SelectionItem(BaseModel):

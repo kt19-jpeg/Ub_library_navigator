@@ -360,6 +360,36 @@ confirms the suite works; it is not expected to match exactly every run. Not CI-
 slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
 the golden set and metrics are proven out further.
 
+## Layer 2, slice 5: dissatisfaction / human-help escalation (built)
+
+A real usability gap found by the user manually testing the live app: after already getting
+resource results, a follow-up like "these results are not what I need, can someone help me
+directly?" fell through the cracks entirely. Escalation only fired for two cases before this —
+an exact match on the narrow "talk to a human" phrasing, or OneSearch genuinely returning zero
+results — so a dissatisfaction message with real (if unhelpful) search hits just got re-planned
+as a fresh, usually nonsensical search, or triggered an unhelpful extra clarifying question.
+
+**Fixed with a new planner field, not a bigger regex.** `QueryPlan.wants_human_help: bool` is set
+by the same LLM call that already runs every turn — unlike a fast-path regex, it already sees
+`history`, so it can tell whether "these results" refers to what was just shown. `agent/graph.py`
+gained a new `human_help` branch off `plan`: when the flag is true, OneSearch is skipped entirely
+(the user already said those results aren't it), but the RAG lookup still runs for the topic's
+subject librarian/help guide/databases, and the turn ends with that info plus the full live-chat
+escalation block — both of the two things asked for, together, not either/or.
+
+**Deliberately conservative, with a negative worked example in the prompt.** A refinement of an
+already-good search ("actually I need books, not articles") is NOT dissatisfaction and must not
+trip this — confirmed live: that follow-up correctly kept `wants_human_help=false` and just
+reran the search with `resource_type="books"`. The dissatisfaction case was confirmed live too:
+the same session's "can someone help me directly?" correctly set `wants_human_help=true`, skipped
+`search_with_fallback` entirely, and answered with the real subject librarian for the topic plus
+the escalation block.
+
+**Overlaps on purpose with the narrow human-request fast path (slice 6, once that branch merges).**
+That regex-based entry node stays as the zero-LLM-cost path for the most explicit phrasings
+("talk to a human"); this field catches the fuzzier, context-dependent cases a regex can't reason
+about, at the cost of the one planning call every non-fast-path turn already makes anyway.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

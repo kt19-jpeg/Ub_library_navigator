@@ -161,6 +161,22 @@ def render_rag_sections(rag_context: RagContext) -> list[str]:
     return out
 
 
+def render_human_help_answer(role: str, message: str, rag_context: RagContext) -> str:
+    """For a turn where the planner decided the user wants a person, not another
+    automated search (QueryPlan.wants_human_help): whatever subject-librarian/
+    help-guide/database info RAG found for the topic, plus the full live-chat
+    escalation block. No OneSearch results are shown here — the user already
+    said the catalog results weren't what they needed."""
+    out = ["Let's get you some direct help with this."]
+    rag_lines = render_rag_sections(rag_context)
+    if rag_lines:
+        out.append("")
+        out.extend(rag_lines)
+    out.append("")
+    out.append(build_escalation_block(role, message, []))
+    return "\n".join(out)
+
+
 def _render_no_answer(
     headline: str,
     notes: list[str],
