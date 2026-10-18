@@ -4,6 +4,7 @@ from agent.compose import (
     DESCRIPTION_CHARS,
     MAX_SHOWN,
     compose,
+    is_library_help_request,
     select_results,
     validate_selection,
 )
@@ -51,6 +52,26 @@ def _state(candidates, **extra):
     }
     state.update(extra)
     return state
+
+
+def test_is_library_help_request_matches_explicit_service_questions():
+    for message in [
+        "Who is the subject librarian for chemistry?",
+        "How do I contact a librarian?",
+        "How do I cite a journal article in APA?",
+        "How do I print from the library computers?",
+        "Can you help me browse the databases for biology?",
+    ]:
+        assert is_library_help_request(message), message
+
+
+def test_is_library_help_request_does_not_match_ordinary_topic_searches():
+    for message in [
+        "find me peer reviewed journals on mental health",
+        "books about the history of chemistry",
+        "I need articles on climate change databases in Africa",
+    ]:
+        assert not is_library_help_request(message), message
 
 
 def test_validate_selection_drops_unknown_duplicates_and_caps():
@@ -179,13 +200,10 @@ def test_compose_with_no_candidates_also_includes_the_live_chat_escalation():
     assert "Context to paste into the chat:" in out["answer"]
 
 
-def test_compose_appends_rag_sections_to_a_normal_answer():
+def _full_rag_context():
     from pipeline.records import DATABASE_SUBJECT, HELP_TOPIC, LIBRARIAN_SUBJECT, Record
 
-    candidates = [_candidate("e1")]
-    model = FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="Fits.")], confidence="high"))
-    client = _client()
-    rag_context = RagContext(
+    return RagContext(
         librarians=[Record(id="librarian:mh", type=LIBRARIAN_SUBJECT, text="", metadata={
             "subject": "Mental Health", "librarians": [{"name": "Doe, Jane", "profile_url": "https://staff/doe"}]
         })],
@@ -197,12 +215,42 @@ def test_compose_appends_rag_sections_to_a_normal_answer():
         })],
     )
 
-    out = compose(_state(candidates, rag_context=rag_context), model, client)
+
+def test_compose_offers_rag_help_instead_of_dumping_it_for_an_ordinary_resource_request():
+    # Regression: a plain resource request used to get the full librarian/help/
+    # database footer appended unasked on every answer. Now it just gets a
+    # one-line offer, since the request ("...on mental health", see _state())
+    # didn't actually ask about library services.
+    candidates = [_candidate("e1")]
+    model = FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="Fits.")], confidence="high"))
+    client = _client()
+
+    out = compose(_state(candidates, rag_context=_full_rag_context()), model, client)
+
+    answer = out["answer"]
+    assert "Subject librarian" not in answer
+    assert "Helpful pages" not in answer
+    assert "Browse databases" not in answer
+    assert "Want a subject librarian, related help guides, or database suggestions" in answer
+
+
+def test_compose_shows_the_full_rag_footer_for_an_explicit_library_services_request():
+    candidates = [_candidate("e1")]
+    model = FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="Fits.")], confidence="high"))
+    client = _client()
+    state = _state(
+        candidates,
+        rag_context=_full_rag_context(),
+        message="who is the subject librarian for mental health?",
+    )
+
+    out = compose(state, model, client)
 
     answer = out["answer"]
     assert "Subject librarian: Doe, Jane - https://staff/doe" in answer
     assert "Helpful pages:" in answer and "- Citing Sources: https://research/citingsources" in answer
     assert "Browse databases in Psychology: https://research/az.php" in answer
+    assert "Want a subject librarian" not in answer
 
 
 def test_compose_appends_rag_sections_even_with_no_candidates():
@@ -217,6 +265,39 @@ def test_compose_appends_rag_sections_even_with_no_candidates():
 
     assert "Helpful pages:" in out["answer"]
     assert "- Ask A Librarian: https://x" in out["answer"]
+
+
+def test_compose_prepends_out_of_scope_note_ahead_of_the_normal_answer():
+    candidates = [_candidate("e1", title="Algorithms Textbook")]
+    model = FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="Covers it.")], confidence="high"))
+    note = "I can't prepare your midterm notes for you, but here are some resources on algorithms."
+    state = _state(
+        candidates,
+        plan=QueryPlan(keywords="algorithms", out_of_scope_note=note),
+        message="can you help me prepare notes for my algorithms midterm from books available at UB",
+    )
+
+    out = compose(state, model, _client())
+
+    assert out["answer"].startswith(note)
+    assert "Algorithms Textbook" in out["answer"]
+
+
+def test_compose_prepends_out_of_scope_note_even_with_no_candidates():
+    note = "I can't write your essay for you, but here are some resources on climate policy."
+    state = _state([], plan=QueryPlan(keywords="climate policy", out_of_scope_note=note))
+
+    out = compose(state, FakeChatModel(), _client())
+
+    assert out["answer"].startswith(note)
+    assert "could not find results" in out["answer"]
+
+
+def test_compose_without_out_of_scope_note_does_not_add_a_prefix():
+    out = compose(_state([_candidate("e1")]),
+                   FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="ok")], confidence="high")),
+                   _client())
+    assert not out["answer"].startswith("I can't")
 
 
 def test_compose_omits_rag_footer_when_context_is_empty():

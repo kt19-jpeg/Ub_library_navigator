@@ -360,6 +360,43 @@ confirms the suite works; it is not expected to match exactly every run. Not CI-
 slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
 the golden set and metrics are proven out further.
 
+## Layer 2, slice 5: response tuning (built)
+
+Two real usability issues found by the user manually testing the live app, both in
+`agent/compose.py` and `agent/planner.py`. Not a new subsystem — tuning the existing pipeline.
+
+**Issue 1: every answer with any RAG hit got the librarian/help/database footer dumped on it,
+even for a plain resource search.** Fixed by only showing that footer directly when the message
+itself is an explicit library-services question (`is_library_help_request()` — a small
+deterministic regex, no LLM call, same pattern as the human-request fast path: "who's my subject
+librarian", "how do I cite", "how do I print", "browse the databases"). Otherwise, if there's
+anything to offer, the answer ends with one line instead: "Want a subject librarian, related help
+guides, or database suggestions for this topic too? Just ask." Deliberately not a stateful
+two-turn flow (the user would say "yes" and the agent would need to remember what was offered) —
+that needs persisting structured context across turns the same way the citation tool's
+conversational "cite that" follow-up was deferred for exactly this reason; a one-line offer avoids
+needing it at all. A real follow-up message that explicitly asks ("who is the subject librarian
+for chemistry") is itself caught by `is_library_help_request()` and gets the full footer directly.
+
+**Issue 2: a request to do the user's academic work for them (not just find resources) was
+treated as an ordinary topic search**, e.g. "help me prepare notes for my algorithms midterm" just
+silently returned algorithms books with no acknowledgment it can't actually prepare notes. Fixed
+with a new planner field, `QueryPlan.out_of_scope_note` (same pattern as `needs_clarification`):
+the LLM sets a short, direct sentence ("I can't prepare your midterm notes for you, but here are
+some resources on algorithms.") when the request asks the agent to produce academic work — write
+notes, do homework, tutor, write an essay — rather than find resources about a topic. Keywords are
+still filled in normally so the search still runs; `compose.py` prepends the note ahead of whatever
+answer it would otherwise give (resources, no-match, or escalation).
+
+**A real bug found immediately by testing the fix live, not left to chance:** the first prompt
+wording for `out_of_scope_note` was too broad — the model also set it for "who is the subject
+librarian for chemistry?" ("I can't provide specific staff information...") because it personally
+can't look up a staff directory, directly contradicting the correct librarian name the RAG footer
+answered two lines below it in the same response. Fixed by narrowing the prompt to explicitly
+exclude library-services questions (which are fully in scope, just answered a different way) and
+adding a negative worked example. Confirmed live afterward: the same question now returns
+`out_of_scope_note=null` and the librarian answer with no contradiction.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
