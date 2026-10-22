@@ -26,3 +26,37 @@ def test_omits_notes_section_when_there_are_none():
 def test_labels_the_block_so_the_user_knows_to_paste_it():
     block = build_escalation_block("graduate", "x", [])
     assert "paste" in block.lower()
+
+
+def test_no_history_still_renders_a_single_line_question():
+    block = build_escalation_block("graduate", "mental health journals", [])
+    assert '"As a graduate, I asked: mental health journals"' in block
+
+
+def test_with_history_numbers_every_question_ending_with_the_current_one():
+    # Regression: confirmed live 2026-10-22 — a user who'd already asked a
+    # resource question and then asked for human help got a paste block
+    # quoting only the final message, with no sign they'd asked about mental
+    # health journals a moment earlier.
+    history = [
+        {"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."},
+        {"user": "what about books instead?", "assistant": "Here is what I found..."},
+    ]
+    block = build_escalation_block(
+        "graduate", "these results are not what I need, can someone help me directly?", [], history
+    )
+    assert "1. find me peer reviewed journals on mental health" in block
+    assert "2. what about books instead?" in block
+    assert "3. these results are not what I need, can someone help me directly?" in block
+
+
+def test_empty_history_list_behaves_like_no_history():
+    block = build_escalation_block("graduate", "mental health journals", [], [])
+    assert '"As a graduate, I asked: mental health journals"' in block
+    assert "1." not in block
+
+
+def test_notes_still_appended_after_a_multi_turn_context():
+    history = [{"user": "find me journals on mental health", "assistant": "Here is what I found..."}]
+    block = build_escalation_block("graduate", "can someone help me directly?", ["A note."], history)
+    assert block.rstrip().endswith("(A note.)")

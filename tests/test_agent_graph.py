@@ -133,6 +133,18 @@ def test_explicit_human_request_escalates_without_any_llm_or_layer1_call():
     assert set(out["timings"]) == {"entry"}
 
 
+def test_explicit_human_request_escalation_includes_prior_turns():
+    model = FakeChatModel()
+    client = _client()
+    graph = build_graph(model, client)
+    history = [{"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}]
+
+    out = graph.invoke({"role": "graduate", "message": "I want to talk to a human", "history": history})
+
+    assert "1. find me peer reviewed journals on mental health" in out["answer"]
+    assert "2. I want to talk to a human" in out["answer"]
+
+
 def test_ordinary_query_is_unaffected_by_the_human_request_fast_path():
     model = FakeChatModel(
         QueryPlan(keywords="chemistry"),

@@ -168,6 +168,7 @@ def _render_no_answer(
     rag_context: RagContext,
     role: str,
     message: str,
+    history: list[dict] | None = None,
 ) -> str:
     out = [headline]
     out.extend(f"Note: {n}" for n in notes)
@@ -177,7 +178,7 @@ def _render_no_answer(
         out.append("")
         out.extend(rag_lines)
     out.append("")
-    out.append(build_escalation_block(role, message, notes))
+    out.append(build_escalation_block(role, message, notes, history))
     return "\n".join(out)
 
 
@@ -185,6 +186,7 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     """Pick 1-3 results (LLM), fetch their access details (bounded, batched),
     and render the answer in code so links and locations are never LLM output."""
     plan = state["plan"]
+    history = state.get("history", [])
     result = state["search_result"]
     candidates = result.candidates
     notes = list(state.get("notes", []))
@@ -194,7 +196,7 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     if not candidates:
         answer = _render_no_answer(
             f'I could not find results for "{plan.keywords}".',
-            notes, more_link, rag_context, state["role"], state["message"],
+            notes, more_link, rag_context, state["role"], state["message"], history,
         )
         return {"selection": [], "details": {}, "answer": answer}
 
@@ -212,7 +214,7 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     if confidence == "low" or not items:
         answer = _render_no_answer(
             "I am not confident I found a good match for that.",
-            notes, more_link, rag_context, state["role"], state["message"],
+            notes, more_link, rag_context, state["role"], state["message"], history,
         )
         return {"selection": [], "details": {}, "answer": answer}
 
