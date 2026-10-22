@@ -360,6 +360,24 @@ confirms the suite works; it is not expected to match exactly every run. Not CI-
 slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
 the golden set and metrics are proven out further.
 
+## Layer 2, slice 5: full conversation context in the escalation paste block (fixed)
+
+A real bug found by the user manually testing the live app: the "Context to paste into the chat"
+block always quoted only `state["message"]` — the current turn — even when the user had already
+asked something earlier in the conversation. A librarian picking up the pasted context cold had
+no idea the person had already been asking about a specific topic; they'd see only the final,
+often context-free sentence ("can someone help me directly?").
+
+**Fixed in `agent/escalation.py`.** `build_escalation_block()` gained an optional `history`
+parameter (the same `[{"user", "assistant"}, ...]` list the graph already carries). When given
+at least one prior turn, every question the user asked this conversation is numbered in order,
+ending with the current message, instead of just the last one. With no history (the common case —
+a first-turn escalation), the block is unchanged: a single line, not a numbered list of one.
+`agent/compose.py`'s `_render_no_answer()` (the "could not find results" / "not confident" paths)
+threads `state.get("history", [])` through. Confirmed live: a two-turn session (a real mental
+health search, then a nonsense query that genuinely returns zero OneSearch results) produced a
+paste block numbering both questions, not just the second.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
