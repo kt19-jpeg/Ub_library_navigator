@@ -393,6 +393,15 @@ difference from a personal "Last, First" name, so APA output can read oddly (an 
 from "issuing body"), and a no-comma organizational name can end up with a doubled period
 ("...Psychiatrists.."). Cosmetic, not a crash or a missing/garbled citation.
 
+**A real crash found by the user manually testing the live app:** `streamlit_app/Home.py`'s
+citation-rendering code unconditionally read `state["search_result"].candidates` to look up a
+record's title for the "Cite: ..." expander label — but `search_result` doesn't exist in state
+whenever a turn ends before `search_node` ever runs, which is true even just for an ordinary
+clarifying question (confirmed live: asking "help" alone crashed with `KeyError: 'search_result'`).
+Fixed with `state.get("search_result")` and an empty fallback dict when it's absent; `citations`
+is itself always empty on those turns anyway (nothing was ever selected to show), so the guard
+costs nothing on the normal path.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
