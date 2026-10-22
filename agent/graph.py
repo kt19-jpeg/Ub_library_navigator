@@ -56,7 +56,9 @@ def build_graph(model, client, collection=None):
         # for the topic is still worth offering alongside the escalation link.
         rag_update = rag_node(state)
         rag_context = rag_update["rag_context"] or RagContext()
-        answer = render_human_help_answer(state["role"], state["message"], rag_context)
+        answer = render_human_help_answer(
+            state["role"], state["message"], rag_context, state.get("history", [])
+        )
         return {"rag_context": rag_context, "notes": rag_update["notes"], "answer": answer}
 
     graph = StateGraph(AgentState)

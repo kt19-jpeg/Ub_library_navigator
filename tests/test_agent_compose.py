@@ -180,6 +180,18 @@ def test_compose_with_no_candidates_also_includes_the_live_chat_escalation():
     assert "Context to paste into the chat:" in out["answer"]
 
 
+def test_compose_escalation_includes_the_full_conversation_not_just_the_last_message():
+    # Regression: confirmed live 2026-10-22 — the paste block only ever quoted
+    # state["message"], dropping everything the user had asked earlier.
+    history = [{"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}]
+    state = _state([], history=history, message="can someone help me directly?")
+
+    out = compose(state, FakeChatModel(), _client())
+
+    assert "1. find me peer reviewed journals on mental health" in out["answer"]
+    assert "2. can someone help me directly?" in out["answer"]
+
+
 def test_compose_appends_rag_sections_to_a_normal_answer():
     from pipeline.records import DATABASE_SUBJECT, HELP_TOPIC, LIBRARIAN_SUBJECT, Record
 
@@ -245,6 +257,17 @@ def test_render_human_help_answer_without_rag_hits_still_escalates():
 
     assert "Subject librarian" not in answer
     assert LIVE_CHAT_URL in answer
+
+
+def test_render_human_help_answer_includes_prior_turns_when_given_history():
+    history = [{"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}]
+
+    answer = render_human_help_answer(
+        "graduate", "can someone help me directly?", RagContext(), history
+    )
+
+    assert "1. find me peer reviewed journals on mental health" in answer
+    assert "2. can someone help me directly?" in answer
 
 
 def test_compose_omits_rag_footer_when_context_is_empty():
