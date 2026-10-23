@@ -459,6 +459,37 @@ first-turn "talk to a human" with nothing else asked), there's no topic to show 
 context line falls back to a plain "I would like assistance" rather than quoting the trigger
 phrase.
 
+## Layer 2, slice 7: anonymized conversation logging (built)
+
+CLAUDE.md capability 7, from the pre-narrowing brief: every turn writes one anonymized log row —
+role, course if given, a topic category — never raw query text or an identifier. Full design:
+`docs/superpowers/specs/2026-10-05-anonymized-logging-design.md`. Built autonomously; decisions
+below are documented for later review, not agreed in conversation.
+
+**Topic category comes from the planner, at zero extra LLM cost.** `QueryPlan` gained a
+`topic_category` field (a fixed 10-value enum: `sciences`, `health_and_medicine`,
+`engineering_and_technology`, `social_sciences`, `business_and_economics`,
+`humanities_and_arts`, `law`, `education`, `library_services`, `other`), filled by the *same*
+planning call that already produces `keywords`/`resource_type`/`peer_reviewed` — not a new LLM
+round trip. Confirmed live: a real "chemistry resources" query logged as `sciences`.
+
+**`course` is always `None` today** — nothing in the UI asks for it yet; the column exists for
+when something does. `escalated` and `had_results` were added beyond the brief's literal field
+list because the staff dashboard slice (next) needs them for "escalation rate," and neither is
+identifying. No session or user identifier of any kind — every row is independent, so nothing
+lets someone reconstruct one person's whole conversation even without a name attached.
+
+**Logging happens in the caller (`agent/cli.py`, `streamlit_app/Home.py`), not in
+`agent/graph.py`**, which stays free of disk I/O — both callers already have the full `state`
+dict right after `graph.invoke()`. `analytics/log_writer.py`'s `log_turn()` never raises: a
+logging failure must not break a chat turn that already succeeded.
+
+**A real test-isolation bug found and fixed before this was called done:** the first version of
+`agent/cli.py`'s tests didn't inject a fake logger, and running the test suite silently wrote a
+real row into `analytics/sessions.db` — confirmed by literally finding the file after a test run.
+Every CLI test now injects a no-op `log_fn`; `analytics/*.db` is also now gitignored as a second
+layer of defense.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

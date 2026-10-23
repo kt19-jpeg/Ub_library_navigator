@@ -20,7 +20,20 @@ def choose_role(read, write) -> str:
         write(f"Please enter one of: {', '.join(ROLES)} (or 1-{len(ROLES)}).")
 
 
-def run_chat(graph, read=input, write=print, debug: bool = False, citations: bool = False) -> None:
+def _default_log_fn(role: str, state: dict) -> None:
+    from analytics.log_writer import log_turn
+
+    log_turn(role, state)
+
+
+def run_chat(
+    graph,
+    read=input,
+    write=print,
+    debug: bool = False,
+    citations: bool = False,
+    log_fn=_default_log_fn,
+) -> None:
     role = choose_role(read, write)
     write(f"Role set to {role}. {HELP}")
     history: list[dict] = []
@@ -38,6 +51,7 @@ def run_chat(graph, read=input, write=print, debug: bool = False, citations: boo
             write(f"Role set to {role}.")
             continue
         state = graph.invoke({"role": role, "message": message, "history": history})
+        log_fn(role, state)
         answer = state["answer"]
         if debug:
             if "plan" in state:  # absent when the human-request fast path short-circuits
