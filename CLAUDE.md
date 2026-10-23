@@ -360,6 +360,31 @@ confirms the suite works; it is not expected to match exactly every run. Not CI-
 slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
 the golden set and metrics are proven out further.
 
+## Layer 2, slice 5: GitHub Codespaces devcontainer (built)
+
+For running live demos without asking each person to set up Python/Playwright locally.
+`.devcontainer/devcontainer.json` uses the standard `mcr.microsoft.com/devcontainers/python:3.11`
+image (matches the `python-version: "3.11"` already pinned in `weekly-refresh.yml`) and a
+`postCreateCommand` that installs `requirements.txt` plus `playwright install --with-deps
+chromium` — the headless Chromium build `onesearch/session.py` needs to mint a OneSearch session,
+installed automatically rather than as a manual step a demo audience would otherwise hit and get
+stuck on. Port 8501 is forwarded with `onAutoForward: "openBrowser"` so starting the Streamlit app
+pops the browser tab without the person needing to find the Ports tab themselves.
+
+**`OPENAI_API_KEY` via a Codespaces secret, not a committed `.env`.** For one person running a
+Codespace, exporting the key in the terminal is enough. For a demo where several people each
+create their own Codespace from the same repo, a repo- or org-level Codespaces secret means every
+new Codespace already has the key — documented in the README rather than built into the
+devcontainer config itself, since secrets are a GitHub account setting, not a repo file.
+
+**Verified without a real Codespaces launch** (not available from this environment): `pip install
+-r requirements.txt` succeeds cleanly in a fresh venv, `playwright install chromium` exits 0 and
+installs the browser, and `.devcontainer/devcontainer.json` parses as valid JSON once its `//`
+comments are stripped the way the devcontainer spec's JSONC parser does. The `--with-deps` flag
+(installs the OS-level packages Chromium needs via `apt`) only applies on Debian/Ubuntu, so it
+couldn't be exercised on this (non-Linux) machine — it's the standard, widely-used pattern for
+`mcr.microsoft.com/devcontainers/*` images and not expected to need touching.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
