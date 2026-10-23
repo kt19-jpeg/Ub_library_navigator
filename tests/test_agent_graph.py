@@ -189,3 +189,32 @@ def test_ordinary_query_is_unaffected_by_the_human_request_fast_path():
     assert "entry" in out["timings"]
     assert "plan" in out["timings"]
     client.search_with_fallback.assert_called_once()
+
+
+def test_wants_human_help_skips_search_but_still_offers_rag_and_escalates():
+    from agent.escalation import LIVE_CHAT_URL
+
+    model = FakeChatModel(QueryPlan(keywords="mental health", wants_human_help=True))
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({
+        "role": "graduate",
+        "message": "these results are not what I need, can someone help me directly?",
+        "history": [
+            {"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}
+        ],
+    })
+
+    client.search_with_fallback.assert_not_called()
+    client.fetch_detail.assert_not_called()
+    assert LIVE_CHAT_URL in out["answer"]
+    assert "Context to paste into the chat:" in out["answer"]
+    # include_current=False: only the prior real topic is quoted, not the
+    # dissatisfaction trigger message itself.
+    assert '"As a graduate, I asked: find me peer reviewed journals on mental health"' in out["answer"]
+    assert "these results are not what I need" not in out["answer"]
+    # "entry" is in the mix too: the deterministic human-request fast path
+    # always runs first, finds no exact-phrasing match for this fuzzier
+    # dissatisfaction message, and falls through to plan -> human_help.
+    assert set(out["timings"]) == {"entry", "plan", "human_help"}

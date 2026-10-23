@@ -429,6 +429,44 @@ quotes the whole conversation, not just that one line — and passes `include_cu
 turns are quoted (confirmed live: with one prior turn, the paste block quotes just that topic, not
 the trigger phrase; with none at all, it falls back to a generic "I would like assistance" line).
 
+## Layer 2, slice 10: dissatisfaction / human-help escalation (built)
+
+A real usability gap found by the user manually testing the live app: after already getting
+resource results, a follow-up like "these results are not what I need, can someone help me
+directly?" fell through the cracks entirely. Escalation only fired for two cases before this —
+an exact match on the narrow "talk to a human" phrasing, or OneSearch genuinely returning zero
+results — so a dissatisfaction message with real (if unhelpful) search hits just got re-planned
+as a fresh, usually nonsensical search, or triggered an unhelpful extra clarifying question.
+
+**Fixed with a new planner field, not a bigger regex.** `QueryPlan.wants_human_help: bool` is set
+by the same LLM call that already runs every turn — unlike a fast-path regex, it already sees
+`history`, so it can tell whether "these results" refers to what was just shown. `agent/graph.py`
+gained a new `human_help` branch off `plan`: when the flag is true, OneSearch is skipped entirely
+(the user already said those results aren't it), but the RAG lookup still runs for the topic's
+subject librarian/help guide/databases, and the turn ends with that info plus the full live-chat
+escalation block — both of the two things asked for, together, not either/or.
+
+**Deliberately conservative, with a negative worked example in the prompt.** A refinement of an
+already-good search ("actually I need books, not articles") is NOT dissatisfaction and must not
+trip this — confirmed live: that follow-up correctly kept `wants_human_help=false` and just
+reran the search with `resource_type="books"`. The dissatisfaction case was confirmed live too:
+the same session's "can someone help me directly?" correctly set `wants_human_help=true`, skipped
+`search_with_fallback` entirely, and answered with the real subject librarian for the topic plus
+the escalation block.
+
+**Overlaps on purpose with the narrow human-request fast path (slice 6, once that branch merges).**
+That regex-based entry node stays as the zero-LLM-cost path for the most explicit phrasings
+("talk to a human"); this field catches the fuzzier, context-dependent cases a regex can't reason
+about, at the cost of the one planning call every non-fast-path turn already makes anyway.
+
+**Also picks up the multi-turn escalation context fix** (see "full conversation context in the
+escalation paste block" below): `human_help_node` now passes `state.get("history", [])` through to
+`render_human_help_answer()` / `build_escalation_block()`, so this path's paste block quotes the
+whole conversation too, not just the dissatisfaction message itself — and passes
+`include_current=False`, since `state["message"]` here is the dissatisfaction/human-help trigger
+itself ("can you bring in human in loop i want more info"), not a real topic. Confirmed live: the
+paste block now quotes just the prior real question, not the trigger phrase.
+
 ## Layer 2, slice 5: full conversation context in the escalation paste block (fixed)
 
 A real bug found by the user manually testing the live app: the "Context to paste into the chat"
