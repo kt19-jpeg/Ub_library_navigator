@@ -198,6 +198,28 @@ def render_rag_sections(rag_context: RagContext) -> list[str]:
     return out
 
 
+def render_human_help_answer(
+    role: str, message: str, rag_context: RagContext, history: list[dict] | None = None
+) -> str:
+    """For a turn where the planner decided the user wants a person, not another
+    automated search (QueryPlan.wants_human_help): whatever subject-librarian/
+    help-guide/database info RAG found for the topic, plus the full live-chat
+    escalation block. No OneSearch results are shown here — the user already
+    said the catalog results weren't what they needed."""
+    out = ["Let's get you some direct help with this."]
+    rag_lines = render_rag_sections(rag_context)
+    if rag_lines:
+        out.append("")
+        out.extend(rag_lines)
+    out.append("")
+    # include_current=False: `message` here is the dissatisfaction/human-help
+    # trigger itself ("can you bring in human in loop i want more info"), not
+    # a real topic - quoting it tells a librarian nothing; only prior turns
+    # (the actual question the resources were for) are worth showing.
+    out.append(build_escalation_block(role, message, [], history, include_current=False))
+    return "\n".join(out)
+
+
 def _render_no_answer(
     headline: str,
     notes: list[str],

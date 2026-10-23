@@ -5,6 +5,7 @@ from agent.compose import (
     MAX_SHOWN,
     compose,
     is_library_help_request,
+    render_human_help_answer,
     select_results,
     validate_selection,
 )
@@ -310,6 +311,51 @@ def test_compose_without_out_of_scope_note_does_not_add_a_prefix():
                    FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="ok")], confidence="high")),
                    _client())
     assert not out["answer"].startswith("I can't")
+
+
+def test_render_human_help_answer_includes_rag_info_and_escalation():
+    from agent.escalation import LIVE_CHAT_URL
+    from pipeline.records import LIBRARIAN_SUBJECT, Record
+
+    rag_context = RagContext(librarians=[Record(id="librarian:mh", type=LIBRARIAN_SUBJECT, text="", metadata={
+        "subject": "Mental Health", "librarians": [{"name": "Doe, Jane", "profile_url": "https://staff/doe"}]
+    })])
+
+    answer = render_human_help_answer(
+        "graduate", "these results are not what I need, can someone help me directly?", rag_context
+    )
+
+    assert "Subject librarian: Doe, Jane - https://staff/doe" in answer
+    assert LIVE_CHAT_URL in answer
+    assert "Context to paste into the chat:" in answer
+    # include_current=False (this call has no history): the trigger message
+    # isn't quoted, falls back to a generic line instead.
+    assert "these results are not what I need" not in answer
+    assert '"As a graduate, I would like assistance."' in answer
+
+
+def test_render_human_help_answer_without_rag_hits_still_escalates():
+    from agent.escalation import LIVE_CHAT_URL
+
+    answer = render_human_help_answer("faculty", "can someone help me directly?", RagContext())
+
+    assert "Subject librarian" not in answer
+    assert LIVE_CHAT_URL in answer
+
+
+def test_render_human_help_answer_includes_prior_turns_but_not_the_trigger():
+    history = [
+        {"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."},
+        {"user": "what about books instead?", "assistant": "Here is what I found..."},
+    ]
+
+    answer = render_human_help_answer(
+        "graduate", "can someone help me directly?", RagContext(), history
+    )
+
+    assert "1. find me peer reviewed journals on mental health" in answer
+    assert "2. what about books instead?" in answer
+    assert "can someone help me directly" not in answer
 
 
 def test_compose_omits_rag_footer_when_context_is_empty():

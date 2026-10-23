@@ -70,3 +70,15 @@ def test_out_of_scope_note_is_passed_through_with_real_keywords():
         model, "undergraduate", "can you help me prepare notes for my algorithms midterm from books available at UB"
     )
     assert result == plan
+
+
+def test_wants_human_help_is_passed_through_with_the_topic_reused_from_history():
+    plan = QueryPlan(keywords="mental health", wants_human_help=True)
+    model = FakeChatModel(plan)
+    history = [{"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}]
+
+    result = plan_query(
+        model, "graduate", "these results are not what I need, can someone help me directly?", history
+    )
+
+    assert result == plan
