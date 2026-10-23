@@ -1,0 +1,20 @@
+{
+  "name": "UB Library Navigator",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  // Installs Python deps and the headless Chromium build OneSearch's session
+  // minting needs (onesearch/session.py) in one shot, so a fresh Codespace is
+  // ready to run the moment it finishes building - no manual setup step.
+  "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt && playwright install --with-deps chromium",
+  "forwardPorts": [8501],
+  "portsAttributes": {
+    "8501": {
+      "label": "UB Library Navigator (Streamlit)",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python"]
+    }
+  }
+}
