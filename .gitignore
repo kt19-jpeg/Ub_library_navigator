@@ -9,6 +9,7 @@ data/raw/*
 vectorstore/*
 !vectorstore/.gitkeep
 evaluation/last_run.json
+analytics/*.db
 
 .DS_Store
 *.log

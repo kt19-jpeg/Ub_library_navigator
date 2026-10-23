@@ -11,6 +11,7 @@ import streamlit as st
 from agent.cli import HISTORY_TURNS, build_default_graph
 from agent.llm import LLMConfigError
 from agent.models import ROLES
+from analytics.log_writer import log_turn
 
 # UB brand colors: #005BBB is confirmed from library.buffalo.edu's own site CSS; the
 # rest are pixel-sampled from the reference mockup (docs/design/ub-ai-assistant-reference.png).
@@ -187,6 +188,7 @@ if message:
                 "history": st.session_state.history,
             }
         )
+    log_turn(st.session_state.role, state)
     answer = state["answer"]
     with st.chat_message("assistant", avatar="🦬"):
         st.write(answer)
@@ -205,7 +207,8 @@ if message:
                     st.markdown(f"**{style_name.upper()}**")
                     st.markdown(text)
         if debug:
-            st.caption(f"plan: {state['plan'].model_dump()}")
+            if "plan" in state:  # absent when the human-request fast path short-circuits
+                st.caption(f"plan: {state['plan'].model_dump()}")
             st.caption(f"timings: {state.get('timings', {})}")
             for note in state.get("notes", []):
                 st.caption(f"note: {note}")

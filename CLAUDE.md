@@ -402,6 +402,230 @@ Fixed with `state.get("search_result")` and an empty fallback dict when it's abs
 is itself always empty on those turns anyway (nothing was ever selected to show), so the guard
 costs nothing on the normal path.
 
+## Layer 2, slice 6: explicit human-request fast path (built)
+
+The first of CLAUDE.md's two originally-sketched deterministic fast paths (the second, citation
+formatting, shipped inline instead — see the citation tool section once that slice lands). A new
+`entry` node runs before `plan`: `agent/router.py`'s `is_human_request()` is a small, deliberately
+conservative regex match — no LLM call, matching CLAUDE.md's "deterministic fast path" requirement
+exactly. A clear match ("talk to a human," "connect me with a librarian," a bare "human") escalates
+immediately via the existing `agent/escalation.py` block, skipping `plan`/`search`/`rag`/`compose`
+entirely. Kept narrow on purpose: an unusual phrasing of the same request just falls through to
+the normal flow instead of a false positive, the safer failure mode for a fast path that skips
+ranking.
+
+**Real regression found and fixed by actually running this live, not just testing offline:**
+`--debug` (CLI) and the Streamlit debug toggle both assumed `state["plan"]` always exists and
+crashed with `KeyError: 'plan'` the moment the fast path actually fired, since `entry` ends the
+turn before `plan_node` ever runs. Both now check `"plan" in state` first. Confirmed live
+afterward: the fast path short-circuits cleanly (`timings` shows only `entry`), and an ordinary
+query right after it in the same session is unaffected.
+
+**Also picks up the multi-turn escalation context fix** (see "full conversation context in the
+escalation paste block" below): `entry_node` now passes `state.get("history", [])` to
+`build_escalation_block()`, so an explicit "talk to a human" fired after earlier turns still
+quotes the whole conversation, not just that one line — and passes `include_current=False`, since
+`state["message"]` here is the "talk to a human" trigger itself, not a real topic; only the prior
+turns are quoted (confirmed live: with one prior turn, the paste block quotes just that topic, not
+the trigger phrase; with none at all, it falls back to a generic "I would like assistance" line).
+
+## Layer 2, slice 10: dissatisfaction / human-help escalation (built)
+
+A real usability gap found by the user manually testing the live app: after already getting
+resource results, a follow-up like "these results are not what I need, can someone help me
+directly?" fell through the cracks entirely. Escalation only fired for two cases before this —
+an exact match on the narrow "talk to a human" phrasing, or OneSearch genuinely returning zero
+results — so a dissatisfaction message with real (if unhelpful) search hits just got re-planned
+as a fresh, usually nonsensical search, or triggered an unhelpful extra clarifying question.
+
+**Fixed with a new planner field, not a bigger regex.** `QueryPlan.wants_human_help: bool` is set
+by the same LLM call that already runs every turn — unlike a fast-path regex, it already sees
+`history`, so it can tell whether "these results" refers to what was just shown. `agent/graph.py`
+gained a new `human_help` branch off `plan`: when the flag is true, OneSearch is skipped entirely
+(the user already said those results aren't it), but the RAG lookup still runs for the topic's
+subject librarian/help guide/databases, and the turn ends with that info plus the full live-chat
+escalation block — both of the two things asked for, together, not either/or.
+
+**Deliberately conservative, with a negative worked example in the prompt.** A refinement of an
+already-good search ("actually I need books, not articles") is NOT dissatisfaction and must not
+trip this — confirmed live: that follow-up correctly kept `wants_human_help=false` and just
+reran the search with `resource_type="books"`. The dissatisfaction case was confirmed live too:
+the same session's "can someone help me directly?" correctly set `wants_human_help=true`, skipped
+`search_with_fallback` entirely, and answered with the real subject librarian for the topic plus
+the escalation block.
+
+**Overlaps on purpose with the narrow human-request fast path (slice 6, once that branch merges).**
+That regex-based entry node stays as the zero-LLM-cost path for the most explicit phrasings
+("talk to a human"); this field catches the fuzzier, context-dependent cases a regex can't reason
+about, at the cost of the one planning call every non-fast-path turn already makes anyway.
+
+**Also picks up the multi-turn escalation context fix** (see "full conversation context in the
+escalation paste block" below): `human_help_node` now passes `state.get("history", [])` through to
+`render_human_help_answer()` / `build_escalation_block()`, so this path's paste block quotes the
+whole conversation too, not just the dissatisfaction message itself — and passes
+`include_current=False`, since `state["message"]` here is the dissatisfaction/human-help trigger
+itself ("can you bring in human in loop i want more info"), not a real topic. Confirmed live: the
+paste block now quotes just the prior real question, not the trigger phrase.
+
+## Layer 2, slice 5: full conversation context in the escalation paste block (fixed)
+
+A real bug found by the user manually testing the live app: the "Context to paste into the chat"
+block always quoted only `state["message"]` — the current turn — even when the user had already
+asked something earlier in the conversation. A librarian picking up the pasted context cold had
+no idea the person had already been asking about a specific topic; they'd see only the final,
+often context-free sentence ("can someone help me directly?").
+
+**Fixed in `agent/escalation.py`.** `build_escalation_block()` gained an optional `history`
+parameter (the same `[{"user", "assistant"}, ...]` list the graph already carries). When given
+at least one prior turn, every question the user asked this conversation is numbered in order,
+ending with the current message, instead of just the last one. With no history (the common case —
+a first-turn escalation), the block is unchanged: a single line, not a numbered list of one.
+`agent/compose.py`'s `_render_no_answer()` (the "could not find results" / "not confident" paths)
+threads `state.get("history", [])` through. Confirmed live: a two-turn session (a real mental
+health search, then a nonsense query that genuinely returns zero OneSearch results) produced a
+paste block numbering both questions, not just the second.
+
+**Follow-up, also found live by the user:** for an explicit human-request or dissatisfaction
+escalation, the current `message` *is* the "please get me a human" trigger itself ("can you bring
+in human in loop i want more info"), not a real topic — quoting it added a line that tells a
+librarian nothing useful. `build_escalation_block()` gained `include_current: bool = True`;
+callers whose `message` genuinely is the substantive question (both `_render_no_answer()` call
+sites — an ordinary search that came back empty or low-confidence) leave the default, callers
+whose `message` is just the human-request trigger (the `entry` fast path, `human_help`) pass
+`include_current=False` so only prior real topics are quoted. With no prior turns at all (a
+first-turn "talk to a human" with nothing else asked), there's no topic to show either, so the
+context line falls back to a plain "I would like assistance" rather than quoting the trigger
+phrase.
+
+## Layer 2, slice 7: anonymized conversation logging (built)
+
+CLAUDE.md capability 7, from the pre-narrowing brief: every turn writes one anonymized log row —
+role, course if given, a topic category — never raw query text or an identifier. Full design:
+`docs/superpowers/specs/2026-10-05-anonymized-logging-design.md`. Built autonomously; decisions
+below are documented for later review, not agreed in conversation.
+
+**Topic category comes from the planner, at zero extra LLM cost.** `QueryPlan` gained a
+`topic_category` field (a fixed 10-value enum: `sciences`, `health_and_medicine`,
+`engineering_and_technology`, `social_sciences`, `business_and_economics`,
+`humanities_and_arts`, `law`, `education`, `library_services`, `other`), filled by the *same*
+planning call that already produces `keywords`/`resource_type`/`peer_reviewed` — not a new LLM
+round trip. Confirmed live: a real "chemistry resources" query logged as `sciences`.
+
+**`course` is always `None` today** — nothing in the UI asks for it yet; the column exists for
+when something does. `escalated` and `had_results` were added beyond the brief's literal field
+list because the staff dashboard slice (next) needs them for "escalation rate," and neither is
+identifying. No session or user identifier of any kind — every row is independent, so nothing
+lets someone reconstruct one person's whole conversation even without a name attached.
+
+**Logging happens in the caller (`agent/cli.py`, `streamlit_app/Home.py`), not in
+`agent/graph.py`**, which stays free of disk I/O — both callers already have the full `state`
+dict right after `graph.invoke()`. `analytics/log_writer.py`'s `log_turn()` never raises: a
+logging failure must not break a chat turn that already succeeded.
+
+**A real test-isolation bug found and fixed before this was called done:** the first version of
+`agent/cli.py`'s tests didn't inject a fake logger, and running the test suite silently wrote a
+real row into `analytics/sessions.db` — confirmed by literally finding the file after a test run.
+Every CLI test now injects a no-op `log_fn`; `analytics/*.db` is also now gitignored as a second
+layer of defense.
+
+## Layer 2, slice 8: staff usage dashboard (built)
+
+CLAUDE.md capability 8: a library-staff-only view summarizing query volume by role, topic
+category breakdown, and escalation rate, reading the logging DB from slice 7. Full design:
+`docs/superpowers/specs/2026-10-05-staff-dashboard-design.md`. Built autonomously; decisions below
+are documented for later review, not agreed in conversation.
+
+**Auth is a simple, swappable shared-password gate, not real SSO** — the original brief says the
+real method (UB SSO vs. a shared staff login) is still pending library confirmation, so
+`analytics/auth.py` implements one method (`"password"`) behind a small registry keyed by the
+already-existing `STAFF_DASHBOARD_AUTH_METHOD` env var. Swapping in real SSO later means adding a
+key to that registry, not rewriting the dashboard page. Unset or unrecognized method fails
+*closed* (no access) — confirmed live: with the env var unset, `check_staff_access()` denies
+regardless of the password given; with it set to `"password"` and a real `STAFF_DASHBOARD_PASSWORD`,
+the right password passes and any wrong one is denied.
+
+**Small-count suppression, per the brief's own re-identification warning.** Any role or topic
+group under `MIN_GROUP_COUNT = 5` rows is folded into one `"Other (suppressed)"` bucket in
+`analytics/dashboard_queries.py` rather than shown with its own count — confirmed live against a
+seeded DB (a 2-row "staff" group and a 1-row "other" topic both correctly disappeared into their
+respective suppressed buckets, counts still summing to the real total). Escalation rate is
+deliberately exposed as a single aggregate percentage with no group-by at all: a cross-tab like
+"1 faculty member, law, escalated" would be far more identifying than either dimension alone, so
+no function in that module computes one.
+
+**No raw-row browsing.** The dashboard page only ever renders pre-aggregated counts from
+`analytics/dashboard_queries.py` — there is no view of individual `LogEntry` rows, which would
+otherwise let someone pattern-match a sequence of role/topic/timestamp rows back toward a single
+real conversation even without a name attached.
+
+**`streamlit_app/pages/1_Staff_Dashboard.py`** wires the auth gate (session-state-held, a login
+form shown until a correct password is entered, a sign-out button to re-lock it) to the three
+required views plus a total-turns metric, inheriting the existing UB theme automatically since
+Streamlit multipage apps share one `.streamlit/config.toml`. If `STAFF_DASHBOARD_AUTH_METHOD`
+isn't configured at all, the page shows a plain setup message instead of a silent lockout.
+
+## Layer 2, slice 9: response tuning (built)
+
+Two real usability issues found by the user manually testing the live app, both in
+`agent/compose.py` and `agent/planner.py`. Not a new subsystem — tuning the existing pipeline.
+
+**Issue 1: every answer with any RAG hit got the librarian/help/database footer dumped on it,
+even for a plain resource search.** Fixed by only showing that footer directly when the message
+itself is an explicit library-services question (`is_library_help_request()` — a small
+deterministic regex, no LLM call, same pattern as the human-request fast path: "who's my subject
+librarian", "how do I cite", "how do I print", "browse the databases"). Otherwise, if there's
+anything to offer, the answer ends with one line instead: "Want a subject librarian, related help
+guides, or database suggestions for this topic too? Just ask." Deliberately not a stateful
+two-turn flow (the user would say "yes" and the agent would need to remember what was offered) —
+that needs persisting structured context across turns the same way the citation tool's
+conversational "cite that" follow-up was deferred for exactly this reason; a one-line offer avoids
+needing it at all. A real follow-up message that explicitly asks ("who is the subject librarian
+for chemistry") is itself caught by `is_library_help_request()` and gets the full footer directly.
+
+**Issue 2: a request to do the user's academic work for them (not just find resources) was
+treated as an ordinary topic search**, e.g. "help me prepare notes for my algorithms midterm" just
+silently returned algorithms books with no acknowledgment it can't actually prepare notes. Fixed
+with a new planner field, `QueryPlan.out_of_scope_note` (same pattern as `needs_clarification`):
+the LLM sets a short, direct sentence ("I can't prepare your midterm notes for you, but here are
+some resources on algorithms.") when the request asks the agent to produce academic work — write
+notes, do homework, tutor, write an essay — rather than find resources about a topic. Keywords are
+still filled in normally so the search still runs; `compose.py` prepends the note ahead of whatever
+answer it would otherwise give (resources, no-match, or escalation).
+
+**A real bug found immediately by testing the fix live, not left to chance:** the first prompt
+wording for `out_of_scope_note` was too broad — the model also set it for "who is the subject
+librarian for chemistry?" ("I can't provide specific staff information...") because it personally
+can't look up a staff directory, directly contradicting the correct librarian name the RAG footer
+answered two lines below it in the same response. Fixed by narrowing the prompt to explicitly
+exclude library-services questions (which are fully in scope, just answered a different way) and
+adding a negative worked example. Confirmed live afterward: the same question now returns
+`out_of_scope_note=null` and the librarian answer with no contradiction.
+
+## Layer 2, slice 11: GitHub Codespaces devcontainer (built)
+
+For running live demos without asking each person to set up Python/Playwright locally.
+`.devcontainer/devcontainer.json` uses the standard `mcr.microsoft.com/devcontainers/python:3.11`
+image (matches the `python-version: "3.11"` already pinned in `weekly-refresh.yml`) and a
+`postCreateCommand` that installs `requirements.txt` plus `playwright install --with-deps
+chromium` — the headless Chromium build `onesearch/session.py` needs to mint a OneSearch session,
+installed automatically rather than as a manual step a demo audience would otherwise hit and get
+stuck on. Port 8501 is forwarded with `onAutoForward: "openBrowser"` so starting the Streamlit app
+pops the browser tab without the person needing to find the Ports tab themselves.
+
+**`OPENAI_API_KEY` via a Codespaces secret, not a committed `.env`.** For one person running a
+Codespace, exporting the key in the terminal is enough. For a demo where several people each
+create their own Codespace from the same repo, a repo- or org-level Codespaces secret means every
+new Codespace already has the key — documented in the README rather than built into the
+devcontainer config itself, since secrets are a GitHub account setting, not a repo file.
+
+**Verified without a real Codespaces launch** (not available from this environment): `pip install
+-r requirements.txt` succeeds cleanly in a fresh venv, `playwright install chromium` exits 0 and
+installs the browser, and `.devcontainer/devcontainer.json` parses as valid JSON once its `//`
+comments are stripped the way the devcontainer spec's JSONC parser does. The `--with-deps` flag
+(installs the OS-level packages Chromium needs via `apt`) only applies on Debian/Ubuntu, so it
+couldn't be exercised on this (non-Linux) machine — it's the standard, widely-used pattern for
+`mcr.microsoft.com/devcontainers/*` images and not expected to need touching.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

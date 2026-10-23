@@ -2,6 +2,30 @@
 
 Role-aware library triage agent for University at Buffalo Libraries.
 
+See `docs/PROJECT_OVERVIEW.md` for the full module map and end-to-end pipeline explanation.
+
+## Run in GitHub Codespaces (no local setup)
+
+1. On GitHub, click **Code → Codespaces → Create codespace** (on whichever branch you want to
+   demo). The container builds automatically from `.devcontainer/devcontainer.json`: Python
+   dependencies and the headless Chromium build OneSearch needs are installed for you — this
+   takes a few minutes the first time, with no steps to run by hand.
+2. Once it's ready, open a terminal in the Codespace and set your API key for that session:
+   ```bash
+   export OPENAI_API_KEY=sk-...
+   ```
+   For a demo with multiple people each creating their own Codespace, set `OPENAI_API_KEY` once
+   as a **Codespaces secret** instead (repo Settings → Secrets and variables → Codespaces), so
+   every new Codespace already has it — nobody has to paste a key in.
+3. Start the app:
+   ```bash
+   streamlit run streamlit_app/Home.py --server.port 8501
+   ```
+4. Codespaces detects port 8501 and pops up a toast to open it in the browser (or use the
+   **Ports** tab). That's the full chat UI, including the staff dashboard page in the sidebar —
+   set `STAFF_DASHBOARD_AUTH_METHOD=password` and `STAFF_DASHBOARD_PASSWORD=...` the same way as
+   `OPENAI_API_KEY` if you want that page reachable too.
+
 ## Run the chat agent (Layer 2, slice 1)
 
 ```bash

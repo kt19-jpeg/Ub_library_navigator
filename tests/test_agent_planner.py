@@ -58,3 +58,27 @@ def test_clarification_is_passed_through_even_with_empty_keywords():
     plan = QueryPlan(keywords="", needs_clarification="What topic are you researching?")
     model = FakeChatModel(plan)
     assert plan_query(model, "graduate", "find me something") == plan
+
+
+def test_out_of_scope_note_is_passed_through_with_real_keywords():
+    plan = QueryPlan(
+        keywords="algorithms",
+        out_of_scope_note="I can't prepare your midterm notes for you, but here are some resources on algorithms.",
+    )
+    model = FakeChatModel(plan)
+    result = plan_query(
+        model, "undergraduate", "can you help me prepare notes for my algorithms midterm from books available at UB"
+    )
+    assert result == plan
+
+
+def test_wants_human_help_is_passed_through_with_the_topic_reused_from_history():
+    plan = QueryPlan(keywords="mental health", wants_human_help=True)
+    model = FakeChatModel(plan)
+    history = [{"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}]
+
+    result = plan_query(
+        model, "graduate", "these results are not what I need, can someone help me directly?", history
+    )
+
+    assert result == plan
