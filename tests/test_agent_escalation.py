@@ -60,3 +60,36 @@ def test_notes_still_appended_after_a_multi_turn_context():
     history = [{"user": "find me journals on mental health", "assistant": "Here is what I found..."}]
     block = build_escalation_block("graduate", "can someone help me directly?", ["A note."], history)
     assert block.rstrip().endswith("(A note.)")
+
+
+def test_include_current_false_omits_the_trigger_message_with_prior_history():
+    # The real complaint: a paste block quoting "I asked: can you bring in
+    # human in loop i want more info" tells a librarian nothing useful - the
+    # real topic was the prior turn.
+    history = [{"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}]
+    block = build_escalation_block(
+        "graduate", "can you bring in human in loop i want more info", [], history, include_current=False
+    )
+    assert '"As a graduate, I asked: find me peer reviewed journals on mental health"' in block
+    assert "human in loop" not in block
+
+
+def test_include_current_false_with_multiple_prior_turns_still_numbers_them():
+    history = [
+        {"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."},
+        {"user": "what about books instead?", "assistant": "Here is what I found..."},
+    ]
+    block = build_escalation_block(
+        "graduate", "can someone help me directly?", [], history, include_current=False
+    )
+    assert "1. find me peer reviewed journals on mental health" in block
+    assert "2. what about books instead?" in block
+    assert "can someone help me directly" not in block
+
+
+def test_include_current_false_with_no_history_falls_back_to_a_generic_line():
+    # First-turn human request, nothing substantive asked yet: no topic to
+    # quote, so don't quote the human-request phrasing either.
+    block = build_escalation_block("graduate", "I want to talk to a human", [], include_current=False)
+    assert '"As a graduate, I would like assistance."' in block
+    assert "talk to a human" not in block

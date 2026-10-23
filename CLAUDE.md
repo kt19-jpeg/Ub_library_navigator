@@ -378,6 +378,18 @@ threads `state.get("history", [])` through. Confirmed live: a two-turn session (
 health search, then a nonsense query that genuinely returns zero OneSearch results) produced a
 paste block numbering both questions, not just the second.
 
+**Follow-up, also found live by the user:** for an explicit human-request or dissatisfaction
+escalation, the current `message` *is* the "please get me a human" trigger itself ("can you bring
+in human in loop i want more info"), not a real topic — quoting it added a line that tells a
+librarian nothing useful. `build_escalation_block()` gained `include_current: bool = True`;
+callers whose `message` genuinely is the substantive question (both `_render_no_answer()` call
+sites — an ordinary search that came back empty or low-confidence) leave the default, callers
+whose `message` is just the human-request trigger (the `entry` fast path, `human_help`) pass
+`include_current=False` so only prior real topics are quoted. With no prior turns at all (a
+first-turn "talk to a human" with nothing else asked), there's no topic to show either, so the
+context line falls back to a plain "I would like assistance" rather than quoting the trigger
+phrase.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
