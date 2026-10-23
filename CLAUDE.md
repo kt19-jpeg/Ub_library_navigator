@@ -360,6 +360,48 @@ confirms the suite works; it is not expected to match exactly every run. Not CI-
 slice (real OneSearch + LLM calls cost time and money per run); add to `weekly-refresh.yml` once
 the golden set and metrics are proven out further.
 
+## Layer 2, slice 5: citation tool (built)
+
+Deterministic APA/MLA/Chicago citation formatting, rendered inline (collapsed by default) with
+every result the agent shows — `agent/citation_tool.py`. Full design:
+`docs/superpowers/specs/2026-10-04-citation-tool-design.md`. Plan:
+`docs/superpowers/plans/2026-10-04-citation-tool.md`.
+
+**Not the conversational "cite that" fast path CLAUDE.md originally sketched.** That would need
+persisting structured candidate data across turns (today's `history` is plain text) and resolving
+which prior result a follow-up refers to. Rendering a citation for every result the moment it's
+shown sidesteps both problems — deferred, not abandoned.
+
+**The data was already free.** Confirmed live 2026-10-04: a real peer-reviewed article's
+`pnx.addata` has `jtitle`, `volume`, `issue`, `pages`, `doi`, `pub`, and an author list; a real
+book's has `pub`, `cop`, `isbn`, and an author list — all already present in the brief search
+response Layer 1 already fetches, just never parsed before. One field-naming surprise: which key
+holds the author list isn't consistent by record type (`au` on one real article with `addau`
+absent; `addau` on a real book with `au` absent) — `onesearch/parser.py` checks both.
+
+**Two real bugs found and fixed by actually running this against live data**, not left to chance —
+both have regression tests: (1) the Chicago formatter interpolated a missing `volume`/`issue`
+straight into an f-string, rendering the literal word "None" for journal-title records with no
+article-level volume data; (2) the MLA formatter always put a comma after the year assuming page
+numbers would follow, leaving a dangling comma with no closing period when pages are missing.
+
+**Known, accepted limitations, not further "fixed":** (a) author-count handling is simplified —
+1-2 authors listed in full, 3+ as "et al.", for every style, not each style's real cutoff; (b)
+some OneSearch records list an issuing organization as author, not a person ("International
+Center of Mental Health Policy and Economics, issuing body") — the formatter can't tell the
+difference from a personal "Last, First" name, so APA output can read oddly (an "i. b." initial
+from "issuing body"), and a no-comma organizational name can end up with a doubled period
+("...Psychiatrists..."). Cosmetic, not a crash or a missing/garbled citation.
+
+**A real crash found by the user manually testing the live app:** `streamlit_app/Home.py`'s
+citation-rendering code unconditionally read `state["search_result"].candidates` to look up a
+record's title for the "Cite: ..." expander label — but `search_result` doesn't exist in state
+whenever a turn ends before `search_node` ever runs, which is true even just for an ordinary
+clarifying question (confirmed live: asking "help" alone crashed with `KeyError: 'search_result'`).
+Fixed with `state.get("search_result")` and an empty fallback dict when it's absent; `citations`
+is itself always empty on those turns anyway (nothing was ever selected to show), so the guard
+costs nothing on the normal path.
+
 ## Layer 2, slice 6: explicit human-request fast path (built)
 
 The first of CLAUDE.md's two originally-sketched deterministic fast paths (the second, citation

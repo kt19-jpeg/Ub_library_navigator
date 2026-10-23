@@ -92,6 +92,7 @@ class AgentState(TypedDict, total=False):
     search_result: SearchResult
     rag_context: RagContext
     selection: list[SelectionItem]
+    citations: dict[str, dict[str, str]]  # record_id -> {style: citation text}
     details: dict[str, ResourceDetail]
     answer: str
     notes: Annotated[list[str], operator.add]

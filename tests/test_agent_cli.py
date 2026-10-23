@@ -13,6 +13,7 @@ class FakeGraph:
             "plan": QueryPlan(keywords=state["message"]),
             "timings": {"plan": 0.1},
             "notes": ["a note"],
+            "citations": {"r1": {"apa": "APA citation.", "mla": "MLA citation.", "chicago": "Chicago citation."}},
         }
 
 
@@ -125,3 +126,20 @@ def test_default_log_fn_never_touches_a_real_db_during_this_test_run():
     # without actually invoking it against a real database.
     import inspect
     assert "log_fn" in inspect.signature(run_chat).parameters
+
+
+def test_citations_flag_prints_citations_for_each_result():
+    read, write, written = _io("graduate", "q1", "/quit")
+
+    run_chat(FakeGraph(), read=read, write=write, citations=True, log_fn=lambda role, state: None)
+
+    assert any("[citations for r1]" in line for line in written)
+    assert any("APA: APA citation." in line for line in written)
+
+
+def test_citations_hidden_by_default():
+    read, write, written = _io("graduate", "q1", "/quit")
+
+    run_chat(FakeGraph(), read=read, write=write, log_fn=lambda role, state: None)
+
+    assert not any("citations for" in line for line in written)

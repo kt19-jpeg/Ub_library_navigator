@@ -192,6 +192,20 @@ if message:
     answer = state["answer"]
     with st.chat_message("assistant", avatar="🦬"):
         st.write(answer)
+        # state["search_result"] is absent whenever the turn ended before
+        # search_node ran (a clarifying question, or any other fast path /
+        # branch introduced later that skips OneSearch) — confirmed live
+        # 2026-10-22: a KeyError here crashed the whole turn. citations is
+        # only ever non-empty when real candidates were shown, but this
+        # guard doesn't depend on that staying true.
+        search_result = state.get("search_result")
+        titles_by_id = {c.record_id: c.title for c in search_result.candidates} if search_result else {}
+        for record_id, styles in state.get("citations", {}).items():
+            title = titles_by_id.get(record_id, record_id)
+            with st.expander(f"Cite: {title}"):
+                for style_name, text in styles.items():
+                    st.markdown(f"**{style_name.upper()}**")
+                    st.markdown(text)
         if debug:
             if "plan" in state:  # absent when the human-request fast path short-circuits
                 st.caption(f"plan: {state['plan'].model_dump()}")

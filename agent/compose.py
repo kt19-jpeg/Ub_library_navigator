@@ -1,5 +1,6 @@
 import json
 
+from agent.citation_tool import format_citation
 from agent.escalation import build_escalation_block
 from agent.models import AgentState, RagContext, Selection, SelectionItem
 from onesearch.client import OneSearchClient
@@ -182,6 +183,24 @@ def _render_no_answer(
     return "\n".join(out)
 
 
+def build_citations(
+    items: list[SelectionItem], candidates: list[SearchCandidate]
+) -> dict[str, dict[str, str]]:
+    """record_id -> {"apa": ..., "mla": ..., "chicago": ...}, one entry per shown
+    item (never looped over the full candidate list — same bounded-by-selection
+    rule fetch_detail() follows)."""
+    by_id = {c.record_id: c for c in candidates}
+    citations = {}
+    for item in items:
+        candidate = by_id.get(item.record_id)
+        if candidate is None:
+            continue
+        citations[item.record_id] = {
+            style: format_citation(candidate, style) for style in ("apa", "mla", "chicago")
+        }
+    return citations
+
+
 def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     """Pick 1-3 results (LLM), fetch their access details (bounded, batched),
     and render the answer in code so links and locations are never LLM output."""
@@ -198,7 +217,7 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
             f'I could not find results for "{plan.keywords}".',
             notes, more_link, rag_context, state["role"], state["message"], history,
         )
-        return {"selection": [], "details": {}, "answer": answer}
+        return {"selection": [], "details": {}, "answer": answer, "citations": {}}
 
     try:
         selection = select_results(
@@ -216,7 +235,7 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
             "I am not confident I found a good match for that.",
             notes, more_link, rag_context, state["role"], state["message"], history,
         )
-        return {"selection": [], "details": {}, "answer": answer}
+        return {"selection": [], "details": {}, "answer": answer, "citations": {}}
 
     try:
         details = client.fetch_detail([item.record_id for item in items])
@@ -225,4 +244,5 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
         notes.append("I could not load the full access details for these.")
 
     answer = render_answer(items, candidates, details, plan.keywords, notes, client, rag_context)
-    return {"selection": items, "details": details, "answer": answer}
+    citations = build_citations(items, candidates)
+    return {"selection": items, "details": details, "answer": answer, "citations": citations}
