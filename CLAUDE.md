@@ -382,7 +382,10 @@ query right after it in the same session is unaffected.
 **Also picks up the multi-turn escalation context fix** (see "full conversation context in the
 escalation paste block" below): `entry_node` now passes `state.get("history", [])` to
 `build_escalation_block()`, so an explicit "talk to a human" fired after earlier turns still
-quotes the whole conversation, not just that one line.
+quotes the whole conversation, not just that one line — and passes `include_current=False`, since
+`state["message"]` here is the "talk to a human" trigger itself, not a real topic; only the prior
+turns are quoted (confirmed live: with one prior turn, the paste block quotes just that topic, not
+the trigger phrase; with none at all, it falls back to a generic "I would like assistance" line).
 
 ## Layer 2, slice 5: full conversation context in the escalation paste block (fixed)
 

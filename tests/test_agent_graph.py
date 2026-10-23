@@ -133,7 +133,23 @@ def test_explicit_human_request_escalates_without_any_llm_or_layer1_call():
     assert set(out["timings"]) == {"entry"}
 
 
-def test_explicit_human_request_escalation_includes_prior_turns():
+def test_explicit_human_request_escalation_includes_prior_turns_but_not_the_trigger():
+    model = FakeChatModel()
+    client = _client()
+    graph = build_graph(model, client)
+    history = [
+        {"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."},
+        {"user": "what about books instead?", "assistant": "Here is what I found..."},
+    ]
+
+    out = graph.invoke({"role": "graduate", "message": "I want to talk to a human", "history": history})
+
+    assert "1. find me peer reviewed journals on mental health" in out["answer"]
+    assert "2. what about books instead?" in out["answer"]
+    assert "talk to a human" not in out["answer"]
+
+
+def test_explicit_human_request_with_one_prior_turn_quotes_just_that_topic():
     model = FakeChatModel()
     client = _client()
     graph = build_graph(model, client)
@@ -141,8 +157,19 @@ def test_explicit_human_request_escalation_includes_prior_turns():
 
     out = graph.invoke({"role": "graduate", "message": "I want to talk to a human", "history": history})
 
-    assert "1. find me peer reviewed journals on mental health" in out["answer"]
-    assert "2. I want to talk to a human" in out["answer"]
+    assert '"As a graduate, I asked: find me peer reviewed journals on mental health"' in out["answer"]
+    assert "talk to a human" not in out["answer"]
+
+
+def test_explicit_human_request_with_no_history_falls_back_to_generic_line():
+    model = FakeChatModel()
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({"role": "graduate", "message": "I want to talk to a human", "history": []})
+
+    assert '"As a graduate, I would like assistance."' in out["answer"]
+    assert "talk to a human" not in out["answer"]
 
 
 def test_ordinary_query_is_unaffected_by_the_human_request_fast_path():

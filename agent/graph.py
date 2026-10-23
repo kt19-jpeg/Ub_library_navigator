@@ -35,8 +35,11 @@ def build_graph(model, client, collection=None):
 
     def entry_node(state: AgentState) -> dict:
         if is_human_request(state["message"]):
+            # include_current=False: state["message"] here is the human-request
+            # trigger itself ("talk to a human"), not a real topic - quoting it
+            # tells a librarian nothing; only prior turns are worth showing.
             block = build_escalation_block(
-                state["role"], state["message"], [], state.get("history", [])
+                state["role"], state["message"], [], state.get("history", []), include_current=False
             )
             return {"answer": f"I'll connect you with a librarian.\n\n{block}"}
         return {}
