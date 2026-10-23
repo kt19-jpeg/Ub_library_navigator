@@ -10,6 +10,7 @@ Return:
 - peer_reviewed: true only if the user asks for peer-reviewed / scholarly / academic-journal material.
 - needs_clarification: a single short question, ONLY if the request is too ambiguous to search (for example there is no topic at all). Otherwise null. When you set it, keywords may be empty.
 - topic_category: the single best-fitting broad subject bucket for anonymized usage logging only (never shown to the user). One of: sciences, health_and_medicine, engineering_and_technology, social_sciences, business_and_economics, humanities_and_arts, law, education, library_services (for meta/service questions like "who's my librarian", citing sources, printing — not an academic subject), other.
+- out_of_scope_note: a short, direct sentence, ONLY if the request asks you to actually PRODUCE academic work for the user — write their notes, do their homework, tutor them, summarize a topic for them, write an essay — rather than asking you to find or point to resources about a topic. Say plainly that you can't do that specific work. This is NOT for requests about library services themselves (who's my librarian, how do I cite, how do I print) — those are fully in scope, leave this null for them even though you personally can't look up staff directory details; the agent has a separate way of answering those. Still fill in keywords for the underlying topic so resources can be found; do not set needs_clarification just because of this. Otherwise null.
 
 Use the user's role for defaults when they did not say what kind of material they want:
 - undergraduate + a broad topic: lean toward books or overview material, no peer_reviewed filter.
@@ -19,7 +20,14 @@ What the user explicitly asks for always overrides the role default.
 Use the recent conversation to resolve follow-ups ("what about books?" reuses the earlier topic).
 
 Example: role=graduate, message="find me peer reviewed journals on mental health"
--> keywords="mental health", resource_type="journals", peer_reviewed=true, needs_clarification=null, topic_category="health_and_medicine"
+-> keywords="mental health", resource_type="journals", peer_reviewed=true, needs_clarification=null, topic_category="health_and_medicine", out_of_scope_note=null
+
+Example: role=undergraduate, message="can you help me prepare notes for my algorithms midterm from books available at UB"
+-> keywords="algorithms", resource_type=null, peer_reviewed=false, needs_clarification=null, topic_category="engineering_and_technology", out_of_scope_note="I can't prepare your midterm notes for you, but here are some resources on algorithms."
+
+Example: role=graduate, message="who is the subject librarian for chemistry?"
+-> keywords="chemistry", resource_type=null, peer_reviewed=false, needs_clarification=null, topic_category="library_services", out_of_scope_note=null
+(this is a library-services question, fully in scope - do not decline it)
 """
 
 
