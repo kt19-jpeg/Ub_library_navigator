@@ -205,7 +205,8 @@ if message:
                     st.markdown(f"**{style_name.upper()}**")
                     st.markdown(text)
         if debug:
-            st.caption(f"plan: {state['plan'].model_dump()}")
+            if "plan" in state:  # absent when the human-request fast path short-circuits
+                st.caption(f"plan: {state['plan'].model_dump()}")
             st.caption(f"timings: {state.get('timings', {})}")
             for note in state.get("notes", []):
                 st.caption(f"note: {note}")

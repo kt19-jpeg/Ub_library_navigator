@@ -402,6 +402,63 @@ Fixed with `state.get("search_result")` and an empty fallback dict when it's abs
 is itself always empty on those turns anyway (nothing was ever selected to show), so the guard
 costs nothing on the normal path.
 
+## Layer 2, slice 6: explicit human-request fast path (built)
+
+The first of CLAUDE.md's two originally-sketched deterministic fast paths (the second, citation
+formatting, shipped inline instead — see the citation tool section once that slice lands). A new
+`entry` node runs before `plan`: `agent/router.py`'s `is_human_request()` is a small, deliberately
+conservative regex match — no LLM call, matching CLAUDE.md's "deterministic fast path" requirement
+exactly. A clear match ("talk to a human," "connect me with a librarian," a bare "human") escalates
+immediately via the existing `agent/escalation.py` block, skipping `plan`/`search`/`rag`/`compose`
+entirely. Kept narrow on purpose: an unusual phrasing of the same request just falls through to
+the normal flow instead of a false positive, the safer failure mode for a fast path that skips
+ranking.
+
+**Real regression found and fixed by actually running this live, not just testing offline:**
+`--debug` (CLI) and the Streamlit debug toggle both assumed `state["plan"]` always exists and
+crashed with `KeyError: 'plan'` the moment the fast path actually fired, since `entry` ends the
+turn before `plan_node` ever runs. Both now check `"plan" in state` first. Confirmed live
+afterward: the fast path short-circuits cleanly (`timings` shows only `entry`), and an ordinary
+query right after it in the same session is unaffected.
+
+**Also picks up the multi-turn escalation context fix** (see "full conversation context in the
+escalation paste block" below): `entry_node` now passes `state.get("history", [])` to
+`build_escalation_block()`, so an explicit "talk to a human" fired after earlier turns still
+quotes the whole conversation, not just that one line — and passes `include_current=False`, since
+`state["message"]` here is the "talk to a human" trigger itself, not a real topic; only the prior
+turns are quoted (confirmed live: with one prior turn, the paste block quotes just that topic, not
+the trigger phrase; with none at all, it falls back to a generic "I would like assistance" line).
+
+## Layer 2, slice 5: full conversation context in the escalation paste block (fixed)
+
+A real bug found by the user manually testing the live app: the "Context to paste into the chat"
+block always quoted only `state["message"]` — the current turn — even when the user had already
+asked something earlier in the conversation. A librarian picking up the pasted context cold had
+no idea the person had already been asking about a specific topic; they'd see only the final,
+often context-free sentence ("can someone help me directly?").
+
+**Fixed in `agent/escalation.py`.** `build_escalation_block()` gained an optional `history`
+parameter (the same `[{"user", "assistant"}, ...]` list the graph already carries). When given
+at least one prior turn, every question the user asked this conversation is numbered in order,
+ending with the current message, instead of just the last one. With no history (the common case —
+a first-turn escalation), the block is unchanged: a single line, not a numbered list of one.
+`agent/compose.py`'s `_render_no_answer()` (the "could not find results" / "not confident" paths)
+threads `state.get("history", [])` through. Confirmed live: a two-turn session (a real mental
+health search, then a nonsense query that genuinely returns zero OneSearch results) produced a
+paste block numbering both questions, not just the second.
+
+**Follow-up, also found live by the user:** for an explicit human-request or dissatisfaction
+escalation, the current `message` *is* the "please get me a human" trigger itself ("can you bring
+in human in loop i want more info"), not a real topic — quoting it added a line that tells a
+librarian nothing useful. `build_escalation_block()` gained `include_current: bool = True`;
+callers whose `message` genuinely is the substantive question (both `_render_no_answer()` call
+sites — an ordinary search that came back empty or low-confidence) leave the default, callers
+whose `message` is just the human-request trigger (the `entry` fast path, `human_help`) pass
+`include_current=False` so only prior real topics are quoted. With no prior turns at all (a
+first-turn "talk to a human" with nothing else asked), there's no topic to show either, so the
+context line falls back to a plain "I would like assistance" rather than quoting the trigger
+phrase.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
