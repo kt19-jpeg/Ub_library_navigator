@@ -391,7 +391,7 @@ some OneSearch records list an issuing organization as author, not a person ("In
 Center of Mental Health Policy and Economics, issuing body") — the formatter can't tell the
 difference from a personal "Last, First" name, so APA output can read oddly (an "i. b." initial
 from "issuing body"), and a no-comma organizational name can end up with a doubled period
-("...Psychiatrists.."). Cosmetic, not a crash or a missing/garbled citation.
+("...Psychiatrists..."). Cosmetic, not a crash or a missing/garbled citation.
 
 **A real crash found by the user manually testing the live app:** `streamlit_app/Home.py`'s
 citation-rendering code unconditionally read `state["search_result"].candidates` to look up a

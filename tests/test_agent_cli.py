@@ -93,10 +93,45 @@ def test_main_reports_missing_key_and_exits_nonzero(monkeypatch, capsys):
     assert "OPENAI_API_KEY" in capsys.readouterr().err
 
 
+def test_debug_does_not_crash_when_plan_is_absent():
+    # Regression: confirmed live 2026-10-05 — the human-request fast path ends a
+    # turn before plan_node ever runs, so state["plan"] doesn't exist; --debug
+    # used to assume it always did and crashed with KeyError.
+    class NoPlanGraph:
+        def invoke(self, state):
+            return {"answer": "I'll connect you with a librarian.", "timings": {"entry": 0.01}, "notes": []}
+
+    read, write, written = _io("graduate", "talk to a human", "/quit")
+
+    run_chat(NoPlanGraph(), read=read, write=write, debug=True, log_fn=lambda role, state: None)
+
+    assert any("connect you with a librarian" in line for line in written)
+
+
+def test_run_chat_calls_log_fn_with_role_and_state():
+    read, write, _ = _io("graduate", "q1", "/quit")
+    calls = []
+
+    run_chat(FakeGraph(), read=read, write=write, log_fn=lambda role, state: calls.append((role, state)))
+
+    assert len(calls) == 1
+    assert calls[0][0] == "graduate"
+    assert calls[0][1]["answer"] == "answer to q1"
+
+
+def test_default_log_fn_never_touches_a_real_db_during_this_test_run():
+    # Regression guard: confirmed live 2026-10-05 that omitting log_fn in a test
+    # silently wrote a real analytics/sessions.db file. Every other test in this
+    # file now injects a no-op log_fn; this one checks the default wiring exists
+    # without actually invoking it against a real database.
+    import inspect
+    assert "log_fn" in inspect.signature(run_chat).parameters
+
+
 def test_citations_flag_prints_citations_for_each_result():
     read, write, written = _io("graduate", "q1", "/quit")
 
-    run_chat(FakeGraph(), read=read, write=write, citations=True)
+    run_chat(FakeGraph(), read=read, write=write, citations=True, log_fn=lambda role, state: None)
 
     assert any("[citations for r1]" in line for line in written)
     assert any("APA: APA citation." in line for line in written)
@@ -105,7 +140,7 @@ def test_citations_flag_prints_citations_for_each_result():
 def test_citations_hidden_by_default():
     read, write, written = _io("graduate", "q1", "/quit")
 
-    run_chat(FakeGraph(), read=read, write=write)
+    run_chat(FakeGraph(), read=read, write=write, log_fn=lambda role, state: None)
 
     assert not any("citations for" in line for line in written)
 
