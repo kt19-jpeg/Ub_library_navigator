@@ -66,7 +66,7 @@ try:
             st.subheader("Topic category breakdown")
             st.bar_chart(volume_by_topic(session))
 
-        st.subheader("Escalation rate")
+        st.subheader("Agent Defers to Human Librarian Escalation Rate")
         st.metric("Turns escalated to a human librarian", f"{escalation_rate(session)}%")
         st.caption(
             "Shown as one overall rate, not broken down by role or topic — a "
