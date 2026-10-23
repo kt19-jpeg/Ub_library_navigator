@@ -2,6 +2,8 @@
 
 Role-aware library triage agent for University at Buffalo Libraries.
 
+See `docs/PROJECT_OVERVIEW.md` for the full module map and end-to-end pipeline explanation.
+
 ## Run the chat agent (Layer 2, slice 1)
 
 ```bash
