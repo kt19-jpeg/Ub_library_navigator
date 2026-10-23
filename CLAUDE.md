@@ -393,7 +393,10 @@ about, at the cost of the one planning call every non-fast-path turn already mak
 **Also picks up the multi-turn escalation context fix** (see "full conversation context in the
 escalation paste block" below): `human_help_node` now passes `state.get("history", [])` through to
 `render_human_help_answer()` / `build_escalation_block()`, so this path's paste block quotes the
-whole conversation too, not just the dissatisfaction message itself.
+whole conversation too, not just the dissatisfaction message itself — and passes
+`include_current=False`, since `state["message"]` here is the dissatisfaction/human-help trigger
+itself ("can you bring in human in loop i want more info"), not a real topic. Confirmed live: the
+paste block now quotes just the prior real question, not the trigger phrase.
 
 ## Layer 2, slice 5: full conversation context in the escalation paste block (fixed)
 

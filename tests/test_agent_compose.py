@@ -247,7 +247,10 @@ def test_render_human_help_answer_includes_rag_info_and_escalation():
     assert "Subject librarian: Doe, Jane - https://staff/doe" in answer
     assert LIVE_CHAT_URL in answer
     assert "Context to paste into the chat:" in answer
-    assert "these results are not what I need" in answer
+    # include_current=False (this call has no history): the trigger message
+    # isn't quoted, falls back to a generic line instead.
+    assert "these results are not what I need" not in answer
+    assert '"As a graduate, I would like assistance."' in answer
 
 
 def test_render_human_help_answer_without_rag_hits_still_escalates():
@@ -259,15 +262,19 @@ def test_render_human_help_answer_without_rag_hits_still_escalates():
     assert LIVE_CHAT_URL in answer
 
 
-def test_render_human_help_answer_includes_prior_turns_when_given_history():
-    history = [{"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."}]
+def test_render_human_help_answer_includes_prior_turns_but_not_the_trigger():
+    history = [
+        {"user": "find me peer reviewed journals on mental health", "assistant": "Here is what I found..."},
+        {"user": "what about books instead?", "assistant": "Here is what I found..."},
+    ]
 
     answer = render_human_help_answer(
         "graduate", "can someone help me directly?", RagContext(), history
     )
 
     assert "1. find me peer reviewed journals on mental health" in answer
-    assert "2. can someone help me directly?" in answer
+    assert "2. what about books instead?" in answer
+    assert "can someone help me directly" not in answer
 
 
 def test_compose_omits_rag_footer_when_context_is_empty():

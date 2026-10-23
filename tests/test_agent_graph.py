@@ -136,6 +136,8 @@ def test_wants_human_help_skips_search_but_still_offers_rag_and_escalates():
     client.fetch_detail.assert_not_called()
     assert LIVE_CHAT_URL in out["answer"]
     assert "Context to paste into the chat:" in out["answer"]
-    assert "1. find me peer reviewed journals on mental health" in out["answer"]
-    assert "2. these results are not what I need, can someone help me directly?" in out["answer"]
+    # include_current=False: only the prior real topic is quoted, not the
+    # dissatisfaction trigger message itself.
+    assert '"As a graduate, I asked: find me peer reviewed journals on mental health"' in out["answer"]
+    assert "these results are not what I need" not in out["answer"]
     assert set(out["timings"]) == {"plan", "human_help"}

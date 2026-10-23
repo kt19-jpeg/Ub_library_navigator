@@ -175,7 +175,11 @@ def render_human_help_answer(
         out.append("")
         out.extend(rag_lines)
     out.append("")
-    out.append(build_escalation_block(role, message, [], history))
+    # include_current=False: `message` here is the dissatisfaction/human-help
+    # trigger itself ("can you bring in human in loop i want more info"), not
+    # a real topic - quoting it tells a librarian nothing; only prior turns
+    # (the actual question the resources were for) are worth showing.
+    out.append(build_escalation_block(role, message, [], history, include_current=False))
     return "\n".join(out)
 
 
