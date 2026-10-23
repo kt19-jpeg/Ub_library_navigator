@@ -114,7 +114,11 @@ def test_rag_hits_flow_through_to_the_final_answer(tmp_path):
     out = graph.invoke({"role": "graduate", "message": "mental health journals", "history": []})
 
     assert out["rag_context"].librarians[0].metadata["subject"] == "Mental Health"
-    assert "Subject librarian: Doe, Jane - https://staff/doe" in out["answer"]
+    # The message is an ordinary topic search, not an explicit library-services
+    # question, so compose.py offers the RAG-backed help instead of dumping it
+    # (agent/compose.py's is_library_help_request) — this still proves the RAG
+    # hit reached the final answer, just via the offer rather than the footer.
+    assert "Want a subject librarian, related help guides, or database suggestions" in out["answer"]
 
 
 def test_explicit_human_request_escalates_without_any_llm_or_layer1_call():

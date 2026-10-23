@@ -1,4 +1,5 @@
 import json
+import re
 
 from agent.citation_tool import format_citation
 from agent.escalation import build_escalation_block
@@ -8,6 +9,31 @@ from onesearch.models import ResourceDetail, SearchCandidate
 
 MAX_SHOWN = 3
 DESCRIPTION_CHARS = 300
+
+# A deliberately narrow, deterministic check (no LLM call) for the user directly
+# asking about library services — contacting a librarian, citing, printing,
+# browsing databases — rather than searching for resources on a topic. Mirrors
+# the brief's "library_services" meta-question category. False negatives just
+# fall through to the gentler one-line offer below; false positives just show
+# the full footer a turn earlier than strictly needed. Either is benign.
+LIBRARY_HELP_RE = re.compile(
+    r"subject librarian|"
+    r"(contact|talk to|speak (with|to)) (a |my )?librarian|"
+    r"who (is|can i contact).*(librarian|contact)|"
+    r"how (do|to) (i )?cite|citation (help|guide)|citing sources|"
+    r"how (do|to) (i )?print|printing (help|guide)|"
+    r"browse (the )?databases|list of databases",
+    re.IGNORECASE,
+)
+
+LIBRARY_HELP_OFFER = (
+    "Want a subject librarian, related help guides, or database suggestions for this topic too? "
+    "Just ask."
+)
+
+
+def is_library_help_request(message: str) -> bool:
+    return bool(LIBRARY_HELP_RE.search(message))
 
 STATUS_LABELS = {
     "available": "available",
@@ -114,6 +140,7 @@ def render_answer(
     notes: list[str],
     client: OneSearchClient,
     rag_context: RagContext,
+    message: str,
 ) -> str:
     by_id = {c.record_id: c for c in candidates}
     out = [f'Here is what I found for "{keywords}":']
@@ -135,10 +162,19 @@ def render_answer(
     if any_online:
         out.append("Some online resources ask you to log in with your UB credentials.")
     out.append(f"More results: {client.fallback_link(keywords)}")
-    rag_lines = render_rag_sections(rag_context)
-    if rag_lines:
+    # Only dump the full librarian/help/database footer when the user actually
+    # asked about library services directly. Otherwise, having just handed them
+    # resources, offer it instead of appending it unasked (confirmed as a real
+    # usability complaint: patrons asking for resources don't want every answer
+    # padded with a librarian contact and database links they didn't ask for).
+    if is_library_help_request(message):
+        rag_lines = render_rag_sections(rag_context)
+        if rag_lines:
+            out.append("")
+            out.extend(rag_lines)
+    elif not rag_context.is_empty():
         out.append("")
-        out.extend(rag_lines)
+        out.append(LIBRARY_HELP_OFFER)
     return "\n".join(out)
 
 
@@ -201,10 +237,21 @@ def build_citations(
     return citations
 
 
+def _with_out_of_scope_note(answer: str, plan) -> str:
+    """Prepends the planner's out-of-scope disclaimer (e.g. "I can't write your
+    notes for you...") ahead of whatever answer was otherwise composed, so the
+    user is told up front that the agent can't do the academic work itself,
+    while still getting the resources it found on the underlying topic."""
+    if plan.out_of_scope_note:
+        return f"{plan.out_of_scope_note}\n\n{answer}"
+    return answer
+
+
 def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     """Pick 1-3 results (LLM), fetch their access details (bounded, batched),
     and render the answer in code so links and locations are never LLM output."""
     plan = state["plan"]
+    message = state["message"]
     history = state.get("history", [])
     result = state["search_result"]
     candidates = result.candidates
@@ -215,14 +262,17 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     if not candidates:
         answer = _render_no_answer(
             f'I could not find results for "{plan.keywords}".',
-            notes, more_link, rag_context, state["role"], state["message"], history,
+            notes, more_link, rag_context, state["role"], message, history,
         )
-        return {"selection": [], "details": {}, "answer": answer, "citations": {}}
+        return {
+            "selection": [],
+            "details": {},
+            "answer": _with_out_of_scope_note(answer, plan),
+            "citations": {},
+        }
 
     try:
-        selection = select_results(
-            model, state["role"], state["message"], candidates, rag_context
-        )
+        selection = select_results(model, state["role"], message, candidates, rag_context)
         items = validate_selection(selection.items, candidates)
         confidence = selection.confidence
     except Exception:
@@ -233,9 +283,14 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     if confidence == "low" or not items:
         answer = _render_no_answer(
             "I am not confident I found a good match for that.",
-            notes, more_link, rag_context, state["role"], state["message"], history,
+            notes, more_link, rag_context, state["role"], message, history,
         )
-        return {"selection": [], "details": {}, "answer": answer, "citations": {}}
+        return {
+            "selection": [],
+            "details": {},
+            "answer": _with_out_of_scope_note(answer, plan),
+            "citations": {},
+        }
 
     try:
         details = client.fetch_detail([item.record_id for item in items])
@@ -243,6 +298,11 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
         details = {}
         notes.append("I could not load the full access details for these.")
 
-    answer = render_answer(items, candidates, details, plan.keywords, notes, client, rag_context)
+    answer = render_answer(items, candidates, details, plan.keywords, notes, client, rag_context, message)
     citations = build_citations(items, candidates)
-    return {"selection": items, "details": details, "answer": answer, "citations": citations}
+    return {
+        "selection": items,
+        "details": details,
+        "answer": _with_out_of_scope_note(answer, plan),
+        "citations": citations,
+    }

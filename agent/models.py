@@ -48,6 +48,16 @@ class QueryPlan(BaseModel):
     topic_category: TopicCategory = Field(
         default="other", description="A coarse subject bucket, for anonymized logging only."
     )
+    out_of_scope_note: str | None = Field(
+        default=None,
+        description=(
+            "A short, direct sentence telling the user the agent can't do the requested "
+            "academic work itself (write their notes, do their homework, tutor them, summarize "
+            "a topic for them). Set only when the request asks for that rather than asking to "
+            "find resources about a topic; keywords are still filled in so resources on the "
+            "underlying topic can be found. Null otherwise."
+        ),
+    )
 
 
 class SelectionItem(BaseModel):
