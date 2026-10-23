@@ -1,0 +1,336 @@
+{
+  "context": "L",
+  "adaptor": "Local Search Engine",
+  "@id": "https://na05.alma.exlibrisgroup.com/primaws/rest/pub/pnxs/L/990032130320204803",
+  "pnx": {
+    "display": {
+      "source": [
+        "Alma"
+      ],
+      "type": [
+        "book"
+      ],
+      "language": [
+        "eng"
+      ],
+      "title": [
+        "Mental health : from policy to practice "
+      ],
+      "format": [
+        "xiii, 330 pages : illustrations ; 24 cm"
+      ],
+      "identifier": [
+        "$$CLC$$V  2008278257;$$CISBN$$V9780443103834;$$CISBN$$V0443103836;$$COCLC$$V(OCoLC)233263275;$$COCLC$$V(OCoLC)ocn233263275"
+      ],
+      "creationdate": [
+        "2009"
+      ],
+      "lds08": [
+        "BUF01003213032"
+      ],
+      "lds13": [
+        "Sect. 1. Inclusion -- 1. Recovery and social inclusion: the changing mental health agenda / J. Repper and R. Perkins -- 2. User involvement in 21st century mental health services: 'This is our century' / A. Faulkner -- 3. Carers of people with mental health problems / J. Repper -- 4. Supporting equal citizenship and inclusion / E. Sayce -- Sect. 2. Specific service user groups -- 5. Black and minority ethnic issues / J. Bennett -- 6. Women and mental health / J. Carlisle -- 7. Implementing National Service Frameworks for mental health: dual diagnosis / H. Wells and R. Gray -- 8. Personality disorder in community settings / K. Dent-Brown, G. Parry and I. Kerr -- 9. Forensic service users / M. Number, J. Senior and J. Shaw -- Sect. 3. Service models -- 10. Assertive outreach / J. Freeman -- 11. Early interventions in psychosis / S. McGowan, Z. Iqbal and M. Birchwood -- 12. Acute in-patient care / A. Simpson -- 13. Community Mental Health Teams / J. Boardman -- 14. Mental health promotion / H. Guite and J. Bywaters -- 15. Primary care / D. Ekers and T. Ricketts -- 16. A national survey of Crisis Resolution Teams: an evaluation of implementation in England / S. Onyett and K. Linde -- Sect. 4. Supporting change -- 17. Research and development / M. Clark and C. Chilvers -- 18. NICE guidelines / K. Gournay -- 19. Developments in education and training: towards a whole system reform / D. Rushforth and I. Baguley -- 20. The National Service Framework for mental health: costs of implementation / M. Parsonage -- 21. The role of the voluntary sector / A. McCulloch and G. Howland -- 22. Mental health legislation / P. Bartlett -- Sect. 5. Conclusion -- 23. The National Service Framework for mental health: never mind the quality, feel the width? / C. Brooker and S. Onyett."
+      ],
+      "publisher": [
+        "Edinburgh ; New York : Churchill Livingstone Elsevier"
+      ],
+      "description": [
+        "\"In Mental Health: From Policy to Practice, the editors and contributors use their extensive experience and knowledge of mental health services to analyse the effectiveness of developments. They reflect on how policy has developed, what policy means for practice, to what extent policy has been implemented, and where the challenges lie.\"--BOOK JACKET."
+      ],
+      "mms": [
+        "990032130320204803"
+      ],
+      "contributor": [
+        "Brooker, Charlie (Professor of mental health and criminal justice)$$QBrooker, Charlie",
+        "Repper, Julie.$$QRepper, Julie."
+      ],
+      "contents": [
+        "Sect. 1. Inclusion -- 1. Recovery and social inclusion: the changing mental health agenda / J. Repper and R. Perkins -- 2. User involvement in 21st century mental health services: 'This is our century' / A. Faulkner -- 3. Carers of people with mental health problems / J. Repper -- 4. Supporting equal citizenship and inclusion / E. Sayce -- Sect. 2. Specific service user groups -- 5. Black and minority ethnic issues / J. Bennett -- 6. Women and mental health / J. Carlisle -- 7. Implementing National Service Frameworks for mental health: dual diagnosis / H. Wells and R. Gray -- 8. Personality disorder in community settings / K. Dent-Brown, G. Parry and I. Kerr -- 9. Forensic service users / M. Number, J. Senior and J. Shaw -- Sect. 3. Service models -- 10. Assertive outreach / J. Freeman -- 11. Early interventions in psychosis / S. McGowan, Z. Iqbal and M. Birchwood -- 12. Acute in-patient care / A. Simpson -- 13. Community Mental Health Teams / J. Boardman -- 14. Mental health promotion / H. Guite and J. Bywaters -- 15. Primary care / D. Ekers and T. Ricketts -- 16. A national survey of Crisis Resolution Teams: an evaluation of implementation in England / S. Onyett and K. Linde -- Sect. 4. Supporting change -- 17. Research and development / M. Clark and C. Chilvers -- 18. NICE guidelines / K. Gournay -- 19. Developments in education and training: towards a whole system reform / D. Rushforth and I. Baguley -- 20. The National Service Framework for mental health: costs of implementation / M. Parsonage -- 21. The role of the voluntary sector / A. McCulloch and G. Howland -- 22. Mental health legislation / P. Bartlett -- Sect. 5. Conclusion -- 23. The National Service Framework for mental health: never mind the quality, feel the width? / C. Brooker and S. Onyett."
+      ],
+      "place": [
+        "Edinburgh ; New York :"
+      ],
+      "version": [
+        "1"
+      ],
+      "lds03": [
+        "Includes bibliographical references and index."
+      ],
+      "lds15": [
+        "edited by Charlie Brooker, Julie Repper ; foreword by Martin Brown."
+      ],
+      "lds48": [
+        "Brooker, Charlie.$$QBrooker, Charlie.",
+        "Repper, Julie.$$QRepper, Julie."
+      ],
+      "lds100": [
+        " / edited by Charlie Brooker, Julie Repper ; foreword by Martin Brown."
+      ],
+      "subject": [
+        "Mental health services -- England -- Evaluation",
+        "Mental health services -- Wales -- Evaluation",
+        "Medical policy",
+        "Mental Health Services -- organization & administration",
+        "Program Evaluation",
+        "Health Policy",
+        "England",
+        "Wales"
+      ],
+      "mesh": [
+        "Mental Health Services -- organization & administration",
+        "Program Evaluation",
+        "Health Policy",
+        "England",
+        "Wales"
+      ]
+    },
+    "control": {
+      "sourcerecordid": [
+        "990032130320204803"
+      ],
+      "recordid": [
+        "alma990032130320204803"
+      ],
+      "sourceid": "alma",
+      "originalsourceid": [
+        "ocn233263275-01suny_network"
+      ],
+      "sourcesystem": [
+        "WCM"
+      ],
+      "sourceformat": [
+        "MARC21"
+      ],
+      "score": [
+        12.16015925
+      ],
+      "isDedup": false
+    },
+    "addata": {
+      "originatingSystemIDSubject": [
+        "D004739",
+        "fst01207649",
+        "n80014574",
+        "fst01219920",
+        "D014852"
+      ],
+      "originatingSystemIDContributor": [
+        "n87843207",
+        "n96802239"
+      ],
+      "aulast": [
+        "Brooker",
+        "Repper"
+      ],
+      "aufirst": [
+        "Charlie",
+        "Julie."
+      ],
+      "auinit": [
+        "C",
+        "J"
+      ],
+      "addau": [
+        "Brooker, Charlie",
+        "Repper, Julie."
+      ],
+      "contributorfull": [
+        "$$NBrooker, Charlie$$LBrooker$$FCharlie$$Rcontributor",
+        "$$NRepper, Julie.$$Rcontributor"
+      ],
+      "date": [
+        "2009"
+      ],
+      "isbn": [
+        "9780443103834",
+        "0443103836"
+      ],
+      "notes": [
+        "Includes bibliographical references and index."
+      ],
+      "abstract": [
+        "\"In Mental Health: From Policy to Practice, the editors and contributors use their extensive experience and knowledge of mental health services to analyse the effectiveness of developments. They reflect on how policy has developed, what policy means for practice, to what extent policy has been implemented, and where the challenges lie.\"--BOOK JACKET."
+      ],
+      "cop": [
+        "Edinburgh"
+      ],
+      "pub": [
+        "Churchill Livingstone Elsevier"
+      ],
+      "oclcid": [
+        "(ocolc)233263275"
+      ],
+      "lccn": [
+        "2008278257"
+      ],
+      "format": [
+        "book"
+      ],
+      "genre": [
+        "book"
+      ],
+      "ristype": [
+        "BOOK"
+      ],
+      "btitle": [
+        "Mental health : from policy to practice"
+      ]
+    },
+    "sort": {
+      "title": [
+        "Mental health : from policy to practice /"
+      ],
+      "author": [
+        "Brooker, Charlie (Professor of mental health and criminal justice)"
+      ],
+      "creationdate": [
+        "2009"
+      ]
+    },
+    "facets": {
+      "frbrtype": [
+        "6"
+      ],
+      "frbrgroupid": [
+        "9011294523513946747"
+      ]
+    }
+  },
+  "delivery": {
+    "bestlocation": {
+      "isValidUser": true,
+      "organization": "01SUNY_BUF",
+      "libraryCode": "BUFLO",
+      "availabilityStatus": "available",
+      "subLocation": "Lockwood Library General Collection",
+      "subLocationCode": "GEN",
+      "mainLocation": "Lockwood Library",
+      "callNumber": "RA790.7 .G7 M455 2009",
+      "callNumberType": "0",
+      "holdingURL": "OVP",
+      "adaptorid": "ALMA_01",
+      "ilsApiId": "990032130320204803",
+      "holdId": "22246427660004803",
+      "holKey": "HoldingResultKey [mid=22246427660004803, libraryId=158995240004803, locationCode=GEN, callNumber=RA790.7 .G7 M455 2009]",
+      "matchForHoldings": [
+        {
+          "matchOn": "MainLocation",
+          "holdingRecord": "852##b"
+        }
+      ],
+      "stackMapUrl": "https://library.buffalo.edu/use/floor-plans/lockwood.html",
+      "relatedTitle": null,
+      "translateRelatedTitle": null,
+      "yearFilter": null,
+      "volumeFilter": null,
+      "singleUnavailableItemProcessType": null,
+      "boundWith": false,
+      "@id": "_:0"
+    },
+    "holding": [
+      {
+        "isValidUser": true,
+        "organization": "01SUNY_BUF",
+        "libraryCode": "BUFLO",
+        "availabilityStatus": "available",
+        "subLocation": "Lockwood Library General Collection",
+        "subLocationCode": "GEN",
+        "mainLocation": "Lockwood Library",
+        "callNumber": "RA790.7 .G7 M455 2009",
+        "callNumberType": "0",
+        "holdingURL": "OVP",
+        "adaptorid": "ALMA_01",
+        "ilsApiId": "990032130320204803",
+        "holdId": "22246427660004803",
+        "holKey": "HoldingResultKey [mid=22246427660004803, libraryId=158995240004803, locationCode=GEN, callNumber=RA790.7 .G7 M455 2009]",
+        "matchForHoldings": [
+          {
+            "matchOn": "MainLocation",
+            "holdingRecord": "852##b"
+          }
+        ],
+        "stackMapUrl": "https://library.buffalo.edu/use/floor-plans/lockwood.html",
+        "relatedTitle": null,
+        "translateRelatedTitle": null,
+        "yearFilter": null,
+        "volumeFilter": null,
+        "singleUnavailableItemProcessType": null,
+        "boundWith": false,
+        "@id": "_:0"
+      }
+    ],
+    "electronicServices": null,
+    "additionalElectronicServices": null,
+    "filteredByGroupServices": null,
+    "quickAccessService": null,
+    "deliveryCategory": [
+      "Alma-P"
+    ],
+    "serviceMode": [
+      "ovp"
+    ],
+    "availability": [
+      "available_in_library"
+    ],
+    "availabilityLinks": [
+      "detailsgetit1"
+    ],
+    "availabilityLinksUrl": [],
+    "displayedAvailability": null,
+    "displayLocation": true,
+    "additionalLocations": false,
+    "titleRequestableAtItemLevel": false,
+    "physicalItemTextCodes": null,
+    "feDisplayOtherLocations": false,
+    "almaInstitutionsList": [],
+    "recordInstitutionCode": null,
+    "recordOwner": "01SUNY_NETWORK",
+    "hasFilteredServices": null,
+    "digitalAuxiliaryMode": false,
+    "digitalAuxiliaryThumbnail": false,
+    "hideResourceSharing": false,
+    "sharedDigitalCandidates": null,
+    "consolidatedCoverage": null,
+    "electronicContextObjectId": null,
+    "almaOpenurl": null,
+    "GetIt1": [
+      {
+        "category": "Alma-P",
+        "links": [
+          {
+            "isLinktoOnline": false,
+            "getItTabText": "service_getit",
+            "adaptorid": "ALMA_01",
+            "ilsApiId": "990032130320204803",
+            "link": "OVP",
+            "inst4opac": "01SUNY_BUF",
+            "displayText": null,
+            "@id": "_:0"
+          }
+        ]
+      }
+    ],
+    "physicalServiceId": null,
+    "link": [
+      {
+        "@id": ":_0",
+        "linkType": "thumbnail",
+        "linkURL": "https://proxy-na.hosted.exlibrisgroup.com/exl_rewrite/books.google.com/books?bibkeys=ISBN:0443103836,OCLC:,LCCN:2008278257&jscmd=viewapi&callback=updateGBSCover",
+        "displayLabel": "thumbnail"
+      }
+    ],
+    "hasD": null
+  },
+  "enrichment": {
+    "virtualBrowseObject": {
+      "isVirtualBrowseEnabled": true,
+      "callNumber": "RA790.7 .G7 M455 2009",
+      "callNumberBrowseField": "0"
+    },
+    "bibVirtualBrowseObject": {
+      "isVirtualBrowseEnabled": true,
+      "callNumber": "ra\"790.7 g7\u01c2m455 2009",
+      "callNumberBrowseField": "LOC_CL"
+    }
+  }
+}

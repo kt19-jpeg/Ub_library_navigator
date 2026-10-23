@@ -20,7 +20,7 @@ def choose_role(read, write) -> str:
         write(f"Please enter one of: {', '.join(ROLES)} (or 1-{len(ROLES)}).")
 
 
-def run_chat(graph, read=input, write=print, debug: bool = False) -> None:
+def run_chat(graph, read=input, write=print, debug: bool = False, citations: bool = False) -> None:
     role = choose_role(read, write)
     write(f"Role set to {role}. {HELP}")
     history: list[dict] = []
@@ -45,6 +45,11 @@ def run_chat(graph, read=input, write=print, debug: bool = False) -> None:
             for note in state.get("notes", []):
                 write(f"[note] {note}")
         write(answer)
+        if citations:
+            for record_id, styles in state.get("citations", {}).items():
+                write(f"[citations for {record_id}]")
+                for style, text in styles.items():
+                    write(f"  {style.upper()}: {text}")
         history.append({"user": message, "assistant": answer})
         history = history[-HISTORY_TURNS:]
 
@@ -74,6 +79,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--provider", help="openai | anthropic | local (overrides LLM_PROVIDER)")
     parser.add_argument("--model", help="model name (overrides LLM_MODEL)")
     parser.add_argument("--debug", action="store_true", help="show plan and per-step timings")
+    parser.add_argument("--citations", action="store_true", help="show APA/MLA/Chicago citations for each result")
     args = parser.parse_args(argv)
 
     try:
@@ -81,7 +87,7 @@ def main(argv: list[str] | None = None) -> int:
     except LLMConfigError as exc:
         print(f"Cannot start: {exc}", file=sys.stderr)
         return 2
-    run_chat(graph, debug=args.debug)
+    run_chat(graph, debug=args.debug, citations=args.citations)
     return 0
 
 

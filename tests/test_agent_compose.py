@@ -226,3 +226,32 @@ def test_compose_omits_rag_footer_when_context_is_empty():
     assert "Subject librarian" not in out["answer"]
     assert "Helpful pages" not in out["answer"]
     assert "Browse databases" not in out["answer"]
+
+
+def test_compose_attaches_citations_for_every_shown_item():
+    candidates = [
+        _candidate("e1", title="Chemistry Basics", authors=["Doe, Jane"], date="2020"),
+        _candidate("p1", title="Print Book", authors=["Smith, John"], date="2019"),
+    ]
+    model = FakeChatModel(Selection(
+        items=[SelectionItem(record_id="e1", reason="r1"), SelectionItem(record_id="p1", reason="r2")],
+        confidence="high",
+    ))
+    client = _client()
+
+    out = compose(_state(candidates), model, client)
+
+    assert set(out["citations"]) == {"e1", "p1"}
+    assert set(out["citations"]["e1"]) == {"apa", "mla", "chicago"}
+    assert "Doe" in out["citations"]["e1"]["apa"]
+
+
+def test_compose_citations_empty_when_no_candidates():
+    out = compose(_state([]), FakeChatModel(), _client())
+    assert out["citations"] == {}
+
+
+def test_compose_citations_empty_when_low_confidence():
+    model = FakeChatModel(Selection(items=[], confidence="low"))
+    out = compose(_state([_candidate("a")]), model, _client())
+    assert out["citations"] == {}
