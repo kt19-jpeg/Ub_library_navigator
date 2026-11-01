@@ -1,0 +1,24 @@
+# Render Blueprint: New + -> Blueprint -> point at this repo, Render reads this
+# file and pre-fills the service. Secrets (sync: false) are never set here -
+# Render prompts for them once in its dashboard instead.
+services:
+  - type: web
+    name: ub-library-navigator
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: LLM_PROVIDER
+        value: openai
+      - key: APP_ACCESS_METHOD
+        value: password
+      - key: APP_ACCESS_PASSWORD
+        sync: false
+      - key: STAFF_DASHBOARD_AUTH_METHOD
+        value: password
+      - key: STAFF_DASHBOARD_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:///analytics/sessions.db

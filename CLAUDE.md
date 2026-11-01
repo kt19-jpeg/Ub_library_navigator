@@ -626,6 +626,40 @@ comments are stripped the way the devcontainer spec's JSONC parser does. The `--
 couldn't be exercised on this (non-Linux) machine — it's the standard, widely-used pattern for
 `mcr.microsoft.com/devcontainers/*` images and not expected to need touching.
 
+## Layer 2, slice 12: cloud deployment on Render + app-wide access gate (built)
+
+The user asked to deploy the app to a public URL. Two decisions came back from them directly
+(not autonomous): **Render** as the platform, and **yes, add a shared-password gate** before
+going public — the chat app had no login of any kind, and every message spends a real
+`OPENAI_API_KEY`.
+
+**`analytics/auth.py` refactored into a reusable `PasswordGate` class**, not copy-pasted a second
+time. The staff dashboard's existing gate (`STAFF_DASHBOARD_AUTH_METHOD`/`_PASSWORD`) and the new
+app-wide gate (`APP_ACCESS_METHOD`/`_PASSWORD`) are two separate `PasswordGate` instances — same
+swappable-method, fail-closed behavior, but genuinely independent credentials for two different
+audiences (any visitor vs. library staff). `check_staff_access`/`staff_auth_configured` keep their
+exact prior signatures and behavior, so neither existing call site nor its tests needed to change.
+
+**`streamlit_app/Home.py` gates everything behind `app_auth_configured()`** — unset (the default,
+e.g. local dev) means the app behaves exactly as before; set, it shows a password form before the
+role picker, session-state held, same UX pattern as the staff dashboard's own gate.
+
+**`Dockerfile` + `render.yaml`** — the same install recipe already proven in
+`.devcontainer/devcontainer.json` (`pip install -r requirements.txt` +
+`playwright install --with-deps chromium`), packaged as a Dockerfile Render can build directly.
+`render.yaml` is a Blueprint: Render reads it and pre-fills the service, prompting only for the
+actual secrets (`OPENAI_API_KEY`, `APP_ACCESS_PASSWORD`, `STAFF_DASHBOARD_PASSWORD`) rather than
+them living in a committed file. `--server.enableCORS=false --server.enableXsrfProtection=false`
+is a commonly-documented fix for the WebSocket connection failures Streamlit otherwise hits behind
+Render's (and similar platforms') HTTPS-terminating reverse proxy.
+
+**Known limitation, documented rather than silently accepted:** Render's free plan has an
+ephemeral filesystem — `analytics/sessions.db` is wiped on every redeploy and on the free plan's
+idle-spindown/restart cycle. Acceptable for a demo; flagged in the README with the two real
+fixes (a paid instance type's persistent disk, or pointing `DATABASE_URL` at external Postgres)
+left for the user to decide given this is a cost/plan tradeoff, not something to pick
+autonomously.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.
