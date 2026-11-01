@@ -11,6 +11,7 @@ import streamlit as st
 from agent.cli import HISTORY_TURNS, build_default_graph
 from agent.llm import LLMConfigError
 from agent.models import ROLES
+from analytics.auth import app_auth_configured, check_app_access
 from analytics.log_writer import log_turn
 
 # UB brand colors: #005BBB is confirmed from library.buffalo.edu's own site CSS; the
@@ -125,6 +126,26 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# Gated only when APP_ACCESS_METHOD/APP_ACCESS_PASSWORD are actually set (e.g.
+# once the app is reachable over a public cloud URL, not just localhost) -
+# unconfigured means local/dev use is unaffected, same fail-closed-but-visible
+# pattern as the staff dashboard's own gate (analytics/auth.py).
+if app_auth_configured():
+    if "app_authed" not in st.session_state:
+        st.session_state.app_authed = False
+    if not st.session_state.app_authed:
+        st.info("This app is password-protected. Ask whoever shared the link for the password.")
+        with st.form("app_login"):
+            secret = st.text_input("Password", type="password")
+            submitted = st.form_submit_button("Enter")
+        if submitted:
+            if check_app_access(secret):
+                st.session_state.app_authed = True
+                st.rerun()
+            else:
+                st.error("Incorrect password.")
+        st.stop()
 
 if "role" not in st.session_state:
     st.session_state.role = None

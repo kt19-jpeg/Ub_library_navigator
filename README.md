@@ -26,6 +26,31 @@ See `docs/PROJECT_OVERVIEW.md` for the full module map and end-to-end pipeline e
    set `STAFF_DASHBOARD_AUTH_METHOD=password` and `STAFF_DASHBOARD_PASSWORD=...` the same way as
    `OPENAI_API_KEY` if you want that page reachable too.
 
+## Deploy to the cloud (Render)
+
+Makes the app reachable at a public URL instead of only `localhost`/Codespaces.
+
+1. Push this repo to GitHub if it isn't already (it is).
+2. On [render.com](https://render.com), **New + → Blueprint**, connect this GitHub repo. Render
+   reads `render.yaml` and pre-fills a Docker-based web service (`Dockerfile` at the repo root
+   installs Python deps + headless Chromium for OneSearch, same recipe as the devcontainer).
+3. Render will prompt for the env vars marked `sync: false` in `render.yaml` — fill in:
+   - `OPENAI_API_KEY` — required.
+   - `APP_ACCESS_PASSWORD` — **set this.** The chat app has no login by default; once it's on a
+     public URL, every message spends your real API key, so `APP_ACCESS_METHOD=password` is
+     already set in the blueprint and this is the password that gates the whole app (prompted
+     before the role picker, same pattern as the staff dashboard below).
+   - `STAFF_DASHBOARD_PASSWORD` — for the staff dashboard page, same idea, separate password.
+4. Deploy. Render builds the Docker image and gives you a URL like
+   `https://ub-library-navigator.onrender.com`.
+
+**Known limitation: the free plan's disk is ephemeral.** `analytics/sessions.db` (anonymized
+usage logging, read by the staff dashboard) is wiped on every redeploy and on the free plan's
+idle-spin-down/restart cycle. Fine for a demo; for logging that needs to persist, either attach a
+[Render persistent disk](https://render.com/docs/disks) (needs a paid instance type — mount it at
+`/app/analytics`) or point `DATABASE_URL` at an external Postgres instead of the default SQLite
+file.
+
 ## Run the chat agent (Layer 2, slice 1)
 
 ```bash
