@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import streamlit as st
 
 from agent.cli import HISTORY_TURNS, build_default_graph
+from agent.compose import wants_citations
 from agent.llm import LLMConfigError
 from agent.models import ROLES
 from analytics.auth import app_auth_configured, check_app_access
@@ -219,14 +220,22 @@ if message:
         # 2026-10-22: a KeyError here crashed the whole turn. citations is
         # only ever non-empty when real candidates were shown, but this
         # guard doesn't depend on that staying true.
-        search_result = state.get("search_result")
-        titles_by_id = {c.record_id: c.title for c in search_result.candidates} if search_result else {}
-        for record_id, styles in state.get("citations", {}).items():
-            title = titles_by_id.get(record_id, record_id)
-            with st.expander(f"Cite: {title}"):
-                for style_name, text in styles.items():
-                    st.markdown(f"**{style_name.upper()}**")
-                    st.markdown(text)
+        # Citations are computed every turn regardless (cheap, local, no extra
+        # API call) but only rendered when the user's own message asked for
+        # them - showing them unasked on every single answer was a real
+        # usability complaint (same shape as the librarian/help/database
+        # footer, see agent/compose.py's is_library_help_request).
+        if wants_citations(message):
+            search_result = state.get("search_result")
+            titles_by_id = (
+                {c.record_id: c.title for c in search_result.candidates} if search_result else {}
+            )
+            for record_id, styles in state.get("citations", {}).items():
+                title = titles_by_id.get(record_id, record_id)
+                with st.expander(f"Cite: {title}"):
+                    for style_name, text in styles.items():
+                        st.markdown(f"**{style_name.upper()}**")
+                        st.markdown(text)
         if debug:
             if "plan" in state:  # absent when the human-request fast path short-circuits
                 st.caption(f"plan: {state['plan'].model_dump()}")
