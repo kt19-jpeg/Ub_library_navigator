@@ -699,6 +699,28 @@ subjects (that part doesn't depend on embeddings) — but the **vectorstore itse
 old blanket-URL metadata** until a working key lets `pipeline.refresh` re-sync it; this is an
 external blocker (the user's key), not something fixable in code.
 
+## Layer 2, slice 14: fixed "Record" links for CDI (Primo Central) results (fixed)
+
+The user clicked a "Record:" link from real chat results and got Primo's own "Record cannot be
+displayed / The requested information is no longer available in this view" error — screenshotted,
+for almost every result. `onesearch/client.py::record_link()` always hardcoded `context=L`
+(Primo's "Local" context, correct only for UB's own Alma catalog records, id prefix `alma...`).
+Most journal/article results actually come from the Central Discovery Index (CDI, an aggregator
+of external content, not UB's own holdings) with ids prefixed `cdi_...`, which need `context=PC`
+instead — using the wrong context is exactly what produces that error.
+
+**Verified with a real headless browser, not just curl** — this is a client-rendered Primo SPA, so
+a plain HTTP fetch returns the same app shell either way and can't distinguish success from
+failure (same category of issue as every other OneSearch UI quirk in this project). Navigated the
+exact failing docid from the user's screenshot with Playwright: `context=L` showed the error;
+`context=PC` rendered the genuine article (`page.title()` became the real article title, with a
+working "Full display result" panel — Send to / View Online / Details / Citations).
+
+**Fix:** `record_link()` now picks `context = "L" if record_id.startswith("alma") else "PC"`.
+Confirmed live against real search results afterward: an Alma-heavy query kept `context=L`
+throughout; an articles-heavy query returned real `cdi_wiley_...`/`cdi_crossref_...` ids, every one
+correctly getting `context=PC` — including the exact docid from the original screenshot.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

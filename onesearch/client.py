@@ -163,10 +163,23 @@ class OneSearchClient:
         )
 
     def record_link(self, record_id: str) -> str:
-        """OneSearch full-record page for one record id."""
+        """OneSearch full-record page for one record id. Primo needs a
+        different `context` depending on where the record actually lives:
+        `L` (Local) for UB's own Alma catalog (record ids start "alma..."),
+        `PC` (Primo Central) for everything aggregated into the Central
+        Discovery Index instead - most journal articles, record ids like
+        "cdi_wiley_...". Confirmed live 2026-11-03 via a real browser render:
+        `context=L` on a real `cdi_...` record showed Primo's own "Record
+        cannot be displayed / The requested information is no longer
+        available in this view" error instead of the article - affecting
+        nearly every result, since CDI records vastly outnumber Alma's own
+        holdings for a typical article/journal search. The same docid with
+        `context=PC` rendered the genuine record (page title became the real
+        article title, with a working "Full display result" panel)."""
+        context = "L" if record_id.startswith("alma") else "PC"
         return (
             "https://search.lib.buffalo.edu/discovery/fulldisplay?"
-            f"docid={record_id}&context=L&vid={self._vid}"
+            f"docid={record_id}&context={context}&vid={self._vid}"
         )
 
     def search_with_fallback(
