@@ -125,6 +125,36 @@ def test_missing_embedding_key_still_writes_the_snapshot(tmp_path, monkeypatch):
     assert load_snapshot(tmp_path / "records.json") == []
 
 
+def test_broken_embedding_key_still_writes_the_snapshot_instead_of_crashing(tmp_path, monkeypatch):
+    # Regression: confirmed live 2026-11-03 - an expired OPENAI_API_KEY raises
+    # openai.AuthenticationError, not EmbeddingUnavailableError, so it wasn't
+    # caught and crashed the whole refresh with a traceback instead of
+    # degrading gracefully like the "key not set at all" case already did.
+    monkeypatch.setattr("pipeline.refresh.extract_librarian_subjects", lambda html: [])
+    monkeypatch.setattr(
+        "pipeline.refresh.extract_help_topics",
+        # at least one record, so sync_collection actually has something to
+        # upsert and calls the embedding function at all
+        lambda html: [Record(id="help:a", type=HELP_TOPIC, text="a", metadata={})],
+    )
+
+    class BrokenEmbeddingFunction:
+        def __call__(self, input):
+            raise RuntimeError("Error code: 401 - Your API key has expired.")
+
+    result = refresh_all(
+        sources=_sources(), fetch_fn=lambda url: "<html></html>",
+        snapshot_path=tmp_path / "records.json", persist_dir=str(tmp_path / "vectorstore"),
+        embedding_function=BrokenEmbeddingFunction(),
+    )
+
+    assert any("embedding sync failed" in w for w in result.warnings)
+    from pipeline.snapshot import load_snapshot
+    assert load_snapshot(tmp_path / "records.json") == [
+        Record(id="help:a", type=HELP_TOPIC, text="a", metadata={})
+    ]
+
+
 def test_main_prints_counts_and_warnings_and_returns_zero(monkeypatch, capsys):
     from pipeline.refresh import RefreshResult, main
 

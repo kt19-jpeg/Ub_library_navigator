@@ -35,6 +35,24 @@ LIBRARY_HELP_OFFER = (
 def is_library_help_request(message: str) -> bool:
     return bool(LIBRARY_HELP_RE.search(message))
 
+
+# Same deterministic, no-LLM-call pattern as LIBRARY_HELP_RE above. The
+# Streamlit UI computes citations for every result regardless (cheap, local,
+# no extra API call) but only renders them when the user's own message asked
+# for them - citations cluttering every answer by default was a real
+# usability complaint, the same shape as the librarian/help/database footer
+# one above it.
+CITATION_REQUEST_RE = re.compile(
+    r"\bcit(e|ing|ation|ations)\b|\b(apa|mla)\b|\bchicago\b|"
+    r"\bbibliography\b|\bworks cited\b|\breference list\b",
+    re.IGNORECASE,
+)
+
+
+def wants_citations(message: str) -> bool:
+    return bool(CITATION_REQUEST_RE.search(message))
+
+
 STATUS_LABELS = {
     "available": "available",
     "unavailable": "currently unavailable",

@@ -61,8 +61,16 @@ def refresh_all(
 ) -> RefreshResult:
     """Fetches every source independently, keeps old data for any source that
     fails or looks broken, writes the merged snapshot, and syncs it to Chroma.
-    A missing/broken embedding backend (e.g. no OPENAI_API_KEY) still lets the
-    snapshot update; only the Chroma sync step is skipped, with a warning."""
+    A missing OR broken embedding backend (no OPENAI_API_KEY, an expired key, a
+    rate limit, a network blip) still lets the snapshot update; only the Chroma
+    sync step is skipped, with a warning - confirmed live 2026-11-03: an
+    expired OPENAI_API_KEY raised a real openai.AuthenticationError, which
+    isn't an EmbeddingUnavailableError, so it wasn't caught and crashed the
+    whole script with a traceback instead of degrading gracefully (the
+    snapshot itself had already been written by that point, unaffected, but
+    the crash still looked like a hard failure). This is the exact function
+    the scheduled weekly-refresh.yml job runs - a transient embedding-provider
+    failure shouldn't take the whole job down."""
     old_records = load_snapshot(snapshot_path)
     old_by_type: dict[str, list[Record]] = {}
     for record in old_records:
@@ -82,6 +90,10 @@ def refresh_all(
         sync_collection(new_records, collection)
     except EmbeddingUnavailableError as exc:
         warnings.append(f"embedding sync skipped: {exc}")
+    except Exception as exc:
+        # Anything from the embedding provider itself (expired key, rate
+        # limit, network error) - never crash the whole refresh over it.
+        warnings.append(f"embedding sync failed: {exc}")
 
     counts = {record_type: 0 for record_type in RECORD_TYPES}
     for record in new_records:

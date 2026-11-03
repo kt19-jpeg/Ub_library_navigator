@@ -10,10 +10,16 @@ _COUNT_RE = re.compile(r"^(?P<subject>.+?)\s*\((?P<count>\d+)\)$")
 
 def extract_database_subjects(html: str) -> list[Record]:
     """Reads the "Database Subject Filter" <select> on the A-Z Databases page:
-    each <option> is "<subject> (<count>)". The individual database list itself
-    is loaded by JavaScript from an endpoint robots.txt disallows, so only the
-    subject categories and counts are indexed; BROWSE_URL is the one link given
-    to the user to look at the actual databases."""
+    each <option value="<subject_id>"> is "<subject> (<count>)". The individual
+    database list itself is loaded by JavaScript from an endpoint robots.txt
+    disallows ("Disallow: /az.php?"), so we never fetch it ourselves - but that
+    same disallow rule is proof the query-string form is a real, working URL on
+    their site, just one we don't crawl. Confirmed live 2026-11-03: GETting
+    az.php?s=<subject_id> with plain curl (no JS) comes back with that option
+    already marked selected="selected" server-side, so linking a human straight
+    to a subject-filtered view - never fetching it with our own scraper, robots.txt
+    only restricts that - is "one level deeper" than the one blanket link every
+    subject used to get, at zero scraping-politeness cost."""
     soup = BeautifulSoup(html, "html.parser")
     select = soup.find("select", id="s-lg-sel-subjects")
     if select is None:
@@ -27,12 +33,14 @@ def extract_database_subjects(html: str) -> list[Record]:
             continue  # e.g. "All Subjects", which has no count
         subject = match.group("subject")
         count = int(match.group("count"))
+        subject_id = (option.get("value") or "").strip()
+        browse_url = f"{BROWSE_URL}?s={subject_id}" if subject_id else BROWSE_URL
         records.append(
             Record(
                 id=make_unique_id("db", subject, seen_ids),
                 type=DATABASE_SUBJECT,
                 text=f"{subject} databases ({count} available)",
-                metadata={"subject": subject, "count": count, "browse_url": BROWSE_URL},
+                metadata={"subject": subject, "count": count, "browse_url": browse_url},
             )
         )
     return records
