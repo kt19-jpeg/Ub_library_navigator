@@ -69,7 +69,8 @@ Example with Ollama: `LLM_PROVIDER=local LLM_MODEL=qwen2.5:14b .venv/bin/python 
 ## Refresh the library-guide data (optional, for RAG)
 
 ```bash
-.venv/bin/python -m pipeline.refresh          # fetch, parse, snapshot, embed
+.venv/bin/python -m pipeline.refresh          # fetch, parse, snapshot, embed (applies data/subject_keywords.json)
+.venv/bin/python -m pipeline.subject_keywords # only if new subjects appear: generate their keywords
 .venv/bin/python -m agent.rag_live_check      # spot-check retrieval
 ```
 

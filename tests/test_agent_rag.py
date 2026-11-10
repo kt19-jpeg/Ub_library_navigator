@@ -22,6 +22,7 @@ def _lenient_cutoffs(monkeypatch):
     import agent.rag as rag_module
     for record_type in rag_module.RAG_DISTANCE_CUTOFF:
         monkeypatch.setitem(rag_module.RAG_DISTANCE_CUTOFF, record_type, 999.0)
+        monkeypatch.setitem(rag_module.RAG_RELATIVE_MARGIN, record_type, 999.0)
 
 
 def test_query_returns_hits_for_all_three_types(tmp_path, monkeypatch):
@@ -104,3 +105,49 @@ def test_embedding_unavailable_gives_its_own_note():
 
     assert context.is_empty()
     assert notes == ["Library guide lookup was unavailable."]
+
+
+def test_runner_up_far_behind_the_best_hit_is_dropped_by_the_relative_margin(monkeypatch):
+    import agent.rag as rag_module
+
+    class FakeCollection:
+        def query(self, **kwargs):
+            return {
+                "ids": [["a", "b", "c"]],
+                "metadatas": [[{"type": "help_topic"}] * 3],
+                "distances": [[0.5, 0.6, 0.9]],
+            }
+
+    monkeypatch.setitem(rag_module.RAG_RELATIVE_MARGIN, HELP_TOPIC, 0.15)
+    hits = rag_module._query_type(FakeCollection(), "x", HELP_TOPIC)
+    assert [h.id for h in hits] == ["a", "b"]
+
+
+def test_a_subject_named_by_the_query_beats_a_slightly_closer_near_tie():
+    import agent.rag as rag_module
+
+    class FakeCollection:
+        def query(self, **kwargs):
+            return {
+                "ids": [["comp", "med"]],
+                "metadatas": [[{"subject": "Complementary Medicine"}, {"subject": "Medicine"}]],
+                "distances": [[1.175, 1.192]],
+            }
+
+    hits = rag_module._query_type(FakeCollection(), "medicine", DATABASE_SUBJECT)
+    assert [h.id for h in hits] == ["med", "comp"]
+
+
+def test_name_bonus_cannot_rescue_a_distant_subject():
+    import agent.rag as rag_module
+
+    class FakeCollection:
+        def query(self, **kwargs):
+            return {
+                "ids": [["near", "named"]],
+                "metadatas": [[{"subject": "Other"}, {"subject": "Medicine"}]],
+                "distances": [[0.7, 1.5]],
+            }
+
+    hits = rag_module._query_type(FakeCollection(), "medicine", DATABASE_SUBJECT)
+    assert [h.id for h in hits] == ["near"]
