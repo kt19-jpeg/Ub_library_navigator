@@ -3,7 +3,7 @@ import re
 
 from agent.citation_tool import format_citation
 from agent.escalation import build_escalation_block
-from agent.models import AgentState, RagContext, Selection, SelectionItem
+from agent.models import AgentState, FollowupAnswer, RagContext, Selection, SelectionItem
 from onesearch.client import OneSearchClient
 from onesearch.models import ResourceDetail, SearchCandidate
 
@@ -273,6 +273,67 @@ def render_library_service_answer(rag_context: RagContext, more_link: str) -> st
 
 def _is_library_service(plan, message: str) -> bool:
     return plan.topic_category == "library_services" or is_library_help_request(message)
+
+
+FOLLOWUP_SYSTEM = """You answer a University at Buffalo library patron's follow-up question about results that were ALREADY shown to them.
+
+You are given the patron's role, their question, and the details of the results shown (as JSON, in the order shown).
+Answer the question directly and precisely, in plain text: 2-5 short sentences, then if comparing, one short line per result starting with "- " that names the result by title and states what is distinctive about it (type, author, year, subject, focus, access).
+Rules:
+- Use ONLY the provided details. Never invent content, authors' arguments, page counts, or availability.
+- If the details do not contain enough to answer part of the question (descriptions are often missing), say plainly what you can and cannot tell from the catalog record, and suggest opening the record link for more.
+- For judgment questions ("which is better for a beginner"), give a recommendation only if the details support it, and say it is based on the catalog description, year and type, not on reading the book.
+- No numbered lists, no links, no headings."""
+
+FOLLOWUP_OFFER = "Want me to search for more on this topic, or look at a different angle?"
+FOLLOWUP_FAILED = (
+    "I couldn't compare those just now. You can open each record from the results above, "
+    "or ask me to search again."
+)
+
+
+def extract_shown_results(state: dict) -> list[dict]:
+    """Structured details of the results this turn actually showed, kept by the app for
+    the NEXT turn so a follow-up ("how do these differ?") can be answered from them
+    instead of triggering a fresh search. Empty when the turn showed no results."""
+    result = state.get("search_result")
+    items = state.get("selection") or []
+    if not result or not items:
+        return []
+    by_id = {c.record_id: c for c in result.candidates}
+    details = state.get("details") or {}
+    shown = []
+    for item in items:
+        candidate = by_id.get(item.record_id)
+        if candidate is None:
+            continue
+        view = _candidate_view(candidate)
+        view.pop("record_id", None)
+        detail = details.get(item.record_id)
+        source = detail or candidate
+        view["location"] = " / ".join(p for p in (source.library, source.sub_location) if p) or None
+        view["availability"] = source.availability_status
+        view["why_shown"] = item.reason or None
+        shown.append(view)
+    return shown
+
+
+def answer_followup(model, role: str, message: str, shown_results: list[dict]) -> str:
+    """One LLM call, no search: answer a question about the results already shown.
+    Never raises; a model failure gives a plain fallback."""
+    lines = [f"role: {role}", f"question: {message}", "results shown:"]
+    lines.extend(f"{n}. {json.dumps(r)}" for n, r in enumerate(shown_results, start=1))
+    try:
+        structured = model.with_structured_output(FollowupAnswer)
+        response = structured.invoke([("system", FOLLOWUP_SYSTEM), ("human", "\n".join(lines))])
+        if isinstance(response, dict):
+            response = FollowupAnswer.model_validate(response)
+        text = response.answer.strip()
+        if not text:
+            return FOLLOWUP_FAILED
+    except Exception:
+        return FOLLOWUP_FAILED
+    return f"{text}\n\n{FOLLOWUP_OFFER}"
 
 
 def build_citations(

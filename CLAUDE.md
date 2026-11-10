@@ -752,6 +752,20 @@ paste text in a copyable code block. Streamlit Markdown collapses single newline
 of results running together. Long catalog URLs show as "Open online" / "View in OneSearch". The sidebar
 gained a short About/capabilities blurb.
 
+## Layer 2, slice 16: answering questions about results already shown (built)
+
+A real gap reported by the user: "in what way do these both results differ?" was planned as a fresh
+search and returned another list of results instead of an answer. Fix: `QueryPlan.about_previous_results`
+(same planner call, no extra cost) routes to a new `followup` branch in `agent/graph.py` that skips
+OneSearch and RAG and makes one LLM call (`compose.answer_followup`) over the stored details of the
+results last shown. The app (Streamlit `session_state.shown_results`, and the CLI) stores them via
+`compose.extract_shown_results` after any turn that shows results and keeps them across follow-up
+turns; only a turn showing new results replaces them. With nothing stored the flag is ignored and the
+normal search runs. Limits: the answer can only use fields OneSearch returned (descriptions are often
+missing), so the prompt requires saying what the catalog record does not tell, and a "which is better"
+judgment is labeled as based on the catalog description, not on reading the work. Confirmed live:
+compare and "better for a beginner" follow-ups answered with no search; a new-topic message still searched.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

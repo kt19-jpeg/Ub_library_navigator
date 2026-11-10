@@ -1,6 +1,7 @@
 import argparse
 import sys
 
+from agent.compose import extract_shown_results
 from agent.llm import LLMConfigError, get_chat_model
 from agent.models import ROLES
 
@@ -37,6 +38,7 @@ def run_chat(
     role = choose_role(read, write)
     write(f"Role set to {role}. {HELP}")
     history: list[dict] = []
+    shown_results: list[dict] = []
     while True:
         try:
             message = read("> ").strip()
@@ -50,7 +52,9 @@ def run_chat(
             role = choose_role(read, write)
             write(f"Role set to {role}.")
             continue
-        state = graph.invoke({"role": role, "message": message, "history": history})
+        state = graph.invoke(
+            {"role": role, "message": message, "history": history, "shown_results": shown_results}
+        )
         log_fn(role, state)
         answer = state["answer"]
         if debug:
@@ -65,6 +69,7 @@ def run_chat(
                 write(f"[citations for {record_id}]")
                 for style, text in styles.items():
                     write(f"  {style.upper()}: {text}")
+        shown_results = extract_shown_results(state) or shown_results  # keep across follow-ups
         history.append({"user": message, "assistant": answer})
         history = history[-HISTORY_TURNS:]
 

@@ -3,14 +3,16 @@ from unittest.mock import MagicMock
 from agent.compose import (
     DESCRIPTION_CHARS,
     MAX_SHOWN,
+    answer_followup,
     compose,
+    extract_shown_results,
     is_library_help_request,
     render_human_help_answer,
     select_results,
     validate_selection,
     wants_citations,
 )
-from agent.models import QueryPlan, RagContext, Selection, SelectionItem
+from agent.models import FollowupAnswer, QueryPlan, RagContext, Selection, SelectionItem
 from onesearch.models import ResourceDetail, SearchCandidate, SearchResult
 from tests.fakes import FakeChatModel
 
@@ -461,3 +463,43 @@ def test_unsupported_request_note_is_prepended_with_the_normal_answer():
 
     assert answer.startswith(note)
     assert "Climate Book" in answer
+
+
+def test_extract_shown_results_keeps_only_selected_items_with_their_details():
+    candidates = [_candidate("e1", title="First"), _candidate("e2", title="Second")]
+    state = {
+        "search_result": SearchResult(candidates=candidates, timed_out=False, fallback_link=None),
+        "selection": [SelectionItem(record_id="e2", reason="Fits.")],
+        "details": {"e2": _detail("e2", library="Lockwood", availability_status="available")},
+    }
+
+    shown = extract_shown_results(state)
+
+    assert len(shown) == 1
+    assert shown[0]["title"] == "Second"
+    assert shown[0]["location"] == "Lockwood"
+    assert shown[0]["availability"] == "available"
+    assert shown[0]["why_shown"] == "Fits."
+    assert "record_id" not in shown[0]
+
+
+def test_extract_shown_results_is_empty_when_nothing_was_shown():
+    assert extract_shown_results({}) == []
+    assert extract_shown_results({"search_result": None, "selection": []}) == []
+
+
+def test_answer_followup_sends_the_stored_results_and_appends_the_offer():
+    model = FakeChatModel(FollowupAnswer(answer="The first is a handbook; the second a history."))
+    shown = [{"title": "Handbook of X"}, {"title": "A History of X"}]
+
+    text = answer_followup(model, "graduate", "how do these differ?", shown)
+
+    assert text.startswith("The first is a handbook; the second a history.")
+    assert "search for more" in text
+    sent = model.calls[0][1][1]
+    assert "how do these differ?" in sent and "Handbook of X" in sent and "A History of X" in sent
+
+
+def test_answer_followup_falls_back_when_the_model_fails():
+    text = answer_followup(FakeChatModel(RuntimeError("down")), "graduate", "compare?", [{"title": "A"}])
+    assert "couldn't compare" in text
