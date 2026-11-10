@@ -58,6 +58,15 @@ class QueryPlan(BaseModel):
             "underlying topic can be found. Null otherwise."
         ),
     )
+    unsupported_request_note: str | None = Field(
+        default=None,
+        description=(
+            "A short, honest sentence when the user asked to narrow results by something the "
+            "OneSearch search here cannot filter on (availability or what is on the shelf now, "
+            "publication date range, sort order, language, a specific library location). "
+            "Keywords are still filled in so the normal search runs. Null otherwise."
+        ),
+    )
     wants_human_help: bool = Field(
         default=False,
         description=(

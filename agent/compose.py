@@ -159,6 +159,7 @@ def render_answer(
     client: OneSearchClient,
     rag_context: RagContext,
     message: str,
+    library_service: bool = False,
 ) -> str:
     by_id = {c.record_id: c for c in candidates}
     out = [f'Here is what I found for "{keywords}":']
@@ -185,7 +186,7 @@ def render_answer(
     # resources, offer it instead of appending it unasked (confirmed as a real
     # usability complaint: patrons asking for resources don't want every answer
     # padded with a librarian contact and database links they didn't ask for).
-    if is_library_help_request(message):
+    if library_service or is_library_help_request(message):
         rag_lines = render_rag_sections(rag_context)
         if rag_lines:
             out.append("")
@@ -259,6 +260,21 @@ def _render_no_answer(
     return "\n".join(out)
 
 
+def render_library_service_answer(rag_context: RagContext, more_link: str) -> str:
+    """A library-services follow-up ("who is the subject librarian for X", "how do I
+    print") whose OneSearch lookup found nothing useful. The RAG info IS the answer,
+    so it is presented as one - not framed as a failed search or pushed to escalation."""
+    out = ["Here is who and what can help with that:", ""]
+    out.extend(render_rag_sections(rag_context))
+    out.append("")
+    out.append(f"You can also browse OneSearch directly: {more_link}")
+    return "\n".join(out)
+
+
+def _is_library_service(plan, message: str) -> bool:
+    return plan.topic_category == "library_services" or is_library_help_request(message)
+
+
 def build_citations(
     items: list[SelectionItem], candidates: list[SearchCandidate]
 ) -> dict[str, dict[str, str]]:
@@ -278,12 +294,13 @@ def build_citations(
 
 
 def _with_out_of_scope_note(answer: str, plan) -> str:
-    """Prepends the planner's out-of-scope disclaimer (e.g. "I can't write your
-    notes for you...") ahead of whatever answer was otherwise composed, so the
-    user is told up front that the agent can't do the academic work itself,
-    while still getting the resources it found on the underlying topic."""
-    if plan.out_of_scope_note:
-        return f"{plan.out_of_scope_note}\n\n{answer}"
+    """Prepends the planner's up-front disclaimers ahead of whatever answer was
+    composed: an out-of-scope one ("I can't write your notes for you...") and an
+    unsupported-refinement one ("I can't filter by availability..."), so the user
+    is never silently given results that ignore part of what they asked."""
+    notes = [n for n in (plan.out_of_scope_note, getattr(plan, "unsupported_request_note", None)) if n]
+    if notes:
+        return "\n\n".join(notes) + f"\n\n{answer}"
     return answer
 
 
@@ -298,6 +315,16 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
     notes = list(state.get("notes", []))
     rag_context = state.get("rag_context") or RagContext()
     more_link = result.fallback_link or client.fallback_link(plan.keywords)
+
+    library_service = _is_library_service(plan, message)
+
+    if not candidates and library_service and not rag_context.is_empty():
+        return {
+            "selection": [],
+            "details": {},
+            "answer": _with_out_of_scope_note(render_library_service_answer(rag_context, more_link), plan),
+            "citations": {},
+        }
 
     if not candidates:
         answer = _render_no_answer(
@@ -320,6 +347,14 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
         confidence = "medium"
         notes.append("I could not rank these results, so these are the top matches from OneSearch.")
 
+    if (confidence == "low" or not items) and library_service and not rag_context.is_empty():
+        return {
+            "selection": [],
+            "details": {},
+            "answer": _with_out_of_scope_note(render_library_service_answer(rag_context, more_link), plan),
+            "citations": {},
+        }
+
     if confidence == "low" or not items:
         answer = _render_no_answer(
             "I am not confident I found a good match for that.",
@@ -338,7 +373,7 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
         details = {}
         notes.append("I could not load the full access details for these.")
 
-    answer = render_answer(items, candidates, details, plan.keywords, notes, client, rag_context, message)
+    answer = render_answer(items, candidates, details, plan.keywords, notes, client, rag_context, message, library_service)
     citations = build_citations(items, candidates)
     return {
         "selection": items,

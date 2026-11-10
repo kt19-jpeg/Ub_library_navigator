@@ -721,6 +721,37 @@ Confirmed live against real search results afterward: an Alma-heavy query kept `
 throughout; an articles-heavy query returned real `cdi_wiley_...`/`cdi_crossref_...` ids, every one
 correctly getting `context=PC` — including the exact docid from the original screenshot.
 
+## Layer 2, slice 15: RAG relevance, multi-turn chat fixes, result cards (built)
+
+Driven by a 13-query relevance audit of the live app (2026-11-10) and the user's report that results
+"run together" and follow-ups misbehaved. One PR, three parts.
+
+**RAG relevance.** Database/librarian records were embedded as only "<Subject> databases (N
+available)", so a topical query matched on shared words, not meaning ("cancer immunotherapy" landed
+on Complementary Medicine, not Medicine). `pipeline/subject_keywords.py` adds 15-25 LLM-generated
+sub-field keywords per subject, committed in `data/subject_keywords.json` (reviewable in a diff, free
+at refresh time, regenerate/extend with `python -m pipeline.subject_keywords [--force]`). They are
+applied only at embedding time (`enrich_records`, called by `pipeline/refresh.py`), never written into
+`records.json`; the re-worded text changes the content hash, so the next refresh re-embeds. **Render's
+vectorstore only improves after `python -m pipeline.refresh` runs there.** `agent/rag.py` also gained
+`RAG_RELATIVE_MARGIN` (a hit must be within a margin of the best hit of its type, tuned from measured
+distance gaps) and a small exact/prefix subject-name bonus (a bare "medicine" otherwise ranked
+"Complementary Medicine" first, confirmed live). Known weak spots, not fixed: help pages can match on
+a shared word ("Buffalo"); very niche queries still land on a nearest-but-wrong subject.
+
+**Multi-turn chat.** The Streamlit transcript is now separate from the 3-turn LLM history (the old
+code trimmed one list used for both, so the 5th question removed the 1st from the screen). A
+library-service question whose OneSearch lookup is empty or low-confidence now answers from the RAG
+info directly (`render_library_service_answer`) instead of "I am not confident" plus escalation. New
+planner field `unsupported_request_note` honestly says when a follow-up asks to filter by something
+OneSearch here cannot (availability, date range, sort); it is prepended like `out_of_scope_note`.
+
+**Result display.** `streamlit_app/formatting.py` parses the agent's plain-text answer (the CLI still
+prints it as-is) into intro / one bordered card per result / closing notes / live-chat card with the
+paste text in a copyable code block. Streamlit Markdown collapses single newlines, which was the cause
+of results running together. Long catalog URLs show as "Open online" / "View in OneSearch". The sidebar
+gained a short About/capabilities blurb.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

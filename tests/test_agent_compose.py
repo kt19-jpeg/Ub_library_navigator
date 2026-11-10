@@ -416,3 +416,48 @@ def test_compose_citations_empty_when_low_confidence():
     model = FakeChatModel(Selection(items=[], confidence="low"))
     out = compose(_state([_candidate("a")]), model, _client())
     assert out["citations"] == {}
+
+
+def test_library_service_followup_with_no_results_is_answered_not_escalated():
+    state = _state(
+        [],
+        plan=QueryPlan(keywords="chemistry", topic_category="library_services"),
+        message="and who handles chemistry?",
+        rag_context=_full_rag_context(),
+    )
+
+    answer = compose(state, FakeChatModel(), _client())["answer"]
+
+    assert "Doe, Jane" in answer
+    assert "not confident" not in answer
+    assert "could not find" not in answer
+    assert "live chat" not in answer.lower()
+
+
+def test_library_service_followup_with_low_confidence_is_answered_not_escalated():
+    state = _state(
+        [_candidate("e1")],
+        plan=QueryPlan(keywords="chemistry", topic_category="library_services"),
+        message="who handles chemistry?",
+        rag_context=_full_rag_context(),
+    )
+    model = FakeChatModel(Selection(items=[], confidence="low"))
+
+    answer = compose(state, model, _client())["answer"]
+
+    assert "Doe, Jane" in answer
+    assert "not confident" not in answer
+
+
+def test_unsupported_request_note_is_prepended_with_the_normal_answer():
+    note = "I can't filter by availability here; try the OneSearch page."
+    state = _state(
+        [_candidate("e1", title="Climate Book")],
+        plan=QueryPlan(keywords="climate policy", unsupported_request_note=note),
+    )
+    model = FakeChatModel(Selection(items=[SelectionItem(record_id="e1", reason="Fits.")], confidence="high"))
+
+    answer = compose(state, model, _client())["answer"]
+
+    assert answer.startswith(note)
+    assert "Climate Book" in answer

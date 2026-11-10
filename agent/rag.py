@@ -25,17 +25,56 @@ RAG_DISTANCE_CUTOFF = {
     HELP_TOPIC: 1.1,
     DATABASE_SUBJECT: 1.6,
 }
+# A hit must also be within this margin of the BEST hit of its type. The absolute cutoff
+# alone lets weak runners-up through (audit 2026-11-10: "cancer immunotherapy" returned
+# Medicine plus Complementary Medicine). Margins are from the measured gaps: genuine
+# second subjects sit within ~0.25 of the best (Pharmacy/Pharmaceutical Sciences +0.23),
+# irrelevant ones are usually further. Help pages stay tight; their useful matches
+# cluster low.
+RAG_RELATIVE_MARGIN = {
+    LIBRARIAN_SUBJECT: 0.25,
+    HELP_TOPIC: 0.15,
+    DATABASE_SUBJECT: 0.25,
+}
+
+
+# Embeddings alone rank a bare one-word query ("medicine") by how often subjects repeat
+# the word in their keyword lists, so "Complementary Medicine" beat "Medicine"
+# (confirmed live 2026-11-10). When the query IS a subject's name, or that name starts
+# with it, nudge that subject ahead. Small on purpose: it breaks near-ties, it can't
+# rescue a genuinely distant match.
+NAME_MATCH_BONUS = {"exact": 0.1, "prefix": 0.05}
+NAME_MATCH_POOL = 3  # extra candidates fetched so the named subject is in the pool
+
+
+def _name_bonus(query: str, subject: str) -> float:
+    q, name = query.strip().lower(), subject.strip().lower()
+    if not q or not name:
+        return 0.0
+    if name == q:
+        return NAME_MATCH_BONUS["exact"]
+    if name.startswith(q + " "):
+        return NAME_MATCH_BONUS["prefix"]
+    return 0.0
 
 
 def _query_type(collection, keywords: str, record_type: str) -> list[Record]:
-    result = collection.query(
-        query_texts=[keywords], n_results=RAG_TOP_K[record_type], where={"type": record_type}
-    )
+    by_subject = record_type in (LIBRARIAN_SUBJECT, DATABASE_SUBJECT)
+    pool = RAG_TOP_K[record_type] + (NAME_MATCH_POOL if by_subject else 0)
+    result = collection.query(query_texts=[keywords], n_results=pool, where={"type": record_type})
     cutoff = RAG_DISTANCE_CUTOFF[record_type]
     hits = []
     if result["ids"]:
-        for id_, metadata, distance in zip(result["ids"][0], result["metadatas"][0], result["distances"][0]):
-            if distance >= cutoff:
+        rows = list(zip(result["ids"][0], result["metadatas"][0], result["distances"][0]))
+        if by_subject:
+            rows = [
+                (i, m, d - _name_bonus(keywords, m.get("subject", ""))) for i, m, d in rows
+            ]
+        rows = sorted(rows, key=lambda row: row[2])[: RAG_TOP_K[record_type]]
+        best = min((d for _, _, d in rows), default=None)
+        margin = RAG_RELATIVE_MARGIN[record_type]
+        for id_, metadata, distance in rows:
+            if distance >= cutoff or distance > best + margin:
                 continue
             record_metadata = {}
             for key, value in metadata.items():

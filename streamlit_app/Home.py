@@ -14,6 +14,12 @@ from agent.llm import LLMConfigError
 from agent.models import ROLES
 from analytics.auth import app_auth_configured, check_app_access
 from analytics.log_writer import log_turn
+from streamlit_app.formatting import (
+    block_markdown,
+    card_detail_markdown,
+    card_header_markdown,
+    parse_answer,
+)
 
 # UB brand colors: #005BBB is confirmed from library.buffalo.edu's own site CSS; the
 # rest are pixel-sampled from the reference mockup (docs/design/ub-ai-assistant-reference.png).
@@ -76,6 +82,18 @@ THEME_CSS = """
 div[data-testid="stChatMessage"] {
     border-radius: 0.75rem;
 }
+.ub-sidebar-about {
+    font-size: 0.85rem;
+    color: #37507D;
+    line-height: 1.45;
+}
+.ub-sidebar-about ul {
+    margin: 0.3rem 0 0.5rem 0;
+    padding-left: 1.1rem;
+}
+.ub-sidebar-about li {
+    margin-bottom: 0.2rem;
+}
 .stButton > button {
     background: #FFFFFF;
     border: 1px solid #D7E9FE;
@@ -106,6 +124,21 @@ def _get_graph():
     load_dotenv()
     return build_default_graph()
 
+
+ABOUT_HTML = """
+<div class="ub-sidebar-about">
+<strong>What I can do</strong>
+<ul>
+<li>Find books, articles, journals, dissertations and videos in OneSearch</li>
+<li>Name your subject librarian and relevant help guides</li>
+<li>Suggest databases for your topic</li>
+<li>Format APA, MLA or Chicago citations (just ask)</li>
+<li>Connect you to live chat, with your question ready to paste</li>
+</ul>
+I point you to the right place; I don't write your assignments.
+Usage is counted anonymously. Your questions are never stored.
+</div>
+"""
 
 PROMPT_CHIPS = [
     "Peer-reviewed journals on mental health",
@@ -151,7 +184,9 @@ if app_auth_configured():
 if "role" not in st.session_state:
     st.session_state.role = None
 if "history" not in st.session_state:
-    st.session_state.history = []
+    st.session_state.history = []  # last few turns only: this is what the LLM sees
+if "transcript" not in st.session_state:
+    st.session_state.transcript = []  # every turn, for display only
 if "pending_message" not in st.session_state:
     st.session_state.pending_message = None
 
@@ -162,6 +197,7 @@ with st.sidebar:
     )
     if chosen:
         st.session_state.role = chosen
+    st.markdown(ABOUT_HTML, unsafe_allow_html=True)
     st.image(str(Path(__file__).parent / "assets" / "ub-bull-mascot.png"), use_container_width=True)
     debug = st.checkbox("Show debug info")
 
@@ -175,7 +211,7 @@ except LLMConfigError as exc:
     st.error(f"Cannot start: {exc}")
     st.stop()
 
-if not st.session_state.history:
+if not st.session_state.transcript:
     st.markdown(
         """
         <div class="ub-hero">
@@ -191,9 +227,44 @@ if not st.session_state.history:
         if col.button(prompt, use_container_width=True):
             st.session_state.pending_message = prompt
 
-for turn in st.session_state.history:
-    st.chat_message("user", avatar="🧑").write(turn["user"])
-    st.chat_message("assistant", avatar="🦬").write(turn["assistant"])
+def render_answer(entry: dict, show_debug: bool) -> None:
+    """One assistant turn, laid out as: intro, one bordered card per result (title and
+    byline, why it fits, then labeled links), then the closing notes and any live-chat
+    handoff. Same function for new and replayed turns so they always look identical."""
+    parsed = parse_answer(entry["answer"])
+    for block in block_markdown(parsed.intro):
+        st.markdown(block)
+    for card in parsed.cards:
+        with st.container(border=True):
+            st.markdown(card_header_markdown(card))
+            if card.why:
+                st.markdown(f"*{card.why}*")
+            for label, value in card.details:
+                st.markdown(card_detail_markdown(label, value))
+    if parsed.outro:
+        if parsed.cards:
+            st.divider()
+        for block in block_markdown(parsed.outro):
+            st.markdown(block)
+    if parsed.escalation:
+        with st.container(border=True):
+            st.markdown(f"**Talk to a librarian**  \n<{parsed.escalation.chat_url}>")
+            st.caption("Paste this into the chat so they know what you need:")
+            st.code(parsed.escalation.context, language=None, wrap_lines=True)
+    for title, styles in entry.get("citations", []):
+        with st.expander(f"Cite: {title}"):
+            for style_name, text in styles.items():
+                st.markdown(f"**{style_name.upper()}**")
+                st.markdown(text)
+    if show_debug:
+        for line in entry.get("debug", []):
+            st.caption(line)
+
+
+for entry in st.session_state.transcript:
+    st.chat_message("user", avatar="🧑").write(entry["user"])
+    with st.chat_message("assistant", avatar="🦬"):
+        render_answer(entry, debug)
 
 message = st.chat_input("Ask a question")
 if not message and st.session_state.pending_message:
@@ -212,35 +283,28 @@ if message:
         )
     log_turn(st.session_state.role, state)
     answer = state["answer"]
+    # Citations are computed every turn regardless (cheap, local, no extra API call)
+    # but only kept for display when the user's own message asked for them - showing
+    # them unasked was a real usability complaint (see agent/compose.py).
+    # state["search_result"] is absent whenever the turn ended before search_node ran
+    # (a clarifying question, a fast path) - confirmed live 2026-10-22 - so guard it.
+    citations = []
+    if wants_citations(message):
+        search_result = state.get("search_result")
+        titles_by_id = {c.record_id: c.title for c in search_result.candidates} if search_result else {}
+        citations = [
+            (titles_by_id.get(record_id, record_id), styles)
+            for record_id, styles in state.get("citations", {}).items()
+        ]
+    debug_lines = []
+    if "plan" in state:  # absent when the human-request fast path short-circuits
+        debug_lines.append(f"plan: {state['plan'].model_dump()}")
+    debug_lines.append(f"timings: {state.get('timings', {})}")
+    debug_lines.extend(f"note: {note}" for note in state.get("notes", []))
+    entry = {"user": message, "answer": answer, "citations": citations, "debug": debug_lines}
     with st.chat_message("assistant", avatar="🦬"):
-        st.write(answer)
-        # state["search_result"] is absent whenever the turn ended before
-        # search_node ran (a clarifying question, or any other fast path /
-        # branch introduced later that skips OneSearch) — confirmed live
-        # 2026-10-22: a KeyError here crashed the whole turn. citations is
-        # only ever non-empty when real candidates were shown, but this
-        # guard doesn't depend on that staying true.
-        # Citations are computed every turn regardless (cheap, local, no extra
-        # API call) but only rendered when the user's own message asked for
-        # them - showing them unasked on every single answer was a real
-        # usability complaint (same shape as the librarian/help/database
-        # footer, see agent/compose.py's is_library_help_request).
-        if wants_citations(message):
-            search_result = state.get("search_result")
-            titles_by_id = (
-                {c.record_id: c.title for c in search_result.candidates} if search_result else {}
-            )
-            for record_id, styles in state.get("citations", {}).items():
-                title = titles_by_id.get(record_id, record_id)
-                with st.expander(f"Cite: {title}"):
-                    for style_name, text in styles.items():
-                        st.markdown(f"**{style_name.upper()}**")
-                        st.markdown(text)
-        if debug:
-            if "plan" in state:  # absent when the human-request fast path short-circuits
-                st.caption(f"plan: {state['plan'].model_dump()}")
-            st.caption(f"timings: {state.get('timings', {})}")
-            for note in state.get("notes", []):
-                st.caption(f"note: {note}")
+        render_answer(entry, debug)
+    # The transcript keeps every turn on screen; only the LLM's own context is trimmed.
+    st.session_state.transcript.append(entry)
     st.session_state.history.append({"user": message, "assistant": answer})
     st.session_state.history = st.session_state.history[-HISTORY_TURNS:]

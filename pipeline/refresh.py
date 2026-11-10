@@ -4,6 +4,7 @@ from pipeline.embed import EmbeddingUnavailableError, default_embedding_function
 from pipeline.records import Record
 from pipeline.snapshot import DEFAULT_PATH, load_snapshot, save_snapshot
 from pipeline.sources import SOURCES
+from pipeline.subject_keywords import KEYWORDS_PATH, enrich_records, load_subject_keywords
 from scraper.fetch import FetchError, fetch
 from scraper.parse_databases import extract_database_subjects
 from scraper.parse_help import extract_help_topics
@@ -58,6 +59,7 @@ def refresh_all(
     snapshot_path=DEFAULT_PATH,
     persist_dir: str = "vectorstore",
     embedding_function=None,
+    keywords_path=KEYWORDS_PATH,
 ) -> RefreshResult:
     """Fetches every source independently, keeps old data for any source that
     fails or looks broken, writes the merged snapshot, and syncs it to Chroma.
@@ -87,7 +89,9 @@ def refresh_all(
         collection = get_collection(
             persist_dir=persist_dir, embedding_function=embedding_function or default_embedding_function()
         )
-        sync_collection(new_records, collection)
+        # Enrichment is applied here, at embedding time only - never to the saved
+        # snapshot - so it can't be applied twice (see pipeline/subject_keywords.py).
+        sync_collection(enrich_records(new_records, load_subject_keywords(keywords_path)), collection)
     except EmbeddingUnavailableError as exc:
         warnings.append(f"embedding sync skipped: {exc}")
     except Exception as exc:
