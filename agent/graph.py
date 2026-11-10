@@ -2,7 +2,7 @@ import time
 
 from langgraph.graph import END, StateGraph
 
-from agent.compose import compose, render_human_help_answer
+from agent.compose import answer_followup, compose, render_human_help_answer
 from agent.escalation import build_escalation_block
 from agent.models import AgentState, RagContext
 from agent.onesearch_tool import run_onesearch
@@ -77,12 +77,23 @@ def build_graph(model, client, collection=None):
         )
         return {"rag_context": rag_context, "notes": rag_update["notes"], "answer": answer}
 
+    def followup_node(state: AgentState) -> dict:
+        # The user is asking about results already on screen: answer from those
+        # stored details, no OneSearch or RAG call.
+        history = state.get("history", [])
+        last_answer = history[-1]["assistant"] if history else ""
+        answer = answer_followup(
+            model, state["role"], state["message"], state.get("shown_results", []), last_answer
+        )
+        return {"answer": answer}
+
     graph = StateGraph(AgentState)
     graph.add_node("entry", _timed("entry", entry_node))
     graph.add_node("plan", _timed("plan", plan_node))
     graph.add_node("search", _timed("search", search_node))
     graph.add_node("rag", _timed("rag", rag_node))
     graph.add_node("human_help", _timed("human_help", human_help_node))
+    graph.add_node("followup", _timed("followup", followup_node))
     graph.add_node("compose", _timed("compose", compose_node))
     graph.set_entry_point("entry")
 
@@ -102,15 +113,23 @@ def build_graph(model, client, collection=None):
             return "clarify"
         if state["plan"].wants_human_help:
             return "human_help"
+        # Only when there is something to answer from (stored details, or at least a
+        # previous answer); on a first turn the planner's flag is moot and the normal
+        # search runs.
+        if state["plan"].about_previous_results and (
+            state.get("shown_results") or state.get("history")
+        ):
+            return "followup"
         return ["run_search", "run_rag"]
 
     graph.add_conditional_edges(
         "plan",
         after_plan,
-        {"clarify": END, "human_help": "human_help", "run_search": "search", "run_rag": "rag"},
+        {"clarify": END, "human_help": "human_help", "followup": "followup", "run_search": "search", "run_rag": "rag"},
     )
     graph.add_edge("search", "compose")
     graph.add_edge("rag", "compose")
     graph.add_edge("compose", END)
     graph.add_edge("human_help", END)
+    graph.add_edge("followup", END)
     return graph.compile()

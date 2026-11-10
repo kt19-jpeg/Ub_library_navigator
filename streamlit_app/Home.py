@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import streamlit as st
 
 from agent.cli import HISTORY_TURNS, build_default_graph
-from agent.compose import wants_citations
+from agent.compose import extract_shown_results, wants_citations
 from agent.llm import LLMConfigError
 from agent.models import ROLES
 from analytics.auth import app_auth_configured, check_app_access
@@ -185,6 +185,8 @@ if "role" not in st.session_state:
     st.session_state.role = None
 if "history" not in st.session_state:
     st.session_state.history = []  # last few turns only: this is what the LLM sees
+if "shown_results" not in st.session_state:
+    st.session_state.shown_results = []  # details of the results last shown, for follow-ups
 if "transcript" not in st.session_state:
     st.session_state.transcript = []  # every turn, for display only
 if "pending_message" not in st.session_state:
@@ -279,6 +281,7 @@ if message:
                 "role": st.session_state.role,
                 "message": message,
                 "history": st.session_state.history,
+                "shown_results": st.session_state.shown_results,
             }
         )
     log_turn(st.session_state.role, state)
@@ -306,5 +309,7 @@ if message:
         render_answer(entry, debug)
     # The transcript keeps every turn on screen; only the LLM's own context is trimmed.
     st.session_state.transcript.append(entry)
+    # Kept across follow-up turns: only a turn that shows new results replaces it.
+    st.session_state.shown_results = extract_shown_results(state) or st.session_state.shown_results
     st.session_state.history.append({"user": message, "assistant": answer})
     st.session_state.history = st.session_state.history[-HISTORY_TURNS:]

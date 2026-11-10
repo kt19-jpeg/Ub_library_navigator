@@ -3,7 +3,7 @@ import re
 
 from agent.citation_tool import format_citation
 from agent.escalation import build_escalation_block
-from agent.models import AgentState, RagContext, Selection, SelectionItem
+from agent.models import AgentState, FollowupAnswer, RagContext, Selection, SelectionItem
 from onesearch.client import OneSearchClient
 from onesearch.models import ResourceDetail, SearchCandidate
 
@@ -273,6 +273,123 @@ def render_library_service_answer(rag_context: RagContext, more_link: str) -> st
 
 def _is_library_service(plan, message: str) -> bool:
     return plan.topic_category == "library_services" or is_library_help_request(message)
+
+
+FOLLOWUP_SYSTEM = """You answer a University at Buffalo library patron's follow-up question about results that were ALREADY shown to them.
+
+You are given the patron's role, their question, the details of what was shown (JSON: OneSearch results of kind "onesearch_result", and library-guide suggestions of kind "subject_librarian", "database_subject" or "help_page"), and the previous answer text.
+A patron may ask how the OneSearch results differ from the database or librarian suggestions: OneSearch results are individual items (books, articles) to read or open now; a database suggestion is a whole subject collection of databases to search yourself, and a subject librarian is a person who can help with research in that area. Explain such differences from the details given.
+Answer the question directly and precisely, in plain text: 2-5 short sentences, then if comparing, one short line per result starting with "- " that names the result by title and states what is distinctive about it (type, author, year, subject, focus, access).
+Rules:
+- Use ONLY the provided details. Never invent content, authors' arguments, page counts, or availability.
+- If the details do not contain enough to answer part of the question (descriptions are often missing), say plainly what you can and cannot tell from the catalog record, and suggest opening the record link for more.
+- For judgment questions ("which is better for a beginner"), give a recommendation only if the details support it, and say it is based on the catalog description, year and type, not on reading the book.
+- No numbered lists, no links, no headings."""
+
+FOLLOWUP_OFFER = "Want me to search for more on this topic, or look at a different angle?"
+FOLLOWUP_FAILED = (
+    "I couldn't compare those just now. You can open each record from the results above, "
+    "or ask me to search again."
+)
+
+
+GUIDE_MARKERS = {
+    "subject_librarian": "Subject librarian:",
+    "database_subject": "Browse databases in",
+    "help_pages": "Helpful pages:",
+}
+GUIDE_KEYWORDS_SHOWN = 10
+LAST_ANSWER_CHARS = 3000
+
+
+def _guide_entries(state: dict) -> list[dict]:
+    """The librarian/database/help-page suggestions the last answer actually displayed
+    (the footer only appears for some turns, so check the answer text). Database and
+    librarian subjects carry a few of their keywords so a follow-up can explain what
+    that subject area covers, not just that it exists."""
+    rag = state.get("rag_context")
+    answer = state.get("answer") or ""
+    if rag is None or rag.is_empty():
+        return []
+    from pipeline.subject_keywords import load_subject_keywords
+
+    keywords = load_subject_keywords()
+    entries = []
+    if rag.librarians and GUIDE_MARKERS["subject_librarian"] in answer:
+        top = rag.librarians[0]
+        subject = top.metadata.get("subject")
+        entries.append({
+            "kind": "subject_librarian", "subject": subject,
+            "librarians": [l["name"] for l in top.metadata.get("librarians", [])],
+            "covers": keywords.get(subject, [])[:GUIDE_KEYWORDS_SHOWN],
+        })
+    if rag.databases and GUIDE_MARKERS["database_subject"] in answer:
+        top = rag.databases[0]
+        subject = top.metadata.get("subject")
+        entries.append({
+            "kind": "database_subject", "subject": subject,
+            "database_count": top.metadata.get("count"),
+            "covers": keywords.get(subject, [])[:GUIDE_KEYWORDS_SHOWN],
+        })
+    if rag.help_topics and GUIDE_MARKERS["help_pages"] in answer:
+        entries.extend(
+            {"kind": "help_page", "title": t.metadata.get("title")} for t in rag.help_topics[:2]
+        )
+    return entries
+
+
+def extract_shown_results(state: dict) -> list[dict]:
+    """Structured details of what this turn actually showed - OneSearch results AND any
+    librarian/database/help-page suggestions - kept by the app for the NEXT turn so a
+    follow-up ("how do these differ?", "OneSearch results vs the database
+    recommendation") can be answered from them instead of triggering a fresh search.
+    Empty when the turn showed nothing."""
+    shown = []
+    result = state.get("search_result")
+    items = state.get("selection") or []
+    if result and items:
+        by_id = {c.record_id: c for c in result.candidates}
+        details = state.get("details") or {}
+        for item in items:
+            candidate = by_id.get(item.record_id)
+            if candidate is None:
+                continue
+            view = _candidate_view(candidate)
+            view.pop("record_id", None)
+            detail = details.get(item.record_id)
+            source = detail or candidate
+            view["kind"] = "onesearch_result"
+            view["location"] = " / ".join(p for p in (source.library, source.sub_location) if p) or None
+            view["availability"] = source.availability_status
+            view["why_shown"] = item.reason or None
+            shown.append(view)
+    shown.extend(_guide_entries(state))
+    return shown
+
+
+def answer_followup(
+    model, role: str, message: str, shown_results: list[dict], last_answer: str = ""
+) -> str:
+    """One LLM call, no search: answer a question about what was already shown. Gets the
+    stored structured details plus the previous answer's own text, so it still has
+    something to work from when nothing structured was stored. Never raises; a model
+    failure gives a plain fallback."""
+    lines = [f"role: {role}", f"question: {message}", "results shown:"]
+    lines.extend(f"{n}. {json.dumps(r)}" for n, r in enumerate(shown_results, start=1))
+    if last_answer:
+        lines.append("the previous answer shown to the patron, verbatim:")
+        lines.append(last_answer[:LAST_ANSWER_CHARS])
+    try:
+        structured = model.with_structured_output(FollowupAnswer)
+        response = structured.invoke([("system", FOLLOWUP_SYSTEM), ("human", "\n".join(lines))])
+        if isinstance(response, dict):
+            response = FollowupAnswer.model_validate(response)
+        text = response.answer.strip()
+        if not text:
+            return FOLLOWUP_FAILED
+    except Exception:
+        return FOLLOWUP_FAILED
+    return f"{text}\n\n{FOLLOWUP_OFFER}"
 
 
 def build_citations(
