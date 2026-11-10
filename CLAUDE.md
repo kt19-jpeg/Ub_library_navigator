@@ -660,6 +660,67 @@ fixes (a paid instance type's persistent disk, or pointing `DATABASE_URL` at ext
 left for the user to decide given this is a cost/plan tradeoff, not something to pick
 autonomously.
 
+## Layer 2, slice 13: citations opt-in + subject-specific database links (built)
+
+Two real usability complaints from the user: citations cluttering every answer unasked, and
+"browse databases" always linking to the exact same generic page regardless of topic.
+
+**Citations are now opt-in, same deterministic-regex pattern as `is_library_help_request`.**
+`agent/compose.py` gained `wants_citations(message)` — `compose()` still computes citations for
+every turn regardless (cheap, local, no extra API call), but `streamlit_app/Home.py` only renders
+the "Cite: ..." expanders when the user's own message actually asked for them ("cite", "APA",
+"MLA", "chicago", "bibliography", "works cited", "reference list"). Confirmed live against the
+real graph: an ordinary resource request computes citations but doesn't render them; a follow-up
+"can you give me the citations in APA format" does. Same known limitation as the citation tool's
+original design note — this checks the *current* message only, not a stateful "remember what was
+offered" two-turn flow, for the same reason that was deferred there.
+
+**Database links are now subject-specific, not one blanket URL.** `scraper/parse_databases.py`
+previously gave every subject the exact same `BROWSE_URL` with no query string, because the
+individual per-database list loads via JS from an endpoint `robots.txt` disallows
+(`Disallow: /az.php?`). That disallow rule is itself proof `az.php?s=<subject_id>` is a real,
+working URL — robots.txt only restricts *our scraper* from fetching it, not from *linking* a
+human to it. Confirmed live 2026-11-03: a plain `curl` (no JS) of `az.php?s=93976` comes back with
+that subject's `<option>` already `selected="selected"` server-side, so a human opening that link
+lands pre-filtered to just that subject's databases. `extract_database_subjects()` now reads each
+`<option>`'s `value` (the subject id) and builds `browse_url = f"{BROWSE_URL}?s={subject_id}"` per
+subject, falling back to the blanket URL only if an option has no value at all.
+
+**A real, separate bug found running `pipeline.refresh` live to pick up the new links:** the
+user's `OPENAI_API_KEY` has expired. That raised a genuine `openai.AuthenticationError` during the
+Chroma embedding sync — not an `EmbeddingUnavailableError` (only raised when the key is unset
+entirely) — so it wasn't caught and crashed the whole refresh with a traceback, contradicting the
+function's own documented contract ("a missing/broken embedding backend still lets the snapshot
+update"). Fixed by also catching the broad case (any embedding-provider failure, not just "key not
+set") and degrading to a warning the same way. Confirmed live: the exact same expired-key refresh
+now prints `warning: embedding sync failed: ...` and exits cleanly instead of crashing.
+`data/processed/records.json` genuinely updated with real per-subject links for all ~84 database
+subjects (that part doesn't depend on embeddings) — but the **vectorstore itself still serves the
+old blanket-URL metadata** until a working key lets `pipeline.refresh` re-sync it; this is an
+external blocker (the user's key), not something fixable in code.
+
+## Layer 2, slice 14: fixed "Record" links for CDI (Primo Central) results (fixed)
+
+The user clicked a "Record:" link from real chat results and got Primo's own "Record cannot be
+displayed / The requested information is no longer available in this view" error — screenshotted,
+for almost every result. `onesearch/client.py::record_link()` always hardcoded `context=L`
+(Primo's "Local" context, correct only for UB's own Alma catalog records, id prefix `alma...`).
+Most journal/article results actually come from the Central Discovery Index (CDI, an aggregator
+of external content, not UB's own holdings) with ids prefixed `cdi_...`, which need `context=PC`
+instead — using the wrong context is exactly what produces that error.
+
+**Verified with a real headless browser, not just curl** — this is a client-rendered Primo SPA, so
+a plain HTTP fetch returns the same app shell either way and can't distinguish success from
+failure (same category of issue as every other OneSearch UI quirk in this project). Navigated the
+exact failing docid from the user's screenshot with Playwright: `context=L` showed the error;
+`context=PC` rendered the genuine article (`page.title()` became the real article title, with a
+working "Full display result" panel — Send to / View Online / Details / Citations).
+
+**Fix:** `record_link()` now picks `context = "L" if record_id.startswith("alma") else "PC"`.
+Confirmed live against real search results afterward: an Alma-heavy query kept `context=L`
+throughout; an articles-heavy query returned real `cdi_wiley_...`/`cdi_crossref_...` ids, every one
+correctly getting `context=PC` — including the exact docid from the original screenshot.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

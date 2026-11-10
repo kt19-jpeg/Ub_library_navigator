@@ -8,6 +8,7 @@ from agent.compose import (
     render_human_help_answer,
     select_results,
     validate_selection,
+    wants_citations,
 )
 from agent.models import QueryPlan, RagContext, Selection, SelectionItem
 from onesearch.models import ResourceDetail, SearchCandidate, SearchResult
@@ -73,6 +74,27 @@ def test_is_library_help_request_does_not_match_ordinary_topic_searches():
         "I need articles on climate change databases in Africa",
     ]:
         assert not is_library_help_request(message), message
+
+
+def test_wants_citations_matches_explicit_requests():
+    for message in [
+        "can you give me the citations for that",
+        "I need this in APA format",
+        "what's the MLA citation",
+        "cite this in Chicago style",
+        "give me a bibliography for these",
+        "I need the reference list",
+    ]:
+        assert wants_citations(message), message
+
+
+def test_wants_citations_does_not_match_ordinary_topic_searches():
+    for message in [
+        "find me peer reviewed journals on mental health",
+        "books about the history of chemistry",
+        "who is the subject librarian for chemistry?",
+    ]:
+        assert not wants_citations(message), message
 
 
 def test_validate_selection_drops_unknown_duplicates_and_caps():

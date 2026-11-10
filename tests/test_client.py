@@ -312,7 +312,7 @@ def test_search_with_fallback_uses_fallback_link_on_timeout():
     assert result.fallback_link == client.fallback_link("mental health")
 
 
-def test_record_link_points_at_onesearch_full_record_page():
+def test_record_link_uses_context_l_for_a_local_alma_record():
     client = OneSearchClient(
         session_manager=_fake_session_manager(),
         cache=QueryCache(ttl_seconds=60),
@@ -320,6 +320,21 @@ def test_record_link_points_at_onesearch_full_record_page():
     assert client.record_link("alma123") == (
         "https://search.lib.buffalo.edu/discovery/fulldisplay?"
         "docid=alma123&context=L&vid=01SUNY_BUF:everything"
+    )
+
+
+def test_record_link_uses_context_pc_for_a_cdi_record():
+    # Regression: confirmed live 2026-11-03 - context=L on a real cdi_...
+    # record (most journal articles) renders Primo's own "Record cannot be
+    # displayed" error instead of the article. context=PC is what actually
+    # works for Central Discovery Index records.
+    client = OneSearchClient(
+        session_manager=_fake_session_manager(),
+        cache=QueryCache(ttl_seconds=60),
+    )
+    assert client.record_link("cdi_wiley_primary_10_1111_deci_70037_DECI70037") == (
+        "https://search.lib.buffalo.edu/discovery/fulldisplay?"
+        "docid=cdi_wiley_primary_10_1111_deci_70037_DECI70037&context=PC&vid=01SUNY_BUF:everything"
     )
 
 

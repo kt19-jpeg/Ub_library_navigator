@@ -6,9 +6,9 @@
     "metadata": {
       "subject": "African & African American Studies",
       "count": 17,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94213"
     },
-    "content_hash": "9d2f670ac133960dcc2dc820e92808edea5b51f379e9a32e419e55ce86a366be"
+    "content_hash": "72b8679060fb7b2f0470ee288279120cb4884e2c827746037f7d1623107b7a45"
   },
   {
     "id": "db:american-studies",
@@ -17,9 +17,9 @@
     "metadata": {
       "subject": "American Studies",
       "count": 24,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93969"
     },
-    "content_hash": "8871c326d841ebed1e8810b05d2ccd23578d9ddf320519f27a448241b4ba776e"
+    "content_hash": "dc719ee6365ad42fe172c69fd83ba28e945f3204050622b7df3372b8cf52c361"
   },
   {
     "id": "db:anatomy",
@@ -28,9 +28,9 @@
     "metadata": {
       "subject": "Anatomy",
       "count": 5,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=182614"
     },
-    "content_hash": "425deed66e98093cd0eeb6c95e379733ee79dfdd58f0802c81b2878c18639add"
+    "content_hash": "21b48a10ec2e7a63782899a15c229ca6c00094239e36c2f08a302c610aafc313"
   },
   {
     "id": "db:anthropology",
@@ -39,9 +39,9 @@
     "metadata": {
       "subject": "Anthropology",
       "count": 10,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93970"
     },
-    "content_hash": "022be6a8a221da5ab2d9d7fbcb9492780150868ca6ed97007c79154df1e41394"
+    "content_hash": "38c670c2b4197c7e673758953e01a37d96392d22158200e48d0597f25167f338"
   },
   {
     "id": "db:archaeology",
@@ -50,9 +50,9 @@
     "metadata": {
       "subject": "Archaeology",
       "count": 9,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93971"
     },
-    "content_hash": "838a9294f3ba41125b4504e870f2491f1a7b8f3c730dd5d3c863071d97d419d8"
+    "content_hash": "23c4e5a37b09a50e9a890ac396cf524fe4635ef260104b12f4f62ff3a6a46608"
   },
   {
     "id": "db:architecture-planning",
@@ -61,9 +61,9 @@
     "metadata": {
       "subject": "Architecture & Planning",
       "count": 11,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93972"
     },
-    "content_hash": "50f7504d7d00237481dbf26562521b7432c1abda8dc6b1602fde1954b706bd2b"
+    "content_hash": "1a1ef504374ddb61b86a384a7f846b78892a321204e25728406a0359b7fb171e"
   },
   {
     "id": "db:art",
@@ -72,9 +72,9 @@
     "metadata": {
       "subject": "Art",
       "count": 16,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93973"
     },
-    "content_hash": "a9cde3b6d3ede91c5a12348c981bc1ccfc8d22cba0bca037bc4046c4c999e399"
+    "content_hash": "491507ab868b2a923f694327d033a0cae95348cec4c873a8b0b56eec19982192"
   },
   {
     "id": "db:art-history",
@@ -83,9 +83,9 @@
     "metadata": {
       "subject": "Art History",
       "count": 9,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=152892"
     },
-    "content_hash": "98fefb38c259bf7aeaa7d78873b4912412c0a0d4cd3d82b3dd827aac5451d089"
+    "content_hash": "9b52cc9a08f1d91e9d6bfce518d62049438dd06e98eb20b736fad62a789525cf"
   },
   {
     "id": "db:asian-studies",
@@ -94,9 +94,9 @@
     "metadata": {
       "subject": "Asian Studies",
       "count": 16,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93974"
     },
-    "content_hash": "28ce8dbea2ad6477c7ca5d741f921719fdc59220537b01e03099bfa3ff325922"
+    "content_hash": "42414d0ebf7366eb1cc0488e24c156b5f5855a99307ad5d4aaa56b7a5ba83ae9"
   },
   {
     "id": "db:astronomy-astrophysics",
@@ -105,9 +105,9 @@
     "metadata": {
       "subject": "Astronomy / Astrophysics",
       "count": 4,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93975"
     },
-    "content_hash": "a1f241ec2ae320a566914b364546938b42eda727814275dd32053b7b322af131"
+    "content_hash": "d232f0790d84814f100e2fd689e865e55e01aa384394963ba6f07928e6920265"
   },
   {
     "id": "db:bioinformatics",
@@ -116,9 +116,9 @@
     "metadata": {
       "subject": "Bioinformatics",
       "count": 19,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94217"
     },
-    "content_hash": "65e5537ee467159c3799ad89c078655823f93c024fa64e8e7fc51a73a0c9abe9"
+    "content_hash": "6091f0eeb26d5a296aface1e50f2e164da706ccc18651b9b2a7c563c2706b98c"
   },
   {
     "id": "db:biological-sciences",
@@ -127,20 +127,20 @@
     "metadata": {
       "subject": "Biological Sciences",
       "count": 22,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93976"
     },
-    "content_hash": "a79b6fd7de9628754218c45ed667a58d750acf20b5de0159e03f628e03878ec8"
+    "content_hash": "d8ee1761d1718f8bd59c64d54741fee1cc23c0bfdcd9d68b35a542d7181957cf"
   },
   {
     "id": "db:biomedical-databases",
     "type": "database_subject",
-    "text": "Biomedical Databases databases (107 available)",
+    "text": "Biomedical Databases databases (106 available)",
     "metadata": {
       "subject": "Biomedical Databases",
-      "count": 107,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 106,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93977"
     },
-    "content_hash": "996854365034cff61b207b2844756d06996c7e49eb0b190c924bcaeec13917c4"
+    "content_hash": "7637392cec588d581b530dff4d3c57ff9330fb1eab3f7931d73f09ce7958818b"
   },
   {
     "id": "db:biomedical-sciences",
@@ -149,9 +149,9 @@
     "metadata": {
       "subject": "Biomedical Sciences",
       "count": 39,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=212178"
     },
-    "content_hash": "ce51ca93d24dbc3fb70c685d09b36acb56ac8e0142fa874626a48c0ed0db2c4b"
+    "content_hash": "83df5b1ec11435ed17635898f391f5ff87f73a0ef127c06d84237e759a08f5c3"
   },
   {
     "id": "db:buffalo-ny",
@@ -160,9 +160,9 @@
     "metadata": {
       "subject": "Buffalo, NY",
       "count": 4,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=181524"
     },
-    "content_hash": "60d1a84cbdcb2b202f2cb2faf2ccd1bd6cfd4198778eebabaab1ea5ba23f0395"
+    "content_hash": "4a85971e2748f5f705d64ab1820b36eeff061091e42ba3cbbe57a0bcc04915a7"
   },
   {
     "id": "db:business-management",
@@ -171,9 +171,9 @@
     "metadata": {
       "subject": "Business & Management",
       "count": 37,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94170"
     },
-    "content_hash": "2ff59e9fb5accd9a8f152f7b2b8c4103721590d0a6ea1e2e7651ba7e3e2be4f7"
+    "content_hash": "7e31399e5b11eec3804f58476064601a662e84e229da752d73a154845b40998f"
   },
   {
     "id": "db:chemistry",
@@ -182,20 +182,20 @@
     "metadata": {
       "subject": "Chemistry",
       "count": 32,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94171"
     },
-    "content_hash": "e2c2bb41172718d70977185397365c976db1ce8653eecfcb99993d7989cfbd8f"
+    "content_hash": "8dfef9dca803edc32fd9f9e9a8c52ff1f9ee45e06c0b453a5e72ac06389bdc7f"
   },
   {
     "id": "db:classics",
     "type": "database_subject",
-    "text": "Classics databases (14 available)",
+    "text": "Classics databases (15 available)",
     "metadata": {
       "subject": "Classics",
-      "count": 14,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 15,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94172"
     },
-    "content_hash": "0787a57bca7ad0b8442fb251295bae119224c0ed0c3a0700043b5e9448b30d9e"
+    "content_hash": "26becb6a57c128204dbec8606f5236fd2de2d9e10378156d86f5e321f33e09c2"
   },
   {
     "id": "db:communication",
@@ -204,9 +204,9 @@
     "metadata": {
       "subject": "Communication",
       "count": 9,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=105117"
     },
-    "content_hash": "f1759d4dcbe10ede5cbad6d61a78c21a76edf8ecfaa331e5340162034ed2cedc"
+    "content_hash": "9d06254e751b9c17d6cbb34783849ce26f9cf48387c7b9d6b0f6201b556bf0bc"
   },
   {
     "id": "db:communicative-disorders",
@@ -215,9 +215,9 @@
     "metadata": {
       "subject": "Communicative Disorders",
       "count": 1,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=195187"
     },
-    "content_hash": "6dfac435dbc6f2db2d1c44c5860aa1018162e788e617576b5b39c1311e6a9719"
+    "content_hash": "48f658cb69b27a65df562f57708a508d6681d00cdf574a7585fb18fd11af6795"
   },
   {
     "id": "db:comparative-literature",
@@ -226,9 +226,9 @@
     "metadata": {
       "subject": "Comparative Literature",
       "count": 109,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=148529"
     },
-    "content_hash": "a19fbb44709e2dc26041e6681aa6f4f91c27fa1436c6fefe69ed0c364c9c5c04"
+    "content_hash": "9b6e841696a1618e3e3e72dc00ac8203f860ef0879f775d4afb5ac3113b5f60a"
   },
   {
     "id": "db:complementary-medicine",
@@ -237,9 +237,9 @@
     "metadata": {
       "subject": "Complementary Medicine",
       "count": 4,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=212185"
     },
-    "content_hash": "d7f88ebea12952a19c4780b63b72eaf735452f5382fdb4cceadf4c12f20de268"
+    "content_hash": "f2c4fd886fe4bf341ef4f6e3065d6d66220f84f222573ffad1b6fc63ed8063d3"
   },
   {
     "id": "db:computer-science",
@@ -248,20 +248,20 @@
     "metadata": {
       "subject": "Computer Science",
       "count": 30,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94175"
     },
-    "content_hash": "3081530e6c3e73be510047f51aa24e750b60de95735ae283767065aaa59fd508"
+    "content_hash": "245a327cc91b3524a134c08fdcece9859a4a9e92dbc216a40d7f998726b567e2"
   },
   {
     "id": "db:consumer-health",
     "type": "database_subject",
-    "text": "Consumer Health databases (9 available)",
+    "text": "Consumer Health databases (8 available)",
     "metadata": {
       "subject": "Consumer Health",
-      "count": 9,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 8,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=212179"
     },
-    "content_hash": "27abf80050acf289d0e20918f4910c4f39b1eea118097fdaef90c88db157b829"
+    "content_hash": "b34897d39fc208748754ffbdb45b9eb638741026367975e0449fef41ed75b415"
   },
   {
     "id": "db:dance",
@@ -270,9 +270,9 @@
     "metadata": {
       "subject": "Dance",
       "count": 9,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=118398"
     },
-    "content_hash": "701afd297de5843456270ae08794da0dea61a63c06f852b68368d645ddf688fe"
+    "content_hash": "03de8f4c1d794da408b65ae05fc77c0845a0aead912f257a116dbf25b094035b"
   },
   {
     "id": "db:dental-medicine",
@@ -281,9 +281,9 @@
     "metadata": {
       "subject": "Dental Medicine",
       "count": 15,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=212173"
     },
-    "content_hash": "e60c280788093b233f60f27d1179de02b059144ea969d561a918e7959f5c6e89"
+    "content_hash": "c017e60c67c3d0d0ca188e86e894c94ab64ccecf87184542e5d6d58594dbfb13"
   },
   {
     "id": "db:digital-scholarship",
@@ -292,9 +292,9 @@
     "metadata": {
       "subject": "Digital Scholarship",
       "count": 2,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=159707"
     },
-    "content_hash": "e1ad7552be84da947ba72ac22cd40a20aff4db799d38efeb8084d5a707930092"
+    "content_hash": "8b64416a114e20bf79755678281d112c474607d28655310861ce1a554a66581c"
   },
   {
     "id": "db:ecology-environment",
@@ -303,9 +303,9 @@
     "metadata": {
       "subject": "Ecology & Environment",
       "count": 16,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94178"
     },
-    "content_hash": "b2f92dacac83121a901dfe3fa9f3ddd16a2e869d1f75ab1e8c8a216fe539fc20"
+    "content_hash": "f0bee3b06d53965a9222649d51de985b1d17b6c3c09b897a3634bece02c82ed4"
   },
   {
     "id": "db:economics",
@@ -314,9 +314,9 @@
     "metadata": {
       "subject": "Economics",
       "count": 23,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93966"
     },
-    "content_hash": "aee1cbd2346ef08b27a751acac253f3bda205d2a9a70c320433723bd65fcffdf"
+    "content_hash": "825bc1635a31bf4883d54b5d8920387ebc29e4c8865c99a475f01e7038b22956"
   },
   {
     "id": "db:education",
@@ -325,9 +325,9 @@
     "metadata": {
       "subject": "Education",
       "count": 7,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94179"
     },
-    "content_hash": "658ecd228c4f9e4e552d5a2be3565cb268cf45a7fbe2a4e214d68bd7879d12b8"
+    "content_hash": "8d748ea1d7e83303bade6454d1e4240b21df65f814006d716435c2a66e0fde02"
   },
   {
     "id": "db:engineering-computer-science",
@@ -336,20 +336,20 @@
     "metadata": {
       "subject": "Engineering & Computer Science",
       "count": 50,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94180"
     },
-    "content_hash": "69015d42d73ac033e35b1a63251843077db8628e4685fe54329be6c294fb8bcb"
+    "content_hash": "de5ecfcd2d897b00a8579c272b22131b911d37cb0653f76ed1ec36187dd7dc24"
   },
   {
     "id": "db:english",
     "type": "database_subject",
-    "text": "English databases (38 available)",
+    "text": "English databases (39 available)",
     "metadata": {
       "subject": "English",
-      "count": 38,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 39,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=175723"
     },
-    "content_hash": "9ca9260d0ebe70c12f9aa19e45eb9ee93f69c406c80fe89e86b1e78395aaa349"
+    "content_hash": "89f8f588792d42a50fff49128b2bb3339190872f17b9ac0a5a7bf8eb8e07a21d"
   },
   {
     "id": "db:entrepreneurship",
@@ -358,20 +358,20 @@
     "metadata": {
       "subject": "Entrepreneurship",
       "count": 13,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=184522"
     },
-    "content_hash": "75d8288f160b0c3b0feb5102ac552638e7e804ddfc1581e7f4114faa24d28814"
+    "content_hash": "0001072daaec39cb0bbbb3480083d82a176f6350d9494510f892b6d753243ae7"
   },
   {
     "id": "db:epidemiology",
     "type": "database_subject",
-    "text": "Epidemiology databases (5 available)",
+    "text": "Epidemiology databases (4 available)",
     "metadata": {
       "subject": "Epidemiology",
-      "count": 5,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 4,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=154299"
     },
-    "content_hash": "5721c9b676434e809adad2c3da81bc8de7416e4c2e505adf3bd7caed5fd7eff4"
+    "content_hash": "4b12ac9167510a9efb82720a8797a72972bf36c17e7cb75177749c463b49ddca"
   },
   {
     "id": "db:film-media-studies",
@@ -380,9 +380,9 @@
     "metadata": {
       "subject": "Film & Media Studies",
       "count": 12,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94195"
     },
-    "content_hash": "4b13cde8c1e8d9f2b14d0eaf9469de2c90c1b6ba20026be5d939bda5ac4f93d5"
+    "content_hash": "5fa0417c99f4cec046ab9e9cde026ed2ffe81ed10b0473c34b1535d8963ce3e3"
   },
   {
     "id": "db:french",
@@ -391,9 +391,9 @@
     "metadata": {
       "subject": "French",
       "count": 50,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=148533"
     },
-    "content_hash": "bb5c1f99434e68b3e213a7d43af86cf57f0f0a30e0ecf1ab7a16edf385a784d8"
+    "content_hash": "109a620d77a527bfbc65e2df124fe9944dd586ad82e4006eb06f5f1aed44c366"
   },
   {
     "id": "db:gender-and-sexuality",
@@ -402,9 +402,9 @@
     "metadata": {
       "subject": "Gender and Sexuality",
       "count": 14,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=151681"
     },
-    "content_hash": "97bfbec3672bc75c6f9242f6d5ab1c9b6f808d5dfe46034d2d8fba2fac985f96"
+    "content_hash": "3c6adf222a89e9d3e72b5b14d958e3313eb0d31004d7634937c315fc6e5bd0aa"
   },
   {
     "id": "db:genomics",
@@ -413,9 +413,9 @@
     "metadata": {
       "subject": "Genomics",
       "count": 16,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=212180"
     },
-    "content_hash": "74668061d705f52e03784c992657aab139d079c68fb6f441b9f88fcbe00c42f2"
+    "content_hash": "67f65370365f3779949a0b34e2b36f09d675d16766e361d1539e7ff9e1f4adb8"
   },
   {
     "id": "db:geography",
@@ -424,9 +424,9 @@
     "metadata": {
       "subject": "Geography",
       "count": 11,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94185"
     },
-    "content_hash": "f77939f63135443d9a9d25f07449e57e2ba4419e5cab19727ef85e0c9c515d57"
+    "content_hash": "b47ef918a352fe7314d184057725f92dcba01d46df8a7245128de64cf462fc10"
   },
   {
     "id": "db:geology",
@@ -435,9 +435,9 @@
     "metadata": {
       "subject": "Geology",
       "count": 15,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94186"
     },
-    "content_hash": "35e65dc22c6bb1049814391b65b49752bdcadd70b477318d7e446bbefc6ad606"
+    "content_hash": "4579862cee35426187056f66314d1c587044e4eaaf9454abcf22692d9c495ecd"
   },
   {
     "id": "db:global-gender-studies",
@@ -446,9 +446,9 @@
     "metadata": {
       "subject": "Global Gender Studies",
       "count": 2,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94187"
     },
-    "content_hash": "153eac52667d34605b35b8bc42515d5a34d4f628ffacd57dcbce0593cd77437f"
+    "content_hash": "55927d66d41eb95e482270b62b7dbb821fe4c332282dcae76b107f0e09ca22b8"
   },
   {
     "id": "db:government-information",
@@ -457,31 +457,31 @@
     "metadata": {
       "subject": "Government Information",
       "count": 1,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94188"
     },
-    "content_hash": "5be51bae8ab99ebff3fb715308998f2d5ef864e95dbb75ffd0b43875aa3f32b9"
+    "content_hash": "de6c1b46413564733a8a07e3e6b1f77abec81811bfeb1faa0ae248cdc48cd315"
   },
   {
     "id": "db:history",
     "type": "database_subject",
-    "text": "History databases (72 available)",
+    "text": "History databases (73 available)",
     "metadata": {
       "subject": "History",
-      "count": 72,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 73,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94190"
     },
-    "content_hash": "96fbeb4532fc531762dee3b3d7f2768dd0de0dc4021eff8b43d6508012bada3a"
+    "content_hash": "d30d12c2e3300cbd0527d273454c0464ed35c6524df5efdb89970151fea2aad8"
   },
   {
     "id": "db:indigenous-studies",
     "type": "database_subject",
-    "text": "Indigenous Studies databases (17 available)",
+    "text": "Indigenous Studies databases (16 available)",
     "metadata": {
       "subject": "Indigenous Studies",
-      "count": 17,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 16,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=214472"
     },
-    "content_hash": "f8557b610dbdea81f1139a16a8cb8f8b76d5b0a017d05189657b77edcc251933"
+    "content_hash": "fbaae3c60e3ed6c91523cbadb0da8d72ca6d80dafff98fd563c943ac8c333248"
   },
   {
     "id": "db:information-science",
@@ -490,20 +490,31 @@
     "metadata": {
       "subject": "Information Science",
       "count": 4,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94192"
     },
-    "content_hash": "16f5d9bc4cea12028d441df02d3922194c69fcf1ab95df7629513649933c2093"
+    "content_hash": "31faafa5c1de77ba6e107b180689eb26b3d1b3acea25f146c036e565c08bfce9"
   },
   {
     "id": "db:law",
     "type": "database_subject",
-    "text": "Law databases (72 available)",
+    "text": "Law databases (73 available)",
     "metadata": {
       "subject": "Law",
-      "count": 72,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 73,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94191"
     },
-    "content_hash": "018fda463a1d92d6a4f6520cc038cef6913605449e78179e4acf75ca9de5c95c"
+    "content_hash": "6ce308497549844f6e27e75403956e57c6615c863a02a1d5bc9d5889406d2d4f"
+  },
+  {
+    "id": "db:law-government-politics",
+    "type": "database_subject",
+    "text": "Law, Government & Politics databases (1 available)",
+    "metadata": {
+      "subject": "Law, Government & Politics",
+      "count": 1,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=257968"
+    },
+    "content_hash": "08c5d14a0cb6417a5eea57bf9e5c52ef8cc409b75d7a5181064d1a77ceabb1b6"
   },
   {
     "id": "db:law-related",
@@ -512,20 +523,20 @@
     "metadata": {
       "subject": "Law-Related",
       "count": 37,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=156889"
     },
-    "content_hash": "28c3fd767b6e5b946d2a87a77803a2f4561613b980cba58fd74b541a9df96d00"
+    "content_hash": "360e369a4c3e2b1f0806f272334103b4054f0475257ac05a80dc11fab7e386ad"
   },
   {
     "id": "db:linguistics",
     "type": "database_subject",
-    "text": "Linguistics databases (9 available)",
+    "text": "Linguistics databases (10 available)",
     "metadata": {
       "subject": "Linguistics",
-      "count": 9,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 10,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94193"
     },
-    "content_hash": "dee11bb85935a32398226acf5160aedc18cacdc90a9dcf29139826e7b232a27c"
+    "content_hash": "ac9d915cdb5e8be482057e8dd6d7d40ee0bcdc224fa6264e718a67f7da0f245a"
   },
   {
     "id": "db:literature",
@@ -534,9 +545,9 @@
     "metadata": {
       "subject": "Literature",
       "count": 28,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=102095"
     },
-    "content_hash": "751c33f83474d20e8a8494d915a24f65982f34763fd3bb292cf27abce8bd3e93"
+    "content_hash": "3fa059ef17679a8cac6a99a33a685c10c6e4943fed767802724eee5c262de57e"
   },
   {
     "id": "db:local-history",
@@ -545,9 +556,9 @@
     "metadata": {
       "subject": "Local History",
       "count": 2,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=202532"
     },
-    "content_hash": "d4ea529a3a039d7b0b17602e3443e35049f6840bec77dd798ac1f90fc98285a9"
+    "content_hash": "4d19993188a7687834a8a2f497aa55a7a8cfa25cfb71116e7330a5996f9b7495"
   },
   {
     "id": "db:maps",
@@ -556,9 +567,9 @@
     "metadata": {
       "subject": "Maps",
       "count": 5,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94214"
     },
-    "content_hash": "c74e8f1ac86608df6884bb43705f56f75d6ec0f6083061a72115a2e67475fb64"
+    "content_hash": "e7ebfcd0cb381f1b6704d2464482b524f1a9255d921f0308c100a1088149a0d1"
   },
   {
     "id": "db:mathematics",
@@ -567,20 +578,20 @@
     "metadata": {
       "subject": "Mathematics",
       "count": 8,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94194"
     },
-    "content_hash": "daae321724ae2b1befac1290edbca68b81e71ffc21133cb488a1498d3d878854"
+    "content_hash": "ba99fcdc3e701290d874dbafdba76df23438c28f2d27440af44a8e3ecb983648"
   },
   {
     "id": "db:medicine",
     "type": "database_subject",
-    "text": "Medicine databases (77 available)",
+    "text": "Medicine databases (76 available)",
     "metadata": {
       "subject": "Medicine",
-      "count": 77,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 76,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=93944"
     },
-    "content_hash": "9592675c1418d75c8800f05960f51e60d030c1f80ae2f08a3089817d5586d673"
+    "content_hash": "d5da0fe19775c3eae06bcad27ed75b5d3fe654e89243bd647f95fe0c1dbd670a"
   },
   {
     "id": "db:music",
@@ -589,9 +600,9 @@
     "metadata": {
       "subject": "Music",
       "count": 23,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94196"
     },
-    "content_hash": "844ab990cc9070a6ef146b2b5ae00ea316a853f6658b1e7031c59566f984caf3"
+    "content_hash": "deef358885acaff3c1eec61c176844d73c22ad411da465fb20e789fe9f1cef7a"
   },
   {
     "id": "db:newspapers",
@@ -600,9 +611,9 @@
     "metadata": {
       "subject": "Newspapers",
       "count": 12,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=181715"
     },
-    "content_hash": "36b8cd51322e4c41041b18e746a459cd09f642447cf413027cf1da621be23c7a"
+    "content_hash": "af3ae993a3fe1e277245c81ce49c1b693d9ae1be2d738ca23985105dc3b76412"
   },
   {
     "id": "db:nursing",
@@ -611,9 +622,9 @@
     "metadata": {
       "subject": "Nursing",
       "count": 24,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94197"
     },
-    "content_hash": "56653f05adaa7490b2df9b040208fa8a0ddd43543792d174b343e75c9f4b41fc"
+    "content_hash": "d6aaec057c24ec22f4086d9b9e65acac186b84987168357a424570e5d38e1120"
   },
   {
     "id": "db:occupational-therapy",
@@ -622,9 +633,9 @@
     "metadata": {
       "subject": "Occupational Therapy",
       "count": 13,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=143341"
     },
-    "content_hash": "baa2fe136eeff1350463d37c18a42751eb24aefc5e84271fc33caf2087fe1167"
+    "content_hash": "291c17f4a9b3c4b916d0b2f54577b829fdc6805d65416c65eb97db9d9a1b4d39"
   },
   {
     "id": "db:patents",
@@ -633,9 +644,9 @@
     "metadata": {
       "subject": "Patents",
       "count": 6,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=151730"
     },
-    "content_hash": "fa52bccdc3fe557b3b7d1899f96ad9e986b0d6ad6d1b9889ea4987d81140b014"
+    "content_hash": "e74b030313516a9961712d06c3aee1e289d40fa9a18dc63264180d90b5a82829"
   },
   {
     "id": "db:pharmaceutical-sciences",
@@ -644,9 +655,9 @@
     "metadata": {
       "subject": "Pharmaceutical Sciences",
       "count": 16,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=201777"
     },
-    "content_hash": "80b204d82e859888eb9e93c8d3f01fdf822cea90b2cfb5946528a4acdf90fa62"
+    "content_hash": "b4a311bb94dc637d0c81af6d3947d794cd9bb7f07138256ce7c5f74f51f4c256"
   },
   {
     "id": "db:pharmacology-and-toxicology",
@@ -655,20 +666,20 @@
     "metadata": {
       "subject": "Pharmacology and Toxicology",
       "count": 17,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=194537"
     },
-    "content_hash": "4eed57bbbdd3dfcfc284036eea105fe624f657e42990fdd8b7f7a854b15a7e94"
+    "content_hash": "b19b59551784bcb112de697a4341566c113d6c2fea3958d4dc07224aebdcbaff"
   },
   {
     "id": "db:pharmacy",
     "type": "database_subject",
-    "text": "Pharmacy databases (19 available)",
+    "text": "Pharmacy databases (18 available)",
     "metadata": {
       "subject": "Pharmacy",
-      "count": 19,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 18,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94198"
     },
-    "content_hash": "df841a420d2a75ed4768f8042c5f003c0e63a0910e611cbf104308c77d0e5c51"
+    "content_hash": "f91c824dc462dcec5a32430fe6f9cd3ce1d273a994fb068011f52898b8e6414a"
   },
   {
     "id": "db:philosophy",
@@ -677,9 +688,9 @@
     "metadata": {
       "subject": "Philosophy",
       "count": 49,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94199"
     },
-    "content_hash": "a9aea7852dd06fcb56f81285f367af80a415c68e4172bba1eeb509fbfed64f42"
+    "content_hash": "c2b33f7cf083b1050cfd6365432bb3f1775f2589b6bda46b3b924c4764213372"
   },
   {
     "id": "db:physical-therapy",
@@ -688,9 +699,9 @@
     "metadata": {
       "subject": "Physical Therapy",
       "count": 13,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=143342"
     },
-    "content_hash": "3bfa5985a9ba37294ae6d7f758a5a5569d8f25b35569bbab9f4c2e5af2f777c9"
+    "content_hash": "b0823a6cb084baf264d56620e2746c194df7c15226ed5966cbed0bc29e2356e7"
   },
   {
     "id": "db:physics",
@@ -699,20 +710,20 @@
     "metadata": {
       "subject": "Physics",
       "count": 30,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94200"
     },
-    "content_hash": "179897cf113d83b57db3776956c010f50f3ff55601b265b0a09e85c41b6b43f7"
+    "content_hash": "a677dc8d4b037c461e23bc763860887f345287f8014359069ee5280104435cbb"
   },
   {
     "id": "db:political-science",
     "type": "database_subject",
-    "text": "Political Science databases (47 available)",
+    "text": "Political Science databases (48 available)",
     "metadata": {
       "subject": "Political Science",
-      "count": 47,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 48,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94201"
     },
-    "content_hash": "9a051bb58d3f5887d95b4a0ccbc16c7f892b9f4174abccdd178a02ebcc4fcf88"
+    "content_hash": "c198544fdee3a11571b7dbba44b4a2447c14cf5e7951785d146e56b320f054ae"
   },
   {
     "id": "db:psychology",
@@ -721,20 +732,20 @@
     "metadata": {
       "subject": "Psychology",
       "count": 14,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94202"
     },
-    "content_hash": "91daa30597c8cc553100d6f9c6b643848f90ccfd7a21b9576c801bf3bcd771bb"
+    "content_hash": "1eef48b0b7dbc4ca393c37846f352e5c3aef1ba1f36f955e8fe7c0b0726f25be"
   },
   {
     "id": "db:public-health",
     "type": "database_subject",
-    "text": "Public Health databases (17 available)",
+    "text": "Public Health databases (16 available)",
     "metadata": {
       "subject": "Public Health",
-      "count": 17,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 16,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94203"
     },
-    "content_hash": "160ff66dc50ae94c5439c15169f0630afa91e12692911d5fe7e88e3b87f68f54"
+    "content_hash": "2a993e58a83ab504bee58382d4a290bfbf118d67f2118273f60917605fc1238e"
   },
   {
     "id": "db:rehabilitation-assistive-technology",
@@ -743,9 +754,9 @@
     "metadata": {
       "subject": "Rehabilitation & Assistive Technology",
       "count": 11,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=104048"
     },
-    "content_hash": "39ddb0c9e20e06c4f907bd659bee58d64c94d1538fa963fe14a186924a616d69"
+    "content_hash": "90fac139a61af2f2a184dc8ac2e1a139b52d24a33c86a405732177d183df01bb"
   },
   {
     "id": "db:religion",
@@ -754,20 +765,20 @@
     "metadata": {
       "subject": "Religion",
       "count": 8,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94205"
     },
-    "content_hash": "40e81f84d9a495e8dff29821efea596bab609e3e4e9b908416172ed6b64d7431"
+    "content_hash": "35b2bae9a04bb3fc610b975ead0475ab0a8af1ac187b6436aaf7b6f30365bc9c"
   },
   {
     "id": "db:romance-languages",
     "type": "database_subject",
-    "text": "Romance Languages databases (11 available)",
+    "text": "Romance Languages databases (12 available)",
     "metadata": {
       "subject": "Romance Languages",
-      "count": 11,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 12,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94206"
     },
-    "content_hash": "f18c166990db69f83f3307b3370c797ae50e6fd530a8ac6f36b8ee8365ce9cbb"
+    "content_hash": "8b9d72114dc9cca524797976532bcf06192a7af8f8e37687d4f619912c5e05f3"
   },
   {
     "id": "db:science",
@@ -776,9 +787,9 @@
     "metadata": {
       "subject": "Science",
       "count": 3,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=159056"
     },
-    "content_hash": "3d4d7cd0513e9303497fe9c35893a00ad52ac58c8eced17ee9619be5acfcef33"
+    "content_hash": "c32dc71f69c83d1e8ad8e1cea8c4b77fb7dcc9bb9aa42950e565a49709347cf2"
   },
   {
     "id": "db:social-work",
@@ -787,20 +798,20 @@
     "metadata": {
       "subject": "Social Work",
       "count": 31,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94207"
     },
-    "content_hash": "06ff8d7ad1877e186c5dadeaa64442c2c2a0f8d1071369f538c946a7e4d1b406"
+    "content_hash": "7bffdead11e8b70b1eee1e13367f2189a3eb129c573b81bb19f71b97192b203f"
   },
   {
     "id": "db:sociology",
     "type": "database_subject",
-    "text": "Sociology databases (19 available)",
+    "text": "Sociology databases (20 available)",
     "metadata": {
       "subject": "Sociology",
-      "count": 19,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "count": 20,
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94208"
     },
-    "content_hash": "184b50fc1454973b7474c838885e6418abf88d0eafac22ad96e494a18aaf1614"
+    "content_hash": "8abddd0a2c942bd668d96601c9225ea3a81066dc6c0b9de96c05a6c366772615"
   },
   {
     "id": "db:spanish",
@@ -809,9 +820,9 @@
     "metadata": {
       "subject": "Spanish",
       "count": 50,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=148534"
     },
-    "content_hash": "ad6d0c03cec3c5c8370a7308f7a4c03d0be073f12f0896af1a5f38890b5df3d4"
+    "content_hash": "89d7f37949bdc9172da14f7103caf7d6179376051ed9ec8a248734682f5662d8"
   },
   {
     "id": "db:sports-medicine",
@@ -820,9 +831,9 @@
     "metadata": {
       "subject": "Sports Medicine",
       "count": 12,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=154364"
     },
-    "content_hash": "90f66596578fbcdf43a55b0bb0d8449d6e338d39e61cb2bfc4ce12e7b079540d"
+    "content_hash": "1798d773e4c0a527135d320ac42e263fb3d43f7875cea23b6179f2a41bc8998d"
   },
   {
     "id": "db:streaming-media",
@@ -831,9 +842,9 @@
     "metadata": {
       "subject": "Streaming Media",
       "count": 9,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=159107"
     },
-    "content_hash": "3b5a402625a556cea4fe58faae119ce93bc8cdbda1b324fbaa3fb5967704fcc9"
+    "content_hash": "cb06a405cbca960405c9f26fc2beb29348823c19402f4b8673e34f3e7e9d3796"
   },
   {
     "id": "db:streaming-video",
@@ -842,9 +853,9 @@
     "metadata": {
       "subject": "Streaming Video",
       "count": 10,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=159106"
     },
-    "content_hash": "134634f4b1dc55ed5ffc22d015f80e8d3c1646add5ce46e1870420a918624565"
+    "content_hash": "c0f8f7ab357cfa59094dc5ba9246c0954da6d8071f78f61f86b2fd53495d004d"
   },
   {
     "id": "db:sustainability",
@@ -853,9 +864,9 @@
     "metadata": {
       "subject": "Sustainability",
       "count": 5,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=175855"
     },
-    "content_hash": "497d320dd11154153faea51f20e631aab8e86970c420e654f8c8d8bdababd9a4"
+    "content_hash": "629cb964aabb1225c3ce99be81b0646499f8ac0497251c5e747390eed1ff0ce2"
   },
   {
     "id": "db:theatre",
@@ -864,9 +875,9 @@
     "metadata": {
       "subject": "Theatre",
       "count": 17,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=94209"
     },
-    "content_hash": "837e45c417048395feee2a5d6e51f81b507cdcadf3b799e0b070ef678fc7092c"
+    "content_hash": "9f15203a38ceea64126565b8998af64b4bb8cc2cd2c8a85e1bfa583ec1740b71"
   },
   {
     "id": "db:top-biomedical-databases",
@@ -875,9 +886,9 @@
     "metadata": {
       "subject": "Top Biomedical Databases",
       "count": 12,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=256925"
     },
-    "content_hash": "e61ab1088afffbf277fea99e544d0d61392c92e06d677628fe6aebeb6cbb2773"
+    "content_hash": "6ec4ccd7b0021408816bd689874cfabd2302ba42dd0129d0969e9a718bd3f5fb"
   },
   {
     "id": "db:us-history",
@@ -886,9 +897,9 @@
     "metadata": {
       "subject": "US History",
       "count": 88,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=148532"
     },
-    "content_hash": "867c9312a51e22212bdc54607be037cc3bc0b354a6615d7f54873cd035628d54"
+    "content_hash": "93bbf679fe0a1b8552c2018236a21418cd19f19997a029a2a201f3496e1a950b"
   },
   {
     "id": "db:western-new-york",
@@ -897,9 +908,9 @@
     "metadata": {
       "subject": "Western New York",
       "count": 1,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=181523"
     },
-    "content_hash": "ff9665a0f937ed06e9d0236d8f0d1b40f04db9495564bce92a9bd2dd9f59452e"
+    "content_hash": "c92f37f4c6079fb71d0b4faf2e1f064d1b66dfce9b7a8b74d924bb623b8279bf"
   },
   {
     "id": "db:world-history",
@@ -908,9 +919,9 @@
     "metadata": {
       "subject": "World History",
       "count": 84,
-      "browse_url": "https://research.lib.buffalo.edu/az.php"
+      "browse_url": "https://research.lib.buffalo.edu/az.php?s=148531"
     },
-    "content_hash": "745a6a543c5932e406e734bc9454413456202c56bb1a3b95e02f8c5f6e0624cc"
+    "content_hash": "9f7b5eea129f71e157163dc2bf2b22138e843a01482ea4ad0cc54379d2d06347"
   },
   {
     "id": "help:1capen",
@@ -928,9 +939,9 @@
     "text": "Abbott Library",
     "metadata": {
       "title": "Abbott Library",
-      "url": "https://library.buffalo.edu/abbott"
+      "url": "https://library.buffalo.edu/libraries-collections/abbott.html"
     },
-    "content_hash": "b9800cc99f818ceba05b36f38e950e6efe8b3282e7468a5110082d192bbfe284"
+    "content_hash": "26c9f191ded83456da97132ae38d8d421f8f1a40aaaef4946215d23955ca5dbb"
   },
   {
     "id": "help:academic-integrity-university-at-buffalo",
@@ -968,9 +979,9 @@
     "text": "ArcGIS Software (ESRI)",
     "metadata": {
       "title": "ArcGIS Software (ESRI)",
-      "url": "http://research.lib.buffalo.edu/gis-courses"
+      "url": "https://research.lib.buffalo.edu/gis-courses"
     },
-    "content_hash": "34863b125f6048e59ffd3432395d72878fa7234b142939429d44f2d5615de753"
+    "content_hash": "e8d733f2be9b958189457c2e17e5c7330822715bd11943d3f14b6ffa4e6a5c21"
   },
   {
     "id": "help:architecture-planning-library-apl",
@@ -998,9 +1009,9 @@
     "text": "Biographical Information",
     "metadata": {
       "title": "Biographical Information",
-      "url": "http://research.lib.buffalo.edu/biographical-information"
+      "url": "https://research.lib.buffalo.edu/biographical-information"
     },
-    "content_hash": "b95fff5734ca4c4e84e129e89245710c1148f9d112a0d0d1345f6b3cc7052dc3"
+    "content_hash": "a736483c1401c33be0ab670594da2439eec715d3403ff18e0977bd8bd4b705f6"
   },
   {
     "id": "help:bonnie-and-vern-bullough-history-of-nursing-collection-the",
@@ -1018,9 +1029,9 @@
     "text": "Book Reviews",
     "metadata": {
       "title": "Book Reviews",
-      "url": "http://research.lib.buffalo.edu/book-reviews"
+      "url": "https://research.lib.buffalo.edu/book-reviews"
     },
-    "content_hash": "2b7909838da83a8c4ee9821302ad825966d53804ec4860ad2169670d61ec44b8"
+    "content_hash": "f1e20dbc99c9a0e91b5e4fc1d48d3b2e0ea163c2d5027d6106ed6465f27a5b02"
   },
   {
     "id": "help:borrowing-materials-from-the-university-libraries",
@@ -1028,9 +1039,9 @@
     "text": "Borrowing Materials from the University Libraries",
     "metadata": {
       "title": "Borrowing Materials from the University Libraries",
-      "url": "https://library.buffalo.edu/borrowing"
+      "url": "https://library.buffalo.edu/find-borrow/borrowing.html"
     },
-    "content_hash": "24ff980cc0029d2b8ecfaa5fb4552a7acfe75f40eb4c8581183b1abd45ba5db8"
+    "content_hash": "0d198d904a517ebcbbe37f7f24713ba91a1fd8d24a0f3f43255e3b3e0dda8fdd"
   },
   {
     "id": "help:campus-closing",
