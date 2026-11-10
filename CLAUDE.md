@@ -763,7 +763,12 @@ results last shown. The app (Streamlit `session_state.shown_results`, and the CL
 turns; only a turn showing new results replaces them. With nothing stored the flag is ignored and the
 normal search runs. Limits: the answer can only use fields OneSearch returned (descriptions are often
 missing), so the prompt requires saying what the catalog record does not tell, and a "which is better"
-judgment is labeled as based on the catalog description, not on reading the work. Confirmed live:
+judgment is labeled as based on the catalog description, not on reading the work. What is stored covers
+everything the last answer displayed, not just OneSearch results: the subject librarian, database subject
+(with a few of its keywords so the answer can say what it covers) and help pages, when the answer text
+shows them, and the follow-up also receives the previous answer text, so it still works when nothing
+structured was stored. (First version stored only OneSearch results; the user's "how do the OneSearch
+results differ from the database recommendation?" re-searched instead - fixed.) Confirmed live:
 compare and "better for a beginner" follow-ups answered with no search; a new-topic message still searched.
 
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)

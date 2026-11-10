@@ -80,7 +80,11 @@ def build_graph(model, client, collection=None):
     def followup_node(state: AgentState) -> dict:
         # The user is asking about results already on screen: answer from those
         # stored details, no OneSearch or RAG call.
-        answer = answer_followup(model, state["role"], state["message"], state["shown_results"])
+        history = state.get("history", [])
+        last_answer = history[-1]["assistant"] if history else ""
+        answer = answer_followup(
+            model, state["role"], state["message"], state.get("shown_results", []), last_answer
+        )
         return {"answer": answer}
 
     graph = StateGraph(AgentState)
@@ -109,9 +113,12 @@ def build_graph(model, client, collection=None):
             return "clarify"
         if state["plan"].wants_human_help:
             return "human_help"
-        # Only when there is something to answer from; without stored results the
-        # planner's flag is moot and the normal search runs.
-        if state["plan"].about_previous_results and state.get("shown_results"):
+        # Only when there is something to answer from (stored details, or at least a
+        # previous answer); on a first turn the planner's flag is moot and the normal
+        # search runs.
+        if state["plan"].about_previous_results and (
+            state.get("shown_results") or state.get("history")
+        ):
             return "followup"
         return ["run_search", "run_rag"]
 

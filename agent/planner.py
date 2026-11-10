@@ -41,6 +41,9 @@ Example: role=graduate, recent conversation: user asked for "books on climate po
 Example: role=graduate, recent conversation: user asked for "books on cancer immunotherapy" and got results, then message="in what way do these results differ from each other?"
 -> keywords="cancer immunotherapy", resource_type=null, peer_reviewed=false, needs_clarification=null, topic_category="health_and_medicine", out_of_scope_note=null, unsupported_request_note=null, about_previous_results=true, wants_human_help=false
 
+Example: role=graduate, recent conversation: user asked "chemistry resources" and the answer showed OneSearch results plus a subject librarian and a database link, then message="in what way do the OneSearch results differ from the database recommendation?"
+-> keywords="chemistry", resource_type=null, peer_reviewed=false, needs_clarification=null, topic_category="sciences", out_of_scope_note=null, unsupported_request_note=null, about_previous_results=true, wants_human_help=false
+
 Example: role=undergraduate, recent conversation: user asked for "articles on volcanoes" and got results, then message="actually I need books, not articles"
 -> keywords="volcanoes", resource_type="books", peer_reviewed=false, needs_clarification=null, topic_category="sciences", out_of_scope_note=null, wants_human_help=false
 (this is refining the search, not asking for a human)

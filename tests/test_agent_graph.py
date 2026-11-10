@@ -252,3 +252,22 @@ def test_followup_flag_without_stored_results_falls_back_to_a_normal_search():
 
     client.search_with_fallback.assert_called_once()
     assert "Fits." in out["answer"]
+
+
+def test_followup_with_only_a_previous_answer_and_no_stored_details_still_answers():
+    model = FakeChatModel(
+        QueryPlan(keywords="chemistry", about_previous_results=True),
+        FollowupAnswer(answer="OneSearch gives items; the database link gives a collection."),
+    )
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({
+        "role": "graduate",
+        "message": "how do the OneSearch results differ from the database recommendation?",
+        "history": [{"user": "chemistry resources", "assistant": "Subject librarian: ..."}],
+    })
+
+    client.search_with_fallback.assert_not_called()
+    assert out["answer"].startswith("OneSearch gives items")
+    assert "PREVIOUS" not in out["answer"]

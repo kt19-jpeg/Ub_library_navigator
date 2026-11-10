@@ -503,3 +503,28 @@ def test_answer_followup_sends_the_stored_results_and_appends_the_offer():
 def test_answer_followup_falls_back_when_the_model_fails():
     text = answer_followup(FakeChatModel(RuntimeError("down")), "graduate", "compare?", [{"title": "A"}])
     assert "couldn't compare" in text
+
+
+def test_extract_shown_results_also_keeps_the_guide_suggestions_that_were_displayed():
+    state = {
+        "rag_context": _full_rag_context(),
+        "answer": "Subject librarian: Doe, Jane - https://x\nBrowse databases in Psychology: https://y",
+    }
+
+    shown = extract_shown_results(state)
+
+    kinds = [e["kind"] for e in shown]
+    assert kinds == ["subject_librarian", "database_subject"]  # help pages were not displayed
+    assert shown[0]["librarians"] == ["Doe, Jane"]
+    assert shown[1]["subject"] == "Psychology"
+
+
+def test_guides_not_displayed_in_the_answer_are_not_stored():
+    state = {"rag_context": _full_rag_context(), "answer": "Just resources. Want a librarian? Just ask."}
+    assert extract_shown_results(state) == []
+
+
+def test_answer_followup_includes_the_previous_answer_text():
+    model = FakeChatModel(FollowupAnswer(answer="Items versus a collection."))
+    answer_followup(model, "graduate", "how do these differ?", [], last_answer="PREVIOUS ANSWER BODY")
+    assert "PREVIOUS ANSWER BODY" in model.calls[0][1][1]
