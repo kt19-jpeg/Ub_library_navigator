@@ -1,4 +1,8 @@
+import logging
+
 from agent.models import QueryPlan
+
+logger = logging.getLogger(__name__)
 
 MAX_HISTORY_TURNS = 3
 
@@ -52,7 +56,7 @@ Example: role=undergraduate, recent conversation: user asked for "articles on vo
 
 def fallback_plan(message: str) -> QueryPlan:
     """Used when the model fails or returns something unusable: search the raw message unfiltered."""
-    return QueryPlan(keywords=message.strip())
+    return QueryPlan(keywords=message.strip(), planning_failed=True)
 
 
 def _format_request(role: str, message: str, history: list[dict]) -> str:
@@ -83,5 +87,9 @@ def plan_query(model, role: str, message: str, history: list[dict] | None = None
         if not plan.keywords.strip() and not plan.needs_clarification:
             return fallback_plan(message)
         return plan
-    except Exception:
+    except Exception as exc:
+        # Swallowed on purpose (the turn still works as a plain keyword search), but it
+        # must be visible: on Render an expired OPENAI_API_KEY made every turn fall back
+        # silently, with nothing in the logs (2026-11-12).
+        logger.warning("planner model call failed, using the raw message: %r", exc)
         return fallback_plan(message)

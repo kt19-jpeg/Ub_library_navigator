@@ -771,6 +771,24 @@ structured was stored. (First version stored only OneSearch results; the user's 
 results differ from the database recommendation?" re-searched instead - fixed.) Confirmed live:
 compare and "better for a beginner" follow-ups answered with no search; a new-topic message still searched.
 
+## Layer 2, slice 17: Render parity - library-guide store bootstrap + visible model failures (built)
+
+The deployed app gave worse answers than local. Two real causes found from screenshots and the code:
+(1) every LLM call was failing on Render (planner fell back to the raw sentence as keywords, ranking
+fell back to "could not rank", with nothing in the logs) - consistent with the old expired
+`OPENAI_API_KEY` still set in Render while only the local `.env` had the new one; (2) `vectorstore/`
+is gitignored and not in the image and nothing built it on Render, so library-guide data (librarian/
+database/help suggestions) was always empty there, key or not. Fixes: `pipeline/bootstrap.py`
+`ensure_rag_collection()` builds/syncs the store at startup from the COMMITTED snapshot
+(`data/processed/records.json`) plus `data/subject_keywords.json`, no scraping; unchanged records are
+not re-embedded (cold build of 373 records ~2s, warm start ~0.02s, confirmed live) and any failure
+returns None with a logged warning, never an exception. Model failures are now logged with the real
+error (planner, compose, follow-up) so they show in Render's logs; `QueryPlan.planning_failed` adds
+a note to the answer and the Streamlit UI shows a warning that the AI model didn't respond. Free-plan
+disk is ephemeral, which is fine now because the store is rebuilt on every start.
+**Render still needs a valid `OPENAI_API_KEY` in its Environment settings** (the owner sets this; it
+is not in the repo).
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

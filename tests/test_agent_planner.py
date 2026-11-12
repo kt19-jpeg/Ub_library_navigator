@@ -41,17 +41,17 @@ def test_invalid_dict_falls_back_to_raw_message():
 
 def test_model_error_falls_back_to_raw_message():
     model = FakeChatModel(RuntimeError("provider down"))
-    assert plan_query(model, "graduate", "some question") == QueryPlan(keywords="some question")
+    assert plan_query(model, "graduate", "some question") == fallback_plan("some question")
 
 
 def test_none_response_falls_back():
     model = FakeChatModel(None)
-    assert plan_query(model, "graduate", "some question") == QueryPlan(keywords="some question")
+    assert plan_query(model, "graduate", "some question") == fallback_plan("some question")
 
 
 def test_empty_keywords_without_clarification_falls_back():
     model = FakeChatModel(QueryPlan(keywords="  "))
-    assert plan_query(model, "graduate", "help") == QueryPlan(keywords="help")
+    assert plan_query(model, "graduate", "help") == fallback_plan("help")
 
 
 def test_clarification_is_passed_through_even_with_empty_keywords():
@@ -82,3 +82,19 @@ def test_wants_human_help_is_passed_through_with_the_topic_reused_from_history()
     )
 
     assert result == plan
+
+
+def test_a_failed_planner_call_is_flagged_and_logged(caplog):
+    import logging
+
+    model = FakeChatModel(RuntimeError("401 expired key"))
+    with caplog.at_level(logging.WARNING, logger="agent.planner"):
+        plan = plan_query(model, "graduate", "cancer cure")
+
+    assert plan.planning_failed is True and plan.keywords == "cancer cure"
+    assert "401 expired key" in caplog.text
+
+
+def test_a_successful_plan_is_not_flagged():
+    model = FakeChatModel(QueryPlan(keywords="cancer"))
+    assert plan_query(model, "graduate", "cancer").planning_failed is False

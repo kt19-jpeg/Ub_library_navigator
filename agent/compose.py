@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 
 from agent.citation_tool import format_citation
@@ -6,6 +7,8 @@ from agent.escalation import build_escalation_block
 from agent.models import AgentState, FollowupAnswer, RagContext, Selection, SelectionItem
 from onesearch.client import OneSearchClient
 from onesearch.models import ResourceDetail, SearchCandidate
+
+logger = logging.getLogger(__name__)
 
 MAX_SHOWN = 3
 DESCRIPTION_CHARS = 300
@@ -387,7 +390,8 @@ def answer_followup(
         text = response.answer.strip()
         if not text:
             return FOLLOWUP_FAILED
-    except Exception:
+    except Exception as exc:
+        logger.warning("follow-up model call failed: %r", exc)
         return FOLLOWUP_FAILED
     return f"{text}\n\n{FOLLOWUP_OFFER}"
 
@@ -459,7 +463,8 @@ def compose(state: AgentState, model, client: OneSearchClient) -> dict:
         selection = select_results(model, state["role"], message, candidates, rag_context)
         items = validate_selection(selection.items, candidates)
         confidence = selection.confidence
-    except Exception:
+    except Exception as exc:
+        logger.warning("compose model call failed, showing top OneSearch matches: %r", exc)
         items = [SelectionItem(record_id=c.record_id, reason="") for c in candidates[:MAX_SHOWN]]
         confidence = "medium"
         notes.append("I could not rank these results, so these are the top matches from OneSearch.")

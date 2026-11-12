@@ -271,3 +271,13 @@ def test_followup_with_only_a_previous_answer_and_no_stored_details_still_answer
     client.search_with_fallback.assert_not_called()
     assert out["answer"].startswith("OneSearch gives items")
     assert "PREVIOUS" not in out["answer"]
+
+
+def test_a_failed_planner_adds_a_visible_note_to_the_answer():
+    model = FakeChatModel(RuntimeError("down"), RuntimeError("down"))  # planner, then compose
+    graph = build_graph(model, _client())
+
+    out = graph.invoke({"role": "graduate", "message": "cancer cure", "history": []})
+
+    assert out["plan"].planning_failed
+    assert "AI model did not respond" in out["answer"]

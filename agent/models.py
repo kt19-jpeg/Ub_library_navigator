@@ -76,6 +76,10 @@ class QueryPlan(BaseModel):
             "search. False for any request to find resources."
         ),
     )
+    planning_failed: bool = Field(
+        default=False,
+        description="Set by code (never the model) when planning failed and the raw message was used.",
+    )
     wants_human_help: bool = Field(
         default=False,
         description=(

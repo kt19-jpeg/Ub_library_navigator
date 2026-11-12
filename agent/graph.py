@@ -50,7 +50,13 @@ def build_graph(model, client, collection=None):
 
     def plan_node(state: AgentState) -> dict:
         plan = plan_query(model, state["role"], state["message"], state.get("history", []))
-        return {"plan": plan, "answer": plan.needs_clarification}
+        update = {"plan": plan, "answer": plan.needs_clarification}
+        if plan.planning_failed:
+            update["notes"] = [
+                "The AI model did not respond, so I searched your exact words instead of "
+                "working out the topic."
+            ]
+        return update
 
     def search_node(state: AgentState) -> dict:
         outcome = run_onesearch(state["plan"], client)

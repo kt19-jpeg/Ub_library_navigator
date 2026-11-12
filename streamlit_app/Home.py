@@ -258,6 +258,8 @@ def render_answer(entry: dict, show_debug: bool) -> None:
             for style_name, text in styles.items():
                 st.markdown(f"**{style_name.upper()}**")
                 st.markdown(text)
+    if entry.get("warning"):
+        st.warning(entry["warning"])
     if show_debug:
         for line in entry.get("debug", []):
             st.caption(line)
@@ -304,7 +306,20 @@ if message:
         debug_lines.append(f"plan: {state['plan'].model_dump()}")
     debug_lines.append(f"timings: {state.get('timings', {})}")
     debug_lines.extend(f"note: {note}" for note in state.get("notes", []))
-    entry = {"user": message, "answer": answer, "citations": citations, "debug": debug_lines}
+    # A model failure is otherwise silent (the turn degrades to a plain keyword search).
+    model_failed = ("plan" in state and state["plan"].planning_failed) or any(
+        "could not rank" in note for note in state.get("notes", [])
+    )
+    warning = (
+        "The AI model didn't respond, so this is a plain keyword search and may be less "
+        "accurate. If this keeps happening, the site owner should check the OpenAI key and quota."
+        if model_failed
+        else ""
+    )
+    entry = {
+        "user": message, "answer": answer, "citations": citations,
+        "debug": debug_lines, "warning": warning,
+    }
     with st.chat_message("assistant", avatar="🦬"):
         render_answer(entry, debug)
     # The transcript keeps every turn on screen; only the LLM's own context is trimmed.
