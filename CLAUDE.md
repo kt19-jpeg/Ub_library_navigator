@@ -804,7 +804,9 @@ beginner?" from its own head instead of the stored results. Two deterministic gu
 results) and `is_library_help_request` (a library-services question always runs the real lookup, never
 a chatty reply). Found live: earlier turns in the chat sway the model ("write my essay" then "books
 about writing a literature review" was declined), hence the code-side guards. Checked with a 15-message
-battery; known residual: gpt-4o-mini is not deterministic, so an occasional borderline message
+battery; the 7-turn scenario is now `python -m evaluation.context_check` (live; checks routing, the 3-turn history
+cap, that the on-screen transcript never shrinks, and that shown-results survive chit-chat) with an
+offline copy in `tests/test_evaluation_context_check.py` that runs in CI. Known residual: gpt-4o-mini is not deterministic, so an occasional borderline message
 (e.g. "explain how photosynthesis works") gets a clarifying question instead of a decline.
 
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
