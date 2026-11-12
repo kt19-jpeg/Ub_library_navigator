@@ -281,3 +281,59 @@ def test_a_failed_planner_adds_a_visible_note_to_the_answer():
 
     assert out["plan"].planning_failed
     assert "AI model did not respond" in out["answer"]
+
+
+def test_an_out_of_scope_request_is_declined_without_searching_or_listing_resources():
+    note = "I can't write a literature review for you, but I can find resources on cancer if you ask."
+    model = FakeChatModel(QueryPlan(keywords="cancer", out_of_scope_note=note))
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({"role": "graduate", "message": "can you help me write a literature review on this?", "history": []})
+
+    client.search_with_fallback.assert_not_called()
+    assert out["answer"] == note
+    assert set(out["timings"]) == {"entry", "plan", "decline"}
+
+
+def test_a_conversational_message_gets_the_direct_reply_without_searching():
+    model = FakeChatModel(QueryPlan(keywords="", direct_reply="You're welcome!"))
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({"role": "undergraduate", "message": "thanks, that helps!", "history": []})
+
+    client.search_with_fallback.assert_not_called()
+    assert out["answer"] == "You're welcome!"
+    assert set(out["timings"]) == {"entry", "plan"}
+
+
+def test_an_explicit_resource_request_is_not_declined_even_if_flagged_out_of_scope():
+    note = "I can't write your literature review for you."
+    model = FakeChatModel(
+        QueryPlan(keywords="literature review methods", resource_type="books", out_of_scope_note=note),
+        Selection(items=[SelectionItem(record_id="j1", reason="A guide.")], confidence="high"),
+    )
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({
+        "role": "graduate", "message": "books about how to write a literature review", "history": [],
+    })
+
+    client.search_with_fallback.assert_called_once()
+    assert out["answer"].startswith(note)  # the note still leads, results follow
+
+
+def test_a_direct_reply_cannot_replace_a_library_services_lookup():
+    model = FakeChatModel(
+        QueryPlan(keywords="chemistry", direct_reply="I can help with that!", topic_category="library_services"),
+        Selection(items=[SelectionItem(record_id="j1", reason="x")], confidence="high"),
+    )
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({"role": "graduate", "message": "who is the subject librarian for chemistry?", "history": []})
+
+    client.search_with_fallback.assert_called_once()
+    assert out["answer"] != "I can help with that!"

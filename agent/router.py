@@ -21,3 +21,18 @@ def is_human_request(message: str) -> bool:
     """True only for a message that's clearly, explicitly asking for a human —
     not one that merely contains a word like "person" as part of something else."""
     return bool(_HUMAN_REQUEST_RE.search(message))
+
+
+# An explicit ask for resources. The planner's out-of-scope decline (for "write my
+# literature review") must not swallow a message that also asks for books/articles/etc.:
+# the model can be pulled that way by earlier turns in the chat (seen live 2026-11-12,
+# "books about how to write a literature review" declined right after an essay request).
+RESOURCE_CUE_RE = re.compile(
+    r"\b(books?|e-?books?|articles?|journals?|dissertations?|videos?|databases?|"
+    r"resources?|readings?|find me|looking for)\b",
+    re.IGNORECASE,
+)
+
+
+def asks_for_resources(message: str) -> bool:
+    return bool(RESOURCE_CUE_RE.search(message))

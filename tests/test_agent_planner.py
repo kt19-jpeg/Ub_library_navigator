@@ -98,3 +98,9 @@ def test_a_failed_planner_call_is_flagged_and_logged(caplog):
 def test_a_successful_plan_is_not_flagged():
     model = FakeChatModel(QueryPlan(keywords="cancer"))
     assert plan_query(model, "graduate", "cancer").planning_failed is False
+
+
+def test_a_direct_reply_without_keywords_is_kept_not_replaced_by_the_fallback():
+    model = FakeChatModel(QueryPlan(keywords="", direct_reply="You're welcome!"))
+    plan = plan_query(model, "graduate", "thanks")
+    assert plan.direct_reply == "You're welcome!" and plan.planning_failed is False

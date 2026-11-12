@@ -45,3 +45,13 @@ def test_case_insensitive():
 
 def test_whitespace_only_bare_human_still_matches_with_surrounding_space():
     assert is_human_request("  human  ") is True
+
+
+def test_asks_for_resources_matches_explicit_resource_requests_only():
+    from agent.router import asks_for_resources
+
+    assert asks_for_resources("books about how to write a literature review")
+    assert asks_for_resources("can you find me articles for my essay")
+    assert asks_for_resources("any resources on this?")
+    assert not asks_for_resources("can you help me in a literature reviews on this ?")
+    assert not asks_for_resources("write my research paper")
