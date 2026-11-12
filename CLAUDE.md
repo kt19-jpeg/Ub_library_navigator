@@ -807,6 +807,22 @@ about writing a literature review" was declined), hence the code-side guards. Ch
 battery; known residual: gpt-4o-mini is not deterministic, so an occasional borderline message
 (e.g. "explain how photosynthesis works") gets a clarifying question instead of a decline.
 
+## Layer 2, slice 19: OneSearch session start on a CPU-starved host (fixed)
+
+Render showed "OneSearch could not be reached" on every search. The real cause came from logs
+(slice 17's logging shipped in PR #25): `TimeoutError` in `mint_session_via_playwright`'s
+`page.expect_response(timeout=30000)`. Reproduced in Docker with the Render image: the session start
+takes ~4.5s at 1 CPU, ~22s at 0.25 CPU, ~100s at 0.1 CPU (Render's free plan share) and so timed out at
+30s. Not a block by Ex Libris, not memory (the full graph fits in 512MB), not PR #23's code. Fixes in
+`onesearch/session.py`: mint timeout 30s -> 180s (`ONESEARCH_MINT_TIMEOUT_MS`); a lock so concurrent
+visitors never launch concurrent Chromiums (the manager had none); `SessionManager.warm_up()` (called
+by `build_default_graph`) mints in the background at startup and refreshes 4 minutes before expiry
+while searches are happening, stopping after 30 minutes idle; Chromium skips images/fonts/media and
+uses `--disable-dev-shm-usage`. Measured end to end at 0.1 CPU / 512MB: first search after a cold
+start ~90s (mint and library-guide build compete for the CPU), then ~8s. **Honest limit:** the free
+plan also spins down after ~15 minutes idle, so that cold start repeats; a Starter instance (0.5 CPU)
+removes the problem rather than mitigating it.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

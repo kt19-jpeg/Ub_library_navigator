@@ -87,7 +87,9 @@ def build_default_graph(provider: str | None = None, model_name: str | None = No
     from onesearch.session import SessionManager
     from pipeline.bootstrap import ensure_rag_collection
 
-    client = OneSearchClient(session_manager=SessionManager(), cache=QueryCache(ttl_seconds=300))
+    session_manager = SessionManager()
+    session_manager.warm_up()  # mint in the background so the first search rarely waits
+    client = OneSearchClient(session_manager=session_manager, cache=QueryCache(ttl_seconds=300))
     # Built/synced from the committed snapshot (no scraping), so a fresh deploy gets
     # library-guide data too. None (no/invalid key, sync failure) is fine: build_graph
     # then always returns an empty RagContext for this chat.
