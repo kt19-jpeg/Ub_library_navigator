@@ -67,6 +67,19 @@ class QueryPlan(BaseModel):
             "Keywords are still filled in so the normal search runs. Null otherwise."
         ),
     )
+    about_previous_results: bool = Field(
+        default=False,
+        description=(
+            "True only if the message asks to compare, explain, pick between, or learn more "
+            "about results ALREADY SHOWN earlier in the conversation (how do these differ, which "
+            "is better for me, tell me more about the second one), rather than asking for a new "
+            "search. False for any request to find resources."
+        ),
+    )
+    planning_failed: bool = Field(
+        default=False,
+        description="Set by code (never the model) when planning failed and the raw message was used.",
+    )
     wants_human_help: bool = Field(
         default=False,
         description=(
@@ -93,6 +106,14 @@ class Selection(BaseModel):
     )
 
 
+class FollowupAnswer(BaseModel):
+    """The LLM's direct answer to a question about results already shown."""
+
+    answer: str = Field(
+        description="A precise answer to the question, using only the provided result details."
+    )
+
+
 class RagContext(BaseModel):
     """Library-guide hits added alongside OneSearch results. Each list is already
     filtered by distance cutoff and capped, sorted best-first."""
@@ -115,6 +136,7 @@ class AgentState(TypedDict, total=False):
     role: str
     message: str
     history: list[dict]  # [{"user": str, "assistant": str}], most recent last
+    shown_results: list[dict]  # structured details of the results shown last (see compose.extract_shown_results)
     plan: QueryPlan
     search_result: SearchResult
     rag_context: RagContext

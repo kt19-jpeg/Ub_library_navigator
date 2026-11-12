@@ -35,7 +35,9 @@ def test_chat_passes_role_message_and_history_to_the_graph():
 
     run_chat(graph, read=read, write=write, log_fn=lambda role, state: None)
 
-    assert graph.calls[0] == {"role": "faculty", "message": "first question", "history": []}
+    assert graph.calls[0] == {
+        "role": "faculty", "message": "first question", "history": [], "shown_results": []
+    }
     assert graph.calls[1]["history"] == [
         {"user": "first question", "assistant": "answer to first question"}
     ]

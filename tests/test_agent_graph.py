@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock
 
 from agent.graph import build_graph
-from agent.models import QueryPlan, Selection, SelectionItem
+from agent.models import FollowupAnswer, QueryPlan, Selection, SelectionItem
 from onesearch.models import ResourceDetail, SearchCandidate, SearchResult
 from tests.fakes import FakeChatModel
 
@@ -218,3 +218,66 @@ def test_wants_human_help_skips_search_but_still_offers_rag_and_escalates():
     # always runs first, finds no exact-phrasing match for this fuzzier
     # dissatisfaction message, and falls through to plan -> human_help.
     assert set(out["timings"]) == {"entry", "plan", "human_help"}
+
+
+def test_question_about_shown_results_is_answered_without_searching():
+    model = FakeChatModel(
+        QueryPlan(keywords="mental health", about_previous_results=True),
+        FollowupAnswer(answer="One is a journal, the other a book."),
+    )
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({
+        "role": "graduate",
+        "message": "how do these two differ?",
+        "history": [{"user": "mental health journals", "assistant": "..."}],
+        "shown_results": [{"title": "A"}, {"title": "B"}],
+    })
+
+    client.search_with_fallback.assert_not_called()
+    assert out["answer"].startswith("One is a journal, the other a book.")
+    assert set(out["timings"]) == {"entry", "plan", "followup"}
+
+
+def test_followup_flag_without_stored_results_falls_back_to_a_normal_search():
+    model = FakeChatModel(
+        QueryPlan(keywords="mental health", about_previous_results=True),
+        Selection(items=[SelectionItem(record_id="j1", reason="Fits.")], confidence="high"),
+    )
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({"role": "graduate", "message": "how do these differ?", "history": []})
+
+    client.search_with_fallback.assert_called_once()
+    assert "Fits." in out["answer"]
+
+
+def test_followup_with_only_a_previous_answer_and_no_stored_details_still_answers():
+    model = FakeChatModel(
+        QueryPlan(keywords="chemistry", about_previous_results=True),
+        FollowupAnswer(answer="OneSearch gives items; the database link gives a collection."),
+    )
+    client = _client()
+    graph = build_graph(model, client)
+
+    out = graph.invoke({
+        "role": "graduate",
+        "message": "how do the OneSearch results differ from the database recommendation?",
+        "history": [{"user": "chemistry resources", "assistant": "Subject librarian: ..."}],
+    })
+
+    client.search_with_fallback.assert_not_called()
+    assert out["answer"].startswith("OneSearch gives items")
+    assert "PREVIOUS" not in out["answer"]
+
+
+def test_a_failed_planner_adds_a_visible_note_to_the_answer():
+    model = FakeChatModel(RuntimeError("down"), RuntimeError("down"))  # planner, then compose
+    graph = build_graph(model, _client())
+
+    out = graph.invoke({"role": "graduate", "message": "cancer cure", "history": []})
+
+    assert out["plan"].planning_failed
+    assert "AI model did not respond" in out["answer"]

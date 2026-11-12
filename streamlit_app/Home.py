@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import streamlit as st
 
 from agent.cli import HISTORY_TURNS, build_default_graph
-from agent.compose import wants_citations
+from agent.compose import extract_shown_results, wants_citations
 from agent.llm import LLMConfigError
 from agent.models import ROLES
 from analytics.auth import app_auth_configured, check_app_access
@@ -185,6 +185,8 @@ if "role" not in st.session_state:
     st.session_state.role = None
 if "history" not in st.session_state:
     st.session_state.history = []  # last few turns only: this is what the LLM sees
+if "shown_results" not in st.session_state:
+    st.session_state.shown_results = []  # details of the results last shown, for follow-ups
 if "transcript" not in st.session_state:
     st.session_state.transcript = []  # every turn, for display only
 if "pending_message" not in st.session_state:
@@ -256,6 +258,8 @@ def render_answer(entry: dict, show_debug: bool) -> None:
             for style_name, text in styles.items():
                 st.markdown(f"**{style_name.upper()}**")
                 st.markdown(text)
+    if entry.get("warning"):
+        st.warning(entry["warning"])
     if show_debug:
         for line in entry.get("debug", []):
             st.caption(line)
@@ -279,6 +283,7 @@ if message:
                 "role": st.session_state.role,
                 "message": message,
                 "history": st.session_state.history,
+                "shown_results": st.session_state.shown_results,
             }
         )
     log_turn(st.session_state.role, state)
@@ -301,10 +306,25 @@ if message:
         debug_lines.append(f"plan: {state['plan'].model_dump()}")
     debug_lines.append(f"timings: {state.get('timings', {})}")
     debug_lines.extend(f"note: {note}" for note in state.get("notes", []))
-    entry = {"user": message, "answer": answer, "citations": citations, "debug": debug_lines}
+    # A model failure is otherwise silent (the turn degrades to a plain keyword search).
+    model_failed = ("plan" in state and state["plan"].planning_failed) or any(
+        "could not rank" in note for note in state.get("notes", [])
+    )
+    warning = (
+        "The AI model didn't respond, so this is a plain keyword search and may be less "
+        "accurate. If this keeps happening, the site owner should check the OpenAI key and quota."
+        if model_failed
+        else ""
+    )
+    entry = {
+        "user": message, "answer": answer, "citations": citations,
+        "debug": debug_lines, "warning": warning,
+    }
     with st.chat_message("assistant", avatar="🦬"):
         render_answer(entry, debug)
     # The transcript keeps every turn on screen; only the LLM's own context is trimmed.
     st.session_state.transcript.append(entry)
+    # Kept across follow-up turns: only a turn that shows new results replaces it.
+    st.session_state.shown_results = extract_shown_results(state) or st.session_state.shown_results
     st.session_state.history.append({"user": message, "assistant": answer})
     st.session_state.history = st.session_state.history[-HISTORY_TURNS:]

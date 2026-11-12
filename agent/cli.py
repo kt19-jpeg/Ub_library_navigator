@@ -1,6 +1,7 @@
 import argparse
 import sys
 
+from agent.compose import extract_shown_results
 from agent.llm import LLMConfigError, get_chat_model
 from agent.models import ROLES
 
@@ -37,6 +38,7 @@ def run_chat(
     role = choose_role(read, write)
     write(f"Role set to {role}. {HELP}")
     history: list[dict] = []
+    shown_results: list[dict] = []
     while True:
         try:
             message = read("> ").strip()
@@ -50,7 +52,9 @@ def run_chat(
             role = choose_role(read, write)
             write(f"Role set to {role}.")
             continue
-        state = graph.invoke({"role": role, "message": message, "history": history})
+        state = graph.invoke(
+            {"role": role, "message": message, "history": history, "shown_results": shown_results}
+        )
         log_fn(role, state)
         answer = state["answer"]
         if debug:
@@ -65,6 +69,7 @@ def run_chat(
                 write(f"[citations for {record_id}]")
                 for style, text in styles.items():
                     write(f"  {style.upper()}: {text}")
+        shown_results = extract_shown_results(state) or shown_results  # keep across follow-ups
         history.append({"user": message, "assistant": answer})
         history = history[-HISTORY_TURNS:]
 
@@ -80,12 +85,13 @@ def build_default_graph(provider: str | None = None, model_name: str | None = No
     from onesearch.cache import QueryCache
     from onesearch.client import OneSearchClient
     from onesearch.session import SessionManager
-    from pipeline.embed import open_rag_collection
+    from pipeline.bootstrap import ensure_rag_collection
 
     client = OneSearchClient(session_manager=SessionManager(), cache=QueryCache(ttl_seconds=300))
-    # None (no OPENAI_API_KEY, or `python pipeline/refresh.py` hasn't been run yet)
-    # is fine: build_graph then always returns an empty RagContext for this chat.
-    collection = open_rag_collection()
+    # Built/synced from the committed snapshot (no scraping), so a fresh deploy gets
+    # library-guide data too. None (no/invalid key, sync failure) is fine: build_graph
+    # then always returns an empty RagContext for this chat.
+    collection = ensure_rag_collection()
     return build_graph(model, client, collection=collection)
 
 
