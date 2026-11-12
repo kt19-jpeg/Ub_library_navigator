@@ -1,8 +1,12 @@
+import logging
 from dataclasses import dataclass, field
 
 from agent.models import QueryPlan
 from onesearch.client import OneSearchClient
 from onesearch.models import SearchResult
+
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -40,6 +44,10 @@ def run_onesearch(plan: QueryPlan, client: OneSearchClient) -> SearchOutcome:
         return SearchOutcome(result=result, notes=notes)
     except Exception:
         # HTTP errors and anything unexpected from Layer 1: degrade to the direct link.
+        # Logged WITH the traceback: the user-facing note is deliberately vague, and on
+        # Render this used to hide whether the cause was a blocked address, a failed
+        # Chromium session mint, or a memory kill (2026-11-12).
+        logger.warning("OneSearch lookup failed for %r", plan.keywords, exc_info=True)
         return SearchOutcome(
             result=SearchResult(
                 candidates=[], timed_out=True, fallback_link=client.fallback_link(plan.keywords)
