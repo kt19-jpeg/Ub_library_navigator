@@ -289,6 +289,21 @@ Rules:
 - For judgment questions ("which is better for a beginner"), give a recommendation only if the details support it, and say it is based on the catalog description, year and type, not on reading the book.
 - No numbered lists, no links, no headings."""
 
+CAPABILITIES = (
+    "I can find books, articles, journals, dissertations and videos in OneSearch, name your "
+    "subject librarian and help guides, suggest databases, format APA/MLA/Chicago citations when "
+    "you ask, and connect you to live chat with a librarian."
+)
+# Fixed replies, written in code: the planner only classifies a message as chit-chat, it
+# never writes the reply, so it cannot answer a real question (or invent facts about shown
+# results) under the chit-chat label.
+CHITCHAT_REPLIES = {
+    "greeting": f"Hi! {CAPABILITIES} What would you like to look for?",
+    "thanks": "You're welcome! Ask me anything else about UB Libraries.",
+    "about_agent": f"I'm the UB Library Navigator, an assistant for University at Buffalo Libraries. {CAPABILITIES}",
+    "off_topic": "I help with UB Libraries resources, so I can't answer that. I'm happy to help you find books, articles or databases on a topic.",
+}
+
 FOLLOWUP_OFFER = "Want me to search for more on this topic, or look at a different angle?"
 FOLLOWUP_FAILED = (
     "I couldn't compare those just now. You can open each record from the results above, "

@@ -789,6 +789,24 @@ disk is ephemeral, which is fine now because the store is rebuilt on every start
 **Render still needs a valid `OPENAI_API_KEY` in its Environment settings** (the owner sets this; it
 is not in the repo).
 
+## Layer 2, slice 18: stop answering non-search messages with resources (built)
+
+The user reported the agent "always replies with resources" - e.g. "can you help me in a literature
+reviews on this?" returned a book list. **This supersedes slice 9's behavior** (decline AND show
+resources): a request to PRODUCE academic work now gets only the plain decline (`decline` branch, no
+OneSearch/RAG call), whose sentence says they can ask for resources. New planner field `chitchat` (an enum:
+greeting / thanks / about_agent / off_topic; same call, no extra cost) routes those messages to fixed
+replies written in code (`compose.CHITCHAT_REPLIES`) with no search; before this they all got "What
+topic are you interested in?". It is a classification, not model-written text: a first version let
+the planner write the reply and a live 7-turn test caught it answering "which one is better for a
+beginner?" from its own head instead of the stored results. Two deterministic guards keep the model from over-correcting: `agent/router.py::asks_for_resources`
+(an explicit books/articles/resources/find-me cue is never declined - the note still leads the normal
+results) and `is_library_help_request` (a library-services question always runs the real lookup, never
+a chatty reply). Found live: earlier turns in the chat sway the model ("write my essay" then "books
+about writing a literature review" was declined), hence the code-side guards. Checked with a 15-message
+battery; known residual: gpt-4o-mini is not deterministic, so an occasional borderline message
+(e.g. "explain how photosynthesis works") gets a clarifying question instead of a decline.
+
 ## Layer 2: Agent Orchestration (design only — do not build until Layer 1 acceptance criteria above are met)
 
 This section records the agreed shape of Layer 2 so the design isn't lost between sessions. Layer 2 owns everything Layer 1 explicitly does not: ranking candidates, reasoning about which one actually answers the user's question, composing the natural-language reply, deciding when to escalate, and formatting citations. Full capability list (role capture, librarian recommendation, escalation, anonymized logging, staff dashboard) lives in the pre-narrowing project brief, `git show dd388a3:CLAUDE.md` — that document is still the source of truth for what Layer 2 must cover, this section only fixes *how* the orchestration graph is shaped.

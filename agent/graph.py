@@ -2,13 +2,13 @@ import time
 
 from langgraph.graph import END, StateGraph
 
-from agent.compose import answer_followup, compose, render_human_help_answer
+from agent.compose import CHITCHAT_REPLIES, answer_followup, compose, is_library_help_request, render_human_help_answer
 from agent.escalation import build_escalation_block
 from agent.models import AgentState, RagContext
 from agent.onesearch_tool import run_onesearch
 from agent.planner import plan_query
 from agent.rag import query_rag
-from agent.router import is_human_request
+from agent.router import asks_for_resources, is_human_request
 
 
 def _timed(name: str, fn):
@@ -50,7 +50,14 @@ def build_graph(model, client, collection=None):
 
     def plan_node(state: AgentState) -> dict:
         plan = plan_query(model, state["role"], state["message"], state.get("history", []))
-        update = {"plan": plan, "answer": plan.needs_clarification}
+        if plan.chitchat and (
+            is_library_help_request(state["message"]) or asks_for_resources(state["message"])
+        ):
+            # A library-services or explicit resource request must always run the real
+            # lookup; the model can't talk its way out of it with a chatty reply.
+            plan = plan.model_copy(update={"chitchat": None})
+        reply = CHITCHAT_REPLIES[plan.chitchat] if plan.chitchat else None
+        update = {"plan": plan, "answer": plan.needs_clarification or reply}
         if plan.planning_failed:
             update["notes"] = [
                 "The AI model did not respond, so I searched your exact words instead of "
@@ -93,6 +100,12 @@ def build_graph(model, client, collection=None):
         )
         return {"answer": answer}
 
+    def decline_node(state: AgentState) -> dict:
+        # The user asked the agent to PRODUCE academic work (a literature review, notes,
+        # an essay). The answer is just the plain decline: no search, no resource list
+        # (a literature-review request answered with a book list read as unnecessary).
+        return {"answer": state["plan"].out_of_scope_note}
+
     graph = StateGraph(AgentState)
     graph.add_node("entry", _timed("entry", entry_node))
     graph.add_node("plan", _timed("plan", plan_node))
@@ -100,6 +113,7 @@ def build_graph(model, client, collection=None):
     graph.add_node("rag", _timed("rag", rag_node))
     graph.add_node("human_help", _timed("human_help", human_help_node))
     graph.add_node("followup", _timed("followup", followup_node))
+    graph.add_node("decline", _timed("decline", decline_node))
     graph.add_node("compose", _timed("compose", compose_node))
     graph.set_entry_point("entry")
 
@@ -119,6 +133,8 @@ def build_graph(model, client, collection=None):
             return "clarify"
         if state["plan"].wants_human_help:
             return "human_help"
+        if state["plan"].out_of_scope_note and not asks_for_resources(state["message"]):
+            return "decline"
         # Only when there is something to answer from (stored details, or at least a
         # previous answer); on a first turn the planner's flag is moot and the normal
         # search runs.
@@ -131,11 +147,12 @@ def build_graph(model, client, collection=None):
     graph.add_conditional_edges(
         "plan",
         after_plan,
-        {"clarify": END, "human_help": "human_help", "followup": "followup", "run_search": "search", "run_rag": "rag"},
+        {"clarify": END, "human_help": "human_help", "followup": "followup", "decline": "decline", "run_search": "search", "run_rag": "rag"},
     )
     graph.add_edge("search", "compose")
     graph.add_edge("rag", "compose")
     graph.add_edge("compose", END)
     graph.add_edge("human_help", END)
     graph.add_edge("followup", END)
+    graph.add_edge("decline", END)
     return graph.compile()

@@ -45,6 +45,15 @@ class QueryPlan(BaseModel):
         default=None,
         description="A short question to ask the user if the request is genuinely ambiguous.",
     )
+    chitchat: Literal["greeting", "thanks", "about_agent", "off_topic"] | None = Field(
+        default=None,
+        description=(
+            "Set ONLY when the whole message is conversational and asks for nothing from the "
+            "library: a greeting, thanks/acknowledgement, a question about what the agent is or "
+            "can do, or an unrelated question. Never set it when the user wants resources, library "
+            "services, or is asking about results already shown. Null otherwise."
+        ),
+    )
     topic_category: TopicCategory = Field(
         default="other", description="A coarse subject bucket, for anonymized logging only."
     )
