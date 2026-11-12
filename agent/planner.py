@@ -13,7 +13,7 @@ Return:
 - resource_type: one of books, articles, journals, dissertations, videos, or null. Set it only when the user names a kind of material. "journals" means journal titles; "articles" means individual articles.
 - peer_reviewed: true only if the user asks for peer-reviewed / scholarly / academic-journal material.
 - needs_clarification: a single short question, ONLY if the request is too ambiguous to search (for example there is no topic at all). Otherwise null. When you set it, keywords may be empty.
-- direct_reply: a short, friendly reply (1-3 sentences), ONLY when the message is NOT asking you to find resources, produce academic work, or use library services - a greeting ("hi"), thanks or acknowledgement ("thanks", "ok") - answer in context, e.g. "You're welcome! Ask me anything else about UB Libraries." -, a question about what you can do ("I can find books, articles, journals, dissertations and videos in OneSearch, name your subject librarian and help guides, suggest databases, format APA/MLA/Chicago citations when you ask, and connect you to live chat with a librarian."), or an unrelated/off-topic question ("what is the capital of France") - say plainly that you help with UB Libraries resources and can't answer that. When set, set keywords="" and needs_clarification=null; no search runs. Never set it when the user wants resources, even loosely, or is following up on results shown. Otherwise null.
+- chitchat: set ONLY when the entire message is conversational and asks for nothing from the library: greeting (a hello), thanks (thanks, ok, got it), about_agent (what are you / what can you do / are you a person), off_topic (a question unrelated to libraries or research, e.g. "what is the capital of France"). Never set it when the user wants resources, library services, or is asking about or reacting to results already shown (e.g. "which one is better", "how do these differ", "tell me more"): those are real requests. When set, set keywords="" and needs_clarification=null; the reply is written by code, not by you. Otherwise null.
 - topic_category: the single best-fitting broad subject bucket for anonymized usage logging only (never shown to the user). One of: sciences, health_and_medicine, engineering_and_technology, social_sciences, business_and_economics, humanities_and_arts, law, education, library_services (for meta/service questions like "who's my librarian", citing sources, printing — not an academic subject), other.
 - out_of_scope_note: a short, direct sentence, ONLY if the request asks you to actually PRODUCE academic work for the user - write or conduct a literature review, write their notes, do their homework, tutor them, summarize a topic for them, write an essay - rather than asking you to find or point to resources about a topic. Asking for books, articles or guides ABOUT how to do that work ("books on how to write a literature review", "resources for essay writing") is an ordinary resource search: leave this null. Say plainly that you can't do that specific work, and that they can ask you to find resources on the topic if they want. Do NOT list or promise results: when this is set, no search runs and this sentence is the whole answer. This is NOT for requests about library services themselves (who's my librarian, how do I cite, how do I print) - those are fully in scope, leave this null for them even though you personally can't look up staff directory details; the agent has a separate way of answering those. Still fill in keywords for the topic; do not set needs_clarification just because of this. Otherwise null.
 - unsupported_request_note: a short, honest sentence, ONLY if the user asks to narrow or order results by something this search cannot do: current availability / what is on the shelf now, a publication date range or "latest/newest", sort order, language, or a specific library location. Say plainly that you can't filter by that and that they can adjust it on the OneSearch results page; the normal search still runs with the topic keywords. Do NOT set it for things the search does support (resource type, peer-reviewed). Otherwise null.
@@ -28,10 +28,13 @@ What the user explicitly asks for always overrides the role default.
 Use the recent conversation to resolve follow-ups ("what about books?" reuses the earlier topic).
 
 Example: role=undergraduate, message="thanks, that helps!"
--> keywords="", needs_clarification=null, direct_reply="You're welcome! Ask me anything else about UB Libraries.", topic_category="other", out_of_scope_note=null, wants_human_help=false
+-> keywords="", needs_clarification=null, chitchat="thanks", topic_category="other"
 
 Example: role=graduate, message="what can you do?"
--> keywords="", needs_clarification=null, direct_reply="I can find books, articles, journals, dissertations and videos in OneSearch, name your subject librarian and help guides, suggest databases, format APA/MLA/Chicago citations when you ask, and connect you to live chat with a librarian.", topic_category="library_services"
+-> keywords="", needs_clarification=null, chitchat="about_agent", topic_category="library_services"
+
+Example: role=graduate, recent conversation: the answer listed 3 articles on diabetes, then message="which one is better for a beginner?"
+-> keywords="diabetes", needs_clarification=null, chitchat=null, about_previous_results=true
 
 Example: role=graduate, message="find me peer reviewed journals on mental health"
 -> keywords="mental health", resource_type="journals", peer_reviewed=true, needs_clarification=null, topic_category="health_and_medicine", out_of_scope_note=null, wants_human_help=false
@@ -95,7 +98,7 @@ def plan_query(model, role: str, message: str, history: list[dict] | None = None
             plan = QueryPlan.model_validate(plan)
         if not isinstance(plan, QueryPlan):
             return fallback_plan(message)
-        if not plan.keywords.strip() and not (plan.needs_clarification or plan.direct_reply):
+        if not plan.keywords.strip() and not (plan.needs_clarification or plan.chitchat):
             return fallback_plan(message)
         return plan
     except Exception as exc:

@@ -45,13 +45,13 @@ class QueryPlan(BaseModel):
         default=None,
         description="A short question to ask the user if the request is genuinely ambiguous.",
     )
-    direct_reply: str | None = Field(
+    chitchat: Literal["greeting", "thanks", "about_agent", "off_topic"] | None = Field(
         default=None,
         description=(
-            "A short, friendly reply (1-3 sentences) when the message is NOT a request to find "
-            "resources, produce academic work, or use library services: a greeting, thanks, a "
-            "question about what the agent can do, small talk, or an unrelated question. "
-            "When set, no search runs. Null otherwise."
+            "Set ONLY when the whole message is conversational and asks for nothing from the "
+            "library: a greeting, thanks/acknowledgement, a question about what the agent is or "
+            "can do, or an unrelated question. Never set it when the user wants resources, library "
+            "services, or is asking about results already shown. Null otherwise."
         ),
     )
     topic_category: TopicCategory = Field(

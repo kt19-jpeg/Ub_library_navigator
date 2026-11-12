@@ -2,7 +2,7 @@ import time
 
 from langgraph.graph import END, StateGraph
 
-from agent.compose import answer_followup, compose, is_library_help_request, render_human_help_answer
+from agent.compose import CHITCHAT_REPLIES, answer_followup, compose, is_library_help_request, render_human_help_answer
 from agent.escalation import build_escalation_block
 from agent.models import AgentState, RagContext
 from agent.onesearch_tool import run_onesearch
@@ -50,13 +50,14 @@ def build_graph(model, client, collection=None):
 
     def plan_node(state: AgentState) -> dict:
         plan = plan_query(model, state["role"], state["message"], state.get("history", []))
-        if plan.direct_reply and (
+        if plan.chitchat and (
             is_library_help_request(state["message"]) or asks_for_resources(state["message"])
         ):
             # A library-services or explicit resource request must always run the real
             # lookup; the model can't talk its way out of it with a chatty reply.
-            plan = plan.model_copy(update={"direct_reply": None})
-        update = {"plan": plan, "answer": plan.needs_clarification or plan.direct_reply}
+            plan = plan.model_copy(update={"chitchat": None})
+        reply = CHITCHAT_REPLIES[plan.chitchat] if plan.chitchat else None
+        update = {"plan": plan, "answer": plan.needs_clarification or reply}
         if plan.planning_failed:
             update["notes"] = [
                 "The AI model did not respond, so I searched your exact words instead of "

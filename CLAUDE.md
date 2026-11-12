@@ -794,10 +794,12 @@ is not in the repo).
 The user reported the agent "always replies with resources" - e.g. "can you help me in a literature
 reviews on this?" returned a book list. **This supersedes slice 9's behavior** (decline AND show
 resources): a request to PRODUCE academic work now gets only the plain decline (`decline` branch, no
-OneSearch/RAG call), whose sentence says they can ask for resources. New planner field `direct_reply`
-(same call, no extra cost) answers greetings, thanks, "what can you do?", small talk and off-topic
-questions in 1-3 sentences with no search; before this they all got "What topic are you interested
-in?". Two deterministic guards keep the model from over-correcting: `agent/router.py::asks_for_resources`
+OneSearch/RAG call), whose sentence says they can ask for resources. New planner field `chitchat` (an enum:
+greeting / thanks / about_agent / off_topic; same call, no extra cost) routes those messages to fixed
+replies written in code (`compose.CHITCHAT_REPLIES`) with no search; before this they all got "What
+topic are you interested in?". It is a classification, not model-written text: a first version let
+the planner write the reply and a live 7-turn test caught it answering "which one is better for a
+beginner?" from its own head instead of the stored results. Two deterministic guards keep the model from over-correcting: `agent/router.py::asks_for_resources`
 (an explicit books/articles/resources/find-me cue is never declined - the note still leads the normal
 results) and `is_library_help_request` (a library-services question always runs the real lookup, never
 a chatty reply). Found live: earlier turns in the chat sway the model ("write my essay" then "books

@@ -1,5 +1,6 @@
 from unittest.mock import MagicMock
 
+from agent.compose import CHITCHAT_REPLIES
 from agent.graph import build_graph
 from agent.models import FollowupAnswer, QueryPlan, Selection, SelectionItem
 from onesearch.models import ResourceDetail, SearchCandidate, SearchResult
@@ -297,14 +298,14 @@ def test_an_out_of_scope_request_is_declined_without_searching_or_listing_resour
 
 
 def test_a_conversational_message_gets_the_direct_reply_without_searching():
-    model = FakeChatModel(QueryPlan(keywords="", direct_reply="You're welcome!"))
+    model = FakeChatModel(QueryPlan(keywords="", chitchat="thanks"))
     client = _client()
     graph = build_graph(model, client)
 
     out = graph.invoke({"role": "undergraduate", "message": "thanks, that helps!", "history": []})
 
     client.search_with_fallback.assert_not_called()
-    assert out["answer"] == "You're welcome!"
+    assert out["answer"] == CHITCHAT_REPLIES["thanks"]
     assert set(out["timings"]) == {"entry", "plan"}
 
 
@@ -327,7 +328,7 @@ def test_an_explicit_resource_request_is_not_declined_even_if_flagged_out_of_sco
 
 def test_a_direct_reply_cannot_replace_a_library_services_lookup():
     model = FakeChatModel(
-        QueryPlan(keywords="chemistry", direct_reply="I can help with that!", topic_category="library_services"),
+        QueryPlan(keywords="chemistry", chitchat="greeting", topic_category="library_services"),
         Selection(items=[SelectionItem(record_id="j1", reason="x")], confidence="high"),
     )
     client = _client()
@@ -336,4 +337,4 @@ def test_a_direct_reply_cannot_replace_a_library_services_lookup():
     out = graph.invoke({"role": "graduate", "message": "who is the subject librarian for chemistry?", "history": []})
 
     client.search_with_fallback.assert_called_once()
-    assert out["answer"] != "I can help with that!"
+    assert out["answer"] != CHITCHAT_REPLIES["greeting"]
