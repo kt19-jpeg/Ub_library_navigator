@@ -88,3 +88,22 @@ def test_layer1_exception_degrades_to_direct_link():
     assert outcome.result.timed_out is True
     assert outcome.result.fallback_link.startswith("https://search.lib.buffalo.edu/")
     assert any("could not be reached" in n for n in outcome.notes)
+
+
+def test_a_failed_lookup_is_logged_with_the_real_error(caplog):
+    import logging
+
+    from unittest.mock import MagicMock
+
+    from agent.models import QueryPlan
+    from agent.onesearch_tool import run_onesearch
+
+    client = MagicMock()
+    client.search_with_fallback.side_effect = RuntimeError("session mint failed: Timeout 30000ms")
+    client.fallback_link.return_value = "https://more"
+
+    with caplog.at_level(logging.WARNING, logger="agent.onesearch_tool"):
+        outcome = run_onesearch(QueryPlan(keywords="cancer studies"), client)
+
+    assert outcome.notes == ["OneSearch could not be reached."]
+    assert "session mint failed: Timeout 30000ms" in caplog.text
