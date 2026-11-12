@@ -8,9 +8,13 @@ WORKDIR /app
 
 # Playwright's own installer pulls the OS-level packages Chromium needs
 # (fonts, codecs, etc.) via --with-deps; it needs a few base tools present
-# first (curl/wget/gnupg used by some of those package repos).
+# first (curl/wget/gnupg used by some of those package repos). libatomic1 is
+# needed by Playwright's bundled Node driver itself: without it `playwright`
+# exits 127 ("libatomic.so.1: cannot open shared object file") before it can
+# install anything - hit on Render 2026-11-12 with playwright 1.65 on
+# python:3.11-slim (requirements.txt is unpinned, so new releases are picked up).
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl wget gnupg ca-certificates \
+    curl wget gnupg ca-certificates libatomic1 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
